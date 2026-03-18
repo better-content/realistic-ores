@@ -1,0 +1,31 @@
+{
+  "id": "lazurite_vein",
+  "display_name": "Lazurite Vein Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "lazurite_vein",
+      "texture_mode": "cube_all",
+      "textures": {
+        "all": "realisticores:block/lazurite_vein"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_lazurite_vein",
+      "texture_mode": "cube_column_like",
+      "textures": {
+        "side": "realisticores:block/deepslate_lazurite_vein_side",
+        "top": "realisticores:block/deepslate_lazurite_vein_top",
+        "bottom": "realisticores:block/deepslate_lazurite_vein_bottom"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores",
+    "forge:ores/lapis"
+  ]
+}

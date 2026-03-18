@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "realisticores:bauxite_laterite_stone",
+  "step": "underground_ores"
+}

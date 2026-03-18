@@ -1,0 +1,32 @@
+{
+  "id": "lead_zinc_vein",
+  "display_name": "Lead Zinc Vein Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "lead_zinc_vein",
+      "texture_mode": "cube_all",
+      "textures": {
+        "all": "realisticores:block/lead_zinc_vein"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_lead_zinc_vein",
+      "texture_mode": "cube_column_like",
+      "textures": {
+        "side": "realisticores:block/deepslate_lead_zinc_vein_side",
+        "top": "realisticores:block/deepslate_lead_zinc_vein_top",
+        "bottom": "realisticores:block/deepslate_lead_zinc_vein_bottom"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores",
+    "forge:ores/lead",
+    "forge:ores/zinc"
+  ]
+}

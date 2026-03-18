@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "realisticores:deepslate_sulfur_bearing_pyrite_ore",
+    "realisticores:sulfur_bearing_pyrite_ore"
+  ]
+}

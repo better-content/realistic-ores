@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "realisticores:deepslate_tin_ore",
+    "realisticores:deepslate_tin_tungsten_greisen",
+    "realisticores:tin_ore",
+    "realisticores:tin_tungsten_greisen"
+  ]
+}

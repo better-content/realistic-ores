@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="${modId}"
+version="${modVersion}"
+displayName="${modName}"
+description='''
+JSON-driven realistic ore block registration and world generation for Forge 1.20.1.
+'''
+
+[[dependencies.${modId}]]
+modId="forge"
+mandatory=true
+versionRange="[${forgeVersion},)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="minecraft"
+mandatory=true
+versionRange="[${minecraftVersion}]"
+ordering="NONE"
+side="BOTH"

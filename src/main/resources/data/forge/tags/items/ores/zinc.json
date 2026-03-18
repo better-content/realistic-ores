@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "realisticores:deepslate_lead_zinc_vein",
+    "realisticores:deepslate_zinc_ore",
+    "realisticores:lead_zinc_vein",
+    "realisticores:zinc_ore"
+  ]
+}

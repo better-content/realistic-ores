@@ -1,0 +1,31 @@
+{
+  "id": "tin",
+  "display_name": "Tin Ore Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "tin_ore",
+      "texture_mode": "cube_all",
+      "textures": {
+        "all": "realisticores:block/tin_ore"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_tin_ore",
+      "texture_mode": "cube_column_like",
+      "textures": {
+        "side": "realisticores:block/deepslate_tin_ore_side",
+        "top": "realisticores:block/deepslate_tin_ore_top",
+        "bottom": "realisticores:block/deepslate_tin_ore_bottom"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores",
+    "forge:ores/tin"
+  ]
+}

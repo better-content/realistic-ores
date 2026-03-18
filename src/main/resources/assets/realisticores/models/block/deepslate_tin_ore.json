@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "realisticores:block/deepslate_tin_ore_side",
+    "top": "realisticores:block/deepslate_tin_ore_top",
+    "bottom": "realisticores:block/deepslate_tin_ore_bottom"
+  }
+}

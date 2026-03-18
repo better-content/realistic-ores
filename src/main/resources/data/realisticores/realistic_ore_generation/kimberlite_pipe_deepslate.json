@@ -1,0 +1,13 @@
+{
+  "ore_id": "kimberlite_pipe",
+  "variant": "deepslate",
+  "target_tag": "minecraft:deepslate_ore_replaceables",
+  "vein_size": 5,
+  "count_per_chunk": 4,
+  "distribution": "triangle",
+  "min_y": -128,
+  "max_y": -32,
+  "biome_filter": "#minecraft:is_overworld",
+  "generation_step": "underground_ores",
+  "enabled": true
+}

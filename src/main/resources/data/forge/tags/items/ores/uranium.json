@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "realisticores:deepslate_uranium_ore",
+    "realisticores:uranium_ore"
+  ]
+}

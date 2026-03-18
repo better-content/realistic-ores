@@ -1,0 +1,13 @@
+{
+  "ore_id": "quartz_vein",
+  "variant": "stone",
+  "target_tag": "minecraft:stone_ore_replaceables",
+  "vein_size": 7,
+  "count_per_chunk": 6,
+  "distribution": "triangle",
+  "min_y": 32,
+  "max_y": 224,
+  "biome_filter": "#minecraft:is_overworld",
+  "generation_step": "underground_ores",
+  "enabled": true
+}

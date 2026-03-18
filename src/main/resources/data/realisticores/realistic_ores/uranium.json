@@ -1,0 +1,31 @@
+{
+  "id": "uranium",
+  "display_name": "Uranium Ore Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "uranium_ore",
+      "texture_mode": "cube_all",
+      "textures": {
+        "all": "realisticores:block/uranium_ore"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_uranium_ore",
+      "texture_mode": "cube_column_like",
+      "textures": {
+        "side": "realisticores:block/deepslate_uranium_ore_side",
+        "top": "realisticores:block/deepslate_uranium_ore_top",
+        "bottom": "realisticores:block/deepslate_uranium_ore_bottom"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores",
+    "forge:ores/uranium"
+  ]
+}

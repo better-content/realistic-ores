@@ -1,0 +1,31 @@
+{
+  "id": "thorium",
+  "display_name": "Thorium Ore Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "thorium_ore",
+      "texture_mode": "cube_all",
+      "textures": {
+        "all": "realisticores:block/thorium_ore"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_thorium_ore",
+      "texture_mode": "cube_column_like",
+      "textures": {
+        "side": "realisticores:block/deepslate_thorium_ore_side",
+        "top": "realisticores:block/deepslate_thorium_ore_top",
+        "bottom": "realisticores:block/deepslate_thorium_ore_bottom"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores",
+    "forge:ores/thorium"
+  ]
+}

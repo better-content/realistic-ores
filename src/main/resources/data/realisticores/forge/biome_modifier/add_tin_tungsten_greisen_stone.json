@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "realisticores:tin_tungsten_greisen_stone",
+  "step": "underground_ores"
+}

@@ -1,0 +1,430 @@
+{
+  "minecraft_version": "1.20.1",
+  "scope": [
+    "PNG assets only",
+    "Stone and deepslate composites",
+    "JSON-friendly y-band reference",
+    "Vanilla worldgen disable target list"
+  ],
+  "notes": [
+    "Dynamic texture composition is explicitly out of scope for this pack",
+    "Thorium and uranium are defined in the texture set but placement is separate",
+    "Deepslate top and bottom use the same provided top/bottom texture"
+  ],
+  "disable_vanilla_features": [
+    "minecraft:ore_coal_upper",
+    "minecraft:ore_coal_lower",
+    "minecraft:ore_iron_upper",
+    "minecraft:ore_iron_middle",
+    "minecraft:ore_iron_small",
+    "minecraft:ore_gold",
+    "minecraft:ore_gold_lower",
+    "minecraft:ore_redstone",
+    "minecraft:ore_redstone_lower",
+    "minecraft:ore_diamond",
+    "minecraft:ore_diamond_large",
+    "minecraft:ore_diamond_buried",
+    "minecraft:ore_lapis",
+    "minecraft:ore_lapis_buried",
+    "minecraft:ore_copper_large",
+    "minecraft:ore_copper",
+    "minecraft:ore_emerald",
+    "minecraft:ore_infested",
+    "minecraft:ore_gold_nether",
+    "minecraft:ore_quartz_nether",
+    "minecraft:ore_ancient_debris_large",
+    "minecraft:ore_debris_small"
+  ],
+  "ores": [
+    {
+      "ore_id": "bauxite_laterite",
+      "overlay": "textures/overlays/bauxite_laterite_overlay_16x16.png",
+      "stone_texture": "textures/stone/bauxite_laterite_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/bauxite_laterite_deepslate_top.png",
+        "bottom": "textures/deepslate/bauxite_laterite_deepslate_bottom.png",
+        "side": "textures/deepslate/bauxite_laterite_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": 224,
+          "max_y": 512
+        }
+      }
+    },
+    {
+      "ore_id": "coal_measures",
+      "overlay": "textures/overlays/coal_measures_overlay_16x16.png",
+      "stone_texture": "textures/stone/coal_measures_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/coal_measures_deepslate_top.png",
+        "bottom": "textures/deepslate/coal_measures_deepslate_bottom.png",
+        "side": "textures/deepslate/coal_measures_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": 64,
+          "max_y": 224
+        },
+        "deepslate": {
+          "min_y": 0,
+          "max_y": 64
+        }
+      }
+    },
+    {
+      "ore_id": "copper_sulfide_ore",
+      "overlay": "textures/overlays/copper_sulfide_ore_overlay_16x16.png",
+      "stone_texture": "textures/stone/copper_sulfide_ore_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/copper_sulfide_ore_deepslate_top.png",
+        "bottom": "textures/deepslate/copper_sulfide_ore_deepslate_bottom.png",
+        "side": "textures/deepslate/copper_sulfide_ore_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": 32,
+          "max_y": 192
+        },
+        "deepslate": {
+          "min_y": 0,
+          "max_y": 48
+        }
+      }
+    },
+    {
+      "ore_id": "corundum_beryl_gem_vein",
+      "overlay": "textures/overlays/corundum_beryl_gem_vein_overlay_16x16.png",
+      "stone_texture": "textures/stone/corundum_beryl_gem_vein_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/corundum_beryl_gem_vein_deepslate_top.png",
+        "bottom": "textures/deepslate/corundum_beryl_gem_vein_deepslate_bottom.png",
+        "side": "textures/deepslate/corundum_beryl_gem_vein_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": 128,
+          "max_y": 320
+        }
+      }
+    },
+    {
+      "ore_id": "cupriferous_redbed_redstone_vein",
+      "overlay": "textures/overlays/cupriferous_redbed_redstone_vein_overlay_16x16.png",
+      "stone_texture": "textures/stone/cupriferous_redbed_redstone_vein_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/cupriferous_redbed_redstone_vein_deepslate_top.png",
+        "bottom": "textures/deepslate/cupriferous_redbed_redstone_vein_deepslate_bottom.png",
+        "side": "textures/deepslate/cupriferous_redbed_redstone_vein_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": -64,
+          "max_y": 32
+        },
+        "deepslate": {
+          "min_y": -96,
+          "max_y": -16
+        }
+      }
+    },
+    {
+      "ore_id": "emerald_schist_beryl_vein",
+      "overlay": "textures/overlays/emerald_schist_beryl_vein_overlay_16x16.png",
+      "stone_texture": "textures/stone/emerald_schist_beryl_vein_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/emerald_schist_beryl_vein_deepslate_top.png",
+        "bottom": "textures/deepslate/emerald_schist_beryl_vein_deepslate_bottom.png",
+        "side": "textures/deepslate/emerald_schist_beryl_vein_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": 64,
+          "max_y": 192
+        }
+      }
+    },
+    {
+      "ore_id": "ironstone",
+      "overlay": "textures/overlays/ironstone_overlay_16x16.png",
+      "stone_texture": "textures/stone/ironstone_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/ironstone_deepslate_top.png",
+        "bottom": "textures/deepslate/ironstone_deepslate_bottom.png",
+        "side": "textures/deepslate/ironstone_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": 32,
+          "max_y": 320
+        },
+        "deepslate": {
+          "min_y": -32,
+          "max_y": 32
+        }
+      }
+    },
+    {
+      "ore_id": "kimberlite_pipe",
+      "overlay": "textures/overlays/kimberlite_pipe_overlay_16x16.png",
+      "stone_texture": "textures/stone/kimberlite_pipe_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/kimberlite_pipe_deepslate_top.png",
+        "bottom": "textures/deepslate/kimberlite_pipe_deepslate_bottom.png",
+        "side": "textures/deepslate/kimberlite_pipe_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": -96,
+          "max_y": 32
+        },
+        "deepslate": {
+          "min_y": -128,
+          "max_y": -32
+        }
+      }
+    },
+    {
+      "ore_id": "lazurite_vein",
+      "overlay": "textures/overlays/lazurite_vein_overlay_16x16.png",
+      "stone_texture": "textures/stone/lazurite_vein_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/lazurite_vein_deepslate_top.png",
+        "bottom": "textures/deepslate/lazurite_vein_deepslate_bottom.png",
+        "side": "textures/deepslate/lazurite_vein_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": -32,
+          "max_y": 96
+        },
+        "deepslate": {
+          "min_y": -64,
+          "max_y": 0
+        }
+      }
+    },
+    {
+      "ore_id": "lead_zinc_vein",
+      "overlay": "textures/overlays/lead_zinc_vein_overlay_16x16.png",
+      "stone_texture": "textures/stone/lead_zinc_vein_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/lead_zinc_vein_deepslate_top.png",
+        "bottom": "textures/deepslate/lead_zinc_vein_deepslate_bottom.png",
+        "side": "textures/deepslate/lead_zinc_vein_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": -32,
+          "max_y": 96
+        },
+        "deepslate": {
+          "min_y": -64,
+          "max_y": 0
+        }
+      }
+    },
+    {
+      "ore_id": "nickel_sulfide_ore",
+      "overlay": "textures/overlays/nickel_sulfide_ore_overlay_16x16.png",
+      "stone_texture": "textures/stone/nickel_sulfide_ore_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/nickel_sulfide_ore_deepslate_top.png",
+        "bottom": "textures/deepslate/nickel_sulfide_ore_deepslate_bottom.png",
+        "side": "textures/deepslate/nickel_sulfide_ore_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": -32,
+          "max_y": 64
+        },
+        "deepslate": {
+          "min_y": -64,
+          "max_y": 0
+        }
+      }
+    },
+    {
+      "ore_id": "phosphate_rock",
+      "overlay": "textures/overlays/phosphate_rock_overlay_16x16.png",
+      "stone_texture": "textures/stone/phosphate_rock_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/phosphate_rock_deepslate_top.png",
+        "bottom": "textures/deepslate/phosphate_rock_deepslate_bottom.png",
+        "side": "textures/deepslate/phosphate_rock_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": 64,
+          "max_y": 224
+        },
+        "deepslate": {
+          "min_y": 0,
+          "max_y": 16
+        }
+      }
+    },
+    {
+      "ore_id": "quartz_vein",
+      "overlay": "textures/overlays/quartz_vein_overlay_16x16.png",
+      "stone_texture": "textures/stone/quartz_vein_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/quartz_vein_deepslate_top.png",
+        "bottom": "textures/deepslate/quartz_vein_deepslate_bottom.png",
+        "side": "textures/deepslate/quartz_vein_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": 32,
+          "max_y": 224
+        }
+      }
+    },
+    {
+      "ore_id": "soul_bearing_black_shale_soulstone_vein",
+      "overlay": "textures/overlays/soul_bearing_black_shale_soulstone_vein_overlay_16x16.png",
+      "stone_texture": "textures/stone/soul_bearing_black_shale_soulstone_vein_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/soul_bearing_black_shale_soulstone_vein_deepslate_top.png",
+        "bottom": "textures/deepslate/soul_bearing_black_shale_soulstone_vein_deepslate_bottom.png",
+        "side": "textures/deepslate/soul_bearing_black_shale_soulstone_vein_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": -96,
+          "max_y": 0
+        },
+        "deepslate": {
+          "min_y": -128,
+          "max_y": -48
+        }
+      }
+    },
+    {
+      "ore_id": "sulfur_bearing_pyrite_ore",
+      "overlay": "textures/overlays/sulfur_bearing_pyrite_ore_overlay_16x16.png",
+      "stone_texture": "textures/stone/sulfur_bearing_pyrite_ore_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/sulfur_bearing_pyrite_ore_deepslate_top.png",
+        "bottom": "textures/deepslate/sulfur_bearing_pyrite_ore_deepslate_bottom.png",
+        "side": "textures/deepslate/sulfur_bearing_pyrite_ore_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": 0,
+          "max_y": 128
+        },
+        "deepslate": {
+          "min_y": -32,
+          "max_y": 0
+        }
+      }
+    },
+    {
+      "ore_id": "thorium_ore",
+      "overlay": "textures/overlays/thorium_ore_overlay_16x16.png",
+      "stone_texture": "textures/stone/thorium_ore_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/thorium_ore_deepslate_top.png",
+        "bottom": "textures/deepslate/thorium_ore_deepslate_bottom.png",
+        "side": "textures/deepslate/thorium_ore_deepslate_side.png"
+      },
+      "y_bands": {
+        "note": "defined only; placement handled separately"
+      }
+    },
+    {
+      "ore_id": "tin_ore",
+      "overlay": "textures/overlays/tin_ore_overlay_16x16.png",
+      "stone_texture": "textures/stone/tin_ore_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/tin_ore_deepslate_top.png",
+        "bottom": "textures/deepslate/tin_ore_deepslate_bottom.png",
+        "side": "textures/deepslate/tin_ore_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": 32,
+          "max_y": 128
+        },
+        "deepslate": {
+          "min_y": 0,
+          "max_y": 24
+        }
+      }
+    },
+    {
+      "ore_id": "tin_tungsten_greisen",
+      "overlay": "textures/overlays/tin_tungsten_greisen_overlay_16x16.png",
+      "stone_texture": "textures/stone/tin_tungsten_greisen_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/tin_tungsten_greisen_deepslate_top.png",
+        "bottom": "textures/deepslate/tin_tungsten_greisen_deepslate_bottom.png",
+        "side": "textures/deepslate/tin_tungsten_greisen_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": -64,
+          "max_y": 64
+        },
+        "deepslate": {
+          "min_y": -96,
+          "max_y": -16
+        }
+      }
+    },
+    {
+      "ore_id": "titanium_iron_oxide_ore",
+      "overlay": "textures/overlays/titanium_iron_oxide_ore_overlay_16x16.png",
+      "stone_texture": "textures/stone/titanium_iron_oxide_ore_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/titanium_iron_oxide_ore_deepslate_top.png",
+        "bottom": "textures/deepslate/titanium_iron_oxide_ore_deepslate_bottom.png",
+        "side": "textures/deepslate/titanium_iron_oxide_ore_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": -96,
+          "max_y": 32
+        },
+        "deepslate": {
+          "min_y": -128,
+          "max_y": -32
+        }
+      }
+    },
+    {
+      "ore_id": "uranium_ore",
+      "overlay": "textures/overlays/uranium_ore_overlay_16x16.png",
+      "stone_texture": "textures/stone/uranium_ore_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/uranium_ore_deepslate_top.png",
+        "bottom": "textures/deepslate/uranium_ore_deepslate_bottom.png",
+        "side": "textures/deepslate/uranium_ore_deepslate_side.png"
+      },
+      "y_bands": {
+        "note": "defined only; placement handled separately"
+      }
+    },
+    {
+      "ore_id": "zinc_ore",
+      "overlay": "textures/overlays/zinc_ore_overlay_16x16.png",
+      "stone_texture": "textures/stone/zinc_ore_stone.png",
+      "deepslate_textures": {
+        "top": "textures/deepslate/zinc_ore_deepslate_top.png",
+        "bottom": "textures/deepslate/zinc_ore_deepslate_bottom.png",
+        "side": "textures/deepslate/zinc_ore_deepslate_side.png"
+      },
+      "y_bands": {
+        "stone": {
+          "min_y": 32,
+          "max_y": 160
+        },
+        "deepslate": {
+          "min_y": 0,
+          "max_y": 32
+        }
+      }
+    }
+  ]
+}

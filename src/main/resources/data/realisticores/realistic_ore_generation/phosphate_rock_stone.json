@@ -1,0 +1,13 @@
+{
+  "ore_id": "phosphate_rock",
+  "variant": "stone",
+  "target_tag": "minecraft:stone_ore_replaceables",
+  "vein_size": 8,
+  "count_per_chunk": 8,
+  "distribution": "uniform",
+  "min_y": 64,
+  "max_y": 224,
+  "biome_filter": "#minecraft:is_overworld",
+  "generation_step": "underground_ores",
+  "enabled": true
+}

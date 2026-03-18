@@ -1,0 +1,31 @@
+{
+  "id": "coal_measures",
+  "display_name": "Coal Measures Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "coal_measures",
+      "texture_mode": "cube_all",
+      "textures": {
+        "all": "realisticores:block/coal_measures"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_coal_measures",
+      "texture_mode": "cube_column_like",
+      "textures": {
+        "side": "realisticores:block/deepslate_coal_measures_side",
+        "top": "realisticores:block/deepslate_coal_measures_top",
+        "bottom": "realisticores:block/deepslate_coal_measures_bottom"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores",
+    "forge:ores/coal"
+  ]
+}

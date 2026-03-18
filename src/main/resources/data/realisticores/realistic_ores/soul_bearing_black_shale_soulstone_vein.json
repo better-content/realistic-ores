@@ -1,0 +1,30 @@
+{
+  "id": "soul_bearing_black_shale_soulstone_vein",
+  "display_name": "Soul Bearing Black Shale Soulstone Vein Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "soul_bearing_black_shale_soulstone_vein",
+      "texture_mode": "cube_all",
+      "textures": {
+        "all": "realisticores:block/soul_bearing_black_shale_soulstone_vein"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_soul_bearing_black_shale_soulstone_vein",
+      "texture_mode": "cube_column_like",
+      "textures": {
+        "side": "realisticores:block/deepslate_soul_bearing_black_shale_soulstone_vein_side",
+        "top": "realisticores:block/deepslate_soul_bearing_black_shale_soulstone_vein_top",
+        "bottom": "realisticores:block/deepslate_soul_bearing_black_shale_soulstone_vein_bottom"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores"
+  ]
+}

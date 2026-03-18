@@ -1,0 +1,13 @@
+{
+  "ore_id": "emerald_schist_beryl_vein",
+  "variant": "stone",
+  "target_tag": "minecraft:stone_ore_replaceables",
+  "vein_size": 5,
+  "count_per_chunk": 4,
+  "distribution": "triangle",
+  "min_y": 64,
+  "max_y": 192,
+  "biome_filter": "#minecraft:is_overworld",
+  "generation_step": "underground_ores",
+  "enabled": true
+}

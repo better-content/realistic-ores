@@ -1,0 +1,32 @@
+{
+  "id": "titanium_iron_oxide",
+  "display_name": "Titanium Iron Oxide Ore Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "titanium_iron_oxide_ore",
+      "texture_mode": "cube_all",
+      "textures": {
+        "all": "realisticores:block/titanium_iron_oxide_ore"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_titanium_iron_oxide_ore",
+      "texture_mode": "cube_column_like",
+      "textures": {
+        "side": "realisticores:block/deepslate_titanium_iron_oxide_ore_side",
+        "top": "realisticores:block/deepslate_titanium_iron_oxide_ore_top",
+        "bottom": "realisticores:block/deepslate_titanium_iron_oxide_ore_bottom"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores",
+    "forge:ores/titanium",
+    "forge:ores/iron"
+  ]
+}

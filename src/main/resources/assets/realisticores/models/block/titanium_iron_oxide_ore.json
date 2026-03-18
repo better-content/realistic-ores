@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "realisticores:block/titanium_iron_oxide_ore"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "ore_id": "copper_sulfide",
+  "variant": "stone",
+  "target_tag": "minecraft:stone_ore_replaceables",
+  "vein_size": 10,
+  "count_per_chunk": 12,
+  "distribution": "uniform",
+  "min_y": 32,
+  "max_y": 192,
+  "biome_filter": "#minecraft:is_overworld",
+  "generation_step": "underground_ores",
+  "enabled": true
+}

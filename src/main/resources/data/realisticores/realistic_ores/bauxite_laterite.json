@@ -1,0 +1,31 @@
+{
+  "id": "bauxite_laterite",
+  "display_name": "Bauxite Laterite Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "bauxite_laterite",
+      "texture_mode": "cube_all",
+      "textures": {
+        "all": "realisticores:block/bauxite_laterite"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_bauxite_laterite",
+      "texture_mode": "cube_column_like",
+      "textures": {
+        "side": "realisticores:block/deepslate_bauxite_laterite_side",
+        "top": "realisticores:block/deepslate_bauxite_laterite_top",
+        "bottom": "realisticores:block/deepslate_bauxite_laterite_bottom"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores",
+    "forge:ores/aluminum"
+  ]
+}

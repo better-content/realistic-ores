@@ -1,0 +1,30 @@
+{
+  "id": "corundum_beryl_gem_vein",
+  "display_name": "Corundum Beryl Gem Vein Deposit",
+  "variants": [
+    {
+      "host": "stone",
+      "block_id": "corundum_beryl_gem_vein",
+      "texture_mode": "cube_all",
+      "textures": {
+        "all": "realisticores:block/corundum_beryl_gem_vein"
+      },
+      "copy_properties_from": "minecraft:stone"
+    },
+    {
+      "host": "deepslate",
+      "block_id": "deepslate_corundum_beryl_gem_vein",
+      "texture_mode": "cube_column_like",
+      "textures": {
+        "side": "realisticores:block/deepslate_corundum_beryl_gem_vein_side",
+        "top": "realisticores:block/deepslate_corundum_beryl_gem_vein_top",
+        "bottom": "realisticores:block/deepslate_corundum_beryl_gem_vein_bottom"
+      },
+      "copy_properties_from": "minecraft:deepslate"
+    }
+  ],
+  "tags": [
+    "minecraft:mineable/pickaxe",
+    "forge:ores"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "ore_id": "titanium_iron_oxide",
+  "variant": "stone",
+  "target_tag": "minecraft:stone_ore_replaceables",
+  "vein_size": 6,
+  "count_per_chunk": 5,
+  "distribution": "triangle",
+  "min_y": -96,
+  "max_y": 32,
+  "biome_filter": "#minecraft:is_overworld",
+  "generation_step": "underground_ores",
+  "enabled": true
+}
