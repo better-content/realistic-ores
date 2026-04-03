@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "realisticores:item/crushed_copper_sulfide_ore"
+  }
+}

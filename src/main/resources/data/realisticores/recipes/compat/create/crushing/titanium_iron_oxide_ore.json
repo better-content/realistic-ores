@@ -1,0 +1,20 @@
+{
+  "type": "create:crushing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realisticores:titanium_iron_oxide_ore"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "item": "realisticores:crushed_titanium_iron_oxide_ore"
+    }
+  ]
+}

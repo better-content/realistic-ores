@@ -1,0 +1,20 @@
+{
+  "type": "create:crushing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realisticores:deepslate_tin_tungsten_greisen"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "item": "realisticores:crushed_tin_tungsten_greisen"
+    }
+  ]
+}
