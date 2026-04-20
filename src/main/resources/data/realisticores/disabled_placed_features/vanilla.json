@@ -1,4 +1,8 @@
 {
+  "biomes": "#minecraft:is_overworld",
+  "steps": [
+    "underground_ores"
+  ],
   "features": [
     "minecraft:ore_coal_upper",
     "minecraft:ore_coal_lower",

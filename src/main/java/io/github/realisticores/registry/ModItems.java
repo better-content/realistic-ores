@@ -25,7 +25,7 @@ public final class ModItems {
         if (!initialized) {
             initialized = true;
             for (OreDefinition definition : ModBlocks.oreDefinitions()) {
-                String crushedItemId = crushedItemId(definition);
+                String crushedItemId = definition.crushedItemId();
                 CRUSHED_ORE_ITEMS_BY_ID.put(crushedItemId, ITEMS.register(crushedItemId, () -> new Item(new Item.Properties())));
             }
             for (Map.Entry<String, RegistryObject<net.minecraft.world.level.block.Block>> entry : ModBlocks.blockEntries()) {
@@ -41,11 +41,5 @@ public final class ModItems {
 
     public static Collection<Item> getAllCrushedOreItems() {
         return CRUSHED_ORE_ITEMS_BY_ID.values().stream().map(RegistryObject::get).toList();
-    }
-
-    private static String crushedItemId(OreDefinition definition) {
-        OreDefinition.VariantDefinition baseVariant = definition.variantByHost("stone")
-                .orElse(definition.variants().get(0));
-        return "crushed_" + baseVariant.blockId();
     }
 }

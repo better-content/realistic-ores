@@ -1,14 +1,16 @@
 package io.github.realisticores.ore;
 
-import java.util.ArrayList;
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 public final class OreDefinition {
     private String id;
-    private String display_name;
+    @SerializedName("display_name")
+    private String displayName;
     private List<VariantDefinition> variants = List.of();
     private List<String> tags = List.of();
 
@@ -17,7 +19,7 @@ public final class OreDefinition {
     }
 
     public String displayName() {
-        return display_name;
+        return displayName;
     }
 
     public List<VariantDefinition> variants() {
@@ -30,23 +32,30 @@ public final class OreDefinition {
 
     public void validate() {
         require(id, "id");
-        require(display_name, "display_name");
+        require(displayName, "display_name");
         if (variants == null || variants.isEmpty()) {
             throw new IllegalArgumentException("Ore " + id + " must define at least one variant");
         }
 
-        List<String> seenHosts = new ArrayList<>();
+        Set<String> seenHosts = new java.util.LinkedHashSet<>();
         for (VariantDefinition variant : variants) {
-            variant.validate(id);
-            if (seenHosts.contains(variant.host())) {
+            variant.validate();
+            if (!seenHosts.add(variant.host())) {
                 throw new IllegalArgumentException("Ore " + id + " defines duplicate host " + variant.host());
             }
-            seenHosts.add(variant.host());
         }
 
         if (tags == null) {
             tags = List.of();
         }
+    }
+
+    public VariantDefinition primaryVariant() {
+        return variantByHost("stone").orElse(variants.get(0));
+    }
+
+    public String crushedItemId() {
+        return "crushed_" + primaryVariant().blockId();
     }
 
     public Optional<VariantDefinition> variantByHost(String host) {
@@ -61,21 +70,24 @@ public final class OreDefinition {
 
     public static final class VariantDefinition {
         private String host;
-        private String block_id;
-        private String texture_mode;
+        @SerializedName("block_id")
+        private String blockId;
+        @SerializedName("texture_mode")
+        private String textureMode;
         private TexturesDefinition textures;
-        private String copy_properties_from;
+        @SerializedName("copy_properties_from")
+        private String copyPropertiesFrom;
 
         public String host() {
             return host;
         }
 
         public String blockId() {
-            return block_id;
+            return blockId;
         }
 
         public TextureMode textureMode() {
-            return TextureMode.fromSerialized(texture_mode);
+            return TextureMode.fromSerialized(textureMode);
         }
 
         public TexturesDefinition textures() {
@@ -83,14 +95,14 @@ public final class OreDefinition {
         }
 
         public String copyPropertiesFrom() {
-            return copy_properties_from;
+            return copyPropertiesFrom;
         }
 
-        private void validate(String oreId) {
+        private void validate() {
             require(host, "variants.host");
-            require(block_id, "variants.block_id");
-            require(texture_mode, "variants.texture_mode");
-            require(copy_properties_from, "variants.copy_properties_from");
+            require(blockId, "variants.block_id");
+            require(textureMode, "variants.texture_mode");
+            require(copyPropertiesFrom, "variants.copy_properties_from");
             Objects.requireNonNull(textures, "variants.textures");
             textureMode().validateTextures(textures);
         }

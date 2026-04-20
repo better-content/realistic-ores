@@ -6,8 +6,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SPEC_PATH = ROOT / "ore_spec.json"
 RESOURCES = ROOT / "src" / "main" / "resources"
+LEGACY_SPEC_PATH = ROOT / "ore_spec.json"
+LEGACY_TEXTURES_DIR = ROOT / "textures"
 
 SHORT_ID_MAP = {
     "copper_sulfide_ore": "copper_sulfide",
@@ -161,7 +162,19 @@ def append_tag_value(tag_files: dict[Path, set[str]], path: Path, value: str) ->
 
 
 def main() -> None:
-    spec = json.loads(SPEC_PATH.read_text(encoding="utf-8"))
+    if not LEGACY_SPEC_PATH.exists() or not LEGACY_TEXTURES_DIR.exists():
+        missing = []
+        if not LEGACY_SPEC_PATH.exists():
+            missing.append(str(LEGACY_SPEC_PATH.relative_to(ROOT)))
+        if not LEGACY_TEXTURES_DIR.exists():
+            missing.append(str(LEGACY_TEXTURES_DIR.relative_to(ROOT)))
+        raise SystemExit(
+            "Legacy generator inputs are missing: "
+            + ", ".join(missing)
+            + ". This repository now keeps generated resources under src/main/resources."
+        )
+
+    spec = json.loads(LEGACY_SPEC_PATH.read_text(encoding="utf-8"))
 
     ore_dir = RESOURCES / "data" / "realisticores" / "realistic_ores"
     worldgen_dir = RESOURCES / "data" / "realisticores" / "realistic_ore_generation"

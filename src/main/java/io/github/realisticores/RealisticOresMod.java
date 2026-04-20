@@ -2,6 +2,7 @@ package io.github.realisticores;
 
 import io.github.realisticores.registry.ModBlocks;
 import io.github.realisticores.registry.ModItems;
+import io.github.realisticores.worldgen.DisabledFeatureBiomeModifier;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -17,6 +18,7 @@ public final class RealisticOresMod {
 
         ModBlocks.register(modBus);
         ModItems.register(modBus);
+        DisabledFeatureBiomeModifier.register(modBus);
         modBus.addListener(this::addCreativeTabContents);
     }
 

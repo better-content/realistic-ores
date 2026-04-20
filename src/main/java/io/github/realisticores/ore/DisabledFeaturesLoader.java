@@ -1,18 +1,14 @@
 package io.github.realisticores.ore;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
 public final class DisabledFeaturesLoader {
     private DisabledFeaturesLoader() {
     }
 
-    public static Set<String> loadAll() {
-        Set<String> features = new LinkedHashSet<>();
-        for (DisabledFeaturesDefinition definition : OreDefinitionLoader.loadDirectory("disabled_placed_features", DisabledFeaturesDefinition.class)) {
-            definition.validate();
-            features.addAll(definition.features());
-        }
-        return Set.copyOf(features);
+    public static List<DisabledFeaturesDefinition> loadAll() {
+        return OreDefinitionLoader.loadDirectory("disabled_placed_features", DisabledFeaturesDefinition.class).stream()
+                .peek(DisabledFeaturesDefinition::validate)
+                .toList();
     }
 }

@@ -19,7 +19,6 @@ base {
 repositories {
     mavenCentral()
     maven("https://maven.minecraftforge.net")
-    maven("https://www.cursemaven.com")
 }
 
 java {

@@ -11,15 +11,15 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public final class JsonDrivenOreBiomeModifier implements BiomeModifier {
-    private static final JsonDrivenOreBiomeModifier INSTANCE = new JsonDrivenOreBiomeModifier();
+public final class DisabledFeatureBiomeModifier implements BiomeModifier {
+    private static final DisabledFeatureBiomeModifier INSTANCE = new DisabledFeatureBiomeModifier();
     private static final DeferredRegister<Codec<? extends BiomeModifier>> SERIALIZERS =
             DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, RealisticOresMod.MOD_ID);
 
-    public static final RegistryObject<Codec<? extends BiomeModifier>> JSON_DRIVEN_ORE_BIOME_MODIFIER =
-            SERIALIZERS.register("json_driven_ore_biome_modifier", () -> Codec.unit(INSTANCE));
+    public static final RegistryObject<Codec<? extends BiomeModifier>> DISABLED_FEATURE_BIOME_MODIFIER =
+            SERIALIZERS.register("disabled_feature_biome_modifier", () -> Codec.unit(INSTANCE));
 
-    private JsonDrivenOreBiomeModifier() {
+    private DisabledFeatureBiomeModifier() {
     }
 
     public static void register(IEventBus modBus) {
@@ -29,17 +29,12 @@ public final class JsonDrivenOreBiomeModifier implements BiomeModifier {
     @Override
     public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
         if (phase == Phase.REMOVE) {
-            FeatureRemovalHandler.removeDisabledFeatures(builder.getGenerationSettings());
-            return;
-        }
-
-        if (phase == Phase.ADD) {
-            OreFeatureFactory.definitions().forEach(definition -> OreFeatureFactory.addFeatureToBiome(definition, biome, builder.getGenerationSettings()));
+            FeatureRemovalHandler.removeDisabledFeatures(biome, builder.getGenerationSettings());
         }
     }
 
     @Override
     public Codec<? extends BiomeModifier> codec() {
-        return JSON_DRIVEN_ORE_BIOME_MODIFIER.get();
+        return DISABLED_FEATURE_BIOME_MODIFIER.get();
     }
 }

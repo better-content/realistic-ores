@@ -38,7 +38,11 @@ public final class OreDefinitionLoader {
 
     private static <T> T readJson(Path path, Class<T> type) {
         try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
-            return GSON.fromJson(reader, type);
+            T parsed = GSON.fromJson(reader, type);
+            if (parsed == null) {
+                throw new IllegalStateException("Parsed null JSON object from " + path);
+            }
+            return parsed;
         } catch (IOException exception) {
             throw new IllegalStateException("Failed to read " + path, exception);
         }
