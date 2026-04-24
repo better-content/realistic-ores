@@ -13,10 +13,10 @@
       "height": {
         "type": "minecraft:trapezoid",
         "min_inclusive": {
-          "absolute": -64
+          "above_bottom": 58
         },
         "max_inclusive": {
-          "absolute": 32
+          "below_top": 432
         }
       }
     },

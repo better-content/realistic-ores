@@ -5,8 +5,8 @@
   "vein_size": 20,
   "count_per_chunk": 24,
   "distribution": "uniform",
-  "min_y": 0,
-  "max_y": 48,
+  "min_y": 51,
+  "max_y": 94,
   "biome_filter": "#minecraft:is_overworld",
   "generation_step": "underground_ores",
   "enabled": true

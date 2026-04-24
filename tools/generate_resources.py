@@ -102,6 +102,9 @@ UNIFORM_DISTRIBUTION = {
     "sulfur_bearing_pyrite",
 }
 
+WORLD_MIN_Y = -64
+WORLD_MAX_Y = 512
+
 DISABLED_VANILLA_FEATURES = [
     "minecraft:ore_coal_upper",
     "minecraft:ore_coal_lower",
@@ -342,8 +345,8 @@ def main() -> None:
                 "type": "minecraft:height_range",
                 "height": {
                     "type": f"minecraft:{'uniform' if worldgen_definition['distribution'] == 'uniform' else 'trapezoid'}",
-                    "min_inclusive": {"absolute": worldgen_definition["min_y"]},
-                    "max_inclusive": {"absolute": worldgen_definition["max_y"]},
+                    "min_inclusive": {"above_bottom": worldgen_definition["min_y"] - WORLD_MIN_Y},
+                    "max_inclusive": {"below_top": WORLD_MAX_Y - worldgen_definition["max_y"]},
                 },
             }
             write_json(
