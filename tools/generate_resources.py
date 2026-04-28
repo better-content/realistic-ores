@@ -113,6 +113,7 @@ DISABLED_VANILLA_FEATURES = [
     "minecraft:ore_iron_small",
     "minecraft:ore_copper_large",
     "minecraft:ore_copper",
+    "minecraft:ore_gold_extra",
     "minecraft:ore_gold",
     "minecraft:ore_gold_lower",
     "minecraft:ore_redstone",

@@ -1,0 +1,17 @@
+{
+  blacklist: {
+    type: 'or',
+    filters: [
+      'ore:coal_ore',
+      'ore:iron_ore',
+      'ore:gold_ore',
+      'ore:nether_gold_ore',
+      'ore:copper_ore',
+      'ore:emerald_ore',
+      'ore:lapis_ore',
+      'ore:diamond_ore',
+      'ore:quartz_ore',
+      'ore:redstone_ore',
+    ],
+  },
+}
