@@ -67,6 +67,8 @@ sourceSets.main {
 
 dependencies {
     minecraft("net.minecraftforge:forge:$minecraftVersion-$forgeVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+    testImplementation("com.google.code.gson:gson:2.10.1")
 }
 
 tasks.processResources {
@@ -85,4 +87,8 @@ tasks.processResources {
 
 tasks.withType<JavaCompile>().configureEach {
     options.release.set(17)
+}
+
+tasks.test {
+    useJUnitPlatform()
 }

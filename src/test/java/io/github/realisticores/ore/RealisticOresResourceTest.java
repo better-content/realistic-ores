@@ -1,0 +1,68 @@
+package io.github.realisticores.ore;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import com.google.gson.Gson;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Set;
+import java.util.stream.Collectors;
+import org.junit.jupiter.api.Test;
+
+final class RealisticOresResourceTest {
+    private static final Gson GSON = new Gson();
+    private static final Path DATA_ROOT = Path.of("src/main/resources/data/realisticores");
+
+    @Test
+    void packagedOreDefinitionsAndGenerationEntriesAreConsistent() throws IOException {
+        Set<OreVariant> oreVariants;
+        try (var paths = Files.list(DATA_ROOT.resolve("realistic_ores"))) {
+            oreVariants = paths
+                    .filter(path -> path.getFileName().toString().endsWith(".json"))
+                    .map(path -> read(path, OreDefinition.class))
+                    .peek(OreDefinition::validate)
+                    .flatMap(definition -> definition.variants().stream()
+                            .map(variant -> new OreVariant(definition.id(), variant.host())))
+                    .collect(Collectors.toUnmodifiableSet());
+        }
+
+        assertFalse(oreVariants.isEmpty(), "expected ore definition resources");
+        try (var paths = Files.list(DATA_ROOT.resolve("realistic_ore_generation"))) {
+            for (Path path : paths.filter(file -> file.getFileName().toString().endsWith(".json")).toList()) {
+                GenerationDefinition definition = read(path, GenerationDefinition.class);
+                assertTrue(oreVariants.contains(new OreVariant(definition.oreId, definition.variant)),
+                        "generation entry references unknown ore variant in " + path);
+            }
+        }
+    }
+
+    @Test
+    void disabledPlacedFeatureResourcesValidate() throws IOException {
+        try (var paths = Files.list(DATA_ROOT.resolve("disabled_placed_features"))) {
+            paths.filter(path -> path.getFileName().toString().endsWith(".json"))
+                    .map(path -> read(path, DisabledFeaturesDefinition.class))
+                    .forEach(DisabledFeaturesDefinition::validate);
+        }
+    }
+
+    private record OreVariant(String oreId, String variant) {
+    }
+
+    private static <T> T read(Path path, Class<T> type) {
+        try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+            return GSON.fromJson(reader, type);
+        } catch (IOException exception) {
+            throw new IllegalStateException("Failed to read " + path, exception);
+        }
+    }
+
+    private static final class GenerationDefinition {
+        @com.google.gson.annotations.SerializedName("ore_id")
+        private String oreId;
+        private String variant;
+    }
+}
