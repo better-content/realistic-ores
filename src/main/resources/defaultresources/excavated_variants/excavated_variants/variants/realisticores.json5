@@ -222,6 +222,27 @@
       ]
     },
     {
+      "id": "osmiridium_lava_sulfide",
+      "stone": [
+        "stone",
+        "deepslate"
+      ],
+      "block_id": [
+        "realisticores:osmiridium_lava_sulfide_ore",
+        "realisticores:deepslate_osmiridium_lava_sulfide_ore"
+      ],
+      "lang": {
+        "en_us": "Osmiridium Lava Sulfide Ore"
+      },
+      "types": [
+        "stone"
+      ],
+      "orename": [
+        "osmium_ore",
+        "iridium_ore"
+      ]
+    },
+    {
       "id": "phosphate_rock",
       "stone": [
         "stone",
