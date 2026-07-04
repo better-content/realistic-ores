@@ -1,4 +1,5 @@
 plugins {
+    jacoco
     id("net.minecraftforge.gradle") version "[6.0,6.2)"
     java
 }
@@ -108,4 +109,69 @@ tasks.named("assemble") {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.register("verifyFast") {
+    group = "verification"
+    description = "Runs deterministic unit/resource checks without Forge game tests."
+    dependsOn(tasks.named("check"))
+}
+
+tasks.register("verifyFull") {
+    group = "verification"
+    description = "Runs the full verification lane for this repo."
+    dependsOn(tasks.named("verifyFast"))
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+    classDirectories.setFrom(
+        files(classDirectories.files.map {
+            fileTree(it) {
+                include(
+                    "io/github/realisticores/ore/OreDefinition*",
+                    "io/github/realisticores/ore/DisabledFeaturesDefinition*"
+                )
+            }
+        })
+    )
+}
+
+tasks.jacocoTestCoverageVerification {
+    dependsOn(tasks.jacocoTestReport)
+    classDirectories.setFrom(tasks.jacocoTestReport.map { it.classDirectories })
+    violationRules {
+        rule {
+            element = "CLASS"
+            includes = listOf(
+                "io.github.realisticores.ore.OreDefinition",
+                "io.github.realisticores.ore.OreDefinition\$VariantDefinition",
+                "io.github.realisticores.ore.OreDefinition\$TextureMode",
+                "io.github.realisticores.ore.DisabledFeaturesDefinition"
+            )
+            limit {
+                counter = "LINE"
+                value = "COVEREDRATIO"
+                minimum = "0.90".toBigDecimal()
+            }
+            limit {
+                counter = "BRANCH"
+                value = "COVEREDRATIO"
+                minimum = "0.75".toBigDecimal()
+            }
+        }
+    }
+}
+
+tasks.check {
+    dependsOn(tasks.jacocoTestCoverageVerification)
 }

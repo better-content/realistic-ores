@@ -1,7 +1,9 @@
 package io.github.realisticores.ore;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
@@ -84,5 +86,75 @@ final class OreDefinitionTest {
                 """, OreDefinition.class);
 
         assertThrows(IllegalArgumentException.class, definition::validate);
+    }
+
+    @Test
+    void fallsBackToFirstVariantWhenStoneHostIsAbsent() {
+        OreDefinition definition = GSON.fromJson("""
+                {
+                  "id": "test_ore",
+                  "display_name": "Test Ore",
+                  "variants": [
+                    {
+                      "host": "deepslate",
+                      "block_id": "deepslate_test_ore",
+                      "texture_mode": "cube_column_like",
+                      "textures": {
+                        "side": "realisticores:block/deepslate_test_ore_side",
+                        "top": "realisticores:block/deepslate_test_ore_top",
+                        "bottom": "realisticores:block/deepslate_test_ore_bottom"
+                      },
+                      "copy_properties_from": "minecraft:deepslate"
+                    }
+                  ]
+                }
+                """, OreDefinition.class);
+
+        definition.validate();
+
+        assertEquals("deepslate", definition.primaryVariant().host());
+        assertTrue(definition.variantByHost("deepslate").isPresent());
+        assertTrue(definition.variantByHost("stone").isEmpty());
+    }
+
+    @Test
+    void validationNormalizesNullTagsToEmptyList() {
+        OreDefinition definition = GSON.fromJson("""
+                {
+                  "id": "test_ore",
+                  "display_name": "Test Ore",
+                  "tags": null,
+                  "variants": [
+                    {
+                      "host": "stone",
+                      "block_id": "test_ore",
+                      "texture_mode": "cube_all",
+                      "textures": { "all": "realisticores:block/test_ore" },
+                      "copy_properties_from": "minecraft:stone"
+                    }
+                  ]
+                }
+                """, OreDefinition.class);
+
+        definition.validate();
+
+        assertTrue(definition.tags().isEmpty());
+    }
+
+    @Test
+    void textureModeParsingIsCaseInsensitive() {
+        assertEquals(OreDefinition.TextureMode.CUBE_ALL, OreDefinition.TextureMode.fromSerialized("CUBE_ALL"));
+        assertEquals(
+                OreDefinition.TextureMode.CUBE_COLUMN_LIKE,
+                OreDefinition.TextureMode.fromSerialized("Cube_Column_Like"));
+    }
+
+    @Test
+    void textureModeRejectsUnsupportedValues() {
+        IllegalArgumentException error = assertThrows(
+                IllegalArgumentException.class,
+                () -> OreDefinition.TextureMode.fromSerialized("unsupported"));
+
+        assertFalse(error.getMessage().isBlank());
     }
 }
