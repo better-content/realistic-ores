@@ -3,6 +3,10 @@
 /build/
 /build/classes/java/main/
 run/
+logs/
+.idea/
+.gradle-local/
+.kotlin/
 .codex
 __pycache__/
 *.pyc
