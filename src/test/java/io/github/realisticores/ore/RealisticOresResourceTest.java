@@ -32,7 +32,9 @@ final class RealisticOresResourceTest {
 
         assertFalse(oreVariants.isEmpty(), "expected ore definition resources");
         try (var paths = Files.list(DATA_ROOT.resolve("realistic_ore_generation"))) {
-            for (Path path : paths.filter(file -> file.getFileName().toString().endsWith(".json")).toList()) {
+            var generationPaths = paths.filter(file -> file.getFileName().toString().endsWith(".json")).toList();
+            assertFalse(generationPaths.isEmpty(), "expected realistic ore generation resources");
+            for (Path path : generationPaths) {
                 GenerationDefinition definition = read(path, GenerationDefinition.class);
                 assertTrue(oreVariants.contains(new OreVariant(definition.oreId, definition.variant)),
                         "generation entry references unknown ore variant in " + path);
@@ -43,7 +45,9 @@ final class RealisticOresResourceTest {
     @Test
     void disabledPlacedFeatureResourcesValidate() throws IOException {
         try (var paths = Files.list(DATA_ROOT.resolve("disabled_placed_features"))) {
-            paths.filter(path -> path.getFileName().toString().endsWith(".json"))
+            var resources = paths.filter(path -> path.getFileName().toString().endsWith(".json")).toList();
+            assertFalse(resources.isEmpty(), "expected disabled placed feature resources");
+            resources.stream()
                     .map(path -> read(path, DisabledFeaturesDefinition.class))
                     .forEach(DisabledFeaturesDefinition::validate);
         }
