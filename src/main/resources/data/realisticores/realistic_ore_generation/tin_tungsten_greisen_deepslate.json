@@ -3,7 +3,7 @@
   "variant": "deepslate",
   "target_tag": "minecraft:deepslate_ore_replaceables",
   "vein_size": 14,
-  "count_per_chunk": 12,
+  "count_per_chunk": 6,
   "distribution": "triangle",
   "min_y": -35,
   "max_y": 37,

@@ -3,7 +3,7 @@
   "variant": "stone",
   "target_tag": "minecraft:stone_ore_replaceables",
   "vein_size": 18,
-  "count_per_chunk": 16,
+  "count_per_chunk": 8,
   "distribution": "uniform",
   "min_y": 51,
   "max_y": 166,
