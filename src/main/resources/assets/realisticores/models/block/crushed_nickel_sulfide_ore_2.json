@@ -1,0 +1,6 @@
+{
+  "parent": "realisticores:block/surface_sample_2",
+  "textures": {
+    "all": "realisticores:item/crushed_nickel_sulfide_ore"
+  }
+}

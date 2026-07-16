@@ -1,0 +1,6 @@
+{
+  "parent": "realisticores:block/surface_sample_3",
+  "textures": {
+    "all": "realisticores:item/crushed_soul_bearing_black_shale_soulstone_vein"
+  }
+}

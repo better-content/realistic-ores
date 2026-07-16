@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 import shutil
 from pathlib import Path
@@ -163,6 +164,102 @@ def reset_dir(path: Path) -> None:
 
 def append_tag_value(tag_files: dict[Path, set[str]], path: Path, value: str) -> None:
     tag_files.setdefault(path, set()).add(value)
+
+
+SURFACE_SAMPLE_ELEMENTS = [
+    [([2, 0, 3], [7, 2, 8]), ([9, 0, 9], [14, 1, 14])],
+    [([1, 0, 8], [6, 1, 14]), ([7, 0, 2], [12, 3, 7]), ([12, 0, 9], [15, 2, 13])],
+    [([3, 0, 2], [9, 2, 6]), ([2, 0, 10], [7, 1, 14]), ([10, 0, 7], [15, 2, 12])],
+    [([1, 0, 4], [5, 1, 8]), ([6, 0, 8], [11, 2, 13]), ([11, 0, 2], [15, 1, 6])],
+    [([2, 0, 2], [6, 2, 6]), ([5, 0, 9], [10, 1, 14]), ([10, 0, 5], [15, 3, 10])],
+]
+
+
+def sample_element(start: list[int], end: list[int]) -> dict[str, object]:
+    return {
+        "from": start,
+        "to": end,
+        "faces": {
+            face: {"texture": "#all"}
+            for face in ["down", "up", "north", "south", "west", "east"]
+        },
+    }
+
+
+def generate_surface_samples() -> None:
+    ore_dir = RESOURCES / "data" / "realisticores" / "realistic_ores"
+    blockstate_dir = RESOURCES / "assets" / "realisticores" / "blockstates"
+    block_model_dir = RESOURCES / "assets" / "realisticores" / "models" / "block"
+    item_model_dir = RESOURCES / "assets" / "realisticores" / "models" / "item"
+    loot_dir = RESOURCES / "data" / "realisticores" / "loot_tables" / "blocks"
+    lang_path = RESOURCES / "assets" / "realisticores" / "lang" / "en_us.json"
+    lang = json.loads(lang_path.read_text(encoding="utf-8"))
+
+    for index, clusters in enumerate(SURFACE_SAMPLE_ELEMENTS):
+        write_json(
+            block_model_dir / f"surface_sample_{index}.json",
+            {
+                "ambientocclusion": False,
+                "render_type": "minecraft:cutout",
+                "textures": {"particle": "#all"},
+                "elements": [sample_element(start, end) for start, end in clusters],
+            },
+        )
+
+    definitions = []
+    for definition_path in sorted(ore_dir.glob("*.json")):
+        definition = json.loads(definition_path.read_text(encoding="utf-8"))
+        primary = next(
+            (variant for variant in definition["variants"] if variant["host"] == "stone"),
+            definition["variants"][0],
+        )
+        definitions.append((f"crushed_{primary['block_id']}", definition["display_name"], None))
+    definitions.append(("oil_seep", "Oil Seep", "pneumaticcraft:block/oil_still"))
+
+    for path in blockstate_dir.glob("crushed_*.json"):
+        path.unlink()
+    for path in loot_dir.glob("crushed_*.json"):
+        path.unlink()
+    for path in block_model_dir.glob("crushed_*_[0-4].json"):
+        path.unlink()
+
+    for block_id, display_name, external_texture in definitions:
+        texture = external_texture or f"realisticores:item/{block_id}"
+        variants = []
+        for index in range(len(SURFACE_SAMPLE_ELEMENTS)):
+            model_id = f"{block_id}_{index}"
+            write_json(
+                block_model_dir / f"{model_id}.json",
+                {
+                    "parent": f"realisticores:block/surface_sample_{index}",
+                    "textures": {"all": texture},
+                },
+            )
+            for rotation in [0, 90, 180, 270]:
+                variants.append({"model": f"realisticores:block/{model_id}", "y": rotation})
+        write_json(
+            blockstate_dir / f"{block_id}.json",
+            {"variants": {"waterlogged=false": variants, "waterlogged=true": variants}},
+        )
+        write_json(
+            loot_dir / f"{block_id}.json",
+            {
+                "type": "minecraft:block",
+                "pools": [{
+                    "rolls": 1.0,
+                    "entries": [{"type": "minecraft:item", "name": f"realisticores:{block_id}"}],
+                    "conditions": [{"condition": "minecraft:survives_explosion"}],
+                }],
+            },
+        )
+        if block_id == "oil_seep":
+            write_json(item_model_dir / "oil_seep.json", {"parent": "realisticores:block/oil_seep_2"})
+        if block_id.startswith("crushed_"):
+            lang[f"block.realisticores.{block_id}"] = f"Surface Sample: {display_name}"
+        else:
+            lang[f"block.realisticores.{block_id}"] = display_name
+
+    write_json(lang_path, lang)
 
 
 def main() -> None:
@@ -390,4 +487,11 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--surface-samples-only", action="store_true")
+    arguments = parser.parse_args()
+    if arguments.surface_samples_only:
+        generate_surface_samples()
+    else:
+        main()
+        generate_surface_samples()

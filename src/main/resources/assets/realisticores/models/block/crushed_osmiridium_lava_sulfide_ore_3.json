@@ -1,0 +1,6 @@
+{
+  "parent": "realisticores:block/surface_sample_3",
+  "textures": {
+    "all": "realisticores:item/crushed_osmiridium_lava_sulfide_ore"
+  }
+}

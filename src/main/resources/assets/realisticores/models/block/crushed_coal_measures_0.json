@@ -1,0 +1,6 @@
+{
+  "parent": "realisticores:block/surface_sample_0",
+  "textures": {
+    "all": "realisticores:item/crushed_coal_measures"
+  }
+}

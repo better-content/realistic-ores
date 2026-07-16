@@ -1,0 +1,6 @@
+{
+  "parent": "realisticores:block/surface_sample_2",
+  "textures": {
+    "all": "pneumaticcraft:block/oil_still"
+  }
+}

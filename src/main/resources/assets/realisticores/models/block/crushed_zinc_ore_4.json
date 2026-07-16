@@ -1,0 +1,6 @@
+{
+  "parent": "realisticores:block/surface_sample_4",
+  "textures": {
+    "all": "realisticores:item/crushed_zinc_ore"
+  }
+}

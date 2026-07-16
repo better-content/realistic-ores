@@ -1,6 +1,7 @@
 package io.github.realisticores;
 
 import io.github.realisticores.registry.ModBlocks;
+import io.github.realisticores.client.ClientSetup;
 import io.github.realisticores.registry.ModFeatures;
 import io.github.realisticores.registry.ModItems;
 import io.github.realisticores.worldgen.DisabledFeatureBiomeModifier;
@@ -8,6 +9,8 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(RealisticOresMod.MOD_ID)
@@ -21,6 +24,7 @@ public final class RealisticOresMod {
         ModItems.register(modBus);
         ModFeatures.register(modBus);
         DisabledFeatureBiomeModifier.register(modBus);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modBus.addListener(ClientSetup::onClientSetup));
         modBus.addListener(this::addCreativeTabContents);
     }
 

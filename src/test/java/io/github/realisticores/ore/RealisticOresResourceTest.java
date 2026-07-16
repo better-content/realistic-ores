@@ -53,6 +53,26 @@ final class RealisticOresResourceTest {
         }
     }
 
+    @Test
+    void everyCrushedOreHasGroundSampleResources() throws IOException {
+        Path resources = Path.of("src/main/resources");
+        Path definitions = resources.resolve("data/realisticores/realistic_ores");
+        try (var paths = Files.list(definitions)) {
+            for (Path path : paths.filter(file -> file.getFileName().toString().endsWith(".json")).toList()) {
+                OreDefinition definition = read(path, OreDefinition.class);
+                String crushed = definition.crushedItemId();
+                assertTrue(Files.isRegularFile(resources.resolve("assets/realisticores/blockstates/" + crushed + ".json")), crushed);
+                assertTrue(Files.isRegularFile(resources.resolve("data/realisticores/loot_tables/blocks/" + crushed + ".json")), crushed);
+                for (int variant = 0; variant < 5; variant++) {
+                    assertTrue(Files.isRegularFile(resources.resolve(
+                            "assets/realisticores/models/block/" + crushed + "_" + variant + ".json")), crushed);
+                }
+            }
+        }
+        assertTrue(Files.isRegularFile(resources.resolve("assets/realisticores/blockstates/oil_seep.json")));
+        assertTrue(Files.isRegularFile(resources.resolve("data/realisticores/loot_tables/blocks/oil_seep.json")));
+    }
+
     private record OreVariant(String oreId, String variant) {
     }
 

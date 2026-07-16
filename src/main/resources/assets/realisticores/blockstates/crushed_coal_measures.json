@@ -1,0 +1,168 @@
+{
+  "variants": {
+    "waterlogged=false": [
+      {
+        "model": "realisticores:block/crushed_coal_measures_0",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_0",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_0",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_0",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_1",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_1",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_1",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_1",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_2",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_2",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_2",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_2",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_3",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_3",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_3",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_3",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_4",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_4",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_4",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_4",
+        "y": 270
+      }
+    ],
+    "waterlogged=true": [
+      {
+        "model": "realisticores:block/crushed_coal_measures_0",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_0",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_0",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_0",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_1",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_1",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_1",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_1",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_2",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_2",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_2",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_2",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_3",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_3",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_3",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_3",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_4",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_4",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_4",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/crushed_coal_measures_4",
+        "y": 270
+      }
+    ]
+  }
+}

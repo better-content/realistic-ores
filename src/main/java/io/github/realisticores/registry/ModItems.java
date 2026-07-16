@@ -26,11 +26,21 @@ public final class ModItems {
             initialized = true;
             for (OreDefinition definition : ModBlocks.oreDefinitions()) {
                 String crushedItemId = definition.crushedItemId();
-                CRUSHED_ORE_ITEMS_BY_ID.put(crushedItemId, ITEMS.register(crushedItemId, () -> new Item(new Item.Properties())));
+                RegistryObject<net.minecraft.world.level.block.Block> sample = ModBlocks.surfaceSampleEntries().stream()
+                        .filter(entry -> entry.getKey().equals(crushedItemId))
+                        .map(Map.Entry::getValue)
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalStateException("Missing surface sample block " + crushedItemId));
+                CRUSHED_ORE_ITEMS_BY_ID.put(crushedItemId, ITEMS.register(
+                        crushedItemId,
+                        () -> new BlockItem(sample.get(), new Item.Properties())));
             }
             for (Map.Entry<String, RegistryObject<net.minecraft.world.level.block.Block>> entry : ModBlocks.blockEntries()) {
                 BLOCK_ITEMS_BY_ID.put(entry.getKey(), ITEMS.register(entry.getKey(), () -> new BlockItem(entry.getValue().get(), new Item.Properties())));
             }
+            BLOCK_ITEMS_BY_ID.put("oil_seep", ITEMS.register(
+                    "oil_seep",
+                    () -> new BlockItem(ModBlocks.OIL_SEEP.get(), new Item.Properties())));
         }
         ITEMS.register(modBus);
     }

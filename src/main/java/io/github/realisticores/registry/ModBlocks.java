@@ -1,6 +1,7 @@
 package io.github.realisticores.registry;
 
 import io.github.realisticores.RealisticOresMod;
+import io.github.realisticores.block.SurfaceSampleBlock;
 import io.github.realisticores.ore.OreDefinition;
 import io.github.realisticores.ore.OreDefinitionLoader;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import java.util.Map;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -21,6 +23,8 @@ public final class ModBlocks {
     private static final List<OreDefinition> ORE_DEFINITIONS = OreDefinitionLoader.loadAll();
     private static final Map<String, RegistryObject<Block>> BLOCKS_BY_ID = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Block>> BLOCKS_BY_ORE_AND_HOST = new LinkedHashMap<>();
+    private static final Map<String, RegistryObject<Block>> SURFACE_SAMPLES_BY_ID = new LinkedHashMap<>();
+    public static RegistryObject<Block> OIL_SEEP;
     private static boolean initialized;
 
     private ModBlocks() {
@@ -35,7 +39,10 @@ public final class ModBlocks {
                     BLOCKS_BY_ID.put(variant.blockId(), block);
                     BLOCKS_BY_ORE_AND_HOST.put(key(definition.id(), variant.host()), block);
                 }
+                String crushedId = definition.crushedItemId();
+                SURFACE_SAMPLES_BY_ID.put(crushedId, BLOCKS.register(crushedId, ModBlocks::newSurfaceSample));
             }
+            OIL_SEEP = BLOCKS.register("oil_seep", ModBlocks::newSurfaceSample);
         }
         BLOCKS.register(modBus);
     }
@@ -54,6 +61,18 @@ public final class ModBlocks {
 
     public static Collection<Map.Entry<String, RegistryObject<Block>>> blockEntries() {
         return BLOCKS_BY_ID.entrySet();
+    }
+
+    public static Collection<Map.Entry<String, RegistryObject<Block>>> surfaceSampleEntries() {
+        return SURFACE_SAMPLES_BY_ID.entrySet();
+    }
+
+    private static SurfaceSampleBlock newSurfaceSample() {
+        return new SurfaceSampleBlock(BlockBehaviour.Properties.copy(Blocks.MOSS_CARPET)
+                .noCollission()
+                .instabreak()
+                .sound(SoundType.GRAVEL)
+                .offsetType(BlockBehaviour.OffsetType.XZ));
     }
 
     private static String key(String oreId, String host) {
