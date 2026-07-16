@@ -1,6 +1,73 @@
 {
-  "parent": "realisticores:block/surface_sample_0",
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
   "textures": {
     "all": "realisticores:item/crushed_cupriferous_redbed_redstone_vein"
-  }
+  },
+  "elements": [
+    {
+      "from": [
+        9,
+        0,
+        10
+      ],
+      "to": [
+        11,
+        3,
+        14
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all"
+        },
+        "up": {
+          "texture": "#all"
+        },
+        "north": {
+          "texture": "#all"
+        },
+        "south": {
+          "texture": "#all"
+        },
+        "west": {
+          "texture": "#all"
+        },
+        "east": {
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        0,
+        2
+      ],
+      "to": [
+        14,
+        1,
+        5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all"
+        },
+        "up": {
+          "texture": "#all"
+        },
+        "north": {
+          "texture": "#all"
+        },
+        "south": {
+          "texture": "#all"
+        },
+        "west": {
+          "texture": "#all"
+        },
+        "east": {
+          "texture": "#all"
+        }
+      }
+    }
+  ]
 }

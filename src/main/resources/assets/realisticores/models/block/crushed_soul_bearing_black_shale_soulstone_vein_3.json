@@ -1,6 +1,73 @@
 {
-  "parent": "realisticores:block/surface_sample_3",
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
   "textures": {
     "all": "realisticores:item/crushed_soul_bearing_black_shale_soulstone_vein"
-  }
+  },
+  "elements": [
+    {
+      "from": [
+        12,
+        0,
+        6
+      ],
+      "to": [
+        14,
+        1,
+        8
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all"
+        },
+        "up": {
+          "texture": "#all"
+        },
+        "north": {
+          "texture": "#all"
+        },
+        "south": {
+          "texture": "#all"
+        },
+        "west": {
+          "texture": "#all"
+        },
+        "east": {
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        0,
+        8
+      ],
+      "to": [
+        15,
+        3,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all"
+        },
+        "up": {
+          "texture": "#all"
+        },
+        "north": {
+          "texture": "#all"
+        },
+        "south": {
+          "texture": "#all"
+        },
+        "west": {
+          "texture": "#all"
+        },
+        "east": {
+          "texture": "#all"
+        }
+      }
+    }
+  ]
 }

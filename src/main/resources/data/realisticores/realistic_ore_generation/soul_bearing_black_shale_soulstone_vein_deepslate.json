@@ -1,7 +1,7 @@
 {
   "ore_id": "soul_bearing_black_shale_soulstone_vein",
   "variant": "deepslate",
-  "target_tag": "minecraft:deepslate_ore_replaceables",
+  "target_tag": "realisticores:overworld_ore_replaceables",
   "vein_size": 12,
   "count_per_chunk": 5,
   "distribution": "triangle",

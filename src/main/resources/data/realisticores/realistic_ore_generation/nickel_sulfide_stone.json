@@ -1,7 +1,7 @@
 {
   "ore_id": "nickel_sulfide",
   "variant": "stone",
-  "target_tag": "minecraft:stone_ore_replaceables",
+  "target_tag": "realisticores:overworld_ore_replaceables",
   "vein_size": 16,
   "count_per_chunk": 8,
   "distribution": "triangle",

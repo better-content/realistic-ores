@@ -1,7 +1,7 @@
 {
   "ore_id": "coal_measures",
   "variant": "deepslate",
-  "target_tag": "minecraft:deepslate_ore_replaceables",
+  "target_tag": "realisticores:overworld_ore_replaceables",
   "vein_size": 24,
   "count_per_chunk": 18,
   "distribution": "uniform",

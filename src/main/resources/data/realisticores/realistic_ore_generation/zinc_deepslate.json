@@ -1,7 +1,7 @@
 {
   "ore_id": "zinc",
   "variant": "deepslate",
-  "target_tag": "minecraft:deepslate_ore_replaceables",
+  "target_tag": "realisticores:overworld_ore_replaceables",
   "vein_size": 16,
   "count_per_chunk": 10,
   "distribution": "uniform",

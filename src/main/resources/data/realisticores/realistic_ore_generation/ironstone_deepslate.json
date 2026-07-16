@@ -1,7 +1,7 @@
 {
   "ore_id": "ironstone",
   "variant": "deepslate",
-  "target_tag": "minecraft:deepslate_ore_replaceables",
+  "target_tag": "realisticores:overworld_ore_replaceables",
   "vein_size": 20,
   "count_per_chunk": 14,
   "distribution": "uniform",

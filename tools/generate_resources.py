@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -103,7 +104,7 @@ UNIFORM_DISTRIBUTION = {
     "sulfur_bearing_pyrite",
 }
 
-WORLD_MIN_Y = -64
+WORLD_MIN_Y = -128
 WORLD_MAX_Y = 512
 
 DISABLED_VANILLA_FEATURES = [
@@ -166,13 +167,7 @@ def append_tag_value(tag_files: dict[Path, set[str]], path: Path, value: str) ->
     tag_files.setdefault(path, set()).add(value)
 
 
-SURFACE_SAMPLE_ELEMENTS = [
-    [([2, 0, 3], [7, 2, 8]), ([9, 0, 9], [14, 1, 14])],
-    [([1, 0, 8], [6, 1, 14]), ([7, 0, 2], [12, 3, 7]), ([12, 0, 9], [15, 2, 13])],
-    [([3, 0, 2], [9, 2, 6]), ([2, 0, 10], [7, 1, 14]), ([10, 0, 7], [15, 2, 12])],
-    [([1, 0, 4], [5, 1, 8]), ([6, 0, 8], [11, 2, 13]), ([11, 0, 2], [15, 1, 6])],
-    [([2, 0, 2], [6, 2, 6]), ([5, 0, 9], [10, 1, 14]), ([10, 0, 5], [15, 3, 10])],
-]
+SURFACE_SAMPLE_VARIANTS = 5
 
 
 def sample_element(start: list[int], end: list[int]) -> dict[str, object]:
@@ -186,6 +181,21 @@ def sample_element(start: list[int], end: list[int]) -> dict[str, object]:
     }
 
 
+def surface_sample_elements(block_id: str, variant: int) -> list[dict[str, object]]:
+    """Build a stable ore-specific scatter instead of recoloring shared geometry."""
+    digest = hashlib.sha256(f"{block_id}:{variant}".encode()).digest()
+    elements = []
+    for piece in range(2 + digest[0] % 3):
+        offset = 1 + piece * 6
+        x = 1 + digest[offset] % 12
+        z = 1 + digest[offset + 1] % 12
+        width = 2 + digest[offset + 2] % 4
+        depth = 2 + digest[offset + 3] % 4
+        height = 1 + digest[offset + 4] % 3
+        elements.append(sample_element([x, 0, z], [min(15, x + width), height, min(15, z + depth)]))
+    return elements
+
+
 def generate_surface_samples() -> None:
     ore_dir = RESOURCES / "data" / "realisticores" / "realistic_ores"
     blockstate_dir = RESOURCES / "assets" / "realisticores" / "blockstates"
@@ -194,17 +204,6 @@ def generate_surface_samples() -> None:
     loot_dir = RESOURCES / "data" / "realisticores" / "loot_tables" / "blocks"
     lang_path = RESOURCES / "assets" / "realisticores" / "lang" / "en_us.json"
     lang = json.loads(lang_path.read_text(encoding="utf-8"))
-
-    for index, clusters in enumerate(SURFACE_SAMPLE_ELEMENTS):
-        write_json(
-            block_model_dir / f"surface_sample_{index}.json",
-            {
-                "ambientocclusion": False,
-                "render_type": "minecraft:cutout",
-                "textures": {"particle": "#all"},
-                "elements": [sample_element(start, end) for start, end in clusters],
-            },
-        )
 
     definitions = []
     for definition_path in sorted(ore_dir.glob("*.json")):
@@ -222,17 +221,25 @@ def generate_surface_samples() -> None:
         path.unlink()
     for path in block_model_dir.glob("crushed_*_[0-4].json"):
         path.unlink()
+    for path in block_model_dir.glob("surface_sample_[0-4].json"):
+        path.unlink()
 
+    geometry_signatures = set()
     for block_id, display_name, external_texture in definitions:
         texture = external_texture or f"realisticores:item/{block_id}"
         variants = []
-        for index in range(len(SURFACE_SAMPLE_ELEMENTS)):
+        block_geometry = []
+        for index in range(SURFACE_SAMPLE_VARIANTS):
             model_id = f"{block_id}_{index}"
+            elements = surface_sample_elements(block_id, index)
+            block_geometry.append(elements)
             write_json(
                 block_model_dir / f"{model_id}.json",
                 {
-                    "parent": f"realisticores:block/surface_sample_{index}",
+                    "ambientocclusion": False,
+                    "render_type": "minecraft:cutout",
                     "textures": {"all": texture},
+                    "elements": elements,
                 },
             )
             for rotation in [0, 90, 180, 270]:
@@ -258,6 +265,11 @@ def generate_surface_samples() -> None:
             lang[f"block.realisticores.{block_id}"] = f"Surface Sample: {display_name}"
         else:
             lang[f"block.realisticores.{block_id}"] = display_name
+
+        signature = json.dumps(block_geometry, sort_keys=True)
+        if signature in geometry_signatures:
+            raise RuntimeError(f"surface sample geometry is not unique: {block_id}")
+        geometry_signatures.add(signature)
 
     write_json(lang_path, lang)
 
@@ -395,7 +407,8 @@ def main() -> None:
                     append_tag_value(tag_files, RESOURCES / "data" / namespace / "tags" / "items" / f"{tag_path}.json", full_id)
 
         y_bands = ore.get("y_bands", {})
-        for variant, target_tag in [("stone", "minecraft:stone_ore_replaceables"), ("deepslate", "minecraft:deepslate_ore_replaceables")]:
+        for variant in ["stone", "deepslate"]:
+            target_tag = "realisticores:overworld_ore_replaceables"
             band = y_bands.get(variant)
             if not band:
                 continue
