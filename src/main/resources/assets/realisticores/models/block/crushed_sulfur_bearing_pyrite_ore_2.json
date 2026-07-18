@@ -2,7 +2,8 @@
   "ambientocclusion": false,
   "render_type": "minecraft:cutout",
   "textures": {
-    "all": "realisticores:item/crushed_sulfur_bearing_pyrite_ore"
+    "all": "realisticores:item/crushed_sulfur_bearing_pyrite_ore",
+    "particle": "#all"
   },
   "elements": [
     {
@@ -18,22 +19,58 @@
       ],
       "faces": {
         "down": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "up": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "north": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "south": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "west": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "east": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         }
       }
     },
@@ -50,22 +87,58 @@
       ],
       "faces": {
         "down": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "up": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "north": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "south": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "west": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "east": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         }
       }
     },
@@ -82,22 +155,58 @@
       ],
       "faces": {
         "down": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "up": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "north": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "south": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "west": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "east": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         }
       }
     },
@@ -114,22 +223,58 @@
       ],
       "faces": {
         "down": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "up": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "north": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "south": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "west": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         },
         "east": {
-          "texture": "#all"
+          "texture": "#all",
+          "uv": [
+            8,
+            8,
+            10,
+            11
+          ]
         }
       }
     }

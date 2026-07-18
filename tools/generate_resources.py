@@ -168,20 +168,23 @@ def append_tag_value(tag_files: dict[Path, set[str]], path: Path, value: str) ->
 
 
 SURFACE_SAMPLE_VARIANTS = 5
+SURFACE_SAMPLE_UV = [8, 8, 10, 11]
 
 
-def sample_element(start: list[int], end: list[int]) -> dict[str, object]:
+def sample_element(start: list[int], end: list[int], uv: list[int] | None) -> dict[str, object]:
     return {
         "from": start,
         "to": end,
         "faces": {
-            face: {"texture": "#all"}
+            # Crushed-item sprites are mostly transparent. Automatic UVs sample
+            # unrelated transparent pixels as the scatter geometry moves.
+            face: {"texture": "#all", **({"uv": uv} if uv else {})}
             for face in ["down", "up", "north", "south", "west", "east"]
         },
     }
 
 
-def surface_sample_elements(block_id: str, variant: int) -> list[dict[str, object]]:
+def surface_sample_elements(block_id: str, variant: int, uv: list[int] | None = None) -> list[dict[str, object]]:
     """Build a stable ore-specific scatter instead of recoloring shared geometry."""
     digest = hashlib.sha256(f"{block_id}:{variant}".encode()).digest()
     elements = []
@@ -192,7 +195,7 @@ def surface_sample_elements(block_id: str, variant: int) -> list[dict[str, objec
         width = 2 + digest[offset + 2] % 4
         depth = 2 + digest[offset + 3] % 4
         height = 1 + digest[offset + 4] % 3
-        elements.append(sample_element([x, 0, z], [min(15, x + width), height, min(15, z + depth)]))
+        elements.append(sample_element([x, 0, z], [min(15, x + width), height, min(15, z + depth)], uv))
     return elements
 
 
@@ -212,7 +215,9 @@ def generate_surface_samples() -> None:
             (variant for variant in definition["variants"] if variant["host"] == "stone"),
             definition["variants"][0],
         )
-        definitions.append((f"crushed_{primary['block_id']}", definition["display_name"], None))
+        block_id = f"crushed_{primary['block_id']}"
+        item_model = json.loads((item_model_dir / f"{block_id}.json").read_text(encoding="utf-8"))
+        definitions.append((block_id, definition["display_name"], item_model["textures"]["layer0"]))
     definitions.append(("oil_seep", "Oil Seep", "pneumaticcraft:block/oil_still"))
 
     for path in blockstate_dir.glob("crushed_*.json"):
@@ -231,14 +236,18 @@ def generate_surface_samples() -> None:
         block_geometry = []
         for index in range(SURFACE_SAMPLE_VARIANTS):
             model_id = f"{block_id}_{index}"
-            elements = surface_sample_elements(block_id, index)
+            elements = surface_sample_elements(
+                block_id,
+                index,
+                SURFACE_SAMPLE_UV if block_id.startswith("crushed_") else None,
+            )
             block_geometry.append(elements)
             write_json(
                 block_model_dir / f"{model_id}.json",
                 {
                     "ambientocclusion": False,
                     "render_type": "minecraft:cutout",
-                    "textures": {"all": texture},
+                    "textures": {"all": texture, "particle": "#all"},
                     "elements": elements,
                 },
             )

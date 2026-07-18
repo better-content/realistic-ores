@@ -2,7 +2,8 @@
   "ambientocclusion": false,
   "render_type": "minecraft:cutout",
   "textures": {
-    "all": "pneumaticcraft:block/oil_still"
+    "all": "pneumaticcraft:block/oil_still",
+    "particle": "#all"
   },
   "elements": [
     {
