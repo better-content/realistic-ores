@@ -13,6 +13,14 @@ the original composites. New textures and texture variants must preserve these r
 - Depict geological deposits, not vanilla-style isolated ore spots. Each family has a
   recognizable morphology: a seam, branching vein, disseminated grains, nodules, or
   sparse crystals.
+- Separate mineral identity from host geology. Realistic Ores owns the mineral's palette,
+  morphology, coverage, and sided topology; Hyle and Unearthed own the interesting rock
+  strata that replace ordinary stone and deepslate; Excavated Variants combines those
+  two identities into the matching host-specific ore blocks.
+- Express that contract through ordinary vanilla-format blockstates, models, and
+  textures. Do not hand-author a matrix of Realistic Ores composites for every Unearthed
+  stone, add custom integration code when normal definitions suffice, or simplify the
+  canonical ore art to compensate for hypothetical generated hosts.
 - Keep the host rock visually dominant. In the source mineral masks, only 20-33 of 256
   pixels are occupied. Variants should remain within that observed coverage envelope
   unless a deliberate family-specific exception is documented.
@@ -60,6 +68,21 @@ the original composites. New textures and texture variants must preserve these r
   them as luminous as their stone versions.
 - Keep all block textures fully opaque. Emissive pixels are not part of the current
   language, including uranium, thorium, redstone-bearing redbed, and osmiridium.
+
+### Excavated Variants contract
+
+The authored stone and deepslate blocks are canonical reference implementations, not the
+complete host catalogue. During world generation, Hyle/Unearthed establishes the local
+rock type and Excavated Variants derives the corresponding ore block from its registered
+stone and ore definitions. The resulting host-specific block must retain the mineral
+family's sided topology while inheriting the local rock's texture and material identity.
+
+Keep `defaultresources/excavated_variants/excavated_variants/variants/realisticores.json5`
+as the declarative mapping boundary. New art should require only normal Minecraft asset
+definitions plus that existing mapping; it should not require bespoke generated textures
+for each Unearthed stone. Validation should sample several light, dark, coarse, and
+directional Unearthed hosts to confirm that all three canonical variants remain legible
+after synthesis.
 
 ### Deposit families and palettes
 
