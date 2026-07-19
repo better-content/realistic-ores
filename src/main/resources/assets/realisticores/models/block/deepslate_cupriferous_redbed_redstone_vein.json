@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "side": "realisticores:block/deepslate_cupriferous_redbed_redstone_vein_side",
-    "top": "realisticores:block/deepslate_cupriferous_redbed_redstone_vein_top",
-    "bottom": "realisticores:block/deepslate_cupriferous_redbed_redstone_vein_bottom"
-  }
-}

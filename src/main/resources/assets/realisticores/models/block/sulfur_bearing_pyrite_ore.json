@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "realisticores:block/sulfur_bearing_pyrite_ore"
-  }
-}

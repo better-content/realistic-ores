@@ -89,6 +89,33 @@ final class OreDefinitionTest {
     }
 
     @Test
+    void rejectsSidedTexturesWithoutAllRequiredFaces() {
+        OreDefinition definition = GSON.fromJson("""
+                {
+                  "id": "test_ore",
+                  "display_name": "Test Ore",
+                  "variants": [
+                    {
+                      "host": "stone",
+                      "block_id": "test_ore",
+                      "texture_mode": "cube_sided",
+                      "textures": {
+                        "north": "realisticores:block/test_ore_0_north",
+                        "east": "realisticores:block/test_ore_0_east",
+                        "south": "realisticores:block/test_ore_0_south",
+                        "west": "realisticores:block/test_ore_0_west",
+                        "up": "realisticores:block/test_ore_0_up"
+                      },
+                      "copy_properties_from": "minecraft:stone"
+                    }
+                  ]
+                }
+                """, OreDefinition.class);
+
+        assertThrows(IllegalArgumentException.class, definition::validate);
+    }
+
+    @Test
     void fallsBackToFirstVariantWhenStoneHostIsAbsent() {
         OreDefinition definition = GSON.fromJson("""
                 {
@@ -147,6 +174,7 @@ final class OreDefinitionTest {
         assertEquals(
                 OreDefinition.TextureMode.CUBE_COLUMN_LIKE,
                 OreDefinition.TextureMode.fromSerialized("Cube_Column_Like"));
+        assertEquals(OreDefinition.TextureMode.CUBE_SIDED, OreDefinition.TextureMode.fromSerialized("Cube_Sided"));
     }
 
     @Test

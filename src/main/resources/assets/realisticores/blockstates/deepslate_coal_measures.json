@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/deepslate_coal_measures"
-    }
+    "": [
+      {
+        "model": "realisticores:block/deepslate_coal_measures_0"
+      },
+      {
+        "model": "realisticores:block/deepslate_coal_measures_1"
+      },
+      {
+        "model": "realisticores:block/deepslate_coal_measures_2"
+      }
+    ]
   }
 }

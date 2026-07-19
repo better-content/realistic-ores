@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "realisticores:block/phosphate_rock_1_south",
+    "north": "realisticores:block/phosphate_rock_1_north",
+    "east": "realisticores:block/phosphate_rock_1_east",
+    "south": "realisticores:block/phosphate_rock_1_south",
+    "west": "realisticores:block/phosphate_rock_1_west",
+    "up": "realisticores:block/phosphate_rock_1_up",
+    "down": "realisticores:block/phosphate_rock_1_down"
+  }
+}

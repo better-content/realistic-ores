@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/deepslate_quartz_vein"
-    }
+    "": [
+      {
+        "model": "realisticores:block/deepslate_quartz_vein_0"
+      },
+      {
+        "model": "realisticores:block/deepslate_quartz_vein_1"
+      },
+      {
+        "model": "realisticores:block/deepslate_quartz_vein_2"
+      }
+    ]
   }
 }

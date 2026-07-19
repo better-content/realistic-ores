@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "realisticores:block/corundum_beryl_gem_vein_2_south",
+    "north": "realisticores:block/corundum_beryl_gem_vein_2_north",
+    "east": "realisticores:block/corundum_beryl_gem_vein_2_east",
+    "south": "realisticores:block/corundum_beryl_gem_vein_2_south",
+    "west": "realisticores:block/corundum_beryl_gem_vein_2_west",
+    "up": "realisticores:block/corundum_beryl_gem_vein_2_up",
+    "down": "realisticores:block/corundum_beryl_gem_vein_2_down"
+  }
+}

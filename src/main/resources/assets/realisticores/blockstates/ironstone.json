@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/ironstone"
-    }
+    "": [
+      {
+        "model": "realisticores:block/ironstone_0"
+      },
+      {
+        "model": "realisticores:block/ironstone_1"
+      },
+      {
+        "model": "realisticores:block/ironstone_2"
+      }
+    ]
   }
 }

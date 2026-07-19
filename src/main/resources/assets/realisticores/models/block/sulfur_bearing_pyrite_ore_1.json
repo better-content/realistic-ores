@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "realisticores:block/sulfur_bearing_pyrite_ore_1_south",
+    "north": "realisticores:block/sulfur_bearing_pyrite_ore_1_north",
+    "east": "realisticores:block/sulfur_bearing_pyrite_ore_1_east",
+    "south": "realisticores:block/sulfur_bearing_pyrite_ore_1_south",
+    "west": "realisticores:block/sulfur_bearing_pyrite_ore_1_west",
+    "up": "realisticores:block/sulfur_bearing_pyrite_ore_1_up",
+    "down": "realisticores:block/sulfur_bearing_pyrite_ore_1_down"
+  }
+}

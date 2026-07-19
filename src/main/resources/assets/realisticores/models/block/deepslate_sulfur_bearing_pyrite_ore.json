@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "side": "realisticores:block/deepslate_sulfur_bearing_pyrite_ore_side",
-    "top": "realisticores:block/deepslate_sulfur_bearing_pyrite_ore_top",
-    "bottom": "realisticores:block/deepslate_sulfur_bearing_pyrite_ore_bottom"
-  }
-}

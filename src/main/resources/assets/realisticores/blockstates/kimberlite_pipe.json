@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/kimberlite_pipe"
-    }
+    "": [
+      {
+        "model": "realisticores:block/kimberlite_pipe_0"
+      },
+      {
+        "model": "realisticores:block/kimberlite_pipe_1"
+      },
+      {
+        "model": "realisticores:block/kimberlite_pipe_2"
+      }
+    ]
   }
 }

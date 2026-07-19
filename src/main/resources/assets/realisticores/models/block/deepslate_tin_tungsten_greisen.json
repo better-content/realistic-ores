@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "side": "realisticores:block/deepslate_tin_tungsten_greisen_side",
-    "top": "realisticores:block/deepslate_tin_tungsten_greisen_top",
-    "bottom": "realisticores:block/deepslate_tin_tungsten_greisen_bottom"
-  }
-}

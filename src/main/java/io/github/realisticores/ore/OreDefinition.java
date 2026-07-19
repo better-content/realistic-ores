@@ -113,6 +113,12 @@ public final class OreDefinition {
         private String side;
         private String top;
         private String bottom;
+        private String north;
+        private String east;
+        private String south;
+        private String west;
+        private String up;
+        private String down;
 
         public String all() {
             return all;
@@ -129,16 +135,42 @@ public final class OreDefinition {
         public String bottom() {
             return bottom;
         }
+
+        public String north() {
+            return north;
+        }
+
+        public String east() {
+            return east;
+        }
+
+        public String south() {
+            return south;
+        }
+
+        public String west() {
+            return west;
+        }
+
+        public String up() {
+            return up;
+        }
+
+        public String down() {
+            return down;
+        }
     }
 
     public enum TextureMode {
         CUBE_ALL,
-        CUBE_COLUMN_LIKE;
+        CUBE_COLUMN_LIKE,
+        CUBE_SIDED;
 
         public static TextureMode fromSerialized(String value) {
             return switch (value.toLowerCase(Locale.ROOT)) {
                 case "cube_all" -> CUBE_ALL;
                 case "cube_column_like" -> CUBE_COLUMN_LIKE;
+                case "cube_sided" -> CUBE_SIDED;
                 default -> throw new IllegalArgumentException("Unsupported texture_mode: " + value);
             };
         }
@@ -150,6 +182,14 @@ public final class OreDefinition {
                     require(textures.side(), "textures.side");
                     require(textures.top(), "textures.top");
                     require(textures.bottom(), "textures.bottom");
+                }
+                case CUBE_SIDED -> {
+                    require(textures.north(), "textures.north");
+                    require(textures.east(), "textures.east");
+                    require(textures.south(), "textures.south");
+                    require(textures.west(), "textures.west");
+                    require(textures.up(), "textures.up");
+                    require(textures.down(), "textures.down");
                 }
             }
         }

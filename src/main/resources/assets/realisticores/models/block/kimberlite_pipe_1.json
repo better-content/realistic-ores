@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "realisticores:block/kimberlite_pipe_1_south",
+    "north": "realisticores:block/kimberlite_pipe_1_north",
+    "east": "realisticores:block/kimberlite_pipe_1_east",
+    "south": "realisticores:block/kimberlite_pipe_1_south",
+    "west": "realisticores:block/kimberlite_pipe_1_west",
+    "up": "realisticores:block/kimberlite_pipe_1_up",
+    "down": "realisticores:block/kimberlite_pipe_1_down"
+  }
+}

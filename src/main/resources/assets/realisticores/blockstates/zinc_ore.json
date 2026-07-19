@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/zinc_ore"
-    }
+    "": [
+      {
+        "model": "realisticores:block/zinc_ore_0"
+      },
+      {
+        "model": "realisticores:block/zinc_ore_1"
+      },
+      {
+        "model": "realisticores:block/zinc_ore_2"
+      }
+    ]
   }
 }

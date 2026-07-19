@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/thorium_ore"
-    }
+    "": [
+      {
+        "model": "realisticores:block/thorium_ore_0"
+      },
+      {
+        "model": "realisticores:block/thorium_ore_1"
+      },
+      {
+        "model": "realisticores:block/thorium_ore_2"
+      }
+    ]
   }
 }

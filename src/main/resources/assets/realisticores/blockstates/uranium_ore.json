@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/uranium_ore"
-    }
+    "": [
+      {
+        "model": "realisticores:block/uranium_ore_0"
+      },
+      {
+        "model": "realisticores:block/uranium_ore_1"
+      },
+      {
+        "model": "realisticores:block/uranium_ore_2"
+      }
+    ]
   }
 }

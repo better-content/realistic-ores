@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/lazurite_vein"
-    }
+    "": [
+      {
+        "model": "realisticores:block/lazurite_vein_0"
+      },
+      {
+        "model": "realisticores:block/lazurite_vein_1"
+      },
+      {
+        "model": "realisticores:block/lazurite_vein_2"
+      }
+    ]
   }
 }

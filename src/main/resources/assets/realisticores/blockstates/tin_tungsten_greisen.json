@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/tin_tungsten_greisen"
-    }
+    "": [
+      {
+        "model": "realisticores:block/tin_tungsten_greisen_0"
+      },
+      {
+        "model": "realisticores:block/tin_tungsten_greisen_1"
+      },
+      {
+        "model": "realisticores:block/tin_tungsten_greisen_2"
+      }
+    ]
   }
 }

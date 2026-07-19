@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/deepslate_soul_bearing_black_shale_soulstone_vein"
-    }
+    "": [
+      {
+        "model": "realisticores:block/deepslate_soul_bearing_black_shale_soulstone_vein_0"
+      },
+      {
+        "model": "realisticores:block/deepslate_soul_bearing_black_shale_soulstone_vein_1"
+      },
+      {
+        "model": "realisticores:block/deepslate_soul_bearing_black_shale_soulstone_vein_2"
+      }
+    ]
   }
 }

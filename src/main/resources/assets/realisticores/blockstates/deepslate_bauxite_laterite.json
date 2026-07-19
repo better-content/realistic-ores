@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/deepslate_bauxite_laterite"
-    }
+    "": [
+      {
+        "model": "realisticores:block/deepslate_bauxite_laterite_0"
+      },
+      {
+        "model": "realisticores:block/deepslate_bauxite_laterite_1"
+      },
+      {
+        "model": "realisticores:block/deepslate_bauxite_laterite_2"
+      }
+    ]
   }
 }

@@ -5,20 +5,28 @@
     {
       "host": "stone",
       "block_id": "lazurite_vein",
-      "texture_mode": "cube_all",
+      "texture_mode": "cube_sided",
       "textures": {
-        "all": "realisticores:block/lazurite_vein"
+        "north": "realisticores:block/lazurite_vein_0_north",
+        "east": "realisticores:block/lazurite_vein_0_east",
+        "south": "realisticores:block/lazurite_vein_0_south",
+        "west": "realisticores:block/lazurite_vein_0_west",
+        "up": "realisticores:block/lazurite_vein_0_up",
+        "down": "realisticores:block/lazurite_vein_0_down"
       },
       "copy_properties_from": "minecraft:stone"
     },
     {
       "host": "deepslate",
       "block_id": "deepslate_lazurite_vein",
-      "texture_mode": "cube_column_like",
+      "texture_mode": "cube_sided",
       "textures": {
-        "side": "realisticores:block/deepslate_lazurite_vein_side",
-        "top": "realisticores:block/deepslate_lazurite_vein_top",
-        "bottom": "realisticores:block/deepslate_lazurite_vein_bottom"
+        "north": "realisticores:block/deepslate_lazurite_vein_0_north",
+        "east": "realisticores:block/deepslate_lazurite_vein_0_east",
+        "south": "realisticores:block/deepslate_lazurite_vein_0_south",
+        "west": "realisticores:block/deepslate_lazurite_vein_0_west",
+        "up": "realisticores:block/deepslate_lazurite_vein_0_up",
+        "down": "realisticores:block/deepslate_lazurite_vein_0_down"
       },
       "copy_properties_from": "minecraft:deepslate"
     }

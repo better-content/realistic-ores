@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "side": "realisticores:block/deepslate_coal_measures_side",
-    "top": "realisticores:block/deepslate_coal_measures_top",
-    "bottom": "realisticores:block/deepslate_coal_measures_bottom"
-  }
-}

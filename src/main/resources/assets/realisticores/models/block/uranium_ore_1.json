@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "realisticores:block/uranium_ore_1_south",
+    "north": "realisticores:block/uranium_ore_1_north",
+    "east": "realisticores:block/uranium_ore_1_east",
+    "south": "realisticores:block/uranium_ore_1_south",
+    "west": "realisticores:block/uranium_ore_1_west",
+    "up": "realisticores:block/uranium_ore_1_up",
+    "down": "realisticores:block/uranium_ore_1_down"
+  }
+}

@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/emerald_schist_beryl_vein"
-    }
+    "": [
+      {
+        "model": "realisticores:block/emerald_schist_beryl_vein_0"
+      },
+      {
+        "model": "realisticores:block/emerald_schist_beryl_vein_1"
+      },
+      {
+        "model": "realisticores:block/emerald_schist_beryl_vein_2"
+      }
+    ]
   }
 }

@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/deepslate_phosphate_rock"
-    }
+    "": [
+      {
+        "model": "realisticores:block/deepslate_phosphate_rock_0"
+      },
+      {
+        "model": "realisticores:block/deepslate_phosphate_rock_1"
+      },
+      {
+        "model": "realisticores:block/deepslate_phosphate_rock_2"
+      }
+    ]
   }
 }

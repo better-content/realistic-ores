@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "realisticores:block/cupriferous_redbed_redstone_vein_2_south",
+    "north": "realisticores:block/cupriferous_redbed_redstone_vein_2_north",
+    "east": "realisticores:block/cupriferous_redbed_redstone_vein_2_east",
+    "south": "realisticores:block/cupriferous_redbed_redstone_vein_2_south",
+    "west": "realisticores:block/cupriferous_redbed_redstone_vein_2_west",
+    "up": "realisticores:block/cupriferous_redbed_redstone_vein_2_up",
+    "down": "realisticores:block/cupriferous_redbed_redstone_vein_2_down"
+  }
+}

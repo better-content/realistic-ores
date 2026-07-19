@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "realisticores:block/soul_bearing_black_shale_soulstone_vein"
-  }
-}

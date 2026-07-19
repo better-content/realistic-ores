@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "realisticores:block/titanium_iron_oxide_ore_2_south",
+    "north": "realisticores:block/titanium_iron_oxide_ore_2_north",
+    "east": "realisticores:block/titanium_iron_oxide_ore_2_east",
+    "south": "realisticores:block/titanium_iron_oxide_ore_2_south",
+    "west": "realisticores:block/titanium_iron_oxide_ore_2_west",
+    "up": "realisticores:block/titanium_iron_oxide_ore_2_up",
+    "down": "realisticores:block/titanium_iron_oxide_ore_2_down"
+  }
+}

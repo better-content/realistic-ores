@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "realisticores:block/tin_tungsten_greisen_0_south",
+    "north": "realisticores:block/tin_tungsten_greisen_0_north",
+    "east": "realisticores:block/tin_tungsten_greisen_0_east",
+    "south": "realisticores:block/tin_tungsten_greisen_0_south",
+    "west": "realisticores:block/tin_tungsten_greisen_0_west",
+    "up": "realisticores:block/tin_tungsten_greisen_0_up",
+    "down": "realisticores:block/tin_tungsten_greisen_0_down"
+  }
+}

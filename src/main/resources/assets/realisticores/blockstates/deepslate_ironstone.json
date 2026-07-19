@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/deepslate_ironstone"
-    }
+    "": [
+      {
+        "model": "realisticores:block/deepslate_ironstone_0"
+      },
+      {
+        "model": "realisticores:block/deepslate_ironstone_1"
+      },
+      {
+        "model": "realisticores:block/deepslate_ironstone_2"
+      }
+    ]
   }
 }

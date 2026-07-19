@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/deepslate_titanium_iron_oxide_ore"
-    }
+    "": [
+      {
+        "model": "realisticores:block/deepslate_titanium_iron_oxide_ore_0"
+      },
+      {
+        "model": "realisticores:block/deepslate_titanium_iron_oxide_ore_1"
+      },
+      {
+        "model": "realisticores:block/deepslate_titanium_iron_oxide_ore_2"
+      }
+    ]
   }
 }

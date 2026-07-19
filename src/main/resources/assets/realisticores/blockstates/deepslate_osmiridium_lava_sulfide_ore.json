@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "realisticores:block/deepslate_osmiridium_lava_sulfide_ore"
-    }
+    "": [
+      {
+        "model": "realisticores:block/deepslate_osmiridium_lava_sulfide_ore_0"
+      },
+      {
+        "model": "realisticores:block/deepslate_osmiridium_lava_sulfide_ore_1"
+      },
+      {
+        "model": "realisticores:block/deepslate_osmiridium_lava_sulfide_ore_2"
+      }
+    ]
   }
 }
