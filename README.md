@@ -13,55 +13,57 @@ the original composites. New textures and texture variants must preserve these r
 - Depict geological deposits, not vanilla-style isolated ore spots. Each family has a
   recognizable morphology: a seam, branching vein, disseminated grains, nodules, or
   sparse crystals.
-- Separate mineral identity from host geology. Realistic Ores owns the mineral's palette,
-  morphology, coverage, and sided topology; Hyle and Unearthed own the interesting rock
-  strata that replace ordinary stone and deepslate; Excavated Variants combines those
-  two identities into the matching host-specific ore blocks.
+- Keep the authored stone and deepslate ores as ordinary, finished Minecraft blocks.
+  Realistic Ores establishes their palette, morphology, coverage, and sided appearance;
+  Hyle and Unearthed provide the broader rock strata; Excavated Variants reads those
+  normal block definitions and derives the matching host-specific ore blocks.
 - Express that contract through ordinary vanilla-format blockstates, models, and
   textures. Do not hand-author a matrix of Realistic Ores composites for every Unearthed
   stone, add custom integration code when normal definitions suffice, or simplify the
   canonical ore art to compensate for hypothetical generated hosts.
-- Keep the host rock visually dominant. In the source mineral masks, only 20-33 of 256
-  pixels are occupied. Variants should remain within that observed coverage envelope
-  unless a deliberate family-specific exception is documented.
-- Use crisp 16x16 pixel art. Source mineral masks use fully opaque pixels, no smoothing,
-  no semitransparent edge pixels, and exactly five mineral colors per family.
+- Keep the host rock visually dominant. In the inspected canonical artwork, mineral
+  material occupies only 20-33 of 256 pixels per face. Variants should remain within
+  that observed coverage envelope unless a deliberate family-specific exception is
+  documented.
+- Use crisp 16x16 pixel art. Mineral pixels are fully opaque, with no smoothing or
+  semitransparent edges, and use exactly five mineral colors per family.
 - Make identity depend on silhouette and value structure as well as hue. A texture must
   remain recognizable in low light and under shaders; increasing saturation is not a
   substitute for preserving its deposit shape.
 - Preserve unequal clustering and negative space. Do not distribute mineral pixels
-  uniformly, add one-pixel confetti, or recolor a shared generic ore mask.
+  uniformly, add one-pixel confetti, or recolor a shared generic mineral layout.
 - Variants are alternate arrangements of the same geology. They may move, fork, shorten,
   or thicken clusters while retaining the family's morphology, coverage, palette, and
   overall light/dark balance. Rotation or mirroring alone does not count as a texture
   variant.
-- Each visual family has exactly three equally weighted cubemap variants: canonical
+- Each visual family has exactly three equally weighted sided model variants: canonical
   variant `0` and alternate variants `1` and `2`.
 
 ### Host treatment
 
-- Both stone and deepslate variants are complete, authored cubemaps with distinct
-  `north`, `east`, `south`, `west`, `up`, and `down` textures. Do not use `cube_all`,
-  runtime model rotation, mirroring, or independently randomized faces for variant art.
-- Treat the six mineral masks as intersections of one small three-dimensional deposit,
-  not as six unrelated drawings. When a seam or vein reaches a face edge, continue its
-  position, width, palette step, and direction onto the adjacent face. A feature may end
-  before an edge, but it must not be visibly cut at an edge without a matching continuation.
-- A variant index uses the same six mineral masks for its stone and deepslate forms; only
-  the host-rock composite changes. This makes `stone/1` and `deepslate/1` two host views
-  of the same deposit topology rather than unrelated art.
+- Both stone and deepslate variants are complete, finished block models with distinct
+  `north`, `east`, `south`, `west`, `up`, and `down` textures. Author those opaque final
+  textures directly. Do not introduce mineral-only masks, overlay source formats, or a
+  custom compositing layer for Excavated Variants compatibility.
+- Treat the six finished faces as views of one plausible deposit rather than unrelated
+  drawings. When a seam or vein reaches a face edge, continue its position, width,
+  palette step, and direction onto the adjacent face. A feature may end before an edge,
+  but it must not be visibly cut at an edge without a matching continuation.
+- Corresponding stone and deepslate variant indices must express the same family and
+  comparable geological character, but they need not share pixel-identical mineral
+  layouts. Each is a normal source ore definition in its own host.
 - Opposite faces belong to the same imagined deposit volume but must not duplicate or
   mirror one another. Each exposed face must still communicate the family morphology;
   do not hide all identifying material on one preferred viewing side.
-- Stone faces composite those six masks over the normal stone host. The mineral is
-  embedded in the host rather than drawn as a floating outline or decal.
-- Deepslate uses the directional deepslate side host beneath all four lateral masks and
-  the appropriate top or bottom host beneath the vertical masks. Preserve that host
-  directionality while allowing all six mineral arrangements to differ.
+- Stone faces are finished opaque textures using the normal stone host, with the mineral
+  embedded in the rock rather than drawn as a floating outline or decal.
+- Deepslate faces are finished opaque textures retaining the directional deepslate side
+  treatment on lateral faces and the appropriate top or bottom treatment vertically.
+  Preserve that host directionality while allowing all six mineral arrangements to differ.
 - Keep the mean mineral coverage of a six-face set within the canonical 20-33-pixel
   envelope per face. Individual faces may vary modestly to express the deposit volume,
   but none should become an empty host face or a mineral-dominated panel.
-- Balance the three cubemaps as a set so no family develops a fixed compass signature,
+- Balance the three sided models as a set so no family develops a fixed compass signature,
   such as its brightest crystal always appearing on the north face.
 - Host contrast may shift naturally between stone and deepslate, but the mineral palette
   and family silhouette stay recognizable. Do not brighten deep variants merely to make
@@ -73,9 +75,9 @@ the original composites. New textures and texture variants must preserve these r
 
 The authored stone and deepslate blocks are canonical reference implementations, not the
 complete host catalogue. During world generation, Hyle/Unearthed establishes the local
-rock type and Excavated Variants derives the corresponding ore block from its registered
-stone and ore definitions. The resulting host-specific block must retain the mineral
-family's sided topology while inheriting the local rock's texture and material identity.
+rock type and Excavated Variants derives the corresponding ore block by inspecting its
+registered stone and ore definitions. Realistic Ores must therefore expose conventional,
+finished models and textures rather than a private intermediate art representation.
 
 Keep `defaultresources/excavated_variants/excavated_variants/variants/realisticores.json5`
 as the declarative mapping boundary. New art should require only normal Minecraft asset
@@ -139,12 +141,12 @@ normal lighting and shaders. Confirm that:
 2. Mineral coverage and value balance remain close to the canonical texture.
 3. The arrangement is genuinely new and does not create obvious tiling or face-edge
    artifacts in a cluster of blocks.
-4. All six stone faces and all six deepslate faces form coherent cubemaps, with adjacent
+4. All six stone faces and all six deepslate faces form coherent sided models, with adjacent
    edge crossings aligned and no duplicated or mirrored opposite faces.
 5. No variant can be confused with another family, vanilla ore, or exposed surface-sample
    rubble.
 6. Inventory/JEI continues to use one stable canonical model while world blocks select
-   complete cubemap variants through equally weighted static blockstate models. Faces
+   complete sided variants through equally weighted static blockstate models. Faces
    are never selected or randomized independently.
 
 ## Common commands
