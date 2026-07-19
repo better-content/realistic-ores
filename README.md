@@ -169,3 +169,7 @@ normal lighting and shaders. Confirm that:
 Deploy the reobfuscated runtime jar from:
 
 - `build/libs/realisticores-<version>.jar`
+
+## Community and support
+
+For modpack and mod discussion, playtest feedback, and bug reports, join the [Better Content Discord](https://discord.gg/EkRnZbzqS9).
