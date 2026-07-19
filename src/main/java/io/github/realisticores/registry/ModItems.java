@@ -26,14 +26,14 @@ public final class ModItems {
             initialized = true;
             for (OreDefinition definition : ModBlocks.oreDefinitions()) {
                 String crushedItemId = definition.crushedItemId();
-                RegistryObject<net.minecraft.world.level.block.Block> sample = ModBlocks.surfaceSampleEntries().stream()
-                        .filter(entry -> entry.getKey().equals(crushedItemId))
-                        .map(Map.Entry::getValue)
-                        .findFirst()
-                        .orElseThrow(() -> new IllegalStateException("Missing surface sample block " + crushedItemId));
                 CRUSHED_ORE_ITEMS_BY_ID.put(crushedItemId, ITEMS.register(
                         crushedItemId,
-                        () -> new BlockItem(sample.get(), new Item.Properties())));
+                        () -> new Item(new Item.Properties())));
+            }
+            for (Map.Entry<String, RegistryObject<net.minecraft.world.level.block.Block>> entry : ModBlocks.surfaceSampleEntries()) {
+                BLOCK_ITEMS_BY_ID.put(entry.getKey(), ITEMS.register(
+                        entry.getKey(),
+                        () -> new BlockItem(entry.getValue().get(), new Item.Properties())));
             }
             for (Map.Entry<String, RegistryObject<net.minecraft.world.level.block.Block>> entry : ModBlocks.blockEntries()) {
                 BLOCK_ITEMS_BY_ID.put(entry.getKey(), ITEMS.register(entry.getKey(), () -> new BlockItem(entry.getValue().get(), new Item.Properties())));

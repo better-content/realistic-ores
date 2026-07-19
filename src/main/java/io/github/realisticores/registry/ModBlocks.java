@@ -39,8 +39,8 @@ public final class ModBlocks {
                     BLOCKS_BY_ID.put(variant.blockId(), block);
                     BLOCKS_BY_ORE_AND_HOST.put(key(definition.id(), variant.host()), block);
                 }
-                String crushedId = definition.crushedItemId();
-                SURFACE_SAMPLES_BY_ID.put(crushedId, BLOCKS.register(crushedId, ModBlocks::newSurfaceSample));
+                String sampleId = definition.surfaceSampleBlockId();
+                SURFACE_SAMPLES_BY_ID.put(sampleId, BLOCKS.register(sampleId, ModBlocks::newSurfaceSample));
             }
             OIL_SEEP = BLOCKS.register("oil_seep", ModBlocks::newSurfaceSample);
         }

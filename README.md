@@ -129,9 +129,12 @@ silver-violet value steps are reflective mineral color rather than emissive ligh
   (the narrowest families use `x=4..11`).
 - The crushed sprites use seven colors and limited partial alpha only around pile edges.
   Their opaque interior carries the parent family's hue and value hierarchy.
-- Placeable surface samples reuse the crushed-item texture on ore-specific scatter
-  geometry. Preserve the guaranteed opaque UV patch and the five deterministic geometry
-  variants; texture variants must not make those sampled UVs transparent.
+- Crushed material and surface samples are separate registry entries. `crushed_*` is a
+  processing ingredient and is never placeable; `surface_sample_*` is a dedicated low
+  scatter block with its own block item.
+- Surface samples use the ore family's opaque raw-deposit texture on five deterministic,
+  ore-specific fragment arrangements. They must read as host-rock fragments carrying
+  mineralization, not as a crushed processing pile laid on the ground.
 
 ### Variant acceptance checklist
 

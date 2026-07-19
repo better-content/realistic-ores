@@ -58,6 +58,10 @@ public final class OreDefinition {
         return "crushed_" + primaryVariant().blockId();
     }
 
+    public String surfaceSampleBlockId() {
+        return "surface_sample_" + primaryVariant().blockId();
+    }
+
     public Optional<VariantDefinition> variantByHost(String host) {
         return variants.stream().filter(variant -> variant.host().equals(host)).findFirst();
     }

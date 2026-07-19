@@ -168,16 +168,12 @@ def append_tag_value(tag_files: dict[Path, set[str]], path: Path, value: str) ->
 
 
 SURFACE_SAMPLE_VARIANTS = 5
-SURFACE_SAMPLE_UV = [8, 8, 10, 11]
-
-
+SURFACE_SAMPLE_UV = [0, 0, 16, 16]
 def sample_element(start: list[int], end: list[int], uv: list[int] | None) -> dict[str, object]:
     return {
         "from": start,
         "to": end,
         "faces": {
-            # Crushed-item sprites are mostly transparent. Automatic UVs sample
-            # unrelated transparent pixels as the scatter geometry moves.
             face: {"texture": "#all", **({"uv": uv} if uv else {})}
             for face in ["down", "up", "north", "south", "west", "east"]
         },
@@ -215,9 +211,12 @@ def generate_surface_samples() -> None:
             (variant for variant in definition["variants"] if variant["host"] == "stone"),
             definition["variants"][0],
         )
-        block_id = f"crushed_{primary['block_id']}"
-        item_model = json.loads((item_model_dir / f"{block_id}.json").read_text(encoding="utf-8"))
-        definitions.append((block_id, definition["display_name"], item_model["textures"]["layer0"]))
+        sample_id = f"surface_sample_{primary['block_id']}"
+        textures = primary["textures"]
+        texture = textures.get("south") or textures.get("all") or textures.get("side")
+        if not texture:
+            raise RuntimeError(f"surface sample has no usable opaque ore texture: {sample_id}")
+        definitions.append((sample_id, definition["display_name"], texture))
     definitions.append(("oil_seep", "Oil Seep", "pneumaticcraft:block/oil_still"))
 
     for path in blockstate_dir.glob("crushed_*.json"):
@@ -228,10 +227,21 @@ def generate_surface_samples() -> None:
         path.unlink()
     for path in block_model_dir.glob("surface_sample_[0-4].json"):
         path.unlink()
+    for path in blockstate_dir.glob("surface_sample_*.json"):
+        path.unlink()
+    for path in loot_dir.glob("surface_sample_*.json"):
+        path.unlink()
+    for path in block_model_dir.glob("surface_sample_*_[0-4].json"):
+        path.unlink()
+    for path in item_model_dir.glob("surface_sample_*.json"):
+        path.unlink()
+
+    for key in list(lang):
+        if key.startswith("block.realisticores.crushed_") or key.startswith("block.realisticores.surface_sample_"):
+            del lang[key]
 
     geometry_signatures = set()
-    for block_id, display_name, external_texture in definitions:
-        texture = external_texture or f"realisticores:item/{block_id}"
+    for block_id, display_name, texture in definitions:
         variants = []
         block_geometry = []
         for index in range(SURFACE_SAMPLE_VARIANTS):
@@ -239,7 +249,7 @@ def generate_surface_samples() -> None:
             elements = surface_sample_elements(
                 block_id,
                 index,
-                SURFACE_SAMPLE_UV if block_id.startswith("crushed_") else None,
+                SURFACE_SAMPLE_UV if block_id.startswith("surface_sample_") else None,
             )
             block_geometry.append(elements)
             write_json(
@@ -270,7 +280,8 @@ def generate_surface_samples() -> None:
         )
         if block_id == "oil_seep":
             write_json(item_model_dir / "oil_seep.json", {"parent": "realisticores:block/oil_seep_2"})
-        if block_id.startswith("crushed_"):
+        if block_id.startswith("surface_sample_"):
+            write_json(item_model_dir / f"{block_id}.json", {"parent": f"realisticores:block/{block_id}_2"})
             lang[f"block.realisticores.{block_id}"] = f"Surface Sample: {display_name}"
         else:
             lang[f"block.realisticores.{block_id}"] = display_name

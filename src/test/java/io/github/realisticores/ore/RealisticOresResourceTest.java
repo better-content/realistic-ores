@@ -27,7 +27,7 @@ final class RealisticOresResourceTest {
     private static final Path DATA_ROOT = Path.of("src/main/resources/data/realisticores");
     private static final Path RESOURCE_ROOT = Path.of("src/main/resources");
     private static final Path ASSET_ROOT = RESOURCE_ROOT.resolve("assets/realisticores");
-    private static final int[] SURFACE_SAMPLE_UV = {8, 8, 10, 11};
+    private static final int[] SURFACE_SAMPLE_UV = {0, 0, 16, 16};
     private static final Set<Integer> STONE_COLORS = rgbSet("686868", "747474", "7f7f7f", "8f8f8f");
     private static final Set<Integer> DEEPSLATE_SIDE_COLORS = rgbSet("2f2f37", "3d3d43", "515151", "646464", "797979");
     private static final Set<Integer> DEEPSLATE_END_COLORS = rgbSet("3d3d43", "4b4b50", "5a5a5a", "646464", "747474");
@@ -243,55 +243,68 @@ final class RealisticOresResourceTest {
     }
 
     @Test
-    void everyCrushedOreHasGroundSampleResources() throws IOException {
+    void crushedItemsAndSurfaceSamplesHaveSeparateResources() throws IOException {
         Path resources = Path.of("src/main/resources");
         Path definitions = resources.resolve("data/realisticores/realistic_ores");
         try (var paths = Files.list(definitions)) {
             for (Path path : paths.filter(file -> file.getFileName().toString().endsWith(".json")).toList()) {
                 OreDefinition definition = read(path, OreDefinition.class);
                 String crushed = definition.crushedItemId();
-                assertTrue(Files.isRegularFile(resources.resolve("assets/realisticores/blockstates/" + crushed + ".json")), crushed);
-                assertTrue(Files.isRegularFile(resources.resolve("data/realisticores/loot_tables/blocks/" + crushed + ".json")), crushed);
+                String sample = definition.surfaceSampleBlockId();
+                assertFalse(Files.exists(resources.resolve("assets/realisticores/blockstates/" + crushed + ".json")), crushed);
+                assertFalse(Files.exists(resources.resolve("data/realisticores/loot_tables/blocks/" + crushed + ".json")), crushed);
+                assertTrue(Files.isRegularFile(resources.resolve("assets/realisticores/blockstates/" + sample + ".json")), sample);
+                assertTrue(Files.isRegularFile(resources.resolve("data/realisticores/loot_tables/blocks/" + sample + ".json")), sample);
                 for (int variant = 0; variant < 5; variant++) {
                     Path modelPath = resources.resolve(
-                            "assets/realisticores/models/block/" + crushed + "_" + variant + ".json");
-                    assertTrue(Files.isRegularFile(modelPath), crushed);
-                    assertSurfaceSampleModelUsesOpaqueUvs(modelPath);
+                            "assets/realisticores/models/block/" + sample + "_" + variant + ".json");
+                    assertTrue(Files.isRegularFile(modelPath), sample);
+                    assertSurfaceSampleModelUsesOpaqueOreTexture(resources, modelPath);
                 }
                 JsonObject itemModel = read(
                         resources.resolve("assets/realisticores/models/item/" + crushed + ".json"),
                         JsonObject.class);
                 String texture = itemModel.getAsJsonObject("textures").get("layer0").getAsString();
                 assertTrue(texture.startsWith("realisticores:item/"), crushed + " texture " + texture);
-                assertOpaqueUvPatch(resources.resolve(
-                        "assets/realisticores/textures/item/" + texture.substring("realisticores:item/".length()) + ".png"));
+                assertTrue(Files.isRegularFile(resources.resolve(
+                        "assets/realisticores/textures/item/" + texture.substring("realisticores:item/".length()) + ".png")));
+                JsonObject sampleItemModel = read(
+                        resources.resolve("assets/realisticores/models/item/" + sample + ".json"),
+                        JsonObject.class);
+                assertEquals("realisticores:block/" + sample + "_2",
+                        sampleItemModel.get("parent").getAsString(), sample);
             }
         }
         assertTrue(Files.isRegularFile(resources.resolve("assets/realisticores/blockstates/oil_seep.json")));
         assertTrue(Files.isRegularFile(resources.resolve("data/realisticores/loot_tables/blocks/oil_seep.json")));
     }
 
-    private static void assertSurfaceSampleModelUsesOpaqueUvs(Path modelPath) {
+    private static void assertSurfaceSampleModelUsesOpaqueOreTexture(Path resources, Path modelPath) throws IOException {
         JsonObject model = read(modelPath, JsonObject.class);
         assertEquals("#all", model.getAsJsonObject("textures").get("particle").getAsString(), modelPath.toString());
+        String texture = model.getAsJsonObject("textures").get("all").getAsString();
+        assertTrue(texture.startsWith("realisticores:block/"), modelPath + " texture " + texture);
+        Path texturePath = resources.resolve(
+                "assets/realisticores/textures/block/" + texture.substring("realisticores:block/".length()) + ".png");
+        BufferedImage image = ImageIO.read(texturePath.toFile());
+        assertTrue(image != null, texturePath.toString());
+        assertEquals(16, image.getWidth(), texturePath.toString());
+        assertEquals(16, image.getHeight(), texturePath.toString());
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                assertEquals(255, image.getRGB(x, y) >>> 24, texturePath + " alpha at " + x + "," + y);
+            }
+        }
         for (var element : model.getAsJsonArray("elements")) {
             for (var face : element.getAsJsonObject().getAsJsonObject("faces").entrySet()) {
+                assertEquals("#all", face.getValue().getAsJsonObject().get("texture").getAsString(),
+                        modelPath + " " + face.getKey());
                 JsonArray uv = face.getValue().getAsJsonObject().getAsJsonArray("uv");
                 assertEquals(4, uv.size(), modelPath + " " + face.getKey());
                 for (int index = 0; index < SURFACE_SAMPLE_UV.length; index++) {
-                    assertEquals(SURFACE_SAMPLE_UV[index], uv.get(index).getAsInt(), modelPath + " " + face.getKey());
+                    assertEquals(SURFACE_SAMPLE_UV[index], uv.get(index).getAsInt(),
+                            modelPath + " " + face.getKey());
                 }
-            }
-        }
-    }
-
-    private static void assertOpaqueUvPatch(Path texturePath) throws IOException {
-        BufferedImage texture = ImageIO.read(texturePath.toFile());
-        assertTrue(texture != null, texturePath.toString());
-        for (int y = SURFACE_SAMPLE_UV[1]; y < SURFACE_SAMPLE_UV[3]; y++) {
-            for (int x = SURFACE_SAMPLE_UV[0]; x < SURFACE_SAMPLE_UV[2]; x++) {
-                int alpha = texture.getRGB(x, y) >>> 24;
-                assertEquals(255, alpha, texturePath + " alpha at " + x + "," + y);
             }
         }
     }

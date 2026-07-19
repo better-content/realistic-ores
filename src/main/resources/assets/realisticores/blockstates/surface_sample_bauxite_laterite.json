@@ -1,0 +1,168 @@
+{
+  "variants": {
+    "waterlogged=false": [
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_0",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_0",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_0",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_0",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_1",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_1",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_1",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_1",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_2",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_2",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_2",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_2",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_3",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_3",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_3",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_3",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_4",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_4",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_4",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_4",
+        "y": 270
+      }
+    ],
+    "waterlogged=true": [
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_0",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_0",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_0",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_0",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_1",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_1",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_1",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_1",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_2",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_2",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_2",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_2",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_3",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_3",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_3",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_3",
+        "y": 270
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_4",
+        "y": 0
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_4",
+        "y": 90
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_4",
+        "y": 180
+      },
+      {
+        "model": "realisticores:block/surface_sample_bauxite_laterite_4",
+        "y": 270
+      }
+    ]
+  }
+}
