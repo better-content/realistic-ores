@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "particle": "realisticores:block/nickel_sulfide_ore_2_south",
-    "north": "realisticores:block/nickel_sulfide_ore_2_north",
-    "east": "realisticores:block/nickel_sulfide_ore_2_east",
-    "south": "realisticores:block/nickel_sulfide_ore_2_south",
-    "west": "realisticores:block/nickel_sulfide_ore_2_west",
-    "up": "realisticores:block/nickel_sulfide_ore_2_up",
-    "down": "realisticores:block/nickel_sulfide_ore_2_down"
+    "particle": "realisticores:block/osmiridium_lava_sulfide_ore_2_south",
+    "north": "realisticores:block/osmiridium_lava_sulfide_ore_2_north",
+    "east": "realisticores:block/osmiridium_lava_sulfide_ore_2_east",
+    "south": "realisticores:block/osmiridium_lava_sulfide_ore_2_south",
+    "west": "realisticores:block/osmiridium_lava_sulfide_ore_2_west",
+    "up": "realisticores:block/osmiridium_lava_sulfide_ore_2_up",
+    "down": "realisticores:block/osmiridium_lava_sulfide_ore_2_down"
   }
 }

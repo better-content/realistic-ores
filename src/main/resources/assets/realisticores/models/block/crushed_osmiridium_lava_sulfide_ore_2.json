@@ -2,7 +2,7 @@
   "ambientocclusion": false,
   "render_type": "minecraft:cutout",
   "textures": {
-    "all": "realisticores:item/crushed_nickel_sulfide_ore",
+    "all": "realisticores:item/crushed_osmiridium_lava_sulfide_ore",
     "particle": "#all"
   },
   "elements": [

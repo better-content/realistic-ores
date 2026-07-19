@@ -78,17 +78,13 @@ final class RealisticOresResourceTest {
             for (Path path : paths.filter(file -> file.getFileName().toString().endsWith(".json")).toList()) {
                 OreDefinition definition = read(path, OreDefinition.class);
                 definition.validate();
-                boolean alias = definition.id().equals("osmiridium_lava_sulfide");
-                String visualFamily = alias ? "nickel_sulfide" : definition.id();
                 Set<Integer> palette = new HashSet<>();
-                palettes.getAsJsonArray(visualFamily).forEach(color -> palette.add(parseRgb(color.getAsString())));
+                palettes.getAsJsonArray(definition.id()).forEach(color -> palette.add(parseRgb(color.getAsString())));
 
                 for (OreDefinition.VariantDefinition oreVariant : definition.variants()) {
                     assertEquals(OreDefinition.TextureMode.CUBE_SIDED, oreVariant.textureMode(), path.toString());
                     String blockId = oreVariant.blockId();
-                    String textureBlockId = alias
-                            ? (oreVariant.host().equals("stone") ? "nickel_sulfide_ore" : "deepslate_nickel_sulfide_ore")
-                            : blockId;
+                    String textureBlockId = blockId;
                     assertCanonicalDefinitionTextures(oreVariant, textureBlockId);
                     assertWeightedBlockstate(blockId);
                     assertItemUsesCanonicalModel(blockId);
@@ -104,18 +100,14 @@ final class RealisticOresResourceTest {
                         for (String face : FACES) {
                             String expectedTexture = textureRef(textureBlockId, variant, face);
                             assertEquals(expectedTexture, textures.get(face).getAsString(), modelPath + " " + face);
-                            if (!alias) {
-                                Path texturePath = ASSET_ROOT.resolve("textures/block/" + textureBlockId + "_" + variant + "_" + face + ".png");
-                                assertFinalTexture(texturePath, palette, hostColors(oreVariant.host(), face),
-                                        isCanonicalAnchor(oreVariant.host(), variant, face));
-                                assertTrue(hashes.add(sha256(texturePath)), "duplicate face texture: " + texturePath);
-                            }
+                            Path texturePath = ASSET_ROOT.resolve("textures/block/" + textureBlockId + "_" + variant + "_" + face + ".png");
+                            assertFinalTexture(texturePath, palette, hostColors(oreVariant.host(), face),
+                                    isCanonicalAnchor(definition.id(), oreVariant.host(), variant, face));
+                            assertTrue(hashes.add(sha256(texturePath)), "duplicate face texture: " + texturePath);
                         }
                     }
-                    if (!alias) {
-                        assertEquals(18, hashes.size(), blockId);
-                        assertCanonicalHashes(definition.id(), oreVariant.host(), canonicalHashes);
-                    }
+                    assertEquals(18, hashes.size(), blockId);
+                    assertCanonicalHashes(definition.id(), oreVariant.host(), canonicalHashes);
                 }
             }
         }
@@ -200,8 +192,10 @@ final class RealisticOresResourceTest {
         }
     }
 
-    private static boolean isCanonicalAnchor(String host, int variant, String face) {
-        return variant == 0 && (face.equals("south") || (host.equals("deepslate") && face.equals("up")));
+    private static boolean isCanonicalAnchor(String family, String host, int variant, String face) {
+        return !family.equals("osmiridium_lava_sulfide")
+                && variant == 0
+                && (face.equals("south") || (host.equals("deepslate") && face.equals("up")));
     }
 
     private static Set<Integer> hostColors(String host, String face) {
@@ -219,6 +213,7 @@ final class RealisticOresResourceTest {
         return switch (family) {
             case "copper_sulfide" -> "copper_sulfide_ore";
             case "nickel_sulfide" -> "nickel_sulfide_ore";
+            case "osmiridium_lava_sulfide" -> "osmiridium_lava_sulfide_ore";
             case "sulfur_bearing_pyrite" -> "sulfur_bearing_pyrite_ore";
             case "thorium" -> "thorium_ore";
             case "tin" -> "tin_ore";

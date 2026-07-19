@@ -54,6 +54,11 @@
     "deepslate_0_south": "dc2b9ef665d11133ad4fb5431b61d9dc3596fd134e806e343481b3ee6d8306e6",
     "deepslate_0_up": "04bc2cc30f4558251247692da270a352a0c3e89f6bf51a844638719c0f014724"
   },
+  "osmiridium_lava_sulfide": {
+    "stone_0_south": "63033f711a1575384a8007123160a60bb3fccc9ae3ffd5c827a5f901cd04abcf",
+    "deepslate_0_south": "44616c7ecd14bb4f0a09445378bfd2956dc1a720d9b0892fc01d947fd50143e9",
+    "deepslate_0_up": "b58440f1f2387443daa8b7ac442ee26733520feae0d4e1ed0e6ec36ec3de0159"
+  },
   "phosphate_rock": {
     "stone_0_south": "896730dee32520a2926133c827c6eeec0425dd6b9fe10e1fee46d743b603076b",
     "deepslate_0_south": "08d80b367f166893fa7dc9543bb318bc5c673413e8f54d3d0eebde220bae0ff2",

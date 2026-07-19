@@ -7,12 +7,12 @@
       "block_id": "osmiridium_lava_sulfide_ore",
       "texture_mode": "cube_sided",
       "textures": {
-        "north": "realisticores:block/nickel_sulfide_ore_0_north",
-        "east": "realisticores:block/nickel_sulfide_ore_0_east",
-        "south": "realisticores:block/nickel_sulfide_ore_0_south",
-        "west": "realisticores:block/nickel_sulfide_ore_0_west",
-        "up": "realisticores:block/nickel_sulfide_ore_0_up",
-        "down": "realisticores:block/nickel_sulfide_ore_0_down"
+        "north": "realisticores:block/osmiridium_lava_sulfide_ore_0_north",
+        "east": "realisticores:block/osmiridium_lava_sulfide_ore_0_east",
+        "south": "realisticores:block/osmiridium_lava_sulfide_ore_0_south",
+        "west": "realisticores:block/osmiridium_lava_sulfide_ore_0_west",
+        "up": "realisticores:block/osmiridium_lava_sulfide_ore_0_up",
+        "down": "realisticores:block/osmiridium_lava_sulfide_ore_0_down"
       },
       "copy_properties_from": "minecraft:stone"
     },
@@ -21,12 +21,12 @@
       "block_id": "deepslate_osmiridium_lava_sulfide_ore",
       "texture_mode": "cube_sided",
       "textures": {
-        "north": "realisticores:block/deepslate_nickel_sulfide_ore_0_north",
-        "east": "realisticores:block/deepslate_nickel_sulfide_ore_0_east",
-        "south": "realisticores:block/deepslate_nickel_sulfide_ore_0_south",
-        "west": "realisticores:block/deepslate_nickel_sulfide_ore_0_west",
-        "up": "realisticores:block/deepslate_nickel_sulfide_ore_0_up",
-        "down": "realisticores:block/deepslate_nickel_sulfide_ore_0_down"
+        "north": "realisticores:block/deepslate_osmiridium_lava_sulfide_ore_0_north",
+        "east": "realisticores:block/deepslate_osmiridium_lava_sulfide_ore_0_east",
+        "south": "realisticores:block/deepslate_osmiridium_lava_sulfide_ore_0_south",
+        "west": "realisticores:block/deepslate_osmiridium_lava_sulfide_ore_0_west",
+        "up": "realisticores:block/deepslate_osmiridium_lava_sulfide_ore_0_up",
+        "down": "realisticores:block/deepslate_osmiridium_lava_sulfide_ore_0_down"
       },
       "copy_properties_from": "minecraft:deepslate"
     }

@@ -105,6 +105,7 @@ recolor.
 | Lazurite vein | narrow branching blue vein with a small gangue accent | `#244291` `#3b66d4` `#7d90a5` `#79adff` `#d5c986` |
 | Lead-zinc vein | cool-grey branching metallic vein with warm gangue | `#4c4c59` `#767687` `#8d7a61` `#a9a9b9` `#d5c39b` |
 | Nickel sulfide | muted olive angular disseminations with metallic flecks | `#516049` `#81906b` `#8d8d98` `#bccd88` `#c9c9d3` |
+| Osmiridium lava sulfide | compact interconnected blue-black metallic blebs with short angular stringers, cold silver iridescence, and sparse brassy caps | `#242936` `#49556a` `#7a6687` `#a7b7c7` `#d8b45a` |
 | Phosphate rock | soft pale-olive nodules with subtle pink gangue | `#82906d` `#d4aab5` `#afc28e` `#d1cabb` `#dde6c6` |
 | Quartz vein | thick, high-value branching white fracture fill | `#d7b97b` `#bcc7ce` `#d8d2ca` `#ece8e0` `#f7f0e7` |
 | Soul-bearing black shale | thin, dark irregular seam with sparse violet energy | `#19161d` `#4e3272` `#394038` `#a173ff` `#cbc4db` |
@@ -116,9 +117,10 @@ recolor.
 | Uranium | clustered acidic-green grains, bright but non-emissive | `#2d4c20` `#718145` `#4d8f2c` `#a7ae86` `#a2ff49` |
 | Zinc | sparse warm-grey/tan disseminated grains | `#75614b` `#8c705e` `#9a866d` `#cbbca2` `#d8cfb2` |
 
-Osmiridium lava sulfide intentionally aliases the nickel-sulfide block textures at
-present. Treat that alias as current compatibility behavior, not as a distinct visual
-identity invented without new art direction.
+Osmiridium lava sulfide is a distinct late lava-depth family. Its compact platinum-group
+metal blebs and short stringers must remain visibly denser and cooler than nickel's olive
+disseminations. Brassy pixels are sparse sulfide caps, not a dominant gold vein, and the
+silver-violet value steps are reflective mineral color rather than emissive light.
 
 ### Crushed material and surface samples
 
