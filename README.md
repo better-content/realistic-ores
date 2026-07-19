@@ -27,16 +27,34 @@ the original composites. New textures and texture variants must preserve these r
   or thicken clusters while retaining the family's morphology, coverage, palette, and
   overall light/dark balance. Rotation or mirroring alone does not count as a texture
   variant.
+- Each visual family has exactly three equally weighted cubemap variants: canonical
+  variant `0` and alternate variants `1` and `2`.
 
 ### Host treatment
 
-- Stone deposits are opaque `cube_all` composites over the normal stone host. The
-  mineral is embedded in the host rather than drawn as a floating outline or decal.
-- Deepslate deposits are coordinated `side`, `top`, and `bottom` composites. Retain the
-  directional deepslate host on every face; do not flatten it into `cube_all`.
-- A deepslate variant uses one mineral arrangement consistently across its three host
-  faces while the underlying side/top/bottom host treatment changes. This keeps one
-  block coherent without erasing deepslate's layered structure.
+- Both stone and deepslate variants are complete, authored cubemaps with distinct
+  `north`, `east`, `south`, `west`, `up`, and `down` textures. Do not use `cube_all`,
+  runtime model rotation, mirroring, or independently randomized faces for variant art.
+- Treat the six mineral masks as intersections of one small three-dimensional deposit,
+  not as six unrelated drawings. When a seam or vein reaches a face edge, continue its
+  position, width, palette step, and direction onto the adjacent face. A feature may end
+  before an edge, but it must not be visibly cut at an edge without a matching continuation.
+- A variant index uses the same six mineral masks for its stone and deepslate forms; only
+  the host-rock composite changes. This makes `stone/1` and `deepslate/1` two host views
+  of the same deposit topology rather than unrelated art.
+- Opposite faces belong to the same imagined deposit volume but must not duplicate or
+  mirror one another. Each exposed face must still communicate the family morphology;
+  do not hide all identifying material on one preferred viewing side.
+- Stone faces composite those six masks over the normal stone host. The mineral is
+  embedded in the host rather than drawn as a floating outline or decal.
+- Deepslate uses the directional deepslate side host beneath all four lateral masks and
+  the appropriate top or bottom host beneath the vertical masks. Preserve that host
+  directionality while allowing all six mineral arrangements to differ.
+- Keep the mean mineral coverage of a six-face set within the canonical 20-33-pixel
+  envelope per face. Individual faces may vary modestly to express the deposit volume,
+  but none should become an empty host face or a mineral-dominated panel.
+- Balance the three cubemaps as a set so no family develops a fixed compass signature,
+  such as its brightest crystal always appearing on the north face.
 - Host contrast may shift naturally between stone and deepslate, but the mineral palette
   and family silhouette stay recognizable. Do not brighten deep variants merely to make
   them as luminous as their stone versions.
@@ -98,11 +116,13 @@ normal lighting and shaders. Confirm that:
 2. Mineral coverage and value balance remain close to the canonical texture.
 3. The arrangement is genuinely new and does not create obvious tiling or face-edge
    artifacts in a cluster of blocks.
-4. Stone and all three deepslate faces form one coordinated variant.
+4. All six stone faces and all six deepslate faces form coherent cubemaps, with adjacent
+   edge crossings aligned and no duplicated or mirrored opposite faces.
 5. No variant can be confused with another family, vanilla ore, or exposed surface-sample
    rubble.
 6. Inventory/JEI continues to use one stable canonical model while world blocks select
-   variants through static blockstate models.
+   complete cubemap variants through equally weighted static blockstate models. Faces
+   are never selected or randomized independently.
 
 ## Common commands
 
