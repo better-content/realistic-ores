@@ -8,6 +8,7 @@ import io.github.realisticores.worldgen.DisabledFeatureBiomeModifier;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
@@ -29,7 +30,7 @@ public final class RealisticOresMod {
         DisabledFeatureBiomeModifier.register(modBus);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modBus.addListener(ClientSetup::onClientSetup));
         modBus.addListener(this::addCreativeTabContents);
-        modBus.addListener(this::remapLegacySurfaceSamples);
+        MinecraftForge.EVENT_BUS.addListener(this::remapLegacySurfaceSamples);
     }
 
     private void addCreativeTabContents(BuildCreativeModeTabContentsEvent event) {
