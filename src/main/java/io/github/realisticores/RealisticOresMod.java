@@ -6,12 +6,15 @@ import io.github.realisticores.registry.ModFeatures;
 import io.github.realisticores.registry.ModItems;
 import io.github.realisticores.worldgen.DisabledFeatureBiomeModifier;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.MissingMappingsEvent;
 
 @Mod(RealisticOresMod.MOD_ID)
 public final class RealisticOresMod {
@@ -26,6 +29,7 @@ public final class RealisticOresMod {
         DisabledFeatureBiomeModifier.register(modBus);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modBus.addListener(ClientSetup::onClientSetup));
         modBus.addListener(this::addCreativeTabContents);
+        modBus.addListener(this::remapLegacySurfaceSamples);
     }
 
     private void addCreativeTabContents(BuildCreativeModeTabContentsEvent event) {
@@ -34,6 +38,19 @@ public final class RealisticOresMod {
         }
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             ModItems.getAllCrushedOreItems().forEach(event::accept);
+        }
+    }
+
+    private void remapLegacySurfaceSamples(MissingMappingsEvent event) {
+        for (MissingMappingsEvent.Mapping<Block> mapping : event.getMappings(ForgeRegistries.Keys.BLOCKS, MOD_ID)) {
+            String legacyId = mapping.getKey().getPath();
+            if (!legacyId.startsWith("crushed_")) {
+                continue;
+            }
+            Block replacement = ModBlocks.getSurfaceSampleForLegacyCrushedId(legacyId);
+            if (replacement != null) {
+                mapping.remap(replacement);
+            }
         }
     }
 }

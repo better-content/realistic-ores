@@ -67,6 +67,12 @@ public final class ModBlocks {
         return SURFACE_SAMPLES_BY_ID.entrySet();
     }
 
+    public static Block getSurfaceSampleForLegacyCrushedId(String legacyId) {
+        String sampleId = "surface_sample_" + legacyId.substring("crushed_".length());
+        RegistryObject<Block> block = SURFACE_SAMPLES_BY_ID.get(sampleId);
+        return block == null ? null : block.get();
+    }
+
     private static SurfaceSampleBlock newSurfaceSample() {
         return new SurfaceSampleBlock(BlockBehaviour.Properties.copy(Blocks.MOSS_CARPET)
                 .noCollission()
