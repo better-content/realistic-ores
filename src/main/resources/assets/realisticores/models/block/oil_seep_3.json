@@ -2,20 +2,20 @@
   "ambientocclusion": false,
   "render_type": "minecraft:cutout",
   "textures": {
-    "all": "pneumaticcraft:block/oil_still",
+    "all": "realisticores:block/oil_bearing_shale",
     "particle": "#all"
   },
   "elements": [
     {
       "from": [
-        1,
-        0.01,
+        2,
+        0.02,
         3
       ],
       "to": [
-        5,
-        0.75,
-        7
+        6,
+        2,
+        6
       ],
       "faces": {
         "down": {
@@ -24,7 +24,7 @@
             5,
             4,
             9,
-            8
+            7
           ]
         },
         "up": {
@@ -33,7 +33,7 @@
             5,
             4,
             9,
-            8
+            7
           ]
         },
         "north": {
@@ -72,17 +72,27 @@
             6
           ]
         }
+      },
+      "rotation": {
+        "origin": [
+          4.0,
+          0,
+          4.5
+        ],
+        "axis": "y",
+        "angle": -22.5,
+        "rescale": false
       }
     },
     {
       "from": [
-        11,
-        0.01,
-        3
+        10,
+        0.02,
+        4
       ],
       "to": [
-        16,
-        0.75,
+        15,
+        2,
         6
       ],
       "faces": {
@@ -92,7 +102,7 @@
             8,
             2,
             13,
-            5
+            4
           ]
         },
         "up": {
@@ -101,7 +111,7 @@
             8,
             2,
             13,
-            5
+            4
           ]
         },
         "north": {
@@ -140,18 +150,28 @@
             4
           ]
         }
+      },
+      "rotation": {
+        "origin": [
+          12.5,
+          0,
+          5.0
+        ],
+        "axis": "y",
+        "angle": -22.5,
+        "rescale": false
       }
     },
     {
       "from": [
-        5,
-        0.01,
-        11
+        3,
+        0.02,
+        10
       ],
       "to": [
-        8,
-        0.75,
-        15
+        6,
+        2,
+        13
       ],
       "faces": {
         "down": {
@@ -160,7 +180,7 @@
             11,
             2,
             14,
-            6
+            5
           ]
         },
         "up": {
@@ -169,7 +189,7 @@
             11,
             2,
             14,
-            6
+            5
           ]
         },
         "north": {
@@ -208,6 +228,152 @@
             4
           ]
         }
+      }
+    },
+    {
+      "from": [
+        10,
+        0.02,
+        9
+      ],
+      "to": [
+        15,
+        3,
+        11
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            9,
+            9
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            9,
+            9
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            9,
+            10
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            9,
+            10
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            9,
+            10
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            9,
+            10
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        0.02,
+        6
+      ],
+      "to": [
+        10,
+        2,
+        10
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            6,
+            8,
+            9,
+            12
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            6,
+            8,
+            9,
+            12
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            6,
+            8,
+            9,
+            10
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            6,
+            8,
+            9,
+            10
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            6,
+            8,
+            9,
+            10
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            6,
+            8,
+            9,
+            10
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.5,
+          0,
+          8.0
+        ],
+        "axis": "y",
+        "angle": -22.5,
+        "rescale": false
       }
     }
   ]

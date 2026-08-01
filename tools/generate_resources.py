@@ -4,6 +4,8 @@ import argparse
 import hashlib
 import json
 import shutil
+import struct
+import zlib
 from pathlib import Path
 
 
@@ -168,14 +170,62 @@ def append_tag_value(tag_files: dict[Path, set[str]], path: Path, value: str) ->
 
 
 SURFACE_SAMPLE_VARIANTS = 5
-def sample_element(start: list[float], end: list[float], texture_seed: int) -> dict[str, object]:
+OIL_SHALE_TEXTURE = "oil_bearing_shale"
+
+
+def write_rgba_png(path: Path, pixels: list[list[tuple[int, int, int, int]]]) -> None:
+    """Write a tiny dependency-free RGBA PNG for generated block textures."""
+    height = len(pixels)
+    width = len(pixels[0])
+    raw = b"".join(b"\x00" + b"".join(bytes(pixel) for pixel in row) for row in pixels)
+
+    def chunk(kind: bytes, payload: bytes) -> bytes:
+        return struct.pack(">I", len(payload)) + kind + payload + struct.pack(">I", zlib.crc32(kind + payload))
+
+    png = b"\x89PNG\r\n\x1a\n"
+    png += chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0))
+    png += chunk(b"IDAT", zlib.compress(raw, 9))
+    png += chunk(b"IEND", b"")
+    path.write_bytes(png)
+
+
+def generate_oil_shale_texture(path: Path) -> None:
+    palette = [
+        (25, 27, 27, 255),
+        (34, 37, 38, 255),
+        (44, 43, 40, 255),
+        (55, 49, 43, 255),
+        (29, 35, 39, 255),
+    ]
+    pixels = []
+    for y in range(16):
+        row = []
+        band = (y // 2) % len(palette)
+        for x in range(16):
+            color = palette[(band + (x // 5) + (1 if (x * 3 + y * 5) % 17 == 0 else 0)) % len(palette)]
+            if (x + y * 2) % 23 == 0:
+                color = (68, 65, 52, 255)
+            elif (x * 2 + y) % 29 == 0:
+                color = (38, 50, 52, 255)
+            row.append(color)
+        pixels.append(row)
+    write_rgba_png(path, pixels)
+
+
+def sample_element(
+    start: list[float],
+    end: list[float],
+    texture_seed: int,
+    angle: float,
+) -> dict[str, object]:
     width = max(2, round(end[0] - start[0]))
     depth = max(2, round(end[2] - start[2]))
     u = 1 + texture_seed % max(1, 14 - width)
     v = 1 + (texture_seed // 7) % max(1, 14 - depth)
     top_uv = [u, v, min(15, u + width), min(15, v + depth)]
-    side_uv = [u, v, min(15, u + width), min(15, v + 2)]
-    return {
+    height = max(1, round(end[1] - start[1]))
+    side_uv = [u, v, min(15, u + width), min(15, v + height)]
+    element = {
         "from": start,
         "to": end,
         "faces": {
@@ -187,22 +237,39 @@ def sample_element(start: list[float], end: list[float], texture_seed: int) -> d
             "east": {"texture": "#all", "uv": side_uv},
         },
     }
+    if angle:
+        element["rotation"] = {
+            "origin": [(start[0] + end[0]) / 2, 0, (start[2] + end[2]) / 2],
+            "axis": "y",
+            "angle": angle,
+            "rescale": False,
+        }
+    return element
 
 
 def surface_sample_elements(block_id: str, variant: int) -> list[dict[str, object]]:
-    """Build separated, low rubble chips instead of overlapping miniature ore blocks."""
+    """Build separated, visible rubble chips instead of miniature ore blocks."""
     digest = hashlib.sha256(f"{block_id}:{variant}".encode()).digest()
     elements = []
-    slots = [(1, 2), (10, 2), (5, 10)]
-    for piece in range(2 + digest[0] % 2):
+    is_oil = block_id == "oil_seep"
+    slots = [(2, 2), (9, 3), (3, 9), (9, 9), (6, 6)]
+    piece_count = (3 + digest[0] % 2) if not is_oil else (4 + digest[0] % 2)
+    angles = [-22.5, 0, 22.5]
+    for piece in range(piece_count):
         offset = 1 + piece * 5
         slot_x, slot_z = slots[piece]
         x = slot_x + digest[offset] % 2
         z = slot_z + digest[offset + 1] % 2
-        width = 3 + digest[offset + 2] % 3
-        depth = 3 + digest[offset + 3] % 3
-        height = 0.5 + (digest[offset + 4] % 3) * 0.25
-        elements.append(sample_element([x, 0.01, z], [x + width, height, z + depth], digest[offset]))
+        if is_oil:
+            width = 3 + digest[offset + 2] % 3
+            depth = 2 + digest[offset + 3] % 3
+            height = 1 + digest[offset + 4] % 3
+        else:
+            width = 3 + digest[offset + 2] % 3
+            depth = 3 + digest[offset + 3] % 3
+            height = 2 + digest[offset + 4] % 3
+        angle = angles[digest[offset + 1] % len(angles)]
+        elements.append(sample_element([x, 0.02, z], [x + width, height, z + depth], digest[offset], angle))
     return elements
 
 
@@ -228,7 +295,8 @@ def generate_surface_samples() -> None:
         if not texture:
             raise RuntimeError(f"surface sample has no usable opaque ore texture: {sample_id}")
         definitions.append((sample_id, definition["display_name"], texture))
-    definitions.append(("oil_seep", "Oil Seep", "pneumaticcraft:block/oil_still"))
+    definitions.append(("oil_seep", "Oil Seep", f"realisticores:block/{OIL_SHALE_TEXTURE}"))
+    generate_oil_shale_texture(RESOURCES / "assets" / "realisticores" / "textures" / "block" / f"{OIL_SHALE_TEXTURE}.png")
 
     for path in blockstate_dir.glob("crushed_*.json"):
         path.unlink()
@@ -285,22 +353,21 @@ def generate_surface_samples() -> None:
                 }],
             },
         )
-        if block_id == "oil_seep":
-            write_json(item_model_dir / "oil_seep.json", {"parent": "realisticores:block/oil_seep_2"})
-        if block_id.startswith("surface_sample_"):
+        if block_id == "oil_seep" or block_id.startswith("surface_sample_"):
             write_json(
                 item_model_dir / f"{block_id}.json",
                 {
                     "parent": f"realisticores:block/{block_id}_2",
                     "display": {
                         "gui": {
-                            "rotation": [75, 0, 45],
-                            "translation": [0, 1.5, 0],
-                            "scale": [1.35, 1.35, 1.35],
+                            "rotation": [30, 225, 0],
+                            "translation": [0, 3, 0],
+                            "scale": [1.15, 1.15, 1.15],
                         }
                     },
                 },
             )
+        if block_id.startswith("surface_sample_"):
             lang[f"block.realisticores.{block_id}"] = f"Surface Sample: {display_name}"
         else:
             lang[f"block.realisticores.{block_id}"] = display_name

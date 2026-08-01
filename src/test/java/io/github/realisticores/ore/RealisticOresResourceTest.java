@@ -273,12 +273,26 @@ final class RealisticOresResourceTest {
                 assertEquals("realisticores:block/" + sample + "_2",
                         sampleItemModel.get("parent").getAsString(), sample);
                 JsonObject gui = sampleItemModel.getAsJsonObject("display").getAsJsonObject("gui");
-                assertEquals(75, gui.getAsJsonArray("rotation").get(0).getAsInt(), sample);
+                assertEquals(30, gui.getAsJsonArray("rotation").get(0).getAsInt(), sample);
+                assertEquals(225, gui.getAsJsonArray("rotation").get(1).getAsInt(), sample);
                 assertTrue(gui.getAsJsonArray("scale").get(0).getAsDouble() > 1.0, sample);
             }
         }
         assertTrue(Files.isRegularFile(resources.resolve("assets/realisticores/blockstates/oil_seep.json")));
         assertTrue(Files.isRegularFile(resources.resolve("data/realisticores/loot_tables/blocks/oil_seep.json")));
+        for (int variant = 0; variant < 5; variant++) {
+            JsonObject oilModel = read(resources.resolve(
+                    "assets/realisticores/models/block/oil_seep_" + variant + ".json"), JsonObject.class);
+            assertEquals("realisticores:block/oil_bearing_shale",
+                    oilModel.getAsJsonObject("textures").get("all").getAsString());
+            assertTrue(oilModel.getAsJsonArray("elements").size() >= 4);
+            assertTrue(oilModel.getAsJsonArray("elements").size() <= 5);
+        }
+        Path oilTexture = resources.resolve("assets/realisticores/textures/block/oil_bearing_shale.png");
+        BufferedImage oilImage = ImageIO.read(oilTexture.toFile());
+        assertTrue(oilImage != null);
+        assertEquals(16, oilImage.getWidth());
+        assertEquals(16, oilImage.getHeight());
     }
 
     private static void assertSurfaceSampleModelUsesOpaqueOreTexture(Path resources, Path modelPath) throws IOException {
@@ -298,6 +312,12 @@ final class RealisticOresResourceTest {
             }
         }
         for (var element : model.getAsJsonArray("elements")) {
+            JsonArray from = element.getAsJsonObject().getAsJsonArray("from");
+            JsonArray to = element.getAsJsonObject().getAsJsonArray("to");
+            assertTrue(from.get(0).getAsDouble() >= 0 && from.get(2).getAsDouble() >= 0, modelPath.toString());
+            assertTrue(to.get(0).getAsDouble() <= 16 && to.get(2).getAsDouble() <= 16, modelPath.toString());
+            assertTrue(from.get(1).getAsDouble() > 0, modelPath.toString());
+            assertTrue(to.get(1).getAsDouble() >= 2 && to.get(1).getAsDouble() <= 4, modelPath.toString());
             for (var face : element.getAsJsonObject().getAsJsonObject("faces").entrySet()) {
                 assertEquals("#all", face.getValue().getAsJsonObject().get("texture").getAsString(),
                         modelPath + " " + face.getKey());
@@ -312,6 +332,8 @@ final class RealisticOresResourceTest {
                         "surface chips must crop the ore texture instead of squashing a whole block face: " + modelPath);
             }
         }
+        assertTrue(model.getAsJsonArray("elements").size() >= 3, modelPath.toString());
+        assertTrue(model.getAsJsonArray("elements").size() <= 4, modelPath.toString());
     }
 
     private record OreVariant(String oreId, String variant) {
