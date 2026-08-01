@@ -168,30 +168,41 @@ def append_tag_value(tag_files: dict[Path, set[str]], path: Path, value: str) ->
 
 
 SURFACE_SAMPLE_VARIANTS = 5
-SURFACE_SAMPLE_UV = [0, 0, 16, 16]
-def sample_element(start: list[int], end: list[int], uv: list[int] | None) -> dict[str, object]:
+def sample_element(start: list[float], end: list[float], texture_seed: int) -> dict[str, object]:
+    width = max(2, round(end[0] - start[0]))
+    depth = max(2, round(end[2] - start[2]))
+    u = 1 + texture_seed % max(1, 14 - width)
+    v = 1 + (texture_seed // 7) % max(1, 14 - depth)
+    top_uv = [u, v, min(15, u + width), min(15, v + depth)]
+    side_uv = [u, v, min(15, u + width), min(15, v + 2)]
     return {
         "from": start,
         "to": end,
         "faces": {
-            face: {"texture": "#all", **({"uv": uv} if uv else {})}
-            for face in ["down", "up", "north", "south", "west", "east"]
+            "down": {"texture": "#all", "uv": top_uv},
+            "up": {"texture": "#all", "uv": top_uv},
+            "north": {"texture": "#all", "uv": side_uv},
+            "south": {"texture": "#all", "uv": side_uv},
+            "west": {"texture": "#all", "uv": side_uv},
+            "east": {"texture": "#all", "uv": side_uv},
         },
     }
 
 
-def surface_sample_elements(block_id: str, variant: int, uv: list[int] | None = None) -> list[dict[str, object]]:
-    """Build a stable ore-specific scatter instead of recoloring shared geometry."""
+def surface_sample_elements(block_id: str, variant: int) -> list[dict[str, object]]:
+    """Build separated, low rubble chips instead of overlapping miniature ore blocks."""
     digest = hashlib.sha256(f"{block_id}:{variant}".encode()).digest()
     elements = []
-    for piece in range(2 + digest[0] % 3):
-        offset = 1 + piece * 6
-        x = 1 + digest[offset] % 12
-        z = 1 + digest[offset + 1] % 12
-        width = 2 + digest[offset + 2] % 4
-        depth = 2 + digest[offset + 3] % 4
-        height = 1 + digest[offset + 4] % 3
-        elements.append(sample_element([x, 0, z], [min(15, x + width), height, min(15, z + depth)], uv))
+    slots = [(1, 2), (10, 2), (5, 10)]
+    for piece in range(2 + digest[0] % 2):
+        offset = 1 + piece * 5
+        slot_x, slot_z = slots[piece]
+        x = slot_x + digest[offset] % 2
+        z = slot_z + digest[offset + 1] % 2
+        width = 3 + digest[offset + 2] % 3
+        depth = 3 + digest[offset + 3] % 3
+        height = 0.5 + (digest[offset + 4] % 3) * 0.25
+        elements.append(sample_element([x, 0.01, z], [x + width, height, z + depth], digest[offset]))
     return elements
 
 
@@ -246,11 +257,7 @@ def generate_surface_samples() -> None:
         block_geometry = []
         for index in range(SURFACE_SAMPLE_VARIANTS):
             model_id = f"{block_id}_{index}"
-            elements = surface_sample_elements(
-                block_id,
-                index,
-                SURFACE_SAMPLE_UV if block_id.startswith("surface_sample_") else None,
-            )
+            elements = surface_sample_elements(block_id, index)
             block_geometry.append(elements)
             write_json(
                 block_model_dir / f"{model_id}.json",

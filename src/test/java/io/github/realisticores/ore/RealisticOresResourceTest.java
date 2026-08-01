@@ -27,7 +27,6 @@ final class RealisticOresResourceTest {
     private static final Path DATA_ROOT = Path.of("src/main/resources/data/realisticores");
     private static final Path RESOURCE_ROOT = Path.of("src/main/resources");
     private static final Path ASSET_ROOT = RESOURCE_ROOT.resolve("assets/realisticores");
-    private static final int[] SURFACE_SAMPLE_UV = {0, 0, 16, 16};
     private static final Set<Integer> STONE_COLORS = rgbSet("686868", "747474", "7f7f7f", "8f8f8f");
     private static final Set<Integer> DEEPSLATE_SIDE_COLORS = rgbSet("2f2f37", "3d3d43", "515151", "646464", "797979");
     private static final Set<Integer> DEEPSLATE_END_COLORS = rgbSet("3d3d43", "4b4b50", "5a5a5a", "646464", "747474");
@@ -301,10 +300,13 @@ final class RealisticOresResourceTest {
                         modelPath + " " + face.getKey());
                 JsonArray uv = face.getValue().getAsJsonObject().getAsJsonArray("uv");
                 assertEquals(4, uv.size(), modelPath + " " + face.getKey());
-                for (int index = 0; index < SURFACE_SAMPLE_UV.length; index++) {
-                    assertEquals(SURFACE_SAMPLE_UV[index], uv.get(index).getAsInt(),
-                            modelPath + " " + face.getKey());
-                }
+                assertTrue(uv.get(0).getAsInt() >= 0 && uv.get(1).getAsInt() >= 0,
+                        modelPath + " " + face.getKey());
+                assertTrue(uv.get(2).getAsInt() <= 16 && uv.get(3).getAsInt() <= 16,
+                        modelPath + " " + face.getKey());
+                assertFalse(uv.get(0).getAsInt() == 0 && uv.get(1).getAsInt() == 0
+                                && uv.get(2).getAsInt() == 16 && uv.get(3).getAsInt() == 16,
+                        "surface chips must crop the ore texture instead of squashing a whole block face: " + modelPath);
             }
         }
     }
