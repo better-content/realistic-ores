@@ -272,6 +272,9 @@ final class RealisticOresResourceTest {
                         JsonObject.class);
                 assertEquals("realisticores:block/" + sample + "_2",
                         sampleItemModel.get("parent").getAsString(), sample);
+                JsonObject gui = sampleItemModel.getAsJsonObject("display").getAsJsonObject("gui");
+                assertEquals(75, gui.getAsJsonArray("rotation").get(0).getAsInt(), sample);
+                assertTrue(gui.getAsJsonArray("scale").get(0).getAsDouble() > 1.0, sample);
             }
         }
         assertTrue(Files.isRegularFile(resources.resolve("assets/realisticores/blockstates/oil_seep.json")));

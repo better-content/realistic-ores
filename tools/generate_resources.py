@@ -288,7 +288,19 @@ def generate_surface_samples() -> None:
         if block_id == "oil_seep":
             write_json(item_model_dir / "oil_seep.json", {"parent": "realisticores:block/oil_seep_2"})
         if block_id.startswith("surface_sample_"):
-            write_json(item_model_dir / f"{block_id}.json", {"parent": f"realisticores:block/{block_id}_2"})
+            write_json(
+                item_model_dir / f"{block_id}.json",
+                {
+                    "parent": f"realisticores:block/{block_id}_2",
+                    "display": {
+                        "gui": {
+                            "rotation": [75, 0, 45],
+                            "translation": [0, 1.5, 0],
+                            "scale": [1.35, 1.35, 1.35],
+                        }
+                    },
+                },
+            )
             lang[f"block.realisticores.{block_id}"] = f"Surface Sample: {display_name}"
         else:
             lang[f"block.realisticores.{block_id}"] = display_name

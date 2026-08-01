@@ -1,3 +1,22 @@
 {
-  "parent": "realisticores:block/surface_sample_uranium_ore_2"
+  "parent": "realisticores:block/surface_sample_uranium_ore_2",
+  "display": {
+    "gui": {
+      "rotation": [
+        75,
+        0,
+        45
+      ],
+      "translation": [
+        0,
+        1.5,
+        0
+      ],
+      "scale": [
+        1.35,
+        1.35,
+        1.35
+      ]
+    }
+  }
 }
