@@ -8,13 +8,17 @@
   ],
   "ingredients": [
     {
+      "type": "forge:nbt",
       "item": "realisticores:bauxite_laterite"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "realisticores:crushed_bauxite_laterite"
+      "item": "realisticores:ore_chunk_bauxite_laterite"
+    },
+    {
+      "item": "minecraft:stone"
     }
   ]
 }

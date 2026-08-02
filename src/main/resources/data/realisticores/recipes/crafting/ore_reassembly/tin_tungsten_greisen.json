@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realisticores:ore_chunk_tin_tungsten_greisen"
+    },
+    {
+      "item": "minecraft:stone"
+    }
+  ],
+  "result": {
+    "item": "realisticores:tin_tungsten_greisen"
+  }
+}

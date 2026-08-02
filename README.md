@@ -124,6 +124,14 @@ silver-violet value steps are reflective mineral color rather than emissive ligh
 
 ### Crushed material and surface samples
 
+- Ore chunks are the host-independent mining form of a deposit. They are crisp 16x16
+  non-placeable items whose silhouette and internal morphology preserve the parent
+  family's geological identity; their transparent background must remain truly clear.
+- Ordinary mining yields exactly one ore chunk and does not inspect Fortune. Silk Touch
+  preserves the exact placeable host-rock ore block instead.
+- Ore blocks separate reversibly into one chunk plus their host stone, and recombine from
+  those same two ingredients. Crushing a chunk is the irreversible processing step that
+  produces crushed material.
 - Crushed items are compact lower-center piles, not miniature ore blocks. Existing
   sprites occupy roughly 30-40 visible pixels inside an `x=3..12`, `y=6..11` envelope
   (the narrowest families use `x=4..11`).

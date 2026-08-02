@@ -5,8 +5,32 @@
       "rolls": 1.0,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "realisticores:titanium_iron_oxide_ore"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "realisticores:titanium_iron_oxide_ore",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "realisticores:ore_chunk_titanium_iron_oxide_ore"
+            }
+          ]
         }
       ],
       "conditions": [

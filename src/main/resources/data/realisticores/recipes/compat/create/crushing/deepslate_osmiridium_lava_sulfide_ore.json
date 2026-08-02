@@ -8,13 +8,17 @@
   ],
   "ingredients": [
     {
+      "type": "forge:nbt",
       "item": "realisticores:deepslate_osmiridium_lava_sulfide_ore"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "realisticores:crushed_osmiridium_lava_sulfide_ore"
+      "item": "realisticores:ore_chunk_osmiridium_lava_sulfide_ore"
+    },
+    {
+      "item": "minecraft:deepslate"
     }
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realisticores:ore_chunk_osmiridium_lava_sulfide_ore"
+    },
+    {
+      "item": "minecraft:stone"
+    }
+  ],
+  "result": {
+    "item": "realisticores:osmiridium_lava_sulfide_ore"
+  }
+}

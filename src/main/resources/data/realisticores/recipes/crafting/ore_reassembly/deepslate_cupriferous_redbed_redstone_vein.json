@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realisticores:ore_chunk_cupriferous_redbed_redstone_vein"
+    },
+    {
+      "item": "minecraft:deepslate"
+    }
+  ],
+  "result": {
+    "item": "realisticores:deepslate_cupriferous_redbed_redstone_vein"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realisticores:ore_chunk_lazurite_vein"
+    },
+    {
+      "item": "minecraft:stone"
+    }
+  ],
+  "result": {
+    "item": "realisticores:lazurite_vein"
+  }
+}

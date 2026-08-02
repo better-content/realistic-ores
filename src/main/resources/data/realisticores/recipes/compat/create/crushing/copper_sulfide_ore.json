@@ -8,13 +8,17 @@
   ],
   "ingredients": [
     {
+      "type": "forge:nbt",
       "item": "realisticores:copper_sulfide_ore"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "realisticores:crushed_copper_sulfide_ore"
+      "item": "realisticores:ore_chunk_copper_sulfide_ore"
+    },
+    {
+      "item": "minecraft:stone"
     }
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realisticores:ore_chunk_lead_zinc_vein"
+    },
+    {
+      "item": "minecraft:deepslate"
+    }
+  ],
+  "result": {
+    "item": "realisticores:deepslate_lead_zinc_vein"
+  }
+}

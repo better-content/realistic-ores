@@ -8,13 +8,17 @@
   ],
   "ingredients": [
     {
+      "type": "forge:nbt",
       "item": "realisticores:deepslate_zinc_ore"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "realisticores:crushed_zinc_ore"
+      "item": "realisticores:ore_chunk_zinc_ore"
+    },
+    {
+      "item": "minecraft:deepslate"
     }
   ]
 }

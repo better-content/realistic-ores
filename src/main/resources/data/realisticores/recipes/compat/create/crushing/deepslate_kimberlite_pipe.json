@@ -8,13 +8,17 @@
   ],
   "ingredients": [
     {
+      "type": "forge:nbt",
       "item": "realisticores:deepslate_kimberlite_pipe"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "realisticores:crushed_kimberlite_pipe"
+      "item": "realisticores:ore_chunk_kimberlite_pipe"
+    },
+    {
+      "item": "minecraft:deepslate"
     }
   ]
 }

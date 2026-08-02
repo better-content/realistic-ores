@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "realisticores:ore_chunk_bauxite_laterite",
+    "realisticores:ore_chunk_coal_measures",
+    "realisticores:ore_chunk_copper_sulfide_ore",
+    "realisticores:ore_chunk_corundum_beryl_gem_vein",
+    "realisticores:ore_chunk_cupriferous_redbed_redstone_vein",
+    "realisticores:ore_chunk_emerald_schist_beryl_vein",
+    "realisticores:ore_chunk_ironstone",
+    "realisticores:ore_chunk_kimberlite_pipe",
+    "realisticores:ore_chunk_lazurite_vein",
+    "realisticores:ore_chunk_lead_zinc_vein",
+    "realisticores:ore_chunk_nickel_sulfide_ore",
+    "realisticores:ore_chunk_osmiridium_lava_sulfide_ore",
+    "realisticores:ore_chunk_phosphate_rock",
+    "realisticores:ore_chunk_quartz_vein",
+    "realisticores:ore_chunk_soul_bearing_black_shale_soulstone_vein",
+    "realisticores:ore_chunk_sulfur_bearing_pyrite_ore",
+    "realisticores:ore_chunk_thorium_ore",
+    "realisticores:ore_chunk_tin_ore",
+    "realisticores:ore_chunk_tin_tungsten_greisen",
+    "realisticores:ore_chunk_titanium_iron_oxide_ore",
+    "realisticores:ore_chunk_uranium_ore",
+    "realisticores:ore_chunk_zinc_ore"
+  ]
+}

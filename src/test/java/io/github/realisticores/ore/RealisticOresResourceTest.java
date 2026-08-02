@@ -295,6 +295,64 @@ final class RealisticOresResourceTest {
         assertEquals(16, oilImage.getHeight());
     }
 
+    @Test
+    void oreChunksHaveTransparentItemsAndEnchantmentStableLoot() throws IOException {
+        Path resources = Path.of("src/main/resources");
+        Path definitions = resources.resolve("data/realisticores/realistic_ores");
+        int definitionCount = 0;
+        try (var paths = Files.list(definitions)) {
+            for (Path path : paths.filter(file -> file.getFileName().toString().endsWith(".json")).toList()) {
+                definitionCount++;
+                OreDefinition definition = read(path, OreDefinition.class);
+                String chunk = definition.oreChunkItemId();
+                Path texturePath = resources.resolve("assets/realisticores/textures/item/" + chunk + ".png");
+                BufferedImage image = ImageIO.read(texturePath.toFile());
+                assertTrue(image != null, texturePath.toString());
+                assertEquals(16, image.getWidth(), texturePath.toString());
+                assertEquals(16, image.getHeight(), texturePath.toString());
+                boolean hasTransparentPixel = false;
+                boolean hasVisiblePixel = false;
+                for (int y = 0; y < image.getHeight(); y++) {
+                    for (int x = 0; x < image.getWidth(); x++) {
+                        int alpha = image.getRGB(x, y) >>> 24;
+                        hasTransparentPixel |= alpha == 0;
+                        hasVisiblePixel |= alpha > 0;
+                    }
+                }
+                assertTrue(hasTransparentPixel, chunk + " must use a transparent background");
+                assertTrue(hasVisiblePixel, chunk + " must contain visible ore pixels");
+
+                JsonObject itemModel = read(
+                        resources.resolve("assets/realisticores/models/item/" + chunk + ".json"),
+                        JsonObject.class);
+                assertEquals("minecraft:item/generated", itemModel.get("parent").getAsString(), chunk);
+                assertEquals("realisticores:item/" + chunk,
+                        itemModel.getAsJsonObject("textures").get("layer0").getAsString(), chunk);
+
+                for (OreDefinition.VariantDefinition variant : definition.variants()) {
+                    JsonObject loot = read(
+                            resources.resolve("data/realisticores/loot_tables/blocks/" + variant.blockId() + ".json"),
+                            JsonObject.class);
+                    String serialized = GSON.toJson(loot);
+                    assertTrue(serialized.contains("minecraft:silk_touch"), variant.blockId());
+                    assertTrue(serialized.contains("realisticores:" + chunk), variant.blockId());
+                    assertTrue(serialized.contains("realisticores:" + variant.blockId()), variant.blockId());
+                    assertFalse(serialized.contains("minecraft:fortune"), variant.blockId());
+                    assertFalse(serialized.contains("apply_bonus"), variant.blockId());
+
+                    assertTrue(Files.isRegularFile(resources.resolve(
+                            "data/realisticores/recipes/crafting/ore_reassembly/" + variant.blockId() + ".json")));
+                    assertTrue(Files.isRegularFile(resources.resolve(
+                            "data/realisticores/recipes/compat/create/crushing/" + variant.blockId() + ".json")));
+                }
+                assertTrue(Files.isRegularFile(resources.resolve(
+                        "data/realisticores/recipes/compat/create/crushing/ore_chunks/"
+                                + definition.primaryVariant().blockId() + ".json")));
+            }
+        }
+        assertEquals(22, definitionCount);
+    }
+
     private static void assertSurfaceSampleModelUsesOpaqueOreTexture(Path resources, Path modelPath) throws IOException {
         JsonObject model = read(modelPath, JsonObject.class);
         assertEquals("#all", model.getAsJsonObject("textures").get("particle").getAsString(), modelPath.toString());

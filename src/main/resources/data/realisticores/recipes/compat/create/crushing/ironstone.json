@@ -8,13 +8,17 @@
   ],
   "ingredients": [
     {
+      "type": "forge:nbt",
       "item": "realisticores:ironstone"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "realisticores:crushed_ironstone"
+      "item": "realisticores:ore_chunk_ironstone"
+    },
+    {
+      "item": "minecraft:stone"
     }
   ]
 }

@@ -8,13 +8,17 @@
   ],
   "ingredients": [
     {
+      "type": "forge:nbt",
       "item": "realisticores:corundum_beryl_gem_vein"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "realisticores:crushed_corundum_beryl_gem_vein"
+      "item": "realisticores:ore_chunk_corundum_beryl_gem_vein"
+    },
+    {
+      "item": "minecraft:stone"
     }
   ]
 }

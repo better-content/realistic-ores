@@ -8,13 +8,17 @@
   ],
   "ingredients": [
     {
+      "type": "forge:nbt",
       "item": "realisticores:deepslate_lead_zinc_vein"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "realisticores:crushed_lead_zinc_vein"
+      "item": "realisticores:ore_chunk_lead_zinc_vein"
+    },
+    {
+      "item": "minecraft:deepslate"
     }
   ]
 }

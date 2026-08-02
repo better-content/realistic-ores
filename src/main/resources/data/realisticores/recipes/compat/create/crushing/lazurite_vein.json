@@ -8,13 +8,17 @@
   ],
   "ingredients": [
     {
+      "type": "forge:nbt",
       "item": "realisticores:lazurite_vein"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "realisticores:crushed_lazurite_vein"
+      "item": "realisticores:ore_chunk_lazurite_vein"
+    },
+    {
+      "item": "minecraft:stone"
     }
   ]
 }

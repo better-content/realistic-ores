@@ -8,13 +8,17 @@
   ],
   "ingredients": [
     {
+      "type": "forge:nbt",
       "item": "realisticores:tin_tungsten_greisen"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "realisticores:crushed_tin_tungsten_greisen"
+      "item": "realisticores:ore_chunk_tin_tungsten_greisen"
+    },
+    {
+      "item": "minecraft:stone"
     }
   ]
 }

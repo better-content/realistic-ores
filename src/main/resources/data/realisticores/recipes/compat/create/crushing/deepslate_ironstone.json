@@ -8,13 +8,17 @@
   ],
   "ingredients": [
     {
+      "type": "forge:nbt",
       "item": "realisticores:deepslate_ironstone"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "realisticores:crushed_ironstone"
+      "item": "realisticores:ore_chunk_ironstone"
+    },
+    {
+      "item": "minecraft:deepslate"
     }
   ]
 }

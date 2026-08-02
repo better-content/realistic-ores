@@ -15,6 +15,7 @@ import net.minecraftforge.registries.RegistryObject;
 public final class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, RealisticOresMod.MOD_ID);
     private static final Map<String, RegistryObject<Item>> BLOCK_ITEMS_BY_ID = new LinkedHashMap<>();
+    private static final Map<String, RegistryObject<Item>> ORE_CHUNK_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> CRUSHED_ORE_ITEMS_BY_ID = new LinkedHashMap<>();
     private static boolean initialized;
 
@@ -25,6 +26,10 @@ public final class ModItems {
         if (!initialized) {
             initialized = true;
             for (OreDefinition definition : ModBlocks.oreDefinitions()) {
+                String oreChunkItemId = definition.oreChunkItemId();
+                ORE_CHUNK_ITEMS_BY_ID.put(oreChunkItemId, ITEMS.register(
+                        oreChunkItemId,
+                        () -> new Item(new Item.Properties())));
                 String crushedItemId = definition.crushedItemId();
                 CRUSHED_ORE_ITEMS_BY_ID.put(crushedItemId, ITEMS.register(
                         crushedItemId,
@@ -51,5 +56,9 @@ public final class ModItems {
 
     public static Collection<Item> getAllCrushedOreItems() {
         return CRUSHED_ORE_ITEMS_BY_ID.values().stream().map(RegistryObject::get).toList();
+    }
+
+    public static Collection<Item> getAllOreChunkItems() {
+        return ORE_CHUNK_ITEMS_BY_ID.values().stream().map(RegistryObject::get).toList();
     }
 }

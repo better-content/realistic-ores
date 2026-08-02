@@ -58,6 +58,10 @@ public final class OreDefinition {
         return "crushed_" + primaryVariant().blockId();
     }
 
+    public String oreChunkItemId() {
+        return "ore_chunk_" + primaryVariant().blockId();
+    }
+
     public String surfaceSampleBlockId() {
         return "surface_sample_" + primaryVariant().blockId();
     }

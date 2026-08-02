@@ -38,6 +38,7 @@ public final class RealisticOresMod {
             ModItems.getAllBlockItems().forEach(event::accept);
         }
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            ModItems.getAllOreChunkItems().forEach(event::accept);
             ModItems.getAllCrushedOreItems().forEach(event::accept);
         }
     }
