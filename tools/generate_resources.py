@@ -208,7 +208,7 @@ def ore_chunk_loot_table(block_id: str, chunk_id: str) -> dict[str, object]:
                         "children": [
                             {
                                 "type": "minecraft:item",
-                                "name": f"realisticores:{block_id}",
+                                "name": f"realistic_ores:{block_id}",
                                 "conditions": [
                                     {
                                         "condition": "minecraft:match_tool",
@@ -225,7 +225,7 @@ def ore_chunk_loot_table(block_id: str, chunk_id: str) -> dict[str, object]:
                             },
                             {
                                 "type": "minecraft:item",
-                                "name": f"realisticores:{chunk_id}",
+                                "name": f"realistic_ores:{chunk_id}",
                             },
                         ],
                     }
@@ -237,15 +237,15 @@ def ore_chunk_loot_table(block_id: str, chunk_id: str) -> dict[str, object]:
 
 
 def generate_ore_chunks() -> None:
-    ore_dir = RESOURCES / "data" / "realisticores" / "realistic_ores"
-    item_model_dir = RESOURCES / "assets" / "realisticores" / "models" / "item"
-    item_texture_dir = RESOURCES / "assets" / "realisticores" / "textures" / "item"
-    loot_dir = RESOURCES / "data" / "realisticores" / "loot_tables" / "blocks"
-    recipe_dir = RESOURCES / "data" / "realisticores" / "recipes"
+    ore_dir = RESOURCES / "data" / "realistic_ores" / "realistic_ores"
+    item_model_dir = RESOURCES / "assets" / "realistic_ores" / "models" / "item"
+    item_texture_dir = RESOURCES / "assets" / "realistic_ores" / "textures" / "item"
+    loot_dir = RESOURCES / "data" / "realistic_ores" / "loot_tables" / "blocks"
+    recipe_dir = RESOURCES / "data" / "realistic_ores" / "recipes"
     chunk_crushing_dir = recipe_dir / "compat" / "create" / "crushing" / "ore_chunks"
     reassembly_dir = recipe_dir / "crafting" / "ore_reassembly"
-    chunk_tag_path = RESOURCES / "data" / "realisticores" / "tags" / "items" / "ore_chunks.json"
-    lang_path = RESOURCES / "assets" / "realisticores" / "lang" / "en_us.json"
+    chunk_tag_path = RESOURCES / "data" / "realistic_ores" / "tags" / "items" / "ore_chunks.json"
+    lang_path = RESOURCES / "assets" / "realistic_ores" / "lang" / "en_us.json"
 
     for path in item_model_dir.glob("ore_chunk_*.json"):
         path.unlink()
@@ -254,7 +254,7 @@ def generate_ore_chunks() -> None:
 
     lang = json.loads(lang_path.read_text(encoding="utf-8"))
     for key in list(lang):
-        if key.startswith("item.realisticores.ore_chunk_"):
+        if key.startswith("item.realistic_ores.ore_chunk_"):
             del lang[key]
 
     chunk_ids = []
@@ -271,26 +271,28 @@ def generate_ore_chunks() -> None:
         if not texture_path.is_file():
             raise RuntimeError(f"missing ore chunk texture: {texture_path.relative_to(ROOT)}")
 
-        chunk_ids.append(f"realisticores:{chunk_id}")
+        chunk_ids.append(f"realistic_ores:{chunk_id}")
         write_json(
             item_model_dir / f"{chunk_id}.json",
             {
                 "parent": "minecraft:item/generated",
-                "textures": {"layer0": f"realisticores:item/{chunk_id}"},
+                "textures": {"layer0": f"realistic_ores:item/{chunk_id}"},
             },
         )
-        lang[f"item.realisticores.{chunk_id}"] = ore_chunk_display_name(definition["display_name"])
+        lang[f"item.realistic_ores.{chunk_id}"] = ore_chunk_display_name(definition["display_name"])
 
         write_json(
             chunk_crushing_dir / f"{primary_block_id}.json",
             {
                 "type": "create:crushing",
                 "conditions": [{"type": "forge:mod_loaded", "modid": "create"}],
-                "ingredients": [{"item": f"realisticores:{chunk_id}"}],
+                "ingredients": [{"item": f"realistic_ores:{chunk_id}"}],
                 "processingTime": 400,
                 "results": [
-                    {"item": f"realisticores:{crushed_id}", "count": 2},
-                    {"item": f"realisticores:{crushed_id}", "chance": 0.5},
+                    {"item": f"realistic_ores:{crushed_id}"},
+                    {"item": f"realistic_ores:{crushed_id}", "chance": 0.3},
+                    {"item": f"realistic_ores:{crushed_id}", "chance": 0.3},
+                    {"item": f"realistic_ores:{crushed_id}", "chance": 0.3},
                 ],
             },
         )
@@ -304,10 +306,10 @@ def generate_ore_chunks() -> None:
                 {
                     "type": "create:crushing",
                     "conditions": [{"type": "forge:mod_loaded", "modid": "create"}],
-                    "ingredients": [{"type": "forge:nbt", "item": f"realisticores:{block_id}"}],
+                    "ingredients": [{"type": "forge:nbt", "item": f"realistic_ores:{block_id}"}],
                     "processingTime": 250,
                     "results": [
-                        {"item": f"realisticores:{chunk_id}"},
+                        {"item": f"realistic_ores:{chunk_id}"},
                         {"item": host_block_id},
                     ],
                 },
@@ -317,10 +319,10 @@ def generate_ore_chunks() -> None:
                 {
                     "type": "minecraft:crafting_shapeless",
                     "ingredients": [
-                        {"item": f"realisticores:{chunk_id}"},
+                        {"item": f"realistic_ores:{chunk_id}"},
                         {"item": host_block_id},
                     ],
-                    "result": {"item": f"realisticores:{block_id}"},
+                    "result": {"item": f"realistic_ores:{block_id}"},
                 },
             )
 

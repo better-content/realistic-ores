@@ -131,7 +131,8 @@ silver-violet value steps are reflective mineral color rather than emissive ligh
   preserves the exact placeable host-rock ore block instead.
 - Ore blocks separate reversibly into one chunk plus their host stone, and recombine from
   those same two ingredients. Crushing a chunk is the irreversible processing step that
-  produces crushed material.
+  produces one crushed material plus three independent 30% chances for one additional
+  crushed material each (1.9 crushed material on average).
 - Crushed items are compact lower-center piles, not miniature ore blocks. Existing
   sprites occupy roughly 30-40 visible pixels inside an `x=3..12`, `y=6..11` envelope
   (the narrowest families use `x=4..11`).

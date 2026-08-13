@@ -14,12 +14,19 @@
   "processingTime": 400,
   "results": [
     {
-      "item": "realistic_ores:crushed_soul_bearing_black_shale_soulstone_vein",
-      "count": 2
+      "item": "realistic_ores:crushed_soul_bearing_black_shale_soulstone_vein"
     },
     {
       "item": "realistic_ores:crushed_soul_bearing_black_shale_soulstone_vein",
-      "chance": 0.5
+      "chance": 0.3
+    },
+    {
+      "item": "realistic_ores:crushed_soul_bearing_black_shale_soulstone_vein",
+      "chance": 0.3
+    },
+    {
+      "item": "realistic_ores:crushed_soul_bearing_black_shale_soulstone_vein",
+      "chance": 0.3
     }
   ]
 }
