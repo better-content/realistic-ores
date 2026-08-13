@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_nickel_sulfide_ore"
+          "name": "realisticores:ore_chunk_nickel_sulfide_ore"
         }
       ],
       "conditions": [

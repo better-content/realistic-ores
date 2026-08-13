@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_uranium_ore"
+          "name": "realisticores:ore_chunk_uranium_ore"
         }
       ],
       "conditions": [

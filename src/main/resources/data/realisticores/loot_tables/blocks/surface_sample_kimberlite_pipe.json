@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_kimberlite_pipe"
+          "name": "realisticores:ore_chunk_kimberlite_pipe"
         }
       ],
       "conditions": [

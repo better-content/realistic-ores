@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_lead_zinc_vein"
+          "name": "realisticores:ore_chunk_lead_zinc_vein"
         }
       ],
       "conditions": [

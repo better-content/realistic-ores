@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_corundum_beryl_gem_vein"
+          "name": "realisticores:ore_chunk_corundum_beryl_gem_vein"
         }
       ],
       "conditions": [

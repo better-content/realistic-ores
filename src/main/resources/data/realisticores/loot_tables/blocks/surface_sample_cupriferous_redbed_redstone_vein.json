@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_cupriferous_redbed_redstone_vein"
+          "name": "realisticores:ore_chunk_cupriferous_redbed_redstone_vein"
         }
       ],
       "conditions": [

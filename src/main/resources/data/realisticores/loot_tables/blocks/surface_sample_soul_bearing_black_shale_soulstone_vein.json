@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_soul_bearing_black_shale_soulstone_vein"
+          "name": "realisticores:ore_chunk_soul_bearing_black_shale_soulstone_vein"
         }
       ],
       "conditions": [

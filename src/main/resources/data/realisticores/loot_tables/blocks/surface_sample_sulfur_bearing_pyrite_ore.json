@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_sulfur_bearing_pyrite_ore"
+          "name": "realisticores:ore_chunk_sulfur_bearing_pyrite_ore"
         }
       ],
       "conditions": [

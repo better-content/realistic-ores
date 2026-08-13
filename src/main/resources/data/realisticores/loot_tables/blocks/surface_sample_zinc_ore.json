@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_zinc_ore"
+          "name": "realisticores:ore_chunk_zinc_ore"
         }
       ],
       "conditions": [

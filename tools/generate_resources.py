@@ -481,15 +481,27 @@ def generate_surface_samples() -> None:
             blockstate_dir / f"{block_id}.json",
             {"variants": {"waterlogged=false": variants, "waterlogged=true": variants}},
         )
+        drop_block_id = (
+            f"ore_chunk_{block_id.removeprefix('surface_sample_')}"
+            if block_id.startswith("surface_sample_")
+            else block_id
+        )
         write_json(
             loot_dir / f"{block_id}.json",
             {
                 "type": "minecraft:block",
-                "pools": [{
-                    "rolls": 1.0,
-                    "entries": [{"type": "minecraft:item", "name": f"realisticores:{block_id}"}],
-                    "conditions": [{"condition": "minecraft:survives_explosion"}],
-                }],
+                "pools": [
+                    {
+                        "rolls": 1.0,
+                        "entries": [
+                            {
+                                "type": "minecraft:item",
+                                "name": f"realisticores:{drop_block_id}",
+                            }
+                        ],
+                        "conditions": [{"condition": "minecraft:survives_explosion"}],
+                    }
+                ],
             },
         )
         if block_id == "oil_seep" or block_id.startswith("surface_sample_"):

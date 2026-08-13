@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_titanium_iron_oxide_ore"
+          "name": "realisticores:ore_chunk_titanium_iron_oxide_ore"
         }
       ],
       "conditions": [

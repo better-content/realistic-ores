@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_emerald_schist_beryl_vein"
+          "name": "realisticores:ore_chunk_emerald_schist_beryl_vein"
         }
       ],
       "conditions": [

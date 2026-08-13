@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_coal_measures"
+          "name": "realisticores:ore_chunk_coal_measures"
         }
       ],
       "conditions": [

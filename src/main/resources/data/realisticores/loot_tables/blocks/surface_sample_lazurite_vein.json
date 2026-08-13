@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_lazurite_vein"
+          "name": "realisticores:ore_chunk_lazurite_vein"
         }
       ],
       "conditions": [

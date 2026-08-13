@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_phosphate_rock"
+          "name": "realisticores:ore_chunk_phosphate_rock"
         }
       ],
       "conditions": [

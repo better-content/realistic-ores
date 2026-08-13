@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realisticores:surface_sample_bauxite_laterite"
+          "name": "realisticores:ore_chunk_bauxite_laterite"
         }
       ],
       "conditions": [
