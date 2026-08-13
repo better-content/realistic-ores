@@ -1,0 +1,13 @@
+{
+  "ore_id": "lead_zinc_vein",
+  "variant": "stone",
+  "target_tag": "realistic_ores:overworld_ore_replaceables",
+  "vein_size": 14,
+  "count_per_chunk": 8,
+  "distribution": "triangle",
+  "min_y": 22,
+  "max_y": 138,
+  "biome_filter": "#minecraft:is_overworld",
+  "generation_step": "underground_ores",
+  "enabled": true
+}

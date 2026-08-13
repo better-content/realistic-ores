@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "realisticores:deepslate_lead_zinc_vein",
-    "realisticores:deepslate_zinc_ore",
-    "realisticores:lead_zinc_vein",
-    "realisticores:zinc_ore"
+    "realistic_ores:deepslate_lead_zinc_vein",
+    "realistic_ores:deepslate_zinc_ore",
+    "realistic_ores:lead_zinc_vein",
+    "realistic_ores:zinc_ore"
   ]
 }

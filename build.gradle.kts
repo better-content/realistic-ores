@@ -14,7 +14,7 @@ group = project.property("mod_group") as String
 version = modVersion
 
 base {
-    archivesName.set(modId)
+    archivesName.set("realistic-ores")
 }
 
 repositories {
@@ -138,8 +138,8 @@ tasks.jacocoTestReport {
         files(classDirectories.files.map {
             fileTree(it) {
                 include(
-                    "io/github/realisticores/ore/OreDefinition*",
-                    "io/github/realisticores/ore/DisabledFeaturesDefinition*"
+                    "io/github/realistic_ores/ore/OreDefinition*",
+                    "io/github/realistic_ores/ore/DisabledFeaturesDefinition*"
                 )
             }
         })
@@ -153,10 +153,10 @@ tasks.jacocoTestCoverageVerification {
         rule {
             element = "CLASS"
             includes = listOf(
-                "io.github.realisticores.ore.OreDefinition",
-                "io.github.realisticores.ore.OreDefinition\$VariantDefinition",
-                "io.github.realisticores.ore.OreDefinition\$TextureMode",
-                "io.github.realisticores.ore.DisabledFeaturesDefinition"
+                "com.bettercontent.realisticores.ore.OreDefinition",
+                "com.bettercontent.realisticores.ore.OreDefinition\$VariantDefinition",
+                "com.bettercontent.realisticores.ore.OreDefinition\$TextureMode",
+                "com.bettercontent.realisticores.ore.DisabledFeaturesDefinition"
             )
             limit {
                 counter = "LINE"

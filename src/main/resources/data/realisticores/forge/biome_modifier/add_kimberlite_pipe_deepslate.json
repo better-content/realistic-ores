@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": "realisticores:kimberlite_pipe_deepslate",
-  "step": "underground_ores"
-}

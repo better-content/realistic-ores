@@ -1,0 +1,13 @@
+{
+  "ore_id": "bauxite_laterite",
+  "variant": "stone",
+  "target_tag": "realistic_ores:overworld_ore_replaceables",
+  "vein_size": 18,
+  "count_per_chunk": 6,
+  "distribution": "uniform",
+  "min_y": 253,
+  "max_y": 512,
+  "biome_filter": "#minecraft:is_overworld",
+  "generation_step": "underground_ores",
+  "enabled": true
+}

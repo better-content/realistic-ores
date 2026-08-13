@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "realisticores:coal_measures",
-    "realisticores:deepslate_coal_measures"
+    "realistic_ores:coal_measures",
+    "realistic_ores:deepslate_coal_measures"
   ]
 }

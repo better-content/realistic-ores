@@ -79,7 +79,7 @@ rock type and Excavated Variants derives the corresponding ore block by inspecti
 registered stone and ore definitions. Realistic Ores must therefore expose conventional,
 finished models and textures rather than a private intermediate art representation.
 
-Keep `defaultresources/excavated_variants/excavated_variants/variants/realisticores.json5`
+Keep `defaultresources/excavated_variants/excavated_variants/variants/realistic_ores.json5`
 as the declarative mapping boundary. New art should require only normal Minecraft asset
 definitions plus that existing mapping; it should not require bespoke generated textures
 for each Unearthed stone. Validation should sample several light, dark, coarse, and
@@ -176,8 +176,17 @@ normal lighting and shaders. Confirm that:
 
 Deploy the reobfuscated runtime jar from:
 
-- `build/libs/realisticores-<version>.jar`
+- `build/libs/realistic-ores-<version>.jar`
 
 ## Community and support
 
 For modpack and mod discussion, playtest feedback, and bug reports, join the [Better Content Discord](https://discord.gg/EkRnZbzqS9).
+
+## Canonical identity
+
+- Repository and release artifact: `realistic-ores`
+- Mod ID and resource namespace: `realistic_ores`
+- Java package: `com.bettercontent.realisticores`
+- Validation: `./gradlew verifyFull`
+
+This normalization is a clean break. Worlds, configuration files, and integrations created for earlier identities are not migrated or aliased.

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "realistic_ores:block/deepslate_phosphate_rock_0_south",
+    "north": "realistic_ores:block/deepslate_phosphate_rock_0_north",
+    "east": "realistic_ores:block/deepslate_phosphate_rock_0_east",
+    "south": "realistic_ores:block/deepslate_phosphate_rock_0_south",
+    "west": "realistic_ores:block/deepslate_phosphate_rock_0_west",
+    "up": "realistic_ores:block/deepslate_phosphate_rock_0_up",
+    "down": "realistic_ores:block/deepslate_phosphate_rock_0_down"
+  }
+}

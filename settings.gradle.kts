@@ -6,4 +6,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "realisticores"
+rootProject.name = "realistic-ores"

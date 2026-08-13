@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": "realisticores:zinc_deepslate",
-  "step": "underground_ores"
-}

@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "realistic_ores:block/bauxite_laterite_0"
+      },
+      {
+        "model": "realistic_ores:block/bauxite_laterite_1"
+      },
+      {
+        "model": "realistic_ores:block/bauxite_laterite_2"
+      }
+    ]
+  }
+}

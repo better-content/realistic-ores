@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "realisticores:deepslate_kimberlite_pipe",
-    "realisticores:kimberlite_pipe"
+    "realistic_ores:deepslate_kimberlite_pipe",
+    "realistic_ores:kimberlite_pipe"
   ]
 }

@@ -1,0 +1,302 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "all": "realistic_ores:block/emerald_schist_beryl_vein_0_south",
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        0.02,
+        3
+      ],
+      "to": [
+        6,
+        3,
+        6
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            3,
+            6,
+            7,
+            9
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            3,
+            6,
+            7,
+            9
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            3,
+            6,
+            7,
+            9
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            3,
+            6,
+            7,
+            9
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            3,
+            6,
+            7,
+            9
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            3,
+            6,
+            7,
+            9
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        9,
+        0.02,
+        3
+      ],
+      "to": [
+        13,
+        4,
+        7
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            5,
+            3,
+            9,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            5,
+            3,
+            9,
+            7
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            5,
+            3,
+            9,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            5,
+            3,
+            9,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            5,
+            3,
+            9,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            5,
+            3,
+            9,
+            7
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          11.0,
+          0,
+          5.0
+        ],
+        "axis": "y",
+        "angle": 22.5,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        4,
+        0.02,
+        9
+      ],
+      "to": [
+        9,
+        3,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            6,
+            2,
+            11,
+            5
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            6,
+            2,
+            11,
+            5
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            6,
+            2,
+            11,
+            5
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            6,
+            2,
+            11,
+            5
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            6,
+            2,
+            11,
+            5
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            6,
+            2,
+            11,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        0.02,
+        10
+      ],
+      "to": [
+        14,
+        2,
+        13
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            10,
+            4
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            10,
+            4
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            10,
+            3
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            10,
+            3
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            10,
+            3
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            6,
+            1,
+            10,
+            3
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          12.0,
+          0,
+          11.5
+        ],
+        "axis": "y",
+        "angle": 22.5,
+        "rescale": false
+      }
+    }
+  ]
+}

@@ -4,13 +4,13 @@ Forge 1.20.1 mod that adds JSON-defined ore blocks, optional Create crushing out
 and data-driven world generation overrides.
 
 Project layout
-- `src/main/java/io/github/realisticores/registry`: block and item registration
-- `src/main/java/io/github/realisticores/ore`: JSON definition models and loaders
-- `src/main/java/io/github/realisticores/worldgen`: biome modifier hooks for data-driven feature removal
-- `src/main/resources/data/realisticores/realistic_ores`: ore block definitions
-- `src/main/resources/data/realisticores/disabled_placed_features`: placed feature removal rules for vanilla or modded ore generation
-- `src/main/resources/data/realisticores/worldgen`: configured and placed features
-- `src/main/resources/data/realisticores/forge/biome_modifier`: biome modifiers for adding the features and applying removal rules
+- `src/main/java/io/github/realistic_ores/registry`: block and item registration
+- `src/main/java/io/github/realistic_ores/ore`: JSON definition models and loaders
+- `src/main/java/io/github/realistic_ores/worldgen`: biome modifier hooks for data-driven feature removal
+- `src/main/resources/data/realistic_ores/realistic_ores`: ore block definitions
+- `src/main/resources/data/realistic_ores/disabled_placed_features`: placed feature removal rules for vanilla or modded ore generation
+- `src/main/resources/data/realistic_ores/worldgen`: configured and placed features
+- `src/main/resources/data/realistic_ores/forge/biome_modifier`: biome modifiers for adding the features and applying removal rules
 
 Notes
 - Block and item registration is driven from the ore definition JSON files.

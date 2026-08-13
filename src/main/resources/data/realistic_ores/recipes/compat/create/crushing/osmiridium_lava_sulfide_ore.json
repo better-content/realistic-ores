@@ -1,0 +1,24 @@
+{
+  "type": "create:crushing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "type": "forge:nbt",
+      "item": "realistic_ores:osmiridium_lava_sulfide_ore"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "item": "realistic_ores:ore_chunk_osmiridium_lava_sulfide_ore"
+    },
+    {
+      "item": "minecraft:stone"
+    }
+  ]
+}

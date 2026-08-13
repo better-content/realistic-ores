@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "realistic_ores:block/soul_bearing_black_shale_soulstone_vein_0"
+      },
+      {
+        "model": "realistic_ores:block/soul_bearing_black_shale_soulstone_vein_1"
+      },
+      {
+        "model": "realistic_ores:block/soul_bearing_black_shale_soulstone_vein_2"
+      }
+    ]
+  }
+}

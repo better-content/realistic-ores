@@ -1,0 +1,224 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "all": "realistic_ores:block/sulfur_bearing_pyrite_ore_0_south",
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        0.02,
+        2
+      ],
+      "to": [
+        5,
+        2,
+        7
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            7,
+            12
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            7,
+            12
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            7,
+            9
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            7,
+            9
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            7,
+            9
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            4,
+            7,
+            7,
+            9
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        9,
+        0.02,
+        4
+      ],
+      "to": [
+        12,
+        3,
+        7
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            4,
+            3,
+            7,
+            6
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            4,
+            3,
+            7,
+            6
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            4,
+            3,
+            7,
+            6
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            4,
+            3,
+            7,
+            6
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            4,
+            3,
+            7,
+            6
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            4,
+            3,
+            7,
+            6
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          10.5,
+          0,
+          5.5
+        ],
+        "axis": "y",
+        "angle": -22.5,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        3,
+        0.02,
+        9
+      ],
+      "to": [
+        7,
+        3,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            3,
+            11,
+            7,
+            14
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            3,
+            11,
+            7,
+            14
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            3,
+            11,
+            7,
+            14
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            3,
+            11,
+            7,
+            14
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            3,
+            11,
+            7,
+            14
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            3,
+            11,
+            7,
+            14
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,12 +1,12 @@
-# Project exclude paths
-/.gradle/
-/build/
-/build/classes/java/main/
+.gradle/
+build/
+out/
 run/
+run-*/
 logs/
 .idea/
-.gradle-local/
-.kotlin/
-.codex
-__pycache__/
-*.pyc
+.vscode/
+*.iml
+*.log
+.DS_Store
+Thumbs.db

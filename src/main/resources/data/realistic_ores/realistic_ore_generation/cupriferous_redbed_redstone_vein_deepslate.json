@@ -1,0 +1,13 @@
+{
+  "ore_id": "cupriferous_redbed_redstone_vein",
+  "variant": "deepslate",
+  "target_tag": "realistic_ores:overworld_ore_replaceables",
+  "vein_size": 12,
+  "count_per_chunk": 5,
+  "distribution": "triangle",
+  "min_y": -35,
+  "max_y": 37,
+  "biome_filter": "#minecraft:is_overworld",
+  "generation_step": "underground_ores",
+  "enabled": true
+}

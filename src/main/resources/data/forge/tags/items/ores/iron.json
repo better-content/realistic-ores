@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "realisticores:deepslate_ironstone",
-    "realisticores:deepslate_titanium_iron_oxide_ore",
-    "realisticores:ironstone",
-    "realisticores:titanium_iron_oxide_ore"
+    "realistic_ores:deepslate_ironstone",
+    "realistic_ores:deepslate_titanium_iron_oxide_ore",
+    "realistic_ores:ironstone",
+    "realistic_ores:titanium_iron_oxide_ore"
   ]
 }

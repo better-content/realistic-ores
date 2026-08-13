@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "realistic_ores:block/sulfur_bearing_pyrite_ore_0"
+      },
+      {
+        "model": "realistic_ores:block/sulfur_bearing_pyrite_ore_1"
+      },
+      {
+        "model": "realistic_ores:block/sulfur_bearing_pyrite_ore_2"
+      }
+    ]
+  }
+}

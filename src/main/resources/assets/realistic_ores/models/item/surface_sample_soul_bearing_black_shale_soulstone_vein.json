@@ -1,0 +1,22 @@
+{
+  "parent": "realistic_ores:block/surface_sample_soul_bearing_black_shale_soulstone_vein_2",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        1.15,
+        1.15,
+        1.15
+      ]
+    }
+  }
+}

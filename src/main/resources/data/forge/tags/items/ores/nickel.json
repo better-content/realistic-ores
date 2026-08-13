@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "realisticores:deepslate_nickel_sulfide_ore",
-    "realisticores:nickel_sulfide_ore"
+    "realistic_ores:deepslate_nickel_sulfide_ore",
+    "realistic_ores:nickel_sulfide_ore"
   ]
 }

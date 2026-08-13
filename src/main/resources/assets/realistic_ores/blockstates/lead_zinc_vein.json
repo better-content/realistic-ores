@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "realistic_ores:block/lead_zinc_vein_0"
+      },
+      {
+        "model": "realistic_ores:block/lead_zinc_vein_1"
+      },
+      {
+        "model": "realistic_ores:block/lead_zinc_vein_2"
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "create:crushing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:ore_chunk_soul_bearing_black_shale_soulstone_vein"
+    }
+  ],
+  "processingTime": 400,
+  "results": [
+    {
+      "item": "realistic_ores:crushed_soul_bearing_black_shale_soulstone_vein",
+      "count": 2
+    },
+    {
+      "item": "realistic_ores:crushed_soul_bearing_black_shale_soulstone_vein",
+      "chance": 0.5
+    }
+  ]
+}

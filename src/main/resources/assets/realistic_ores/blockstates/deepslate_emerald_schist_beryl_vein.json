@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "realistic_ores:block/deepslate_emerald_schist_beryl_vein_0"
+      },
+      {
+        "model": "realistic_ores:block/deepslate_emerald_schist_beryl_vein_1"
+      },
+      {
+        "model": "realistic_ores:block/deepslate_emerald_schist_beryl_vein_2"
+      }
+    ]
+  }
+}

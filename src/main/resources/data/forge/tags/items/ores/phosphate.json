@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "realisticores:deepslate_phosphate_rock",
-    "realisticores:phosphate_rock"
+    "realistic_ores:deepslate_phosphate_rock",
+    "realistic_ores:phosphate_rock"
   ]
 }

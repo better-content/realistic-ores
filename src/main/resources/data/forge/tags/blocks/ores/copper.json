@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "realisticores:copper_sulfide_ore",
-    "realisticores:cupriferous_redbed_redstone_vein",
-    "realisticores:deepslate_copper_sulfide_ore",
-    "realisticores:deepslate_cupriferous_redbed_redstone_vein"
+    "realistic_ores:copper_sulfide_ore",
+    "realistic_ores:cupriferous_redbed_redstone_vein",
+    "realistic_ores:deepslate_copper_sulfide_ore",
+    "realistic_ores:deepslate_cupriferous_redbed_redstone_vein"
   ]
 }

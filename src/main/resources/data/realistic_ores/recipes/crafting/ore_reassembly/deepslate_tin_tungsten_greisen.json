@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realistic_ores:ore_chunk_tin_tungsten_greisen"
+    },
+    {
+      "item": "minecraft:deepslate"
+    }
+  ],
+  "result": {
+    "item": "realistic_ores:deepslate_tin_tungsten_greisen"
+  }
+}

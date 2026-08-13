@@ -1,0 +1,13 @@
+{
+  "ore_id": "ironstone",
+  "variant": "stone",
+  "target_tag": "realistic_ores:overworld_ore_replaceables",
+  "vein_size": 20,
+  "count_per_chunk": 14,
+  "distribution": "uniform",
+  "min_y": 80,
+  "max_y": 339,
+  "biome_filter": "#minecraft:is_overworld",
+  "generation_step": "underground_ores",
+  "enabled": true
+}

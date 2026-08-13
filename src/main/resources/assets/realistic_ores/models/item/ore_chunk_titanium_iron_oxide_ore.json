@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "realistic_ores:item/ore_chunk_titanium_iron_oxide_ore"
+  }
+}

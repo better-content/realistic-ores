@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": "realisticores:nickel_sulfide_stone",
-  "step": "underground_ores"
-}

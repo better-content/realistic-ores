@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realistic_ores:ore_chunk_sulfur_bearing_pyrite_ore"
+    },
+    {
+      "item": "minecraft:deepslate"
+    }
+  ],
+  "result": {
+    "item": "realistic_ores:deepslate_sulfur_bearing_pyrite_ore"
+  }
+}
