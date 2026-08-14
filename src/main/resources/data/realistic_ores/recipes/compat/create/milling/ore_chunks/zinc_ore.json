@@ -1,5 +1,5 @@
 {
-  "type": "create:crushing",
+  "type": "create:milling",
   "conditions": [
     {
       "type": "forge:mod_loaded",
@@ -18,15 +18,7 @@
     },
     {
       "item": "realistic_ores:crushed_zinc_ore",
-      "chance": 0.3
-    },
-    {
-      "item": "realistic_ores:crushed_zinc_ore",
-      "chance": 0.3
-    },
-    {
-      "item": "realistic_ores:crushed_zinc_ore",
-      "chance": 0.3
+      "chance": 0.1
     }
   ]
 }
