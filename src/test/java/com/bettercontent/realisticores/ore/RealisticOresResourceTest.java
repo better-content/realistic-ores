@@ -405,9 +405,46 @@ final class RealisticOresResourceTest {
                             chunkCrushingPath.toString());
                     assertEquals(0.3, bonus.get("chance").getAsDouble(), chunkCrushingPath.toString());
                 }
+
+                Path chunkMillingPath = resources.resolve(
+                        "data/realistic_ores/recipes/compat/create/milling/ore_chunks/"
+                                + definition.primaryVariant().blockId() + ".json");
+                JsonObject chunkMilling = read(chunkMillingPath, JsonObject.class);
+                assertEquals("create:milling", chunkMilling.get("type").getAsString(),
+                        chunkMillingPath.toString());
+                assertEquals("forge:mod_loaded",
+                        chunkMilling.getAsJsonArray("conditions").get(0).getAsJsonObject().get("type").getAsString(),
+                        chunkMillingPath.toString());
+                assertEquals("create",
+                        chunkMilling.getAsJsonArray("conditions").get(0).getAsJsonObject().get("modid").getAsString(),
+                        chunkMillingPath.toString());
+                assertEquals(400, chunkMilling.get("processingTime").getAsInt(), chunkMillingPath.toString());
+                JsonArray millingIngredients = chunkMilling.getAsJsonArray("ingredients");
+                assertEquals(1, millingIngredients.size(), chunkMillingPath.toString());
+                assertEquals("realistic_ores:" + chunk,
+                        millingIngredients.get(0).getAsJsonObject().get("item").getAsString(),
+                        chunkMillingPath.toString());
+                JsonArray millingResults = chunkMilling.getAsJsonArray("results");
+                assertEquals(2, millingResults.size(), chunkMillingPath.toString());
+                assertEquals(Set.of("item"), millingResults.get(0).getAsJsonObject().keySet(),
+                        chunkMillingPath.toString());
+                assertEquals("realistic_ores:" + definition.crushedItemId(),
+                        millingResults.get(0).getAsJsonObject().get("item").getAsString(),
+                        chunkMillingPath.toString());
+                JsonObject millingBonus = millingResults.get(1).getAsJsonObject();
+                assertEquals(Set.of("item", "chance"), millingBonus.keySet(), chunkMillingPath.toString());
+                assertEquals("realistic_ores:" + definition.crushedItemId(),
+                        millingBonus.get("item").getAsString(), chunkMillingPath.toString());
+                assertEquals(0.1, millingBonus.get("chance").getAsDouble(), chunkMillingPath.toString());
             }
         }
         assertEquals(22, definitionCount);
+        Path chunkMillingDirectory = resources.resolve(
+                "data/realistic_ores/recipes/compat/create/milling/ore_chunks");
+        try (var millingPaths = Files.list(chunkMillingDirectory)) {
+            assertEquals(22, millingPaths.filter(path -> path.getFileName().toString().endsWith(".json")).count(),
+                    chunkMillingDirectory.toString());
+        }
     }
 
     private static void assertSurfaceSampleModelUsesOpaqueOreTexture(Path resources, Path modelPath) throws IOException {

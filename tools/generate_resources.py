@@ -243,6 +243,7 @@ def generate_ore_chunks() -> None:
     loot_dir = RESOURCES / "data" / "realistic_ores" / "loot_tables" / "blocks"
     recipe_dir = RESOURCES / "data" / "realistic_ores" / "recipes"
     chunk_crushing_dir = recipe_dir / "compat" / "create" / "crushing" / "ore_chunks"
+    chunk_milling_dir = recipe_dir / "compat" / "create" / "milling" / "ore_chunks"
     reassembly_dir = recipe_dir / "crafting" / "ore_reassembly"
     chunk_tag_path = RESOURCES / "data" / "realistic_ores" / "tags" / "items" / "ore_chunks.json"
     lang_path = RESOURCES / "assets" / "realistic_ores" / "lang" / "en_us.json"
@@ -250,6 +251,7 @@ def generate_ore_chunks() -> None:
     for path in item_model_dir.glob("ore_chunk_*.json"):
         path.unlink()
     reset_dir(chunk_crushing_dir)
+    reset_dir(chunk_milling_dir)
     reset_dir(reassembly_dir)
 
     lang = json.loads(lang_path.read_text(encoding="utf-8"))
@@ -293,6 +295,19 @@ def generate_ore_chunks() -> None:
                     {"item": f"realistic_ores:{crushed_id}", "chance": 0.3},
                     {"item": f"realistic_ores:{crushed_id}", "chance": 0.3},
                     {"item": f"realistic_ores:{crushed_id}", "chance": 0.3},
+                ],
+            },
+        )
+        write_json(
+            chunk_milling_dir / f"{primary_block_id}.json",
+            {
+                "type": "create:milling",
+                "conditions": [{"type": "forge:mod_loaded", "modid": "create"}],
+                "ingredients": [{"item": f"realistic_ores:{chunk_id}"}],
+                "processingTime": 400,
+                "results": [
+                    {"item": f"realistic_ores:{crushed_id}"},
+                    {"item": f"realistic_ores:{crushed_id}", "chance": 0.1},
                 ],
             },
         )

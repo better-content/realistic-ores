@@ -1,0 +1,24 @@
+{
+  "type": "create:milling",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:ore_chunk_emerald_schist_beryl_vein"
+    }
+  ],
+  "processingTime": 400,
+  "results": [
+    {
+      "item": "realistic_ores:crushed_emerald_schist_beryl_vein"
+    },
+    {
+      "item": "realistic_ores:crushed_emerald_schist_beryl_vein",
+      "chance": 0.1
+    }
+  ]
+}
