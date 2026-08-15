@@ -2,11 +2,19 @@ package com.bettercontent.realisticores.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -14,16 +22,57 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
 public final class SurfaceSampleBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 3.0, 15.0);
+    @Nullable
+    private final ResourceLocation collectedItemId;
 
-    public SurfaceSampleBlock(Properties properties) {
+    public SurfaceSampleBlock(Properties properties, @Nullable ResourceLocation collectedItemId) {
         super(properties);
+        this.collectedItemId = collectedItemId;
         registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public InteractionResult use(
+            BlockState state,
+            Level level,
+            BlockPos position,
+            Player player,
+            InteractionHand hand,
+            BlockHitResult hitResult) {
+        if (collectedItemId == null || !player.mayBuild()) {
+            return InteractionResult.PASS;
+        }
+        if (level.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+
+        Item collectedItem = ForgeRegistries.ITEMS.getValue(collectedItemId);
+        if (collectedItem == null) {
+            return InteractionResult.PASS;
+        }
+
+        BlockState replacement = state.getValue(WATERLOGGED)
+                ? Blocks.WATER.defaultBlockState()
+                : Blocks.AIR.defaultBlockState();
+        if (!level.setBlock(position, replacement, Block.UPDATE_ALL)) {
+            return InteractionResult.PASS;
+        }
+
+        ItemStack collectedStack = new ItemStack(collectedItem);
+        if (!player.addItem(collectedStack)) {
+            popResource(level, position, collectedStack);
+        }
+        return InteractionResult.CONSUME;
     }
 
     @Override

@@ -40,9 +40,14 @@ public final class ModBlocks {
                     BLOCKS_BY_ORE_AND_HOST.put(key(definition.id(), variant.host()), block);
                 }
                 String sampleId = definition.surfaceSampleBlockId();
-                SURFACE_SAMPLES_BY_ID.put(sampleId, BLOCKS.register(sampleId, ModBlocks::newSurfaceSample));
+                ResourceLocation collectedItemId = ResourceLocation.fromNamespaceAndPath(
+                        RealisticOresMod.MOD_ID,
+                        definition.oreChunkItemId());
+                SURFACE_SAMPLES_BY_ID.put(sampleId, BLOCKS.register(
+                        sampleId,
+                        () -> newSurfaceSample(collectedItemId)));
             }
-            OIL_SEEP = BLOCKS.register("oil_seep", ModBlocks::newSurfaceSample);
+            OIL_SEEP = BLOCKS.register("oil_seep", () -> newSurfaceSample(null));
         }
         BLOCKS.register(modBus);
     }
@@ -68,12 +73,12 @@ public final class ModBlocks {
     }
 
 
-    private static SurfaceSampleBlock newSurfaceSample() {
+    private static SurfaceSampleBlock newSurfaceSample(ResourceLocation collectedItemId) {
         return new SurfaceSampleBlock(BlockBehaviour.Properties.copy(Blocks.MOSS_CARPET)
                 .noCollission()
                 .instabreak()
                 .sound(SoundType.GRAVEL)
-                .offsetType(BlockBehaviour.OffsetType.XZ));
+                .offsetType(BlockBehaviour.OffsetType.XZ), collectedItemId);
     }
 
     private static String key(String oreId, String host) {
