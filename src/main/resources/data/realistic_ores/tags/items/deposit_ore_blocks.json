@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "#realistic_ores:deposit_ore_blocks/bauxite_laterite",
+    "#realistic_ores:deposit_ore_blocks/coal_measures",
+    "#realistic_ores:deposit_ore_blocks/copper_sulfide",
+    "#realistic_ores:deposit_ore_blocks/corundum_beryl_vein",
+    "#realistic_ores:deposit_ore_blocks/cupriferous_redbed_redstone_vein",
+    "#realistic_ores:deposit_ore_blocks/emerald_schist_beryl",
+    "#realistic_ores:deposit_ore_blocks/ironstone",
+    "#realistic_ores:deposit_ore_blocks/kimberlite_pipe",
+    "#realistic_ores:deposit_ore_blocks/lazurite_vein",
+    "#realistic_ores:deposit_ore_blocks/lead_zinc_vein",
+    "#realistic_ores:deposit_ore_blocks/nickel_sulfide",
+    "#realistic_ores:deposit_ore_blocks/osmiridium_lava_sulfide",
+    "#realistic_ores:deposit_ore_blocks/phosphate_rock",
+    "#realistic_ores:deposit_ore_blocks/quartz_vein",
+    "#realistic_ores:deposit_ore_blocks/soul_bearing_black_shale_soulstone_vein",
+    "#realistic_ores:deposit_ore_blocks/sulfur_bearing_pyrite_ore",
+    "#realistic_ores:deposit_ore_blocks/thorium_ore",
+    "#realistic_ores:deposit_ore_blocks/tin",
+    "#realistic_ores:deposit_ore_blocks/tin_tungsten_greisen",
+    "#realistic_ores:deposit_ore_blocks/titanium_iron_oxide",
+    "#realistic_ores:deposit_ore_blocks/uranium_ore",
+    "#realistic_ores:deposit_ore_blocks/zinc"
+  ]
+}
+

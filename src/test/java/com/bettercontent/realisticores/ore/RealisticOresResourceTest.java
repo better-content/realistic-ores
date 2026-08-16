@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import java.util.Set;
@@ -305,6 +306,16 @@ final class RealisticOresResourceTest {
                 definitionCount++;
                 OreDefinition definition = read(path, OreDefinition.class);
                 String chunk = definition.oreChunkItemId();
+                String familyTag = switch (definition.id()) {
+                    case "corundum_beryl_gem_vein" -> "corundum_beryl_vein";
+                    case "emerald_schist_beryl_vein" -> "emerald_schist_beryl";
+                    case "sulfur_bearing_pyrite" -> "sulfur_bearing_pyrite_ore";
+                    case "thorium" -> "thorium_ore";
+                    case "titanium_iron_oxide" -> "titanium_iron_oxide";
+                    case "uranium" -> "uranium_ore";
+                    default -> definition.id();
+                };
+                assertDepositTags(resources, definition, familyTag, chunk);
                 Path texturePath = resources.resolve("assets/realistic_ores/textures/item/" + chunk + ".png");
                 BufferedImage image = ImageIO.read(texturePath.toFile());
                 assertTrue(image != null, texturePath.toString());
@@ -445,6 +456,33 @@ final class RealisticOresResourceTest {
             assertEquals(22, millingPaths.filter(path -> path.getFileName().toString().endsWith(".json")).count(),
                     chunkMillingDirectory.toString());
         }
+    }
+
+    private static void assertDepositTags(
+            Path resources,
+            OreDefinition definition,
+            String familyTag,
+            String chunk
+    ) {
+        Set<String> expectedBlocks = definition.variants().stream()
+                .map(variant -> "realistic_ores:" + variant.blockId())
+                .collect(Collectors.toUnmodifiableSet());
+        for (String registry : List.of("blocks", "items")) {
+            Path path = resources.resolve("data/realistic_ores/tags/" + registry
+                    + "/deposit_ore_blocks/" + familyTag + ".json");
+            JsonObject tag = read(path, JsonObject.class);
+            Set<String> values = tag.getAsJsonArray("values").asList().stream()
+                    .map(entry -> entry.getAsString())
+                    .collect(Collectors.toUnmodifiableSet());
+            assertEquals(expectedBlocks, values, path.toString());
+        }
+
+        Path chunkPath = resources.resolve("data/realistic_ores/tags/items/deposit_chunks/"
+                + familyTag + ".json");
+        JsonObject chunkTag = read(chunkPath, JsonObject.class);
+        assertEquals(List.of("realistic_ores:" + chunk),
+                chunkTag.getAsJsonArray("values").asList().stream().map(entry -> entry.getAsString()).toList(),
+                chunkPath.toString());
     }
 
     private static void assertSurfaceSampleModelUsesOpaqueOreTexture(Path resources, Path modelPath) throws IOException {

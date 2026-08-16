@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "#realistic_ores:deposit_chunks/bauxite_laterite",
+    "#realistic_ores:deposit_chunks/coal_measures",
+    "#realistic_ores:deposit_chunks/copper_sulfide",
+    "#realistic_ores:deposit_chunks/corundum_beryl_vein",
+    "#realistic_ores:deposit_chunks/cupriferous_redbed_redstone_vein",
+    "#realistic_ores:deposit_chunks/emerald_schist_beryl",
+    "#realistic_ores:deposit_chunks/ironstone",
+    "#realistic_ores:deposit_chunks/kimberlite_pipe",
+    "#realistic_ores:deposit_chunks/lazurite_vein",
+    "#realistic_ores:deposit_chunks/lead_zinc_vein",
+    "#realistic_ores:deposit_chunks/nickel_sulfide",
+    "#realistic_ores:deposit_chunks/osmiridium_lava_sulfide",
+    "#realistic_ores:deposit_chunks/phosphate_rock",
+    "#realistic_ores:deposit_chunks/quartz_vein",
+    "#realistic_ores:deposit_chunks/soul_bearing_black_shale_soulstone_vein",
+    "#realistic_ores:deposit_chunks/sulfur_bearing_pyrite_ore",
+    "#realistic_ores:deposit_chunks/thorium_ore",
+    "#realistic_ores:deposit_chunks/tin",
+    "#realistic_ores:deposit_chunks/tin_tungsten_greisen",
+    "#realistic_ores:deposit_chunks/titanium_iron_oxide",
+    "#realistic_ores:deposit_chunks/uranium_ore",
+    "#realistic_ores:deposit_chunks/zinc"
+  ]
+}
+
