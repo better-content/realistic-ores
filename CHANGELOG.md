@@ -4,6 +4,13 @@
 
 ### Changed
 
+- Rebalanced every family to two primary units per full chunk and one per crushed feed;
+  millstones now produce two crushed feeds and crushing wheels produce three.
+- Added immediate low-yield bauxite recovery and restricted TConstruct ore processing to
+  metal primary products and metal coproducts.
+- Made oil seep collectible by right-click like the other surface indicators.
+- Added a canonical family art manifest for palette- and morphology-consistent chunk and
+  crushed-feed sprites.
 - Surface samples now place and collect through the matching `small_ore_chunk_<family>` BlockItem.
 - Moved the complete 23-family chunk, crushing, separation, concentrate, thermal-exit,
   grinding-media, gem-chip, and Excavated Variants lifecycle into Realistic Ores.

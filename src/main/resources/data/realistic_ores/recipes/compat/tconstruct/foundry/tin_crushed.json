@@ -11,20 +11,15 @@
   },
   "result": {
     "tag": "forge:molten_tin",
-    "amount": 150
+    "amount": 15
   },
   "rate": "metal",
   "temperature": 950,
   "time": 120,
   "byproducts": [
     {
-      "fluid": "tconstruct:molten_quartz",
-      "amount": 68,
-      "rate": "metal"
-    },
-    {
       "tag": "forge:molten_tungsten",
-      "amount": 15,
+      "amount": 2,
       "rate": "metal"
     }
   ]

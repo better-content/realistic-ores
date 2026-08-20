@@ -7,19 +7,24 @@
     }
   ],
   "ingredient": {
-    "item": "realistic_ores:crushed_emerald_schist_beryl"
+    "item": "realistic_ores:crushed_bauxite_laterite"
   },
   "result": {
-    "fluid": "tconstruct:molten_emerald",
-    "amount": 150
+    "tag": "forge:molten_aluminum",
+    "amount": 15
   },
   "rate": "metal",
   "temperature": 950,
   "time": 120,
   "byproducts": [
     {
-      "tag": "forge:molten_aluminum",
-      "amount": 30,
+      "tag": "forge:molten_nickel",
+      "amount": 5,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_titanium",
+      "amount": 5,
       "rate": "metal"
     }
   ]

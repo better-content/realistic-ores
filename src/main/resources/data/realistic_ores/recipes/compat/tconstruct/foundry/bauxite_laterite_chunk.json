@@ -7,24 +7,24 @@
     }
   ],
   "ingredient": {
-    "item": "realistic_ores:crushed_amethyst_beryl_pegmatite"
+    "item": "realistic_ores:ore_chunk_bauxite_laterite"
   },
   "result": {
-    "fluid": "tconstruct:molten_amethyst",
-    "amount": 150
+    "tag": "forge:molten_aluminum",
+    "amount": 30
   },
   "rate": "metal",
   "temperature": 950,
   "time": 120,
   "byproducts": [
     {
-      "tag": "forge:molten_aluminum",
-      "amount": 68,
+      "tag": "forge:molten_nickel",
+      "amount": 5,
       "rate": "metal"
     },
     {
-      "fluid": "tconstruct:molten_quartz",
-      "amount": 30,
+      "tag": "forge:molten_titanium",
+      "amount": 5,
       "rate": "metal"
     }
   ]

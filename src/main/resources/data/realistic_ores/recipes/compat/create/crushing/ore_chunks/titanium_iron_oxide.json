@@ -14,19 +14,8 @@
   "processingTime": 400,
   "results": [
     {
-      "item": "realistic_ores:crushed_titanium_iron_oxide"
-    },
-    {
       "item": "realistic_ores:crushed_titanium_iron_oxide",
-      "chance": 0.3
-    },
-    {
-      "item": "realistic_ores:crushed_titanium_iron_oxide",
-      "chance": 0.3
-    },
-    {
-      "item": "realistic_ores:crushed_titanium_iron_oxide",
-      "chance": 0.3
+      "count": 3
     }
   ]
 }

@@ -11,7 +11,7 @@
   },
   "result": {
     "tag": "forge:molten_thorium",
-    "amount": 180
+    "amount": 30
   },
   "rate": "metal",
   "temperature": 950,
@@ -19,12 +19,12 @@
   "byproducts": [
     {
       "tag": "forge:molten_lead",
-      "amount": 20,
+      "amount": 5,
       "rate": "metal"
     },
     {
       "tag": "forge:molten_uranium",
-      "amount": 10,
+      "amount": 2,
       "rate": "metal"
     }
   ]

@@ -19,6 +19,7 @@ NS = "realistic_ores"
 ORE_DIR = RES / "data/realistic_ores/realistic_ores"
 ASSETS = RES / "assets/realistic_ores"
 DATA = RES / "data/realistic_ores"
+ART_MANIFEST = json.loads((ROOT / "tools/ore_art_manifest.json").read_text(encoding="utf-8"))
 
 FAMILIES = [
     "coal_measures", "ironstone", "copper_sulfide", "tin", "zinc", "lead_zinc_vein",
@@ -40,7 +41,7 @@ MATERIALS = {
     "sulfur": ("bulk", "chemlib:sulfur", None, None),
     "gold": ("metal", "minecraft:gold_ingot", "minecraft:gold_nugget", "forge:molten_gold"),
     "tin": ("metal", "chemlib:tin_ingot", "chemlib:tin_nugget", "forge:molten_tin"),
-    "quartz": ("bulk", "minecraft:quartz", None, "tconstruct:molten_quartz"),
+    "quartz": ("bulk", "minecraft:quartz", None, None),
     "tungsten": ("metal", "chemlib:tungsten_ingot", "chemlib:tungsten_nugget", "forge:molten_tungsten"),
     "zinc": ("metal", "chemlib:zinc_ingot", "chemlib:zinc_nugget", "forge:molten_zinc"),
     "lead": ("metal", "chemlib:lead_ingot", "chemlib:lead_nugget", "forge:molten_lead"),
@@ -56,11 +57,11 @@ MATERIALS = {
     "iridium": ("metal", "chemlib:iridium_ingot", "chemlib:iridium_nugget", None),
     "tantalum": ("metal", "chemlib:tantalum_ingot", "chemlib:tantalum_nugget", None),
     "magnesium": ("metal", "chemlib:magnesium_ingot", "chemlib:magnesium_nugget", None),
-    "diamond": ("gem", "minecraft:diamond", "realistic_ores:diamond_chip", "tconstruct:molten_diamond"),
-    "emerald": ("gem", "minecraft:emerald", "realistic_ores:emerald_chip", "tconstruct:molten_emerald"),
+    "diamond": ("gem", "minecraft:diamond", "realistic_ores:diamond_chip", None),
+    "emerald": ("gem", "minecraft:emerald", "realistic_ores:emerald_chip", None),
     "beryl": ("bulk", "chemlib:beryl", None, None),
     "beryllium": ("metal", "chemlib:beryllium_ingot", "chemlib:beryllium_nugget", None),
-    "amethyst": ("gem", "minecraft:amethyst_shard", "realistic_ores:amethyst_chip", "tconstruct:molten_amethyst"),
+    "amethyst": ("gem", "minecraft:amethyst_shard", "realistic_ores:amethyst_chip", None),
     "uranium": ("metal", "chemlib:uranium_ingot", "chemlib:uranium_nugget", "forge:molten_uranium"),
     "thorium": ("metal", "chemlib:thorium_ingot", "chemlib:thorium_nugget", "forge:molten_thorium"),
     "calcium": ("metal", "chemlib:calcium_ingot", "chemlib:calcium_nugget", None),
@@ -114,15 +115,40 @@ def reset(path: Path) -> None:
     path.mkdir(parents=True)
 
 
-def png(path: Path, hue: float, shape: int) -> None:
-    rgb = tuple(round(channel * 255) for channel in colorsys.hsv_to_rgb(hue, .58, .9))
+def png(
+        path: Path,
+        palette: list[str] | float,
+        morphology: str | int,
+        shape: int | None = None,
+        crushed: bool = False) -> None:
+    if shape is None:
+        shape = int(morphology)
+        morphology = "disseminated"
+    colors = (
+        [tuple(int(value[index:index + 2], 16) for index in (1, 3, 5)) for value in palette]
+        if isinstance(palette, list)
+        else [tuple(round(channel * 255) for channel in colorsys.hsv_to_rgb(palette, .58, .9))]
+    )
+    morphology_seed = zlib.crc32(morphology.encode("utf-8"))
     rows = []
     for y in range(16):
         row = bytearray()
         for x in range(16):
-            visible = 2 <= x <= 13 and 3 <= y <= 12 and ((x * 7 + y * 11 + shape) % 5 != 0)
-            shade = .58 + ((x + y + shape) % 4) * .12
-            row.extend((*[min(255, round(c * shade)) for c in rgb], 255 if visible else 0))
+            if crushed:
+                envelope = 3 <= x <= 12 and 7 <= y <= 12
+                visible = envelope and y >= 8 + abs(x - 7) // 4 and ((x * 5 + y * 3 + shape) % 7 != 0)
+            elif morphology in ("seam", "banded"):
+                center = 7 + ((x * 3 + morphology_seed + shape) % 5 - 2) // 2
+                visible = 2 <= x <= 13 and abs(y - center) <= 2 and ((x + y + shape) % 6 != 0)
+            elif morphology in ("vein", "branching"):
+                center = 3 + ((x * 5 + morphology_seed + shape) % 9)
+                visible = 2 <= x <= 13 and (abs(y - center) <= 1 or (x + y + shape) % 11 == 0)
+            elif morphology == "crystalline":
+                visible = 3 <= x <= 12 and 3 <= y <= 12 and ((x * 7 + y * 11 + morphology_seed + shape) % 5 <= 1)
+            else:
+                visible = 2 <= x <= 13 and 3 <= y <= 12 and ((x * 7 + y * 11 + morphology_seed + shape) % 5 != 0)
+            color = colors[(x * 3 + y * 5 + shape) % len(colors)]
+            row.extend((*color, 255 if visible else 0))
         rows.append(b"\0" + bytes(row))
     raw = b"".join(rows)
     def chunk(kind: bytes, payload: bytes) -> bytes:
@@ -232,16 +258,32 @@ def main() -> None:
         definition = by_family[family]
         chunk, small, crushed = f"ore_chunk_{family}", f"small_ore_chunk_{family}", f"crushed_{family}"
         all_chunks.append(f"{NS}:{chunk}"); all_small.append(f"{NS}:{small}"); all_crushed.append(f"{NS}:{crushed}")
+        art = ART_MANIFEST[family]
         for item, suffix, label in ((chunk, "chunk", "Ore Chunk"), (crushed, "crushed", "Crushed Feed")):
             write(item_models / f"{item}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{item}"}})
-            png(item_textures / f"{item}.png", (index * .071) % 1, index + (0 if suffix == "chunk" else 91))
+            png(item_textures / f"{item}.png", art["palette"], art["morphology"], index, suffix == "crushed")
             lang[f"item.{NS}.{item}"] = f"{definition['display_name'].removesuffix(' Deposit')} {label}"
         sample = f"surface_sample_{family}"
-        write(item_models / f"{small}.json", {"parent": f"{NS}:block/{sample}_2"})
+        write(item_models / f"{small}.json", {
+            "parent": f"{NS}:block/{sample}_2",
+            "display": {"gui": {
+                "rotation": [30, 225, 0],
+                "translation": [0, 3, 0],
+                "scale": [1.15, 1.15, 1.15],
+            }},
+        })
         lang[f"item.{NS}.{small}"] = f"Small {definition['display_name'].removesuffix(' Deposit')} Chunk"
+        write(DATA / f"loot_tables/blocks/{sample}.json", {
+            "type": "minecraft:block",
+            "pools": [{
+                "rolls": 1.0,
+                "entries": [{"type": "minecraft:item", "name": f"{NS}:{small}"}],
+                "conditions": [{"condition": "minecraft:survives_explosion"}],
+            }],
+        })
         write(recipes / f"crafting/small_chunks/{family}.json", {"type": "minecraft:crafting_shapeless", "ingredients": [{"item": f"{NS}:{small}"}] * 9, "result": {"item": f"{NS}:{chunk}"}})
-        write(recipes / f"compat/create/crushing/ore_chunks/{family}.json", {"type": "create:crushing", "conditions": [{"type": "forge:mod_loaded", "modid": "create"}], "ingredients": [{"item": f"{NS}:{chunk}"}], "processingTime": 400, "results": [{"item": f"{NS}:{crushed}"}] + [{"item": f"{NS}:{crushed}", "chance": .3}] * 3})
-        write(recipes / f"compat/create/milling/ore_chunks/{family}.json", {"type": "create:milling", "conditions": [{"type": "forge:mod_loaded", "modid": "create"}], "ingredients": [{"item": f"{NS}:{chunk}"}], "processingTime": 400, "results": [{"item": f"{NS}:{crushed}"}, {"item": f"{NS}:{crushed}", "chance": .1}]})
+        write(recipes / f"compat/create/crushing/ore_chunks/{family}.json", {"type": "create:crushing", "conditions": [{"type": "forge:mod_loaded", "modid": "create"}], "ingredients": [{"item": f"{NS}:{chunk}"}], "processingTime": 400, "results": [{"item": f"{NS}:{crushed}", "count": 3}]})
+        write(recipes / f"compat/create/milling/ore_chunks/{family}.json", {"type": "create:milling", "conditions": [{"type": "forge:mod_loaded", "modid": "create"}], "ingredients": [{"item": f"{NS}:{chunk}"}], "processingTime": 400, "results": [{"item": f"{NS}:{crushed}", "count": 2}]})
         hosted = []
         for variant in definition["variants"]:
             block, host = variant["block_id"], variant["copy_properties_from"]
@@ -272,39 +314,45 @@ def main() -> None:
         write(processing_dir / f"{family}.json", processing)
 
         kind, output, fraction, fluid = MATERIALS[primary]
-        if family != "bauxite_laterite":
-            if kind in ("metal", "gem", "bulk"):
-                counts = (("chunk", chunk, 4), ("crushed", crushed, 9)) if kind != "bulk" else (("chunk", chunk, 2), ("crushed", crushed, 4))
-                cooked = fraction if fraction is not None else output
-                for stage, item, count in counts:
-                    write(recipes / f"thermal/furnace/{family}_{stage}.json", {"type": "minecraft:smelting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": count}, "experience": .1, "cookingtime": 240})
-                    write(recipes / f"thermal/blasting/{family}_{stage}.json", {"type": "minecraft:blasting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": count}, "experience": .1, "cookingtime": 120})
-            if fluid:
-                fluid_result = {"tag": fluid, "amount": 90} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 90}
-                foundry_result = {**fluid_result, "amount": 180}
-                crushed_result = {**fluid_result, "amount": 120}
-                crushed_foundry_result = {**fluid_result, "amount": 150}
-                grade_amounts = {"major": 45, "minor": 20, "trace": 10, "precious": 5}
-                byproducts = []
-                seen_byproducts = set()
-                for _, _, coproducts in routes:
-                    for coproduct, grade in coproducts:
-                        coproduct_fluid = MATERIALS[coproduct][3]
-                        if coproduct_fluid is None or coproduct in seen_byproducts: continue
-                        seen_byproducts.add(coproduct)
-                        byproducts.append(({"tag": coproduct_fluid, "amount": grade_amounts[grade], "rate": "metal"}
-                                           if coproduct_fluid.startswith("forge:") else
-                                           {"fluid": coproduct_fluid, "amount": grade_amounts[grade], "rate": "metal"}))
-                write(recipes / f"compat/tconstruct/melting/{family}_chunk.json", {"type": "tconstruct:melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{chunk}"}, "result": fluid_result, "temperature": 950, "time": 120})
-                write(recipes / f"compat/tconstruct/melting/{family}_crushed.json", {"type": "tconstruct:melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{crushed}"}, "result": crushed_result, "temperature": 950, "time": 120})
-                chunk_foundry = {"type": "tconstruct:ore_melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{chunk}"}, "result": foundry_result, "rate": "metal", "temperature": 950, "time": 120}
-                crushed_foundry = {"type": "tconstruct:ore_melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{crushed}"}, "result": crushed_foundry_result, "rate": "metal", "temperature": 950, "time": 120}
-                if byproducts:
-                    chunk_foundry["byproducts"] = byproducts
-                    crushed_foundry["byproducts"] = [{**result, "amount": round(result["amount"] * 1.5)} for result in byproducts]
-                write(recipes / f"compat/tconstruct/foundry/{family}_chunk.json", chunk_foundry)
-                write(recipes / f"compat/tconstruct/foundry/{family}_crushed.json", crushed_foundry)
+        if kind in ("metal", "gem", "bulk"):
+            cooked = fraction if fraction is not None else output
+            for stage, item, count in (("chunk", chunk, 2), ("crushed", crushed, 1)):
+                write(recipes / f"thermal/furnace/{family}_{stage}.json", {"type": "minecraft:smelting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": count}, "experience": .1, "cookingtime": 240})
+                write(recipes / f"thermal/blasting/{family}_{stage}.json", {"type": "minecraft:blasting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": count}, "experience": .1, "cookingtime": 120})
+        if kind == "metal" and fluid:
+            fluid_result = {"tag": fluid, "amount": 20} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 20}
+            foundry_result = {**fluid_result, "amount": 30}
+            crushed_result = {**fluid_result, "amount": 10}
+            crushed_foundry_result = {**fluid_result, "amount": 15}
+            grade_amounts = {"major": 10, "minor": 5, "trace": 2, "precious": 1}
+            byproducts = []
+            seen_byproducts = set()
+            for _, _, coproducts in routes:
+                for coproduct, grade in coproducts:
+                    coproduct_fluid = MATERIALS[coproduct][3]
+                    if MATERIALS[coproduct][0] != "metal" or coproduct_fluid is None or coproduct in seen_byproducts: continue
+                    seen_byproducts.add(coproduct)
+                    byproducts.append(({"tag": coproduct_fluid, "amount": grade_amounts[grade], "rate": "metal"}
+                                       if coproduct_fluid.startswith("forge:") else
+                                       {"fluid": coproduct_fluid, "amount": grade_amounts[grade], "rate": "metal"}))
+            write(recipes / f"compat/tconstruct/melting/{family}_chunk.json", {"type": "tconstruct:melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{chunk}"}, "result": fluid_result, "temperature": 950, "time": 120})
+            write(recipes / f"compat/tconstruct/melting/{family}_crushed.json", {"type": "tconstruct:melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{crushed}"}, "result": crushed_result, "temperature": 950, "time": 120})
+            chunk_foundry = {"type": "tconstruct:ore_melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{chunk}"}, "result": foundry_result, "rate": "metal", "temperature": 950, "time": 120}
+            crushed_foundry = {"type": "tconstruct:ore_melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{crushed}"}, "result": crushed_foundry_result, "rate": "metal", "temperature": 950, "time": 120}
+            if byproducts:
+                chunk_foundry["byproducts"] = byproducts
+                crushed_foundry["byproducts"] = byproducts
+            write(recipes / f"compat/tconstruct/foundry/{family}_chunk.json", chunk_foundry)
+            write(recipes / f"compat/tconstruct/foundry/{family}_crushed.json", crushed_foundry)
 
+    write(DATA / "loot_tables/blocks/oil_seep.json", {
+        "type": "minecraft:block",
+        "pools": [{
+            "rolls": 1.0,
+            "entries": [{"type": "minecraft:item", "name": f"{NS}:oil_seep"}],
+            "conditions": [{"condition": "minecraft:survives_explosion"}],
+        }],
+    })
     write(DATA / "tags/items/deposit_chunks.json", {"replace": False, "values": all_chunks})
     obsolete_chunk_tag = DATA / "tags/items/ore_chunks.json"
     if obsolete_chunk_tag.exists(): obsolete_chunk_tag.unlink()
@@ -323,11 +371,11 @@ def main() -> None:
         kind, output, fraction, fluid = MATERIALS[material]
         if kind in ("metal", "gem", "bulk"):
             cooked = fraction if fraction is not None else output
-            write(recipes / f"thermal/furnace/concentrate_{material}.json", {"type": "minecraft:smelting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": 12}, "experience": .2, "cookingtime": 240})
-            write(recipes / f"thermal/blasting/concentrate_{material}.json", {"type": "minecraft:blasting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": 12}, "experience": .2, "cookingtime": 120})
-        if fluid:
-            result = ({"tag": fluid, "amount": 180} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 180})
-            melting_result = ({"tag": fluid, "amount": 135} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 135})
+            write(recipes / f"thermal/furnace/concentrate_{material}.json", {"type": "minecraft:smelting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": 2}, "experience": .2, "cookingtime": 240})
+            write(recipes / f"thermal/blasting/concentrate_{material}.json", {"type": "minecraft:blasting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": 2}, "experience": .2, "cookingtime": 120})
+        if kind == "metal" and fluid:
+            result = ({"tag": fluid, "amount": 30} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 30})
+            melting_result = ({"tag": fluid, "amount": 20} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 20})
             write(recipes / f"compat/tconstruct/melting/concentrate_{material}.json", {"type": "tconstruct:melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{item}"}, "result": melting_result, "temperature": 950, "time": 120})
             write(recipes / f"compat/tconstruct/foundry/concentrate_{material}.json", {"type": "tconstruct:ore_melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{item}"}, "result": result, "rate": "metal", "temperature": 950, "time": 120})
 

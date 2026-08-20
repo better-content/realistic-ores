@@ -47,7 +47,10 @@ public final class ModBlocks {
                         sampleId,
                         () -> newSurfaceSample(collectedItemId)));
             }
-            OIL_SEEP = BLOCKS.register("oil_seep", () -> newSurfaceSample(null));
+            ResourceLocation oilSeepItemId = ResourceLocation.fromNamespaceAndPath(
+                    RealisticOresMod.MOD_ID,
+                    "oil_seep");
+            OIL_SEEP = BLOCKS.register("oil_seep", () -> newSurfaceSample(oilSeepItemId));
         }
         BLOCKS.register(modBus);
     }

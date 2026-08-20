@@ -11,7 +11,7 @@
   },
   "result": {
     "tag": "forge:molten_osmium",
-    "amount": 150
+    "amount": 15
   },
   "rate": "metal",
   "temperature": 950,
@@ -19,7 +19,7 @@
   "byproducts": [
     {
       "tag": "forge:molten_platinum",
-      "amount": 8,
+      "amount": 1,
       "rate": "metal"
     }
   ]

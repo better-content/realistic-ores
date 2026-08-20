@@ -132,20 +132,28 @@ silver-violet value steps are reflective mineral color rather than emissive ligh
   preserves the exact placeable host-rock ore block instead.
 - Ore blocks separate reversibly into one chunk plus their host stone, and recombine from
   those same two ingredients. Processing a chunk is irreversible: an early-game millstone
-  produces one crushed material plus one 10% chance for another (1.1 on average), while
-  crushing wheels produce one plus three independent 30% chances (1.9 on average).
+  produces two crushed feeds, while crushing wheels produce three.
 - Crushed items are compact lower-center piles, not miniature ore blocks. Existing
   sprites occupy roughly 30-40 visible pixels inside an `x=3..12`, `y=6..11` envelope
   (the narrowest families use `x=4..11`).
-- The crushed sprites use seven colors and limited partial alpha only around pile edges.
-  Their opaque interior carries the parent family's hue and value hierarchy.
+- Crushed sprites use the same five family mineral colors as chunks and deposits.
+  Visible pixels are fully opaque against a transparent background.
 - Crushed material and surface samples are separate registry entries. `crushed_*` is a
   processing ingredient and is never placeable. The BlockItem for each `surface_sample_*`
   block is registered as `small_ore_chunk_<family>`; there is no separate sample item.
-- Nine identical small chunks irreversibly combine into one full chunk. Four matching
+- Nine identical small chunks irreversibly combine into one full chunk. A full chunk cooks
+  to two primary nuggets, gem chips, or bulk items; each crushed feed cooks to one. Bauxite
+  follows that same low-yield early recovery rule instead of remaining inert. Four matching
   crushed feeds, one route-specific grinding ball, and exactly 500 mB of the declared
   water/acid route produce four primary concentrates plus independently rolled coproducts.
   Separation never emits washed forms or generic tailings.
+- TConstruct melting and Foundry exits exist only for metal primaries and metal coproducts.
+  Quartz and gems keep item-form recovery and never become molten Realistic Ores outputs.
+- Coal measures and ironstone deliberately share a sedimentary seam vocabulary, but coal's
+  broken dark carbon seam and ironstone's rusty bedded band remain distinct. Their overlapping
+  height bands are preserved; their worldgen features and ADLODS deposits remain independent.
+- Oil seep uses the same right-click collect/place behavior as surface samples, returning its
+  own BlockItem without entering any ore processing tag or conversion.
 - Surface samples use the ore family's opaque raw-deposit texture on five deterministic,
   ore-specific fragment arrangements. They must read as host-rock fragments carrying
   mineralization, not as a crushed processing pile laid on the ground.

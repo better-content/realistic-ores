@@ -14,11 +14,8 @@
   "processingTime": 400,
   "results": [
     {
-      "item": "realistic_ores:crushed_emerald_schist_beryl"
-    },
-    {
       "item": "realistic_ores:crushed_emerald_schist_beryl",
-      "chance": 0.1
+      "count": 2
     }
   ]
 }

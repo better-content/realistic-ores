@@ -11,7 +11,7 @@
   },
   "result": {
     "tag": "forge:molten_lead",
-    "amount": 150
+    "amount": 15
   },
   "rate": "metal",
   "temperature": 950,
@@ -19,12 +19,12 @@
   "byproducts": [
     {
       "tag": "forge:molten_zinc",
-      "amount": 68,
+      "amount": 10,
       "rate": "metal"
     },
     {
       "tag": "forge:molten_silver",
-      "amount": 8,
+      "amount": 1,
       "rate": "metal"
     }
   ]
