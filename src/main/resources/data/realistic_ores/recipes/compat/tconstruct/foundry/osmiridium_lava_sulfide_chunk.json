@@ -18,11 +18,6 @@
   "time": 120,
   "byproducts": [
     {
-      "tag": "forge:molten_iridium",
-      "amount": 20,
-      "rate": "metal"
-    },
-    {
       "tag": "forge:molten_platinum",
       "amount": 5,
       "rate": "metal"

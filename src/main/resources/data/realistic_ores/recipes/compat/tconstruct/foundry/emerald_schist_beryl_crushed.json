@@ -18,11 +18,6 @@
   "time": 120,
   "byproducts": [
     {
-      "tag": "forge:molten_beryllium",
-      "amount": 30,
-      "rate": "metal"
-    },
-    {
       "tag": "forge:molten_aluminum",
       "amount": 30,
       "rate": "metal"

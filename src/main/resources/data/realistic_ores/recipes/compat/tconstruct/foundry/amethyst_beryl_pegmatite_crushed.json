@@ -26,11 +26,6 @@
       "fluid": "tconstruct:molten_quartz",
       "amount": 30,
       "rate": "metal"
-    },
-    {
-      "tag": "forge:molten_beryllium",
-      "amount": 30,
-      "rate": "metal"
     }
   ]
 }

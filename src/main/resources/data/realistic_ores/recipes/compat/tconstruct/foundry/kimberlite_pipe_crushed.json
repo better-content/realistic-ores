@@ -15,12 +15,5 @@
   },
   "rate": "metal",
   "temperature": 950,
-  "time": 120,
-  "byproducts": [
-    {
-      "tag": "forge:molten_magnesium",
-      "amount": 30,
-      "rate": "metal"
-    }
-  ]
+  "time": 120
 }

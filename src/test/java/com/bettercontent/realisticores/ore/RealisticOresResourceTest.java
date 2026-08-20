@@ -542,6 +542,18 @@ final class RealisticOresResourceTest {
         JsonObject goldPlacement = read(DATA_ROOT.resolve(
                 "worldgen/placed_feature/gold_quartz_vein_stone.json"), JsonObject.class);
         assertTrue(GSON.toJson(goldPlacement).contains("minecraft:rarity_filter"));
+        for (String material : List.of("titanium", "thorium")) {
+            JsonObject moltenTag = read(RESOURCE_ROOT.resolve(
+                    "data/forge/tags/fluids/molten_" + material + ".json"), JsonObject.class);
+            assertEquals(2, moltenTag.getAsJsonArray("values").size());
+            assertTrue(Files.isRegularFile(ASSET_ROOT.resolve(
+                    "models/item/molten_" + material + "_bucket.json")));
+        }
+        for (String material : List.of("iridium", "tantalum", "magnesium", "beryllium")) {
+            assertFalse(Files.exists(DATA_ROOT.resolve(
+                    "recipes/compat/tconstruct/melting/concentrate_" + material + ".json")),
+                    "do not invent an uninstalled molten form for " + material);
+        }
 
         try (var paths = Files.walk(RESOURCE_ROOT.resolve("data/realistic_ores"))) {
             for (Path path : paths.filter(Files::isRegularFile).toList()) {

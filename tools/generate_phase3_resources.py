@@ -53,13 +53,13 @@ MATERIALS = {
     "cobalt": ("metal", "chemlib:cobalt_ingot", "chemlib:cobalt_nugget", "forge:molten_cobalt"),
     "platinum": ("metal", "chemlib:platinum_ingot", "chemlib:platinum_nugget", "forge:molten_platinum"),
     "osmium": ("metal", "chemlib:osmium_ingot", "chemlib:osmium_nugget", "forge:molten_osmium"),
-    "iridium": ("metal", "chemlib:iridium_ingot", "chemlib:iridium_nugget", "forge:molten_iridium"),
-    "tantalum": ("metal", "chemlib:tantalum_ingot", "chemlib:tantalum_nugget", "forge:molten_tantalum"),
-    "magnesium": ("metal", "chemlib:magnesium_ingot", "chemlib:magnesium_nugget", "forge:molten_magnesium"),
+    "iridium": ("metal", "chemlib:iridium_ingot", "chemlib:iridium_nugget", None),
+    "tantalum": ("metal", "chemlib:tantalum_ingot", "chemlib:tantalum_nugget", None),
+    "magnesium": ("metal", "chemlib:magnesium_ingot", "chemlib:magnesium_nugget", None),
     "diamond": ("gem", "minecraft:diamond", "realistic_ores:diamond_chip", "tconstruct:molten_diamond"),
     "emerald": ("gem", "minecraft:emerald", "realistic_ores:emerald_chip", "tconstruct:molten_emerald"),
     "beryl": ("bulk", "chemlib:beryl", None, None),
-    "beryllium": ("metal", "chemlib:beryllium_ingot", "chemlib:beryllium_nugget", "forge:molten_beryllium"),
+    "beryllium": ("metal", "chemlib:beryllium_ingot", "chemlib:beryllium_nugget", None),
     "amethyst": ("gem", "minecraft:amethyst_shard", "realistic_ores:amethyst_chip", "tconstruct:molten_amethyst"),
     "uranium": ("metal", "chemlib:uranium_ingot", "chemlib:uranium_nugget", "forge:molten_uranium"),
     "thorium": ("metal", "chemlib:thorium_ingot", "chemlib:thorium_nugget", "forge:molten_thorium"),
@@ -351,6 +351,17 @@ def main() -> None:
         png(item_textures / f"{item}.png", (index * .19 + .48) % 1, index + 500)
         lang[f"item.{NS}.{item}"] = f"{gem.title()} Chip"
         write(recipes / f"crafting/gem_chips/{gem}_assemble.json", {"type": "minecraft:crafting_shapeless", "ingredients": [{"item": f"{NS}:{item}"}] * 9, "result": {"item": output}})
+
+    for index, material in enumerate(("titanium", "thorium")):
+        bucket = f"molten_{material}_bucket"
+        write(item_models / f"{bucket}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{bucket}"}})
+        png(item_textures / f"{bucket}.png", .55 if material == "titanium" else .20, 600 + index)
+        lang[f"item.{NS}.{bucket}"] = f"Molten {material.title()} Bucket"
+        lang[f"block.{NS}.molten_{material}"] = f"Molten {material.title()}"
+        write(RES / f"data/forge/tags/fluids/molten_{material}.json", {
+            "replace": False,
+            "values": [f"{NS}:molten_{material}", f"{NS}:flowing_molten_{material}"],
+        })
 
     # Hosted blocks are mining data, never processing-facing ore items.
     forge_item_tags = RES / "data/forge/tags/items"

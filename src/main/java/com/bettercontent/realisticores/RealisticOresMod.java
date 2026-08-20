@@ -5,6 +5,7 @@ import com.bettercontent.realisticores.client.ClientSetup;
 import com.bettercontent.realisticores.registry.ModFeatures;
 import com.bettercontent.realisticores.registry.ModItems;
 import com.bettercontent.realisticores.registry.ModRecipeSerializers;
+import com.bettercontent.realisticores.registry.ModFluids;
 import com.mojang.logging.LogUtils;
 import com.bettercontent.realisticores.worldgen.DisabledFeatureBiomeModifier;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -24,8 +25,10 @@ public final class RealisticOresMod {
     public RealisticOresMod() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModFluids.bootstrap();
         ModBlocks.register(modBus);
         ModItems.register(modBus);
+        ModFluids.register(modBus);
         ModFeatures.register(modBus);
         ModRecipeSerializers.register(modBus);
         DisabledFeatureBiomeModifier.register(modBus);
@@ -41,6 +44,8 @@ public final class RealisticOresMod {
             ModItems.getAllOreChunkItems().forEach(event::accept);
             ModItems.getAllCrushedOreItems().forEach(event::accept);
             ModItems.getAllProcessingItems().forEach(event::accept);
+            event.accept(ModFluids.TITANIUM.bucket().get());
+            event.accept(ModFluids.THORIUM.bucket().get());
         }
     }
 
