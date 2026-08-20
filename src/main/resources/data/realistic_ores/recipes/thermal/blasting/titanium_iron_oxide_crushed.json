@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:crushed_titanium_iron_oxide"
+  },
+  "result": {
+    "item": "chemlib:titanium_nugget",
+    "count": 9
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

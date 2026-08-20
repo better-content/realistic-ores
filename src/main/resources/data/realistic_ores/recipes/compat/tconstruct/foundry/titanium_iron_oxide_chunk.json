@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_titanium_iron_oxide"
+  },
+  "result": {
+    "tag": "forge:molten_titanium",
+    "amount": 180
+  },
+  "rate": "metal",
+  "temperature": 950,
+  "time": 120,
+  "byproducts": [
+    {
+      "tag": "forge:molten_iron",
+      "amount": 45,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_chromium",
+      "amount": 10,
+      "rate": "metal"
+    }
+  ]
+}

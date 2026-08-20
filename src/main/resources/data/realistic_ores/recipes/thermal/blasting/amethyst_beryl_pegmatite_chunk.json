@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_amethyst_beryl_pegmatite"
+  },
+  "result": {
+    "item": "realistic_ores:amethyst_chip",
+    "count": 4
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

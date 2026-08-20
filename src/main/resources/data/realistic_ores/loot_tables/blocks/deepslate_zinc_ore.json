@@ -2,7 +2,7 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:alternatives",
@@ -28,7 +28,7 @@
             },
             {
               "type": "minecraft:item",
-              "name": "realistic_ores:ore_chunk_zinc_ore"
+              "name": "realistic_ores:ore_chunk_zinc"
             }
           ]
         }

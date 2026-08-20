@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "realistic_ores:gold_quartz_vein_stone",
+  "step": "underground_ores"
+}

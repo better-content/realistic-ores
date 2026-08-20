@@ -214,11 +214,9 @@ final class RealisticOresResourceTest {
             case "copper_sulfide" -> "copper_sulfide_ore";
             case "nickel_sulfide" -> "nickel_sulfide_ore";
             case "osmiridium_lava_sulfide" -> "osmiridium_lava_sulfide_ore";
-            case "sulfur_bearing_pyrite" -> "sulfur_bearing_pyrite_ore";
-            case "thorium" -> "thorium_ore";
+            case "emerald_schist_beryl" -> "emerald_schist_beryl_vein";
             case "tin" -> "tin_ore";
             case "titanium_iron_oxide" -> "titanium_iron_oxide_ore";
-            case "uranium" -> "uranium_ore";
             case "zinc" -> "zinc_ore";
             default -> family;
         };
@@ -251,6 +249,7 @@ final class RealisticOresResourceTest {
                 OreDefinition definition = read(path, OreDefinition.class);
                 String crushed = definition.crushedItemId();
                 String sample = definition.surfaceSampleBlockId();
+                String small = definition.smallOreChunkItemId();
                 assertFalse(Files.exists(resources.resolve("assets/realistic_ores/blockstates/" + crushed + ".json")), crushed);
                 assertFalse(Files.exists(resources.resolve("data/realistic_ores/loot_tables/blocks/" + crushed + ".json")), crushed);
                 assertTrue(Files.isRegularFile(resources.resolve("assets/realistic_ores/blockstates/" + sample + ".json")), sample);
@@ -269,7 +268,7 @@ final class RealisticOresResourceTest {
                 assertTrue(Files.isRegularFile(resources.resolve(
                         "assets/realistic_ores/textures/item/" + texture.substring("realistic_ores:item/".length()) + ".png")));
                 JsonObject sampleItemModel = read(
-                        resources.resolve("assets/realistic_ores/models/item/" + sample + ".json"),
+                        resources.resolve("assets/realistic_ores/models/item/" + small + ".json"),
                         JsonObject.class);
                 assertEquals("realistic_ores:block/" + sample + "_2",
                         sampleItemModel.get("parent").getAsString(), sample);
@@ -277,6 +276,19 @@ final class RealisticOresResourceTest {
                 assertEquals(30, gui.getAsJsonArray("rotation").get(0).getAsInt(), sample);
                 assertEquals(225, gui.getAsJsonArray("rotation").get(1).getAsInt(), sample);
                 assertTrue(gui.getAsJsonArray("scale").get(0).getAsDouble() > 1.0, sample);
+                assertFalse(Files.exists(resources.resolve("assets/realistic_ores/models/item/" + sample + ".json")),
+                        "surface samples have no separate item identity");
+                JsonObject sampleLoot = read(resources.resolve(
+                        "data/realistic_ores/loot_tables/blocks/" + sample + ".json"), JsonObject.class);
+                String serializedLoot = GSON.toJson(sampleLoot);
+                assertTrue(serializedLoot.contains("realistic_ores:" + small));
+                assertFalse(serializedLoot.contains("fortune"));
+                JsonObject combine = read(resources.resolve(
+                        "data/realistic_ores/recipes/crafting/small_chunks/" + definition.id() + ".json"),
+                        JsonObject.class);
+                assertEquals(9, combine.getAsJsonArray("ingredients").size());
+                assertEquals("realistic_ores:" + definition.oreChunkItemId(),
+                        combine.getAsJsonObject("result").get("item").getAsString());
             }
         }
         assertTrue(Files.isRegularFile(resources.resolve("assets/realistic_ores/blockstates/oil_seep.json")));
@@ -306,15 +318,7 @@ final class RealisticOresResourceTest {
                 definitionCount++;
                 OreDefinition definition = read(path, OreDefinition.class);
                 String chunk = definition.oreChunkItemId();
-                String familyTag = switch (definition.id()) {
-                    case "corundum_beryl_gem_vein" -> "corundum_beryl_vein";
-                    case "emerald_schist_beryl_vein" -> "emerald_schist_beryl";
-                    case "sulfur_bearing_pyrite" -> "sulfur_bearing_pyrite_ore";
-                    case "thorium" -> "thorium_ore";
-                    case "titanium_iron_oxide" -> "titanium_iron_oxide";
-                    case "uranium" -> "uranium_ore";
-                    default -> definition.id();
-                };
+                String familyTag = definition.id();
                 assertDepositTags(resources, definition, familyTag, chunk);
                 Path texturePath = resources.resolve("assets/realistic_ores/textures/item/" + chunk + ".png");
                 BufferedImage image = ImageIO.read(texturePath.toFile());
@@ -392,8 +396,8 @@ final class RealisticOresResourceTest {
                 }
 
                 Path chunkCrushingPath = resources.resolve(
-                        "data/realistic_ores/recipes/compat/create/crushing/ore_chunks/"
-                                + definition.primaryVariant().blockId() + ".json");
+                            "data/realistic_ores/recipes/compat/create/crushing/ore_chunks/"
+                                + definition.id() + ".json");
                 JsonObject chunkCrushing = read(chunkCrushingPath, JsonObject.class);
                 assertEquals("create:crushing", chunkCrushing.get("type").getAsString(),
                         chunkCrushingPath.toString());
@@ -418,8 +422,8 @@ final class RealisticOresResourceTest {
                 }
 
                 Path chunkMillingPath = resources.resolve(
-                        "data/realistic_ores/recipes/compat/create/milling/ore_chunks/"
-                                + definition.primaryVariant().blockId() + ".json");
+                            "data/realistic_ores/recipes/compat/create/milling/ore_chunks/"
+                                + definition.id() + ".json");
                 JsonObject chunkMilling = read(chunkMillingPath, JsonObject.class);
                 assertEquals("create:milling", chunkMilling.get("type").getAsString(),
                         chunkMillingPath.toString());
@@ -449,11 +453,11 @@ final class RealisticOresResourceTest {
                 assertEquals(0.1, millingBonus.get("chance").getAsDouble(), chunkMillingPath.toString());
             }
         }
-        assertEquals(22, definitionCount);
+        assertEquals(23, definitionCount);
         Path chunkMillingDirectory = resources.resolve(
                 "data/realistic_ores/recipes/compat/create/milling/ore_chunks");
         try (var millingPaths = Files.list(chunkMillingDirectory)) {
-            assertEquals(22, millingPaths.filter(path -> path.getFileName().toString().endsWith(".json")).count(),
+            assertEquals(23, millingPaths.filter(path -> path.getFileName().toString().endsWith(".json")).count(),
                     chunkMillingDirectory.toString());
         }
     }
@@ -467,15 +471,15 @@ final class RealisticOresResourceTest {
         Set<String> expectedBlocks = definition.variants().stream()
                 .map(variant -> "realistic_ores:" + variant.blockId())
                 .collect(Collectors.toUnmodifiableSet());
-        for (String registry : List.of("blocks", "items")) {
-            Path path = resources.resolve("data/realistic_ores/tags/" + registry
-                    + "/deposit_ore_blocks/" + familyTag + ".json");
-            JsonObject tag = read(path, JsonObject.class);
-            Set<String> values = tag.getAsJsonArray("values").asList().stream()
-                    .map(entry -> entry.getAsString())
-                    .collect(Collectors.toUnmodifiableSet());
-            assertEquals(expectedBlocks, values, path.toString());
-        }
+        Path path = resources.resolve("data/realistic_ores/tags/blocks/deposit_ore_blocks/"
+                + familyTag + ".json");
+        JsonObject tag = read(path, JsonObject.class);
+        Set<String> values = tag.getAsJsonArray("values").asList().stream()
+                .map(entry -> entry.getAsString())
+                .collect(Collectors.toUnmodifiableSet());
+        assertEquals(expectedBlocks, values, path.toString());
+        assertFalse(Files.exists(resources.resolve("data/realistic_ores/tags/items/deposit_ore_blocks/"
+                + familyTag + ".json")), "hosted ore blocks must not be exposed through processing item tags");
 
         Path chunkPath = resources.resolve("data/realistic_ores/tags/items/deposit_chunks/"
                 + familyTag + ".json");
@@ -483,6 +487,70 @@ final class RealisticOresResourceTest {
         assertEquals(List.of("realistic_ores:" + chunk),
                 chunkTag.getAsJsonArray("values").asList().stream().map(entry -> entry.getAsString()).toList(),
                 chunkPath.toString());
+    }
+
+    @Test
+    void phaseThreeProcessingGraphIsCompleteAndLegacyFree() throws IOException {
+        Path processing = DATA_ROOT.resolve("processing_definitions");
+        List<Path> definitions;
+        try (var paths = Files.list(processing)) {
+            definitions = paths.filter(path -> path.toString().endsWith(".json")).toList();
+        }
+        assertEquals(23, definitions.size());
+        int routeCount = 0;
+        Set<String> media = new HashSet<>();
+        for (Path path : definitions) {
+            JsonObject definition = read(path, JsonObject.class);
+            JsonArray routes = definition.getAsJsonArray("routes");
+            assertTrue(routes.size() >= 2 && routes.size() <= 3, path.toString());
+            routeCount += routes.size();
+            for (var routeElement : routes) {
+                JsonObject route = routeElement.getAsJsonObject();
+                media.add(route.get("medium").getAsString());
+                JsonArray fluids = route.getAsJsonArray("fluids");
+                assertTrue(fluids.size() == 1 || fluids.size() == 2, path.toString());
+                int amount = fluids.asList().stream()
+                        .mapToInt(fluid -> fluid.getAsJsonObject().get("amount").getAsInt()).sum();
+                assertEquals(500, amount, path.toString());
+                assertTrue(route.get("ball_return_chance").getAsDouble() >= .80);
+                assertTrue(route.get("ball_return_chance").getAsDouble() <= .98);
+            }
+        }
+        assertEquals(63, routeCount);
+        assertEquals(Set.of("andesite", "iron", "brass", "steel", "nickel", "titanium",
+                "blood_infused", "fluix"), media);
+
+        Path separation = DATA_ROOT.resolve("recipes/compat/create/separation");
+        try (var paths = Files.list(separation)) {
+            List<Path> recipes = paths.filter(path -> path.toString().endsWith(".json")).toList();
+            assertEquals(63, recipes.size());
+            for (Path path : recipes) {
+                JsonObject recipe = read(path, JsonObject.class);
+                assertEquals("create:mixing", recipe.get("type").getAsString());
+                long crushed = recipe.getAsJsonArray("ingredients").asList().stream()
+                        .filter(value -> value.getAsJsonObject().has("item"))
+                        .filter(value -> value.getAsJsonObject().get("item").getAsString().contains(":crushed_"))
+                        .count();
+                assertEquals(4, crushed, path.toString());
+                assertFalse(GSON.toJson(recipe).contains("tailings"));
+                assertFalse(GSON.toJson(recipe).contains("washed_"));
+            }
+        }
+
+        assertFalse(Files.exists(DATA_ROOT.resolve("recipes/thermal/furnace/bauxite_laterite_chunk.json")));
+        assertFalse(Files.exists(DATA_ROOT.resolve("recipes/compat/tconstruct/melting/bauxite_laterite_chunk.json")));
+        JsonObject goldPlacement = read(DATA_ROOT.resolve(
+                "worldgen/placed_feature/gold_quartz_vein_stone.json"), JsonObject.class);
+        assertTrue(GSON.toJson(goldPlacement).contains("minecraft:rarity_filter"));
+
+        try (var paths = Files.walk(RESOURCE_ROOT.resolve("data/realistic_ores"))) {
+            for (Path path : paths.filter(Files::isRegularFile).toList()) {
+                String content = Files.readString(path);
+                assertFalse(content.contains("corundum_beryl"), path.toString());
+                assertFalse(content.contains("washed_"), path.toString());
+                assertFalse(content.contains("tailings"), path.toString());
+            }
+        }
     }
 
     private static void assertSurfaceSampleModelUsesOpaqueOreTexture(Path resources, Path modelPath) throws IOException {

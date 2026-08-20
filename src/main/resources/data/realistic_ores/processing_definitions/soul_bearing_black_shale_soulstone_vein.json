@@ -1,0 +1,71 @@
+{
+  "family": "soul_bearing_black_shale_soulstone_vein",
+  "primary": "soul_sand",
+  "input_count": 4,
+  "routes": [
+    {
+      "medium": "blood_infused",
+      "fluids": [
+        {
+          "fluid": "minecraft:water",
+          "amount": 500
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "carbon",
+          "grade": "major",
+          "chance": 1.0
+        }
+      ],
+      "ball_return_chance": 0.97
+    },
+    {
+      "medium": "blood_infused",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "carbon",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "sulfur",
+          "grade": "minor",
+          "chance": 0.5
+        }
+      ],
+      "ball_return_chance": 0.97
+    },
+    {
+      "medium": "fluix",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "redstone",
+          "grade": "trace",
+          "chance": 0.2
+        }
+      ],
+      "ball_return_chance": 0.98
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:crushed_ironstone"
+  },
+  "result": {
+    "tag": "forge:molten_iron",
+    "amount": 120
+  },
+  "temperature": 950,
+  "time": 120
+}

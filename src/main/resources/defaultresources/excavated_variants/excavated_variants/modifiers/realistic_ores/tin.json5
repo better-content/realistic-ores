@@ -1,0 +1,8 @@
+{
+  "filter": "ore:tin",
+  "tags": [
+    "minecraft:blocks/mineable/pickaxe",
+    "realistic_ores:blocks/deposit_ore_blocks/tin",
+    "realistic_ores:blocks/deposit_ore_blocks"
+  ]
+}

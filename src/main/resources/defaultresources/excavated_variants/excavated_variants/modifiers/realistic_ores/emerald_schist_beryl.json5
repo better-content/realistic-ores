@@ -1,0 +1,8 @@
+{
+  "filter": "ore:emerald_schist_beryl",
+  "tags": [
+    "minecraft:blocks/mineable/pickaxe",
+    "realistic_ores:blocks/deposit_ore_blocks/emerald_schist_beryl",
+    "realistic_ores:blocks/deposit_ore_blocks"
+  ]
+}

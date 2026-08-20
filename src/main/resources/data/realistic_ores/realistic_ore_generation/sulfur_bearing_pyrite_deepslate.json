@@ -1,5 +1,5 @@
 {
-  "ore_id": "sulfur_bearing_pyrite",
+  "ore_id": "sulfur_bearing_pyrite_ore",
   "variant": "deepslate",
   "target_tag": "realistic_ores:overworld_ore_replaceables",
   "vein_size": 18,

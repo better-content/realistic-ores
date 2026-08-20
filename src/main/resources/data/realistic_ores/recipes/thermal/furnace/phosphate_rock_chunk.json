@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_phosphate_rock"
+  },
+  "result": {
+    "item": "chemlib:phosphate",
+    "count": 2
+  },
+  "experience": 0.1,
+  "cookingtime": 240
+}

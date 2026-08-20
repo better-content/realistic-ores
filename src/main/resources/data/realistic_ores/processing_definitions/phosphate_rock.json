@@ -1,0 +1,45 @@
+{
+  "family": "phosphate_rock",
+  "primary": "phosphate",
+  "input_count": 4,
+  "routes": [
+    {
+      "medium": "iron",
+      "fluids": [
+        {
+          "fluid": "minecraft:water",
+          "amount": 500
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "calcium",
+          "grade": "major",
+          "chance": 1.0
+        }
+      ],
+      "ball_return_chance": 0.84
+    },
+    {
+      "medium": "steel",
+      "fluids": [
+        {
+          "fluid": "chemlib:sulfuric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "calcium",
+          "grade": "major",
+          "chance": 1.0
+        }
+      ],
+      "ball_return_chance": 0.91
+    }
+  ]
+}

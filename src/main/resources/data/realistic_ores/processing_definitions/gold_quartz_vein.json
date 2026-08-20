@@ -1,0 +1,64 @@
+{
+  "family": "gold_quartz_vein",
+  "primary": "gold",
+  "input_count": 4,
+  "routes": [
+    {
+      "medium": "nickel",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "chemlib:nitric_acid_fluid",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "quartz",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "copper",
+          "grade": "trace",
+          "chance": 0.2
+        }
+      ],
+      "ball_return_chance": 0.93
+    },
+    {
+      "medium": "titanium",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "chemlib:nitric_acid_fluid",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "quartz",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "silver",
+          "grade": "minor",
+          "chance": 0.5
+        },
+        {
+          "material": "copper",
+          "grade": "trace",
+          "chance": 0.2
+        }
+      ],
+      "ball_return_chance": 0.95
+    }
+  ]
+}

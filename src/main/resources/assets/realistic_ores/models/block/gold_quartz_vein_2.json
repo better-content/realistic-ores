@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "realistic_ores:block/gold_quartz_vein_2_south",
+    "north": "realistic_ores:block/gold_quartz_vein_2_north",
+    "east": "realistic_ores:block/gold_quartz_vein_2_east",
+    "south": "realistic_ores:block/gold_quartz_vein_2_south",
+    "west": "realistic_ores:block/gold_quartz_vein_2_west",
+    "up": "realistic_ores:block/gold_quartz_vein_2_up",
+    "down": "realistic_ores:block/gold_quartz_vein_2_down"
+  }
+}

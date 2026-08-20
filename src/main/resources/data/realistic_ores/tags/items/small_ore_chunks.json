@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "realistic_ores:small_ore_chunk_coal_measures",
+    "realistic_ores:small_ore_chunk_ironstone",
+    "realistic_ores:small_ore_chunk_copper_sulfide",
+    "realistic_ores:small_ore_chunk_tin",
+    "realistic_ores:small_ore_chunk_zinc",
+    "realistic_ores:small_ore_chunk_lead_zinc_vein",
+    "realistic_ores:small_ore_chunk_quartz_vein",
+    "realistic_ores:small_ore_chunk_bauxite_laterite",
+    "realistic_ores:small_ore_chunk_nickel_sulfide",
+    "realistic_ores:small_ore_chunk_osmiridium_lava_sulfide",
+    "realistic_ores:small_ore_chunk_tin_tungsten_greisen",
+    "realistic_ores:small_ore_chunk_titanium_iron_oxide",
+    "realistic_ores:small_ore_chunk_kimberlite_pipe",
+    "realistic_ores:small_ore_chunk_emerald_schist_beryl",
+    "realistic_ores:small_ore_chunk_amethyst_beryl_pegmatite",
+    "realistic_ores:small_ore_chunk_uranium_ore",
+    "realistic_ores:small_ore_chunk_thorium_ore",
+    "realistic_ores:small_ore_chunk_cupriferous_redbed_redstone_vein",
+    "realistic_ores:small_ore_chunk_lazurite_vein",
+    "realistic_ores:small_ore_chunk_phosphate_rock",
+    "realistic_ores:small_ore_chunk_soul_bearing_black_shale_soulstone_vein",
+    "realistic_ores:small_ore_chunk_sulfur_bearing_pyrite_ore",
+    "realistic_ores:small_ore_chunk_gold_quartz_vein"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_quartz_vein"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_quartz",
+    "amount": 180
+  },
+  "rate": "metal",
+  "temperature": 950,
+  "time": 120,
+  "byproducts": [
+    {
+      "tag": "forge:molten_copper",
+      "amount": 10,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_gold",
+      "amount": 5,
+      "rate": "metal"
+    }
+  ]
+}

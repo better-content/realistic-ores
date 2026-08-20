@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_sulfur_bearing_pyrite_ore"
+  },
+  "result": {
+    "item": "chemlib:sulfur",
+    "count": 2
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

@@ -1,0 +1,50 @@
+{
+  "family": "coal_measures",
+  "primary": "coal",
+  "input_count": 4,
+  "routes": [
+    {
+      "medium": "andesite",
+      "fluids": [
+        {
+          "fluid": "minecraft:water",
+          "amount": 500
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "carbon",
+          "grade": "major",
+          "chance": 1.0
+        }
+      ],
+      "ball_return_chance": 0.8
+    },
+    {
+      "medium": "blood_infused",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "carbon",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "iron",
+          "grade": "trace",
+          "chance": 0.2
+        }
+      ],
+      "ball_return_chance": 0.97
+    }
+  ]
+}

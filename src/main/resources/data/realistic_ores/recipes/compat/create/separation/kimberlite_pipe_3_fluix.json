@@ -1,0 +1,49 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_kimberlite_pipe"
+    },
+    {
+      "item": "realistic_ores:crushed_kimberlite_pipe"
+    },
+    {
+      "item": "realistic_ores:crushed_kimberlite_pipe"
+    },
+    {
+      "item": "realistic_ores:crushed_kimberlite_pipe"
+    },
+    {
+      "item": "realistic_ores:fluix_grinding_ball"
+    },
+    {
+      "fluid": "chemlib:hydrochloric_acid_fluid",
+      "amount": 250
+    },
+    {
+      "fluid": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:diamond_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:magnesium_concentrate",
+      "chance": 0.5
+    },
+    {
+      "item": "realistic_ores:fluix_grinding_ball",
+      "chance": 0.98
+    }
+  ],
+  "processingTime": 300
+}

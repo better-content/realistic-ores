@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realistic_ores:small_ore_chunk_uranium_ore"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_uranium_ore"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_uranium_ore"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_uranium_ore"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_uranium_ore"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_uranium_ore"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_uranium_ore"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_uranium_ore"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_uranium_ore"
+    }
+  ],
+  "result": {
+    "item": "realistic_ores:ore_chunk_uranium_ore"
+  }
+}

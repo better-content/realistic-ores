@@ -1,0 +1,8 @@
+{
+  "filter": "ore:phosphate_rock",
+  "tags": [
+    "minecraft:blocks/mineable/pickaxe",
+    "realistic_ores:blocks/deposit_ore_blocks/phosphate_rock",
+    "realistic_ores:blocks/deposit_ore_blocks"
+  ]
+}

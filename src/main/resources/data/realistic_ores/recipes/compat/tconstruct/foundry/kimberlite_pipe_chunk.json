@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_kimberlite_pipe"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_diamond",
+    "amount": 180
+  },
+  "rate": "metal",
+  "temperature": 950,
+  "time": 120,
+  "byproducts": [
+    {
+      "tag": "forge:molten_magnesium",
+      "amount": 20,
+      "rate": "metal"
+    }
+  ]
+}

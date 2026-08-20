@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:crushed_quartz_vein"
+  },
+  "result": {
+    "item": "minecraft:quartz",
+    "count": 4
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:redstone_concentrate"
+  },
+  "result": {
+    "item": "minecraft:redstone",
+    "count": 12
+  },
+  "experience": 0.2,
+  "cookingtime": 120
+}

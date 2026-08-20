@@ -1,0 +1,24 @@
+{
+  "type": "create:milling",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:ore_chunk_zinc"
+    }
+  ],
+  "processingTime": 400,
+  "results": [
+    {
+      "item": "realistic_ores:crushed_zinc"
+    },
+    {
+      "item": "realistic_ores:crushed_zinc",
+      "chance": 0.1
+    }
+  ]
+}

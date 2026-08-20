@@ -1,0 +1,53 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_lazurite_vein"
+    },
+    {
+      "item": "realistic_ores:crushed_lazurite_vein"
+    },
+    {
+      "item": "realistic_ores:crushed_lazurite_vein"
+    },
+    {
+      "item": "realistic_ores:crushed_lazurite_vein"
+    },
+    {
+      "item": "realistic_ores:steel_grinding_ball"
+    },
+    {
+      "fluid": "chemlib:hydrochloric_acid_fluid",
+      "amount": 250
+    },
+    {
+      "fluid": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:lapis_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:aluminum_concentrate",
+      "chance": 0.5
+    },
+    {
+      "item": "realistic_ores:silicon_concentrate",
+      "chance": 0.2
+    },
+    {
+      "item": "realistic_ores:steel_grinding_ball",
+      "chance": 0.91
+    }
+  ],
+  "processingTime": 300
+}

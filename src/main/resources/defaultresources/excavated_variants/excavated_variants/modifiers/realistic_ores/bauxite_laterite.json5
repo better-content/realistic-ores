@@ -1,0 +1,8 @@
+{
+  "filter": "ore:bauxite_laterite",
+  "tags": [
+    "minecraft:blocks/mineable/pickaxe",
+    "realistic_ores:blocks/deposit_ore_blocks/bauxite_laterite",
+    "realistic_ores:blocks/deposit_ore_blocks"
+  ]
+}

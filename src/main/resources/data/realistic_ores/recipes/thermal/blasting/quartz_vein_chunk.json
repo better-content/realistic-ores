@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_quartz_vein"
+  },
+  "result": {
+    "item": "minecraft:quartz",
+    "count": 2
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

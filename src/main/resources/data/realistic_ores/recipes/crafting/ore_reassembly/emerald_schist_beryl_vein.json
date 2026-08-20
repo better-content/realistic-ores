@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "realistic_ores:ore_chunk_emerald_schist_beryl_vein"
+      "item": "realistic_ores:ore_chunk_emerald_schist_beryl"
     },
     {
       "item": "minecraft:stone"

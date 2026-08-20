@@ -33,6 +33,7 @@ final class OreDefinitionTest {
 
         assertEquals("test_ore", definition.primaryVariant().blockId());
         assertEquals("ore_chunk_test_ore", definition.oreChunkItemId());
+        assertEquals("small_ore_chunk_test_ore", definition.smallOreChunkItemId());
         assertEquals("crushed_test_ore", definition.crushedItemId());
         assertEquals("surface_sample_test_ore", definition.surfaceSampleBlockId());
         assertEquals("stone", definition.primaryVariant().host());

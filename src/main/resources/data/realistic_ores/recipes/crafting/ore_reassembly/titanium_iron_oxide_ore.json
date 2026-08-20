@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "realistic_ores:ore_chunk_titanium_iron_oxide_ore"
+      "item": "realistic_ores:ore_chunk_titanium_iron_oxide"
     },
     {
       "item": "minecraft:stone"

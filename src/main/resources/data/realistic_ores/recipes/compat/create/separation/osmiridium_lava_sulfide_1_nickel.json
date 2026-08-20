@@ -1,0 +1,45 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_osmiridium_lava_sulfide"
+    },
+    {
+      "item": "realistic_ores:crushed_osmiridium_lava_sulfide"
+    },
+    {
+      "item": "realistic_ores:crushed_osmiridium_lava_sulfide"
+    },
+    {
+      "item": "realistic_ores:crushed_osmiridium_lava_sulfide"
+    },
+    {
+      "item": "realistic_ores:nickel_grinding_ball"
+    },
+    {
+      "fluid": "minecraft:water",
+      "amount": 500
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:osmium_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:sulfur_concentrate",
+      "chance": 1.0
+    },
+    {
+      "item": "realistic_ores:nickel_grinding_ball",
+      "chance": 0.93
+    }
+  ],
+  "processingTime": 300
+}

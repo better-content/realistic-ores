@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:crushed_zinc"
+  },
+  "result": {
+    "item": "chemlib:zinc_nugget",
+    "count": 9
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

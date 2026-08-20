@@ -20,7 +20,7 @@
     "#7f8d59",
     "#d8974b"
   ],
-  "corundum_beryl_gem_vein": [
+  "amethyst_beryl_pegmatite": [
     "#6c2b90",
     "#3d74cf",
     "#d277f0",
@@ -33,13 +33,6 @@
     "#7e3d2c",
     "#ff4f4f",
     "#b47240"
-  ],
-  "emerald_schist_beryl_vein": [
-    "#216d39",
-    "#697850",
-    "#38b35c",
-    "#8fbfa0",
-    "#9bf4ad"
   ],
   "ironstone": [
     "#5d3123",
@@ -104,20 +97,6 @@
     "#a173ff",
     "#cbc4db"
   ],
-  "sulfur_bearing_pyrite": [
-    "#5a554f",
-    "#706028",
-    "#9b9388",
-    "#b49936",
-    "#e2ca63"
-  ],
-  "thorium": [
-    "#4a5a3b",
-    "#7c9358",
-    "#b9b38d",
-    "#bbd68f",
-    "#dfd8ae"
-  ],
   "tin": [
     "#74777d",
     "#a5aab1",
@@ -139,18 +118,46 @@
     "#97a160",
     "#b7c4cc"
   ],
-  "uranium": [
-    "#2d4c20",
-    "#718145",
-    "#4d8f2c",
-    "#a7ae86",
-    "#a2ff49"
-  ],
   "zinc": [
     "#75614b",
     "#8c705e",
     "#9a866d",
     "#cbbca2",
     "#d8cfb2"
+  ],
+  "emerald_schist_beryl": [
+    "#216d39",
+    "#697850",
+    "#38b35c",
+    "#8fbfa0",
+    "#9bf4ad"
+  ],
+  "sulfur_bearing_pyrite_ore": [
+    "#5a554f",
+    "#706028",
+    "#9b9388",
+    "#b49936",
+    "#e2ca63"
+  ],
+  "thorium_ore": [
+    "#4a5a3b",
+    "#7c9358",
+    "#b9b38d",
+    "#bbd68f",
+    "#dfd8ae"
+  ],
+  "uranium_ore": [
+    "#2d4c20",
+    "#718145",
+    "#4d8f2c",
+    "#a7ae86",
+    "#a2ff49"
+  ],
+  "gold_quartz_vein": [
+    "#d7b97b",
+    "#bcc7ce",
+    "#d8d2ca",
+    "#ece8e0",
+    "#f7f0e7"
   ]
 }

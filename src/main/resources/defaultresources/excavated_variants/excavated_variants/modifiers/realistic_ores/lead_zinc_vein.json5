@@ -1,0 +1,8 @@
+{
+  "filter": "ore:lead_zinc_vein",
+  "tags": [
+    "minecraft:blocks/mineable/pickaxe",
+    "realistic_ores:blocks/deposit_ore_blocks/lead_zinc_vein",
+    "realistic_ores:blocks/deposit_ore_blocks"
+  ]
+}

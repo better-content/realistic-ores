@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realistic_ores:ore_chunk_lazurite_vein"
+          "name": "realistic_ores:small_ore_chunk_lazurite_vein"
         }
       ],
       "conditions": [

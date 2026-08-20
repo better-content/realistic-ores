@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_nickel_sulfide"
+  },
+  "result": {
+    "tag": "forge:molten_nickel",
+    "amount": 180
+  },
+  "rate": "metal",
+  "temperature": 950,
+  "time": 120,
+  "byproducts": [
+    {
+      "tag": "forge:molten_iron",
+      "amount": 20,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_cobalt",
+      "amount": 10,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_platinum",
+      "amount": 5,
+      "rate": "metal"
+    }
+  ]
+}

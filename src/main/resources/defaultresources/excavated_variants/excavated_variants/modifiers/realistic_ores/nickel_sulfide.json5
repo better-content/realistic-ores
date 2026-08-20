@@ -1,0 +1,8 @@
+{
+  "filter": "ore:nickel_sulfide",
+  "tags": [
+    "minecraft:blocks/mineable/pickaxe",
+    "realistic_ores:blocks/deposit_ore_blocks/nickel_sulfide",
+    "realistic_ores:blocks/deposit_ore_blocks"
+  ]
+}

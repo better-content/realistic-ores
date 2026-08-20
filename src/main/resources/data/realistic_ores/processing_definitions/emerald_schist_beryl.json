@@ -1,0 +1,76 @@
+{
+  "family": "emerald_schist_beryl",
+  "primary": "emerald",
+  "input_count": 4,
+  "routes": [
+    {
+      "medium": "steel",
+      "fluids": [
+        {
+          "fluid": "minecraft:water",
+          "amount": 500
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "beryl",
+          "grade": "major",
+          "chance": 1.0
+        }
+      ],
+      "ball_return_chance": 0.91
+    },
+    {
+      "medium": "titanium",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "beryllium",
+          "grade": "minor",
+          "chance": 0.5
+        },
+        {
+          "material": "silicon",
+          "grade": "trace",
+          "chance": 0.2
+        }
+      ],
+      "ball_return_chance": 0.95
+    },
+    {
+      "medium": "fluix",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "aluminum",
+          "grade": "minor",
+          "chance": 0.5
+        },
+        {
+          "material": "silicon",
+          "grade": "trace",
+          "chance": 0.2
+        }
+      ],
+      "ball_return_chance": 0.98
+    }
+  ]
+}

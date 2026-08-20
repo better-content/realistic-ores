@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:crushed_thorium_ore"
+  },
+  "result": {
+    "item": "chemlib:thorium_nugget",
+    "count": 9
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

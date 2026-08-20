@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_copper_sulfide"
+  },
+  "result": {
+    "item": "chemlib:copper_nugget",
+    "count": 4
+  },
+  "experience": 0.1,
+  "cookingtime": 240
+}

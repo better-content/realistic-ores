@@ -1,0 +1,81 @@
+{
+  "family": "tin_tungsten_greisen",
+  "primary": "tungsten",
+  "input_count": 4,
+  "routes": [
+    {
+      "medium": "brass",
+      "fluids": [
+        {
+          "fluid": "minecraft:water",
+          "amount": 500
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "tin",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "quartz",
+          "grade": "major",
+          "chance": 1.0
+        }
+      ],
+      "ball_return_chance": 0.87
+    },
+    {
+      "medium": "steel",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "tin",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "quartz",
+          "grade": "major",
+          "chance": 1.0
+        }
+      ],
+      "ball_return_chance": 0.91
+    },
+    {
+      "medium": "titanium",
+      "fluids": [
+        {
+          "fluid": "chemlib:nitric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "tin",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "tantalum",
+          "grade": "trace",
+          "chance": 0.2
+        }
+      ],
+      "ball_return_chance": 0.95
+    }
+  ]
+}

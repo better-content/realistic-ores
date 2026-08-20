@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "realistic_ores:block/deepslate_amethyst_beryl_pegmatite_0"
+      },
+      {
+        "model": "realistic_ores:block/deepslate_amethyst_beryl_pegmatite_1"
+      },
+      {
+        "model": "realistic_ores:block/deepslate_amethyst_beryl_pegmatite_2"
+      }
+    ]
+  }
+}

@@ -97,7 +97,7 @@ recolor.
 | Bauxite laterite | scattered rusty angular nodules | `#7b3e30` `#975a3a` `#cd8553` `#efb687` `#d7c6b0` |
 | Coal measures | broken dark carbon seams with restrained ochre inclusions | `#202024` `#3c3c42` `#666670` `#7b6a30` `#b09a52` |
 | Copper sulfide | small clustered brown/brassy disseminations | `#5c3a21` `#5a693d` `#9f612f` `#7f8d59` `#d8974b` |
-| Corundum-beryl gem vein | sparse diagonal purple-blue crystal vein | `#6c2b90` `#3d74cf` `#d277f0` `#78b8ff` `#cfd7dc` |
+| Amethyst-beryl pegmatite | sparse diagonal purple-blue crystal vein | `#6c2b90` `#3d74cf` `#d277f0` `#78b8ff` `#cfd7dc` |
 | Cupriferous redbed-redstone | sharp, locally clustered red fracture seam | `#5d1116` `#a31c25` `#7e3d2c` `#ff4f4f` `#b47240` |
 | Emerald schist-beryl | branching green crystal stringers | `#216d39` `#697850` `#38b35c` `#8fbfa0` `#9bf4ad` |
 | Ironstone | rusty, laterally biased bedded seam | `#5d3123` `#6b4d56` `#8d4e35` `#8d6f78` `#c37754` |
@@ -108,6 +108,7 @@ recolor.
 | Osmiridium lava sulfide | compact interconnected blue-black metallic blebs with short angular stringers, cold silver iridescence, and sparse brassy caps | `#242936` `#49556a` `#7a6687` `#a7b7c7` `#d8b45a` |
 | Phosphate rock | soft pale-olive nodules with subtle pink gangue | `#82906d` `#d4aab5` `#afc28e` `#d1cabb` `#dde6c6` |
 | Quartz vein | thick, high-value branching white fracture fill | `#d7b97b` `#bcc7ce` `#d8d2ca` `#ece8e0` `#f7f0e7` |
+| Gold-quartz vein | sparse precious-metal inclusions in a compact quartz fracture fill | `#d7b97b` `#bcc7ce` `#d8d2ca` `#ece8e0` `#f7f0e7` |
 | Soul-bearing black shale | thin, dark irregular seam with sparse violet energy | `#19161d` `#4e3272` `#394038` `#a173ff` `#cbc4db` |
 | Sulfur-bearing pyrite | sparse chained brassy grains with neutral gangue | `#5a554f` `#706028` `#9b9388` `#b49936` `#e2ca63` |
 | Thorium | sparse subdued olive splinters with warm pale gangue | `#4a5a3b` `#7c9358` `#b9b38d` `#bbd68f` `#dfd8ae` |
@@ -139,8 +140,12 @@ silver-violet value steps are reflective mineral color rather than emissive ligh
 - The crushed sprites use seven colors and limited partial alpha only around pile edges.
   Their opaque interior carries the parent family's hue and value hierarchy.
 - Crushed material and surface samples are separate registry entries. `crushed_*` is a
-  processing ingredient and is never placeable; `surface_sample_*` is a dedicated low
-  scatter block with its own block item.
+  processing ingredient and is never placeable. The BlockItem for each `surface_sample_*`
+  block is registered as `small_ore_chunk_<family>`; there is no separate sample item.
+- Nine identical small chunks irreversibly combine into one full chunk. Four matching
+  crushed feeds, one route-specific grinding ball, and exactly 500 mB of the declared
+  water/acid route produce four primary concentrates plus independently rolled coproducts.
+  Separation never emits washed forms or generic tailings.
 - Surface samples use the ore family's opaque raw-deposit texture on five deterministic,
   ore-specific fragment arrangements. They must read as host-rock fragments carrying
   mineralization, not as a crushed processing pile laid on the ground.

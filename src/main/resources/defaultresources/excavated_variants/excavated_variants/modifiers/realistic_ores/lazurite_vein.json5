@@ -1,0 +1,8 @@
+{
+  "filter": "ore:lazurite_vein",
+  "tags": [
+    "minecraft:blocks/mineable/pickaxe",
+    "realistic_ores:blocks/deposit_ore_blocks/lazurite_vein",
+    "realistic_ores:blocks/deposit_ore_blocks"
+  ]
+}

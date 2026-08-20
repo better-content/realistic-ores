@@ -55,15 +55,19 @@ public final class OreDefinition {
     }
 
     public String crushedItemId() {
-        return "crushed_" + primaryVariant().blockId();
+        return "crushed_" + id;
     }
 
     public String oreChunkItemId() {
-        return "ore_chunk_" + primaryVariant().blockId();
+        return "ore_chunk_" + id;
+    }
+
+    public String smallOreChunkItemId() {
+        return "small_ore_chunk_" + id;
     }
 
     public String surfaceSampleBlockId() {
-        return "surface_sample_" + primaryVariant().blockId();
+        return "surface_sample_" + id;
     }
 
     public Optional<VariantDefinition> variantByHost(String host) {

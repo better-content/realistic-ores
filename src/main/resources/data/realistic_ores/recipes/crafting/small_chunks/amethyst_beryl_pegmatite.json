@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realistic_ores:small_ore_chunk_amethyst_beryl_pegmatite"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_amethyst_beryl_pegmatite"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_amethyst_beryl_pegmatite"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_amethyst_beryl_pegmatite"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_amethyst_beryl_pegmatite"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_amethyst_beryl_pegmatite"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_amethyst_beryl_pegmatite"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_amethyst_beryl_pegmatite"
+    },
+    {
+      "item": "realistic_ores:small_ore_chunk_amethyst_beryl_pegmatite"
+    }
+  ],
+  "result": {
+    "item": "realistic_ores:ore_chunk_amethyst_beryl_pegmatite"
+  }
+}

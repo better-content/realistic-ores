@@ -14,7 +14,7 @@
     "deepslate_0_south": "5c588134928a042a09bdebf080c1e59fa02ae23f5b80c3f5250f75a2ea5caf83",
     "deepslate_0_up": "f831db871d1e2476fecfc281a5953241d3ec7afe231e610d1e07338e1db28710"
   },
-  "corundum_beryl_gem_vein": {
+  "amethyst_beryl_pegmatite": {
     "stone_0_south": "913678ed10cf27adf21517b1a7adbbf1803b56765b0df25f7d27c28fcd32c8c7",
     "deepslate_0_south": "0a50f199bf7d08d7fdfdd92c973c0e84a63bb0988752b6dc01dc37d90b094a09",
     "deepslate_0_up": "317b2473c1f3e2585b067363135251373113cf5b75820832e6860c1c2eb20c67"
@@ -23,11 +23,6 @@
     "stone_0_south": "a5ebd89186bf1d0a983d3f5165d52d92e71636f4b52a052221dd30c9de4d81f8",
     "deepslate_0_south": "85f15598589f0668d007ae7662e0bc029edaf7f14a204aafd852cd4a0f001964",
     "deepslate_0_up": "23174bfa91fd31a10738cb5a4865e5c3c739cb952f787528e8e52813e031790d"
-  },
-  "emerald_schist_beryl_vein": {
-    "stone_0_south": "a05e5cb18692e32980ee4e8a93078b37b0d813857e43bf5679c0dc56c4b2f28a",
-    "deepslate_0_south": "940b9fe252332b6b10d9a0599f014ff3f26f481d11742daf75bb789d973711d8",
-    "deepslate_0_up": "d054b43bae31935dd3056280743f8bc568fede13be5ab07a761eda301861ef37"
   },
   "ironstone": {
     "stone_0_south": "9c3960f0b79184d54e78e21fd2d1218e7e164581201095272a3a0adb75f451af",
@@ -74,16 +69,6 @@
     "deepslate_0_south": "b2757dfc8253485dc45b6ed261c63b7aa7706176dad2e88ed27664b94d9e3b83",
     "deepslate_0_up": "0c5d132b9742650b761f292696f6c9c892b78828380a9e8de03e481f8d2846ff"
   },
-  "sulfur_bearing_pyrite": {
-    "stone_0_south": "b08a2b9cbd022babd4e0006023ffed6b9d2c7ed6ec35c631c9c26152180bfdb4",
-    "deepslate_0_south": "f3dde267b2460fbe49036d8722a93c1d0747866607fa219c1ab9416e916b7ff7",
-    "deepslate_0_up": "2e783cd115a601fdf8ed57752f98d4e805d278dc4874decef40727617b1ff5ce"
-  },
-  "thorium": {
-    "stone_0_south": "b7f0c6189a7563faa40dd500687434632064775bff1c734e186a9bc2479bc416",
-    "deepslate_0_south": "4a995fd187d2c19a15963f434574f2289536c963c1486f28638340c3b527c8be",
-    "deepslate_0_up": "913c1c105713ffcdbb23933e7110df0fb864c640eb28ae6827d8bec68e139693"
-  },
   "tin": {
     "stone_0_south": "a0be0fa3949469d2f52e8bd96d92c95d17005c3a8235481554a93ff685c0c7b5",
     "deepslate_0_south": "df906d4a4c1b502693a41c93786b67618655eb96ef4223249d391a3316f05627",
@@ -99,14 +84,34 @@
     "deepslate_0_south": "66aee6b522204099bad16b5b0ae3e519a84cd43e2edbf3d3bf26cb4061d0baae",
     "deepslate_0_up": "2f4df9e6eecf5a8d1b56991d34eb5b9b33a0a1b38d59c686d2c01112eee63e50"
   },
-  "uranium": {
-    "stone_0_south": "ecde4e64978e0196731a14f4f9a730d97a7507cd90a93d1c2c807ee30acd9233",
-    "deepslate_0_south": "58d32291f49e9c8d901add4b69de81826a588a8c1bc672aa3759955a0be73ea5",
-    "deepslate_0_up": "6e5c060f572402344997ddec7af9bdf38a783cc482ea534e19f47324f808dd66"
-  },
   "zinc": {
     "stone_0_south": "c83de9b18e39b9aaf2085c1d2bf505b621d622752a83bd3018cac071eb56add6",
     "deepslate_0_south": "4d89a57869b89a2651c75a1b332affcc79954d512c00119dd5959cbdc6be0d57",
     "deepslate_0_up": "5686f485385430a9167afaa113049bec0de7c25612f514ff8559daa0740e2cfe"
+  },
+  "emerald_schist_beryl": {
+    "stone_0_south": "a05e5cb18692e32980ee4e8a93078b37b0d813857e43bf5679c0dc56c4b2f28a",
+    "deepslate_0_south": "940b9fe252332b6b10d9a0599f014ff3f26f481d11742daf75bb789d973711d8",
+    "deepslate_0_up": "d054b43bae31935dd3056280743f8bc568fede13be5ab07a761eda301861ef37"
+  },
+  "sulfur_bearing_pyrite_ore": {
+    "stone_0_south": "b08a2b9cbd022babd4e0006023ffed6b9d2c7ed6ec35c631c9c26152180bfdb4",
+    "deepslate_0_south": "f3dde267b2460fbe49036d8722a93c1d0747866607fa219c1ab9416e916b7ff7",
+    "deepslate_0_up": "2e783cd115a601fdf8ed57752f98d4e805d278dc4874decef40727617b1ff5ce"
+  },
+  "thorium_ore": {
+    "stone_0_south": "b7f0c6189a7563faa40dd500687434632064775bff1c734e186a9bc2479bc416",
+    "deepslate_0_south": "4a995fd187d2c19a15963f434574f2289536c963c1486f28638340c3b527c8be",
+    "deepslate_0_up": "913c1c105713ffcdbb23933e7110df0fb864c640eb28ae6827d8bec68e139693"
+  },
+  "uranium_ore": {
+    "stone_0_south": "ecde4e64978e0196731a14f4f9a730d97a7507cd90a93d1c2c807ee30acd9233",
+    "deepslate_0_south": "58d32291f49e9c8d901add4b69de81826a588a8c1bc672aa3759955a0be73ea5",
+    "deepslate_0_up": "6e5c060f572402344997ddec7af9bdf38a783cc482ea534e19f47324f808dd66"
+  },
+  "gold_quartz_vein": {
+    "stone_0_south": "f3294888141a5e27b15975d1e52ccd0e388b6b2cda188b635198d26a06963ae1",
+    "deepslate_0_south": "f214b301bee131cd1ab200ecb117d716c5060127062e95de37a949778fb26090",
+    "deepslate_0_up": "aceb66a385a7966e3ffaf21648d53023c828bbf3b5c23d35c8619375ba245468"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "realistic_ores:crushed_nickel_sulfide"
+  },
+  "result": {
+    "item": "chemlib:nickel_nugget",
+    "count": 9
+  },
+  "experience": 0.1,
+  "cookingtime": 240
+}

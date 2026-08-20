@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:crushed_zinc"
+  },
+  "result": {
+    "tag": "forge:molten_zinc",
+    "amount": 150
+  },
+  "rate": "metal",
+  "temperature": 950,
+  "time": 120,
+  "byproducts": [
+    {
+      "tag": "forge:molten_lead",
+      "amount": 30,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_cadmium",
+      "amount": 15,
+      "rate": "metal"
+    }
+  ]
+}

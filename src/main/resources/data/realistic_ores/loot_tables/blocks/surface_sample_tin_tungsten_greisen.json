@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realistic_ores:ore_chunk_tin_tungsten_greisen"
+          "name": "realistic_ores:small_ore_chunk_tin_tungsten_greisen"
         }
       ],
       "conditions": [

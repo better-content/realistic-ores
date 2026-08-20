@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:beryllium_concentrate"
+  },
+  "result": {
+    "item": "chemlib:beryllium_nugget",
+    "count": 12
+  },
+  "experience": 0.2,
+  "cookingtime": 120
+}

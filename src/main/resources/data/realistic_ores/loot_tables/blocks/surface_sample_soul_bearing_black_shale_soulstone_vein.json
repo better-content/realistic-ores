@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "realistic_ores:ore_chunk_soul_bearing_black_shale_soulstone_vein"
+          "name": "realistic_ores:small_ore_chunk_soul_bearing_black_shale_soulstone_vein"
         }
       ],
       "conditions": [

@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "realistic_ores:crushed_coal_measures",
+    "realistic_ores:crushed_ironstone",
+    "realistic_ores:crushed_copper_sulfide",
+    "realistic_ores:crushed_tin",
+    "realistic_ores:crushed_zinc",
+    "realistic_ores:crushed_lead_zinc_vein",
+    "realistic_ores:crushed_quartz_vein",
+    "realistic_ores:crushed_bauxite_laterite",
+    "realistic_ores:crushed_nickel_sulfide",
+    "realistic_ores:crushed_osmiridium_lava_sulfide",
+    "realistic_ores:crushed_tin_tungsten_greisen",
+    "realistic_ores:crushed_titanium_iron_oxide",
+    "realistic_ores:crushed_kimberlite_pipe",
+    "realistic_ores:crushed_emerald_schist_beryl",
+    "realistic_ores:crushed_amethyst_beryl_pegmatite",
+    "realistic_ores:crushed_uranium_ore",
+    "realistic_ores:crushed_thorium_ore",
+    "realistic_ores:crushed_cupriferous_redbed_redstone_vein",
+    "realistic_ores:crushed_lazurite_vein",
+    "realistic_ores:crushed_phosphate_rock",
+    "realistic_ores:crushed_soul_bearing_black_shale_soulstone_vein",
+    "realistic_ores:crushed_sulfur_bearing_pyrite_ore",
+    "realistic_ores:crushed_gold_quartz_vein"
+  ]
+}

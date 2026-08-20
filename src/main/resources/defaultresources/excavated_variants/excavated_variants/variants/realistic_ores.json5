@@ -63,17 +63,17 @@
       ]
     },
     {
-      "id": "corundum_beryl_gem_vein",
+      "id": "amethyst_beryl_pegmatite",
       "stone": [
         "stone",
         "deepslate"
       ],
       "block_id": [
-        "realistic_ores:corundum_beryl_gem_vein",
-        "realistic_ores:deepslate_corundum_beryl_gem_vein"
+        "realistic_ores:amethyst_beryl_pegmatite",
+        "realistic_ores:deepslate_amethyst_beryl_pegmatite"
       ],
       "lang": {
-        "en_us": "Corundum Beryl Gem Vein"
+        "en_us": "Amethyst-Beryl Pegmatite"
       },
       "types": [
         "stone"
@@ -101,7 +101,7 @@
       ]
     },
     {
-      "id": "emerald_schist_beryl_vein",
+      "id": "emerald_schist_beryl",
       "stone": [
         "stone",
         "deepslate"
@@ -300,7 +300,7 @@
       ]
     },
     {
-      "id": "sulfur_bearing_pyrite",
+      "id": "sulfur_bearing_pyrite_ore",
       "stone": [
         "stone",
         "deepslate"
@@ -320,7 +320,7 @@
       ]
     },
     {
-      "id": "thorium",
+      "id": "thorium_ore",
       "stone": [
         "stone",
         "deepslate"
@@ -402,7 +402,7 @@
       ]
     },
     {
-      "id": "uranium",
+      "id": "uranium_ore",
       "stone": [
         "stone",
         "deepslate"
@@ -419,6 +419,27 @@
       ],
       "orename": [
         "uranium_ore"
+      ]
+    },
+    {
+      "id": "gold_quartz_vein",
+      "stone": [
+        "stone",
+        "deepslate"
+      ],
+      "block_id": [
+        "realistic_ores:gold_quartz_vein",
+        "realistic_ores:deepslate_gold_quartz_vein"
+      ],
+      "lang": {
+        "en_us": "Gold-Quartz Vein"
+      },
+      "types": [
+        "stone"
+      ],
+      "orename": [
+        "gold_ore",
+        "quartz_ore"
       ]
     },
     {

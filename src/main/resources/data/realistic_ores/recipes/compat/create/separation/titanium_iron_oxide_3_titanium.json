@@ -1,0 +1,53 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_titanium_iron_oxide"
+    },
+    {
+      "item": "realistic_ores:crushed_titanium_iron_oxide"
+    },
+    {
+      "item": "realistic_ores:crushed_titanium_iron_oxide"
+    },
+    {
+      "item": "realistic_ores:crushed_titanium_iron_oxide"
+    },
+    {
+      "item": "realistic_ores:titanium_grinding_ball"
+    },
+    {
+      "fluid": "chemlib:sulfuric_acid_fluid",
+      "amount": 250
+    },
+    {
+      "fluid": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:titanium_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:iron_concentrate",
+      "chance": 1.0
+    },
+    {
+      "item": "realistic_ores:chromium_concentrate",
+      "chance": 0.2
+    },
+    {
+      "item": "realistic_ores:titanium_grinding_ball",
+      "chance": 0.95
+    }
+  ],
+  "processingTime": 300
+}

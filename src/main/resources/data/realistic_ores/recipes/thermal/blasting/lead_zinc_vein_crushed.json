@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:crushed_lead_zinc_vein"
+  },
+  "result": {
+    "item": "chemlib:lead_nugget",
+    "count": 9
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

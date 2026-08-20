@@ -1,0 +1,81 @@
+{
+  "family": "cupriferous_redbed_redstone_vein",
+  "primary": "redstone",
+  "input_count": 4,
+  "routes": [
+    {
+      "medium": "brass",
+      "fluids": [
+        {
+          "fluid": "minecraft:water",
+          "amount": 500
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "copper",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "iron",
+          "grade": "minor",
+          "chance": 0.5
+        }
+      ],
+      "ball_return_chance": 0.87
+    },
+    {
+      "medium": "steel",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "copper",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "iron",
+          "grade": "minor",
+          "chance": 0.5
+        }
+      ],
+      "ball_return_chance": 0.91
+    },
+    {
+      "medium": "nickel",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "chemlib:nitric_acid_fluid",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "copper",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "gold",
+          "grade": "precious",
+          "chance": 0.05
+        }
+      ],
+      "ball_return_chance": 0.93
+    }
+  ]
+}

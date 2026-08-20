@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_coal_measures"
+  },
+  "result": {
+    "item": "minecraft:coal",
+    "count": 2
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

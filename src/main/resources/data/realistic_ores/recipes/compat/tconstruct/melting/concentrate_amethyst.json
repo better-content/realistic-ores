@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:amethyst_concentrate"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_amethyst",
+    "amount": 135
+  },
+  "temperature": 950,
+  "time": 120
+}

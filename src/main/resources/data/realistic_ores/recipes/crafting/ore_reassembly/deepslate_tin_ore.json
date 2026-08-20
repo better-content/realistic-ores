@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "realistic_ores:ore_chunk_tin_ore"
+      "item": "realistic_ores:ore_chunk_tin"
     },
     {
       "item": "minecraft:deepslate"

@@ -1,0 +1,53 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_sulfur_bearing_pyrite_ore"
+    },
+    {
+      "item": "realistic_ores:crushed_sulfur_bearing_pyrite_ore"
+    },
+    {
+      "item": "realistic_ores:crushed_sulfur_bearing_pyrite_ore"
+    },
+    {
+      "item": "realistic_ores:crushed_sulfur_bearing_pyrite_ore"
+    },
+    {
+      "item": "realistic_ores:nickel_grinding_ball"
+    },
+    {
+      "fluid": "chemlib:hydrochloric_acid_fluid",
+      "amount": 250
+    },
+    {
+      "fluid": "chemlib:nitric_acid_fluid",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:sulfur_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:copper_concentrate",
+      "chance": 0.5
+    },
+    {
+      "item": "realistic_ores:gold_concentrate",
+      "chance": 0.05
+    },
+    {
+      "item": "realistic_ores:nickel_grinding_ball",
+      "chance": 0.93
+    }
+  ],
+  "processingTime": 300
+}

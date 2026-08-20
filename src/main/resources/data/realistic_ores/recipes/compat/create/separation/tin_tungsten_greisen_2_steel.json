@@ -1,0 +1,53 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_tin_tungsten_greisen"
+    },
+    {
+      "item": "realistic_ores:crushed_tin_tungsten_greisen"
+    },
+    {
+      "item": "realistic_ores:crushed_tin_tungsten_greisen"
+    },
+    {
+      "item": "realistic_ores:crushed_tin_tungsten_greisen"
+    },
+    {
+      "item": "realistic_ores:steel_grinding_ball"
+    },
+    {
+      "fluid": "chemlib:hydrochloric_acid_fluid",
+      "amount": 250
+    },
+    {
+      "fluid": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:tungsten_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:tin_concentrate",
+      "chance": 1.0
+    },
+    {
+      "item": "realistic_ores:quartz_concentrate",
+      "chance": 1.0
+    },
+    {
+      "item": "realistic_ores:steel_grinding_ball",
+      "chance": 0.91
+    }
+  ],
+  "processingTime": 300
+}

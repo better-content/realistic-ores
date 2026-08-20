@@ -42,7 +42,7 @@ public final class ModBlocks {
                 String sampleId = definition.surfaceSampleBlockId();
                 ResourceLocation collectedItemId = ResourceLocation.fromNamespaceAndPath(
                         RealisticOresMod.MOD_ID,
-                        definition.oreChunkItemId());
+                        definition.smallOreChunkItemId());
                 SURFACE_SAMPLES_BY_ID.put(sampleId, BLOCKS.register(
                         sampleId,
                         () -> newSurfaceSample(collectedItemId)));

@@ -1,0 +1,32 @@
+{
+  "type": "create:crushing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:ore_chunk_nickel_sulfide"
+    }
+  ],
+  "processingTime": 400,
+  "results": [
+    {
+      "item": "realistic_ores:crushed_nickel_sulfide"
+    },
+    {
+      "item": "realistic_ores:crushed_nickel_sulfide",
+      "chance": 0.3
+    },
+    {
+      "item": "realistic_ores:crushed_nickel_sulfide",
+      "chance": 0.3
+    },
+    {
+      "item": "realistic_ores:crushed_nickel_sulfide",
+      "chance": 0.3
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "type": "create:compacting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "tag": "forge:ingots/brass"
+    },
+    {
+      "tag": "forge:ingots/brass"
+    },
+    {
+      "tag": "forge:ingots/brass"
+    },
+    {
+      "tag": "forge:ingots/brass"
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:brass_grinding_ball"
+    }
+  ]
+}

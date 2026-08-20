@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:crushed_soul_bearing_black_shale_soulstone_vein"
+  },
+  "result": {
+    "item": "minecraft:soul_sand",
+    "count": 4
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

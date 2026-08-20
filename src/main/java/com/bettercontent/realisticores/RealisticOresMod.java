@@ -4,6 +4,8 @@ import com.bettercontent.realisticores.registry.ModBlocks;
 import com.bettercontent.realisticores.client.ClientSetup;
 import com.bettercontent.realisticores.registry.ModFeatures;
 import com.bettercontent.realisticores.registry.ModItems;
+import com.bettercontent.realisticores.registry.ModRecipeSerializers;
+import com.mojang.logging.LogUtils;
 import com.bettercontent.realisticores.worldgen.DisabledFeatureBiomeModifier;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -12,10 +14,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.slf4j.Logger;
 
 @Mod(RealisticOresMod.MOD_ID)
 public final class RealisticOresMod {
     public static final String MOD_ID = "realistic_ores";
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public RealisticOresMod() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -23,6 +27,7 @@ public final class RealisticOresMod {
         ModBlocks.register(modBus);
         ModItems.register(modBus);
         ModFeatures.register(modBus);
+        ModRecipeSerializers.register(modBus);
         DisabledFeatureBiomeModifier.register(modBus);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modBus.addListener(ClientSetup::onClientSetup));
         modBus.addListener(this::addCreativeTabContents);
@@ -35,6 +40,7 @@ public final class RealisticOresMod {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             ModItems.getAllOreChunkItems().forEach(event::accept);
             ModItems.getAllCrushedOreItems().forEach(event::accept);
+            ModItems.getAllProcessingItems().forEach(event::accept);
         }
     }
 

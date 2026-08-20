@@ -1,0 +1,224 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "all": "realistic_ores:block/amethyst_beryl_pegmatite_0_south",
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        0.02,
+        2
+      ],
+      "to": [
+        7,
+        4,
+        7
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            4,
+            1,
+            9,
+            6
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            4,
+            1,
+            9,
+            6
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            4,
+            1,
+            9,
+            5
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            4,
+            1,
+            9,
+            5
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            4,
+            1,
+            9,
+            5
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            4,
+            1,
+            9,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        0.02,
+        4
+      ],
+      "to": [
+        15,
+        4,
+        7
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            6,
+            9,
+            11,
+            12
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            6,
+            9,
+            11,
+            12
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            6,
+            9,
+            11,
+            13
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            6,
+            9,
+            11,
+            13
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            6,
+            9,
+            11,
+            13
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            6,
+            9,
+            11,
+            13
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          12.5,
+          0,
+          5.5
+        ],
+        "axis": "y",
+        "angle": 22.5,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        3,
+        0.02,
+        10
+      ],
+      "to": [
+        7,
+        2,
+        15
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            11,
+            10
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            11,
+            10
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            11,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            11,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            11,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            7,
+            5,
+            11,
+            7
+          ]
+        }
+      }
+    }
+  ]
+}

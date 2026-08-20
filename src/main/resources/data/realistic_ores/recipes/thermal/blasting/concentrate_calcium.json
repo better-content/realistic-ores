@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:calcium_concentrate"
+  },
+  "result": {
+    "item": "chemlib:calcium_nugget",
+    "count": 12
+  },
+  "experience": 0.2,
+  "cookingtime": 120
+}
