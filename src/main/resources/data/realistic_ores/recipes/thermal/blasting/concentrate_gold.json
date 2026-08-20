@@ -4,7 +4,7 @@
     "item": "realistic_ores:gold_concentrate"
   },
   "result": {
-    "item": "chemlib:gold_nugget",
+    "item": "minecraft:gold_nugget",
     "count": 12
   },
   "experience": 0.2,

@@ -4,7 +4,7 @@
     "item": "realistic_ores:copper_concentrate"
   },
   "result": {
-    "item": "chemlib:copper_nugget",
+    "item": "tconstruct:copper_nugget",
     "count": 12
   },
   "experience": 0.2,

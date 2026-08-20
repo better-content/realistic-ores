@@ -4,7 +4,7 @@
     "item": "realistic_ores:ore_chunk_ironstone"
   },
   "result": {
-    "item": "chemlib:iron_nugget",
+    "item": "minecraft:iron_nugget",
     "count": 4
   },
   "experience": 0.1,

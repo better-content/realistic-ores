@@ -4,7 +4,7 @@
     "item": "realistic_ores:iron_concentrate"
   },
   "result": {
-    "item": "chemlib:iron_nugget",
+    "item": "minecraft:iron_nugget",
     "count": 12
   },
   "experience": 0.2,

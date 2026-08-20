@@ -4,7 +4,7 @@
     "item": "realistic_ores:crushed_ironstone"
   },
   "result": {
-    "item": "chemlib:iron_nugget",
+    "item": "minecraft:iron_nugget",
     "count": 9
   },
   "experience": 0.1,

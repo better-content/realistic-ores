@@ -4,7 +4,7 @@
     "item": "realistic_ores:crushed_copper_sulfide"
   },
   "result": {
-    "item": "chemlib:copper_nugget",
+    "item": "tconstruct:copper_nugget",
     "count": 9
   },
   "experience": 0.1,
