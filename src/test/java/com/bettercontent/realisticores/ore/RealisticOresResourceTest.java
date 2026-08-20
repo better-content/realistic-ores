@@ -271,12 +271,15 @@ final class RealisticOresResourceTest {
                 JsonObject sampleItemModel = read(
                         resources.resolve("assets/realistic_ores/models/item/" + small + ".json"),
                         JsonObject.class);
-                assertEquals("realistic_ores:block/" + sample + "_2",
+                assertEquals("minecraft:item/generated",
                         sampleItemModel.get("parent").getAsString(), sample);
-                JsonObject gui = sampleItemModel.getAsJsonObject("display").getAsJsonObject("gui");
-                assertEquals(30, gui.getAsJsonArray("rotation").get(0).getAsInt(), sample);
-                assertEquals(225, gui.getAsJsonArray("rotation").get(1).getAsInt(), sample);
-                assertTrue(gui.getAsJsonArray("scale").get(0).getAsDouble() > 1.0, sample);
+                assertEquals("realistic_ores:item/" + small,
+                        sampleItemModel.getAsJsonObject("textures").get("layer0").getAsString(), sample);
+                Path smallTexture = resources.resolve("assets/realistic_ores/textures/item/" + small + ".png");
+                BufferedImage smallImage = ImageIO.read(smallTexture.toFile());
+                assertTrue(smallImage != null, smallTexture.toString());
+                assertEquals(16, smallImage.getWidth(), smallTexture.toString());
+                assertEquals(16, smallImage.getHeight(), smallTexture.toString());
                 assertFalse(Files.exists(resources.resolve("assets/realistic_ores/models/item/" + sample + ".json")),
                         "surface samples have no separate item identity");
                 JsonObject sampleLoot = read(resources.resolve(

@@ -118,10 +118,23 @@ tasks.register("verifyFast") {
     dependsOn(tasks.named("check"))
 }
 
+val verifyItemTextures by tasks.registering(Exec::class) {
+    group = "verification"
+    description = "Verifies curated processing sprites against their 1024px masters."
+    commandLine(
+        javaToolchains.launcherFor {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }.get().executablePath.asFile.absolutePath,
+        "tools/DownsampleItemTextures.java",
+        "--check"
+    )
+}
+
 tasks.register("verifyFull") {
     group = "verification"
     description = "Runs the full verification lane for this repo."
     dependsOn(tasks.named("verifyFast"))
+    dependsOn(verifyItemTextures)
 }
 
 jacoco {

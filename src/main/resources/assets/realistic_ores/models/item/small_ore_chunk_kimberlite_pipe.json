@@ -1,22 +1,6 @@
 {
-  "parent": "realistic_ores:block/surface_sample_kimberlite_pipe_2",
-  "display": {
-    "gui": {
-      "rotation": [
-        30,
-        225,
-        0
-      ],
-      "translation": [
-        0,
-        3,
-        0
-      ],
-      "scale": [
-        1.15,
-        1.15,
-        1.15
-      ]
-    }
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "realistic_ores:item/small_ore_chunk_kimberlite_pipe"
   }
 }

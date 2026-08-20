@@ -19,8 +19,6 @@ NS = "realistic_ores"
 ORE_DIR = RES / "data/realistic_ores/realistic_ores"
 ASSETS = RES / "assets/realistic_ores"
 DATA = RES / "data/realistic_ores"
-ART_MANIFEST = json.loads((ROOT / "tools/ore_art_manifest.json").read_text(encoding="utf-8"))
-
 FAMILIES = [
     "coal_measures", "ironstone", "copper_sulfide", "tin", "zinc", "lead_zinc_vein",
     "quartz_vein", "bauxite_laterite", "nickel_sulfide", "osmiridium_lava_sulfide",
@@ -113,6 +111,14 @@ def reset(path: Path) -> None:
     if path.exists():
         shutil.rmtree(path)
     path.mkdir(parents=True)
+
+
+def require_curated_item_texture(directory: Path, item: str) -> None:
+    texture = directory / f"{item}.png"
+    if not texture.is_file():
+        raise RuntimeError(
+            f"missing curated item texture {texture}; run "
+            "java tools/DownsampleItemTextures.java --write")
 
 
 def png(
@@ -223,7 +229,9 @@ def main() -> None:
     item_textures = ASSETS / "textures/item"
     for pattern in ("ore_chunk_*.json", "crushed_*.json", "small_ore_chunk_*.json", "*_concentrate.json", "*_grinding_ball.json", "*_chip.json"):
         for path in item_models.glob(pattern): path.unlink()
-    for pattern in ("ore_chunk_*.png", "crushed_*.png", "small_ore_chunk_*.png", "*_concentrate.png", "*_grinding_ball.png", "*_chip.png"):
+    # Curated chunk, small-chunk, crushed-feed, and concentrate sprites are reduced
+    # from committed high-resolution masters and must never be replaced here.
+    for pattern in ("*_grinding_ball.png", "*_chip.png"):
         for path in item_textures.glob(pattern): path.unlink()
 
     recipes = DATA / "recipes"
@@ -258,20 +266,16 @@ def main() -> None:
         definition = by_family[family]
         chunk, small, crushed = f"ore_chunk_{family}", f"small_ore_chunk_{family}", f"crushed_{family}"
         all_chunks.append(f"{NS}:{chunk}"); all_small.append(f"{NS}:{small}"); all_crushed.append(f"{NS}:{crushed}")
-        art = ART_MANIFEST[family]
         for item, suffix, label in ((chunk, "chunk", "Ore Chunk"), (crushed, "crushed", "Crushed Feed")):
             write(item_models / f"{item}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{item}"}})
-            png(item_textures / f"{item}.png", art["palette"], art["morphology"], index, suffix == "crushed")
+            require_curated_item_texture(item_textures, item)
             lang[f"item.{NS}.{item}"] = f"{definition['display_name'].removesuffix(' Deposit')} {label}"
         sample = f"surface_sample_{family}"
         write(item_models / f"{small}.json", {
-            "parent": f"{NS}:block/{sample}_2",
-            "display": {"gui": {
-                "rotation": [30, 225, 0],
-                "translation": [0, 3, 0],
-                "scale": [1.15, 1.15, 1.15],
-            }},
+            "parent": "minecraft:item/generated",
+            "textures": {"layer0": f"{NS}:item/{small}"},
         })
+        require_curated_item_texture(item_textures, small)
         lang[f"item.{NS}.{small}"] = f"Small {definition['display_name'].removesuffix(' Deposit')} Chunk"
         write(DATA / f"loot_tables/blocks/{sample}.json", {
             "type": "minecraft:block",
@@ -366,7 +370,7 @@ def main() -> None:
     for index, material in enumerate(MATERIALS):
         item = f"{material}_concentrate"
         write(item_models / f"{item}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{item}"}})
-        png(item_textures / f"{item}.png", (index * .043 + .17) % 1, index + 200)
+        require_curated_item_texture(item_textures, item)
         lang[f"item.{NS}.{item}"] = f"{material.replace('_', ' ').title()} Concentrate"
         kind, output, fraction, fluid = MATERIALS[material]
         if kind in ("metal", "gem", "bulk"):

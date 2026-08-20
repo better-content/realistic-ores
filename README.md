@@ -138,9 +138,17 @@ silver-violet value steps are reflective mineral color rather than emissive ligh
   (the narrowest families use `x=4..11`).
 - Crushed sprites use the same five family mineral colors as chunks and deposits.
   Visible pixels are fully opaque against a transparent background.
-- Crushed material and surface samples are separate registry entries. `crushed_*` is a
-  processing ingredient and is never placeable. The BlockItem for each `surface_sample_*`
-  block is registered as `small_ore_chunk_<family>`; there is no separate sample item.
+- Small chunks use dedicated flat 16x16 inventory sprites rather than rendering the
+  surface-sample block model. Each is one compact ore-bearing fragment occupying roughly
+  16-30 visible pixels inside an `x=4..11`, `y=5..12` envelope. It retains the family
+  morphology and five-color palette while remaining visibly smaller than a full chunk.
+- Concentrates are clean low mounds of fine powder, not recolored chunks or coarse crushed
+  feed. They use five frozen output-material colors and a compact `x=3..12`, `y=7..12`
+  silhouette so shared coproducts remain identifiable independently of their source deposit.
+- Crushed material and surface samples have separate processing-item and block identities.
+  `crushed_*` is never placeable. Each `surface_sample_*` block deliberately has no item
+  identity of its own; its BlockItem is registered only as `small_ore_chunk_<family>`, so
+  EMI/JEI exposes the small chunk while the placed surface block remains hidden.
 - Nine identical small chunks irreversibly combine into one full chunk. A full chunk cooks
   to two primary nuggets, gem chips, or bulk items; each crushed feed cooks to one. Bauxite
   follows that same low-yield early recovery rule instead of remaining inert. Four matching
@@ -157,6 +165,10 @@ silver-violet value steps are reflective mineral color rather than emissive ligh
 - Surface samples use the ore family's opaque raw-deposit texture on five deterministic,
   ore-specific fragment arrangements. They must read as host-rock fragments carrying
   mineralization, not as a crushed processing pile laid on the ground.
+
+Curated processing-item art is generated as one unique transparent high-resolution master
+per item and reduced deterministically; see `art/README.md`. `tools/generate_phase3_resources.py`
+owns models and recipes but must never synthesize or replace curated item PNGs.
 
 ### Variant acceptance checklist
 
