@@ -510,6 +510,7 @@ final class RealisticOresResourceTest {
         assertEquals(3, read(processing.resolve("hotstone.json"), JsonObject.class)
                 .getAsJsonArray("assay_variants").size());
         int routeCount = 0;
+        int consumedMediumRoutes = 0;
         Set<String> media = new HashSet<>();
         for (Path path : definitions) {
             JsonObject definition = read(path, JsonObject.class);
@@ -524,15 +525,22 @@ final class RealisticOresResourceTest {
                 int amount = fluids.asList().stream()
                         .mapToInt(fluid -> fluid.getAsJsonObject().get("amount").getAsInt()).sum();
                 assertEquals(500, amount, path.toString());
-                assertTrue(route.get("ball_return_chance").getAsDouble() >= .80);
-                assertTrue(route.get("ball_return_chance").getAsDouble() <= .98);
+                double returnChance = route.get("ball_return_chance").getAsDouble();
+                if (returnChance == 0.0) {
+                    consumedMediumRoutes++;
+                } else {
+                    assertTrue(returnChance >= .80);
+                    assertTrue(returnChance <= .98);
+                }
             }
         }
         assertEquals(26, routeCount);
+        assertEquals(4, consumedMediumRoutes);
         assertEquals(Set.of("andesite", "iron", "brass", "steel", "nickel", "titanium",
                 "blood_infused", "fluix"), media);
 
         Path separation = DATA_ROOT.resolve("recipes/compat/create/separation");
+        Set<String> createConcentrates = new HashSet<>();
         try (var paths = Files.list(separation)) {
             List<Path> recipes = paths.filter(path -> path.toString().endsWith(".json")).toList();
             assertEquals(26, recipes.size());
@@ -544,10 +552,22 @@ final class RealisticOresResourceTest {
                         .filter(value -> value.getAsJsonObject().get("item").getAsString().contains(":crushed_"))
                         .count();
                 assertEquals(4, crushed, path.toString());
+                JsonArray results = recipe.getAsJsonArray("results");
+                assertTrue(results.size() <= 4, path + " exceeds Create's four-item output limit");
+                results.forEach(value -> {
+                    JsonObject result = value.getAsJsonObject();
+                    if (result.has("item") && result.get("item").getAsString().endsWith("_concentrate")) {
+                        String item = result.get("item").getAsString();
+                        createConcentrates.add(item.substring("realistic_ores:".length(),
+                                item.length() - "_concentrate".length()));
+                    }
+                });
                 assertFalse(GSON.toJson(recipe).contains("tailings"));
                 assertFalse(GSON.toJson(recipe).contains("washed_"));
             }
         }
+        assertEquals(RETAINED_MATERIALS, createConcentrates,
+                "Create separation must retain the complete audited material catalogue");
 
         assertTrue(Files.exists(DATA_ROOT.resolve("recipes/thermal/furnace/copper_bloom_chunk.json")));
         assertTrue(Files.exists(DATA_ROOT.resolve("recipes/compat/tconstruct/melting/copper_bloom_chunk.json")));
@@ -568,6 +588,15 @@ final class RealisticOresResourceTest {
             assertEquals(2, moltenTag.getAsJsonArray("values").size());
             assertTrue(Files.isRegularFile(ASSET_ROOT.resolve(
                     "models/item/molten_" + material + "_bucket.json")));
+            JsonObject blockstate = read(ASSET_ROOT.resolve(
+                    "blockstates/molten_" + material + ".json"), JsonObject.class);
+            assertEquals("realistic_ores:block/molten_" + material,
+                    blockstate.getAsJsonObject("variants").getAsJsonObject("")
+                            .get("model").getAsString());
+            JsonObject blockModel = read(ASSET_ROOT.resolve(
+                    "models/block/molten_" + material + ".json"), JsonObject.class);
+            assertEquals("minecraft:block/water_still",
+                    blockModel.getAsJsonObject("textures").get("particle").getAsString());
         }
         for (String material : List.of("beryl", "beryllium", "calcium", "carbon", "chromium", "gallium",
                 "iridium", "magnesium", "phosphate", "platinum", "silicon", "sodium", "tantalum", "tungsten")) {

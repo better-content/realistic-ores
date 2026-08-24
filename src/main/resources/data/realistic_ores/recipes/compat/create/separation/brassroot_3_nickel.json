@@ -47,10 +47,6 @@
     {
       "item": "realistic_ores:silver_concentrate",
       "chance": 0.05
-    },
-    {
-      "item": "realistic_ores:nickel_grinding_ball",
-      "chance": 0.93
     }
   ],
   "processingTime": 300

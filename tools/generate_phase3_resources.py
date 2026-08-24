@@ -85,6 +85,19 @@ ASSAY_VARIANTS = {
     ],
 }
 
+# Create 6.x accepts at most four item outputs per processing recipe. Rich assay
+# routes spend their premium grinding medium instead of trying to return a fifth
+# result. Hotstone's structural route also omits the ordinary uranium primary so
+# its four outputs are exactly the four structural assay materials; the fissile
+# and abyssal routes remain the uranium-producing Hotstone routes.
+CONSUMED_MEDIA_ROUTES = {
+    ("gem_pipe", 2),
+    ("hotstone", 2),
+    ("brassroot", 3),
+    ("copper_bloom", 3),
+}
+PRIMARY_FREE_ROUTES = {("hotstone", 2)}
+
 
 def write(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -155,6 +168,17 @@ def main() -> None:
 
     lang_path = ASSETS / "lang/en_us.json"
     lang = json.loads(lang_path.read_text())
+
+    # Fluid rendering is provided by IClientFluidTypeExtensions, but Minecraft
+    # still resolves a blockstate and particle model for each liquid level.
+    for material in ("titanium", "thorium"):
+        block = f"molten_{material}"
+        write(ASSETS / f"blockstates/{block}.json", {
+            "variants": {"": {"model": f"{NS}:block/{block}"}},
+        })
+        write(ASSETS / f"models/block/{block}.json", {
+            "textures": {"particle": "minecraft:block/water_still"},
+        })
     for key in list(lang):
         if any(token in key for token in ("ore_chunk_", "small_ore_chunk_", "crushed_", "_concentrate", "_grinding_ball", "_chip")):
             del lang[key]
@@ -248,14 +272,21 @@ def main() -> None:
         if family in ASSAY_VARIANTS:
             processing["assay_variants"] = ASSAY_VARIANTS[family]
         for route_index, (ball, acid, coproducts) in enumerate(routes, 1):
+            route_key = (family, route_index)
             fluid_spec = [{"fluid": "minecraft:water", "amount": 500}] if acid is None else (
                 [{"fluid": ACIDS[acid], "amount": 250}, {"fluid": "minecraft:water", "amount": 250}] if acid != "mixed" else
                 [{"fluid": ACIDS["hydrochloric"], "amount": 250}, {"fluid": ACIDS["nitric"], "amount": 250}]
             )
-            processing["routes"].append({"medium": ball, "fluids": fluid_spec, "coproducts": [{"material": material, "grade": grade, "chance": GRADE[grade]} for material, grade in coproducts], "ball_return_chance": BALLS[ball]})
-            results = [{"item": f"{NS}:{primary}_concentrate", "count": 4}]
+            primary_count = 0 if route_key in PRIMARY_FREE_ROUTES else 4
+            ball_return_chance = 0.0 if route_key in CONSUMED_MEDIA_ROUTES else BALLS[ball]
+            processing["routes"].append({"medium": ball, "fluids": fluid_spec, "primary_count": primary_count, "coproducts": [{"material": material, "grade": grade, "chance": GRADE[grade]} for material, grade in coproducts], "ball_return_chance": ball_return_chance})
+            results = ([] if primary_count == 0 else
+                       [{"item": f"{NS}:{primary}_concentrate", "count": primary_count}])
             results += [{"item": f"{NS}:{material}_concentrate", "chance": GRADE[grade]} for material, grade in coproducts]
-            results.append({"item": f"{NS}:{ball}_grinding_ball", "chance": BALLS[ball]})
+            if ball_return_chance > 0:
+                results.append({"item": f"{NS}:{ball}_grinding_ball", "chance": ball_return_chance})
+            if len(results) > 4:
+                raise RuntimeError(f"Create output limit exceeded for {family} route {route_index}: {len(results)}")
             ingredients = [{"item": f"{NS}:{crushed}"}] * 4 + [{"item": f"{NS}:{ball}_grinding_ball"}] + fluid_spec
             write(recipes / f"compat/create/separation/{family}_{route_index}_{ball}.json", {"type": "create:mixing", "conditions": [{"type": "forge:mod_loaded", "modid": "create"}], "ingredients": ingredients, "results": results, "processingTime": 300})
         write(processing_dir / f"{family}.json", processing)

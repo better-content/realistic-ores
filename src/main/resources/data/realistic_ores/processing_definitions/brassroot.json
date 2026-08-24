@@ -11,6 +11,7 @@
           "amount": 500
         }
       ],
+      "primary_count": 4,
       "coproducts": [
         {
           "material": "lead",
@@ -32,6 +33,7 @@
           "amount": 250
         }
       ],
+      "primary_count": 4,
       "coproducts": [
         {
           "material": "lead",
@@ -58,6 +60,7 @@
           "amount": 250
         }
       ],
+      "primary_count": 4,
       "coproducts": [
         {
           "material": "lead",
@@ -75,7 +78,7 @@
           "chance": 0.05
         }
       ],
-      "ball_return_chance": 0.93
+      "ball_return_chance": 0.0
     }
   ]
 }

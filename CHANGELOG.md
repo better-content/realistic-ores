@@ -12,6 +12,11 @@
 - Made first-contact promises mechanical: coal chunks burn, Evaporite yields salt,
   Gem Pipe yields rough chips, Black Shale supports soul fire, and Hotstone warms,
   hurts, and consolidates into magma.
+- Capped Create separation recipes at four item outputs. The richest assay routes now
+  consume their grinding medium, while Hotstone's structural route yields its four
+  structural metals and leaves uranium recovery to the other Hotstone routes.
+- Added the client blockstate and particle models required by molten titanium and
+  molten thorium at every fluid level.
 
 ### Removed
 

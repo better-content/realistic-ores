@@ -33,10 +33,6 @@
   ],
   "results": [
     {
-      "item": "realistic_ores:uranium_concentrate",
-      "count": 4
-    },
-    {
       "item": "realistic_ores:titanium_concentrate",
       "chance": 1.0
     },
@@ -51,10 +47,6 @@
     {
       "item": "realistic_ores:iron_concentrate",
       "chance": 0.5
-    },
-    {
-      "item": "realistic_ores:nickel_grinding_ball",
-      "chance": 0.93
     }
   ],
   "processingTime": 300

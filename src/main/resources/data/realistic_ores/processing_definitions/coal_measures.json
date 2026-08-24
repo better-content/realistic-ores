@@ -11,6 +11,7 @@
           "amount": 500
         }
       ],
+      "primary_count": 4,
       "coproducts": [],
       "ball_return_chance": 0.8
     },
@@ -26,6 +27,7 @@
           "amount": 250
         }
       ],
+      "primary_count": 4,
       "coproducts": [
         {
           "material": "iron",
