@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realistic_ores:ore_chunk_evaporite_beds"
+    }
+  ],
+  "result": {
+    "item": "realistic_ores:rock_salt",
+    "count": 4
+  }
+}

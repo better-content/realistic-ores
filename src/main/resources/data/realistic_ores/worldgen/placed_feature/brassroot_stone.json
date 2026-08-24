@@ -1,0 +1,27 @@
+{
+  "feature": "realistic_ores:brassroot_stone",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 8
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "min_inclusive": {
+          "above_bottom": 86
+        },
+        "max_inclusive": {
+          "below_top": 374
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

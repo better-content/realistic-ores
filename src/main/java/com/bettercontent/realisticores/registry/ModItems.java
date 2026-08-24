@@ -20,12 +20,12 @@ public final class ModItems {
     private static final Map<String, RegistryObject<Item>> CONCENTRATE_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> GRINDING_BALL_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> GEM_CHIP_ITEMS_BY_ID = new LinkedHashMap<>();
+    private static final Map<String, RegistryObject<Item>> IMMEDIATE_UTILITY_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final String[] CONCENTRATES = {
-            "coal", "carbon", "iron", "nickel", "chromium", "copper", "sulfur", "gold", "tin",
-            "quartz", "tungsten", "zinc", "lead", "cadmium", "silver", "silicon", "aluminum",
-            "titanium", "gallium", "cobalt", "platinum", "osmium", "iridium", "tantalum",
-            "magnesium", "diamond", "emerald", "beryl", "beryllium", "amethyst", "uranium",
-            "thorium", "calcium", "redstone", "lapis", "sodium", "phosphate", "soul_sand"
+            "coal", "iron", "nickel", "copper", "sulfur", "gold", "tin", "quartz", "zinc",
+            "lead", "cadmium", "silver", "aluminum", "titanium", "cobalt", "osmium", "diamond",
+            "emerald", "amethyst", "uranium", "thorium", "redstone", "lapis", "soul_sand",
+            "rock_salt", "sodium_chloride", "saltpeter"
     };
     private static final String[] GRINDING_BALLS = {
             "andesite", "iron", "brass", "steel", "nickel", "titanium", "blood_infused", "fluix"
@@ -42,7 +42,9 @@ public final class ModItems {
                 String oreChunkItemId = definition.oreChunkItemId();
                 ORE_CHUNK_ITEMS_BY_ID.put(oreChunkItemId, ITEMS.register(
                         oreChunkItemId,
-                        () -> new Item(new Item.Properties())));
+                        () -> definition.id().equals("coal_measures")
+                                ? new FuelItem(new Item.Properties(), 800)
+                                : new Item(new Item.Properties())));
                 String crushedItemId = definition.crushedItemId();
                 CRUSHED_ORE_ITEMS_BY_ID.put(crushedItemId, ITEMS.register(
                         crushedItemId,
@@ -75,6 +77,9 @@ public final class ModItems {
                 String id = gem + "_chip";
                 GEM_CHIP_ITEMS_BY_ID.put(id, ITEMS.register(id, () -> new Item(new Item.Properties())));
             }
+            IMMEDIATE_UTILITY_ITEMS_BY_ID.put(
+                    "rock_salt",
+                    ITEMS.register("rock_salt", () -> new Item(new Item.Properties())));
         }
         ITEMS.register(modBus);
     }
@@ -93,9 +98,24 @@ public final class ModItems {
 
     public static Collection<Item> getAllProcessingItems() {
         return java.util.stream.Stream.of(
-                        CONCENTRATE_ITEMS_BY_ID, GRINDING_BALL_ITEMS_BY_ID, GEM_CHIP_ITEMS_BY_ID)
+                        CONCENTRATE_ITEMS_BY_ID, GRINDING_BALL_ITEMS_BY_ID,
+                        GEM_CHIP_ITEMS_BY_ID, IMMEDIATE_UTILITY_ITEMS_BY_ID)
                 .flatMap(map -> map.values().stream())
                 .map(RegistryObject::get)
                 .toList();
+    }
+
+    private static final class FuelItem extends Item {
+        private final int burnTime;
+
+        private FuelItem(Properties properties, int burnTime) {
+            super(properties);
+            this.burnTime = burnTime;
+        }
+
+        @Override
+        public int getBurnTime(net.minecraft.world.item.ItemStack stack, net.minecraft.world.item.crafting.RecipeType<?> type) {
+            return burnTime;
+        }
     }
 }

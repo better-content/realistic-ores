@@ -1,0 +1,53 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_evaporite_beds"
+    },
+    {
+      "item": "realistic_ores:crushed_evaporite_beds"
+    },
+    {
+      "item": "realistic_ores:crushed_evaporite_beds"
+    },
+    {
+      "item": "realistic_ores:crushed_evaporite_beds"
+    },
+    {
+      "item": "realistic_ores:steel_grinding_ball"
+    },
+    {
+      "fluid": "chemlib:hydrochloric_acid_fluid",
+      "amount": 250
+    },
+    {
+      "fluid": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:rock_salt_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:sodium_chloride_concentrate",
+      "chance": 1.0
+    },
+    {
+      "item": "realistic_ores:saltpeter_concentrate",
+      "chance": 0.5
+    },
+    {
+      "item": "realistic_ores:steel_grinding_ball",
+      "chance": 0.91
+    }
+  ],
+  "processingTime": 300
+}

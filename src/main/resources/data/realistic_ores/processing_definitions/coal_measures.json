@@ -11,13 +11,7 @@
           "amount": 500
         }
       ],
-      "coproducts": [
-        {
-          "material": "carbon",
-          "grade": "major",
-          "chance": 1.0
-        }
-      ],
+      "coproducts": [],
       "ball_return_chance": 0.8
     },
     {
@@ -33,11 +27,6 @@
         }
       ],
       "coproducts": [
-        {
-          "material": "carbon",
-          "grade": "major",
-          "chance": 1.0
-        },
         {
           "material": "iron",
           "grade": "trace",

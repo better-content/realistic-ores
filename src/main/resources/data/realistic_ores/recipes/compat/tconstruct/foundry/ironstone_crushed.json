@@ -21,11 +21,6 @@
       "tag": "forge:molten_nickel",
       "amount": 5,
       "rate": "metal"
-    },
-    {
-      "tag": "forge:molten_chromium",
-      "amount": 2,
-      "rate": "metal"
     }
   ]
 }

@@ -1,0 +1,81 @@
+{
+  "family": "brassroot",
+  "primary": "zinc",
+  "input_count": 4,
+  "routes": [
+    {
+      "medium": "brass",
+      "fluids": [
+        {
+          "fluid": "minecraft:water",
+          "amount": 500
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "lead",
+          "grade": "minor",
+          "chance": 0.5
+        }
+      ],
+      "ball_return_chance": 0.87
+    },
+    {
+      "medium": "steel",
+      "fluids": [
+        {
+          "fluid": "chemlib:sulfuric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "lead",
+          "grade": "minor",
+          "chance": 0.5
+        },
+        {
+          "material": "cadmium",
+          "grade": "trace",
+          "chance": 0.2
+        }
+      ],
+      "ball_return_chance": 0.91
+    },
+    {
+      "medium": "nickel",
+      "fluids": [
+        {
+          "fluid": "chemlib:nitric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "lead",
+          "grade": "minor",
+          "chance": 0.5
+        },
+        {
+          "material": "cadmium",
+          "grade": "trace",
+          "chance": 0.2
+        },
+        {
+          "material": "silver",
+          "grade": "precious",
+          "chance": 0.05
+        }
+      ],
+      "ball_return_chance": 0.93
+    }
+  ]
+}

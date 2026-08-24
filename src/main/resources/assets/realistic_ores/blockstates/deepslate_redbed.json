@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "realistic_ores:block/deepslate_redbed_0"
+      },
+      {
+        "model": "realistic_ores:block/deepslate_redbed_1"
+      },
+      {
+        "model": "realistic_ores:block/deepslate_redbed_2"
+      }
+    ]
+  }
+}

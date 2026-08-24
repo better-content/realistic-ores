@@ -1,0 +1,24 @@
+{
+  "type": "create:crushing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "type": "forge:nbt",
+      "item": "realistic_ores:gem_pipe"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "item": "realistic_ores:ore_chunk_gem_pipe"
+    },
+    {
+      "item": "minecraft:stone"
+    }
+  ]
+}

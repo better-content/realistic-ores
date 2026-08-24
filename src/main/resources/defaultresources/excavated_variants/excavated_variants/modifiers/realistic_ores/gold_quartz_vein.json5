@@ -1,8 +1,0 @@
-{
-  "filter": "ore:gold_quartz_vein",
-  "tags": [
-    "minecraft:blocks/mineable/pickaxe",
-    "realistic_ores:blocks/deposit_ore_blocks/gold_quartz_vein",
-    "realistic_ores:blocks/deposit_ore_blocks"
-  ]
-}

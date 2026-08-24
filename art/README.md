@@ -14,7 +14,7 @@ java tools/DownsampleItemTextures.java --check
 Import an accepted ImageGen candidate through the same alpha-aware normalization path:
 
 ```sh
-java tools/DownsampleItemTextures.java --import small_chunks bauxite_laterite /path/to/candidate.png
+java tools/DownsampleItemTextures.java --import small_chunks copper_bloom /path/to/candidate.png
 ```
 
 Valid kinds are `small_chunks`, `crushed_feeds`, and `concentrates`. Import rejects

@@ -21,9 +21,9 @@ public final class DownsampleItemTextures {
     private static final int MASTER_SIZE = 1024;
     private static final int RUNTIME_SIZE = 16;
     private static final Pattern FAMILY_ROW = Pattern.compile(
-            "\\\"([^\\\"]+)\\\": \\{\\\"morphology\\\": \\\"[^\\\"]+\\\", \\\"palette\\\": \\[([^]]+)]}");
+            "\\\"([^\\\"]+)\\\"\\s*:\\s*\\{\\s*\\\"morphology\\\"\\s*:\\s*\\\"[^\\\"]+\\\"\\s*,\\s*\\\"palette\\\"\\s*:\\s*\\[([^]]+)]\\s*}");
     private static final Pattern CONCENTRATE_ROW = Pattern.compile(
-            "\\\"([^\\\"]+)\\\": \\{\\\"palette\\\": \\[([^]]+)]}");
+            "\\\"([^\\\"]+)\\\"\\s*:\\s*\\{\\s*\\\"palette\\\"\\s*:\\s*\\[([^]]+)]\\s*}");
     private static final Pattern COLOR = Pattern.compile("#[0-9a-fA-F]{6}");
 
     private record Form(String directory, String prefix, String suffix, int x, int y, int width, int height,
@@ -53,9 +53,6 @@ public final class DownsampleItemTextures {
         }
         boolean write = args[0].equals("--write");
         Map<String, int[]> families = readPalettes(root.resolve("tools/ore_art_manifest.json"), FAMILY_ROW);
-        // The block palette intentionally treats the quartz host as dominant. Processing items must
-        // retain the native-gold identity that is exposed by crushing the vein.
-        families.put("gold_quartz_vein", new int[] {0x5b461f, 0x9b6a16, 0xd6a92c, 0xeee5cc, 0xfff3a3});
         Map<String, int[]> concentrates = readPalettes(root.resolve("tools/concentrate_art_manifest.json"), CONCENTRATE_ROW);
         process(root, SMALL, families, write);
         process(root, CRUSHED, families, write);
@@ -99,6 +96,22 @@ public final class DownsampleItemTextures {
         Path masterDirectory = root.resolve("art/item-masters").resolve(form.directory());
         Path runtimeDirectory = root.resolve("src/main/resources/assets/realistic_ores/textures/item");
         Path previewDirectory = root.resolve("build/texture-previews").resolve(form.directory());
+        if (write) {
+            try (var paths = Files.list(masterDirectory)) {
+                for (Path path : paths.filter(candidate -> candidate.getFileName().toString().endsWith(".png")).toList()) {
+                    String id = path.getFileName().toString().replaceFirst("\\.png$", "");
+                    if (!palettes.containsKey(id)) Files.delete(path);
+                }
+            }
+            try (var paths = Files.list(runtimeDirectory)) {
+                for (Path path : paths.filter(candidate -> candidate.getFileName().toString().endsWith(".png")).toList()) {
+                    String filename = path.getFileName().toString();
+                    if (!filename.startsWith(form.prefix()) || !filename.endsWith(form.suffix() + ".png")) continue;
+                    String id = filename.substring(form.prefix().length(), filename.length() - form.suffix().length() - 4);
+                    if (!palettes.containsKey(id)) Files.delete(path);
+                }
+            }
+        }
         Set<Integer> distinctSprites = new HashSet<>();
         for (Map.Entry<String, int[]> entry : palettes.entrySet()) {
             String id = entry.getKey();

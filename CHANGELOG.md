@@ -1,6 +1,26 @@
 # Changelog
 
-## Unreleased
+## 0.2.0 - 2026-08-25
+
+### Changed
+
+- Replaced the 23 taxonomic processing and worldgen families with ten player-facing
+  deposits: Coal Measures, Ironstone, Copper Bloom, Tin Quartz, Brassroot, Redbed,
+  Evaporite Beds, Gem Pipe, Hotstone, and Black Shale. Oil Seep remains independent.
+- Rebuilt processing around 24 proven assay outputs plus rock salt, sodium chloride,
+  and saltpeter. Gem Pipe and Hotstone expose multiple assay profiles through routes.
+- Made first-contact promises mechanical: coal chunks burn, Evaporite yields salt,
+  Gem Pipe yields rough chips, Black Shale supports soul fire, and Hotstone warms,
+  hurts, and consolidates into magma.
+
+### Removed
+
+- Removed inert beryl, beryllium, calcium, carbon, chromium, gallium, iridium,
+  magnesium, phosphate, platinum, silicon, sodium, tantalum, and tungsten concentrates.
+- Removed the superseded family IDs and their blocks, items, worldgen, processing,
+  Excavated Variants entries, language keys, and art without compatibility aliases.
+
+## 0.1.0
 
 ### Changed
 

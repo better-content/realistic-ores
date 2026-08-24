@@ -32,6 +32,14 @@ final class RealisticOresResourceTest {
     private static final Set<Integer> DEEPSLATE_SIDE_COLORS = rgbSet("2f2f37", "3d3d43", "515151", "646464", "797979");
     private static final Set<Integer> DEEPSLATE_END_COLORS = rgbSet("3d3d43", "4b4b50", "5a5a5a", "646464", "747474");
     private static final Set<String> FACES = Set.of("north", "east", "south", "west", "up", "down");
+    private static final Set<String> SALIENT_FAMILIES = Set.of(
+            "coal_measures", "ironstone", "copper_bloom", "tin_quartz", "brassroot",
+            "redbed", "evaporite_beds", "gem_pipe", "hotstone", "black_shale");
+    private static final Set<String> RETAINED_MATERIALS = Set.of(
+            "aluminum", "amethyst", "cadmium", "coal", "cobalt", "copper", "diamond",
+            "emerald", "gold", "iron", "lapis", "lead", "nickel", "osmium", "quartz",
+            "redstone", "rock_salt", "saltpeter", "silver", "sodium_chloride", "soul_sand",
+            "sulfur", "thorium", "tin", "titanium", "uranium", "zinc");
 
     @Test
     void packagedOreDefinitionsAndGenerationEntriesAreConsistent() throws IOException {
@@ -194,8 +202,7 @@ final class RealisticOresResourceTest {
     }
 
     private static boolean isCanonicalAnchor(String family, String host, int variant, String face) {
-        return !family.equals("osmiridium_lava_sulfide")
-                && variant == 0
+        return variant == 0
                 && (face.equals("south") || (host.equals("deepslate") && face.equals("up")));
     }
 
@@ -211,16 +218,7 @@ final class RealisticOresResourceTest {
     }
 
     private static String blockId(String family) {
-        return switch (family) {
-            case "copper_sulfide" -> "copper_sulfide_ore";
-            case "nickel_sulfide" -> "nickel_sulfide_ore";
-            case "osmiridium_lava_sulfide" -> "osmiridium_lava_sulfide_ore";
-            case "emerald_schist_beryl" -> "emerald_schist_beryl_vein";
-            case "tin" -> "tin_ore";
-            case "titanium_iron_oxide" -> "titanium_iron_oxide_ore";
-            case "zinc" -> "zinc_ore";
-            default -> family;
-        };
+        return family;
     }
 
     private static Set<Integer> rgbSet(String... colors) {
@@ -460,11 +458,11 @@ final class RealisticOresResourceTest {
                 }
             }
         }
-        assertEquals(23, definitionCount);
+        assertEquals(10, definitionCount);
         Path chunkMillingDirectory = resources.resolve(
                 "data/realistic_ores/recipes/compat/create/milling/ore_chunks");
         try (var millingPaths = Files.list(chunkMillingDirectory)) {
-            assertEquals(23, millingPaths.filter(path -> path.getFileName().toString().endsWith(".json")).count(),
+            assertEquals(10, millingPaths.filter(path -> path.getFileName().toString().endsWith(".json")).count(),
                     chunkMillingDirectory.toString());
         }
     }
@@ -503,7 +501,14 @@ final class RealisticOresResourceTest {
         try (var paths = Files.list(processing)) {
             definitions = paths.filter(path -> path.toString().endsWith(".json")).toList();
         }
-        assertEquals(23, definitions.size());
+        assertEquals(10, definitions.size());
+        assertEquals(SALIENT_FAMILIES, definitions.stream()
+                .map(path -> path.getFileName().toString().replace(".json", ""))
+                .collect(Collectors.toUnmodifiableSet()));
+        assertEquals(4, read(processing.resolve("gem_pipe.json"), JsonObject.class)
+                .getAsJsonArray("assay_variants").size());
+        assertEquals(3, read(processing.resolve("hotstone.json"), JsonObject.class)
+                .getAsJsonArray("assay_variants").size());
         int routeCount = 0;
         Set<String> media = new HashSet<>();
         for (Path path : definitions) {
@@ -523,14 +528,14 @@ final class RealisticOresResourceTest {
                 assertTrue(route.get("ball_return_chance").getAsDouble() <= .98);
             }
         }
-        assertEquals(63, routeCount);
+        assertEquals(26, routeCount);
         assertEquals(Set.of("andesite", "iron", "brass", "steel", "nickel", "titanium",
                 "blood_infused", "fluix"), media);
 
         Path separation = DATA_ROOT.resolve("recipes/compat/create/separation");
         try (var paths = Files.list(separation)) {
             List<Path> recipes = paths.filter(path -> path.toString().endsWith(".json")).toList();
-            assertEquals(63, recipes.size());
+            assertEquals(26, recipes.size());
             for (Path path : recipes) {
                 JsonObject recipe = read(path, JsonObject.class);
                 assertEquals("create:mixing", recipe.get("type").getAsString());
@@ -544,17 +549,19 @@ final class RealisticOresResourceTest {
             }
         }
 
-        assertTrue(Files.exists(DATA_ROOT.resolve("recipes/thermal/furnace/bauxite_laterite_chunk.json")));
-        assertTrue(Files.exists(DATA_ROOT.resolve("recipes/compat/tconstruct/melting/bauxite_laterite_chunk.json")));
+        assertTrue(Files.exists(DATA_ROOT.resolve("recipes/thermal/furnace/copper_bloom_chunk.json")));
+        assertTrue(Files.exists(DATA_ROOT.resolve("recipes/compat/tconstruct/melting/copper_bloom_chunk.json")));
         for (String material : List.of("quartz", "diamond", "emerald", "amethyst")) {
             assertFalse(Files.exists(DATA_ROOT.resolve(
                     "recipes/compat/tconstruct/melting/concentrate_" + material + ".json")), material);
             assertFalse(Files.exists(DATA_ROOT.resolve(
                     "recipes/compat/tconstruct/foundry/concentrate_" + material + ".json")), material);
         }
-        JsonObject goldPlacement = read(DATA_ROOT.resolve(
-                "worldgen/placed_feature/gold_quartz_vein_stone.json"), JsonObject.class);
-        assertTrue(GSON.toJson(goldPlacement).contains("minecraft:rarity_filter"));
+        for (String immediate : List.of("evaporite_rock_salt", "black_shale_soul_sand",
+                "gem_pipe_chip", "hotstone_magma")) {
+            assertTrue(Files.exists(DATA_ROOT.resolve("recipes/crafting/immediate/" + immediate + ".json")),
+                    immediate);
+        }
         for (String material : List.of("titanium", "thorium")) {
             JsonObject moltenTag = read(RESOURCE_ROOT.resolve(
                     "data/forge/tags/fluids/molten_" + material + ".json"), JsonObject.class);
@@ -562,16 +569,31 @@ final class RealisticOresResourceTest {
             assertTrue(Files.isRegularFile(ASSET_ROOT.resolve(
                     "models/item/molten_" + material + "_bucket.json")));
         }
-        for (String material : List.of("iridium", "tantalum", "magnesium", "beryllium")) {
+        for (String material : List.of("beryl", "beryllium", "calcium", "carbon", "chromium", "gallium",
+                "iridium", "magnesium", "phosphate", "platinum", "silicon", "sodium", "tantalum", "tungsten")) {
             assertFalse(Files.exists(DATA_ROOT.resolve(
                     "recipes/compat/tconstruct/melting/concentrate_" + material + ".json")),
                     "do not invent an uninstalled molten form for " + material);
+            assertFalse(Files.exists(ASSET_ROOT.resolve("models/item/" + material + "_concentrate.json")),
+                    "pruned concentrate remains in item resources: " + material);
+        }
+        try (var paths = Files.list(ASSET_ROOT.resolve("models/item"))) {
+            assertEquals(RETAINED_MATERIALS, paths
+                    .map(path -> path.getFileName().toString())
+                    .filter(name -> name.endsWith("_concentrate.json"))
+                    .map(name -> name.replace("_concentrate.json", ""))
+                    .collect(Collectors.toUnmodifiableSet()));
         }
 
         try (var paths = Files.walk(RESOURCE_ROOT.resolve("data/realistic_ores"))) {
             for (Path path : paths.filter(Files::isRegularFile).toList()) {
                 String content = Files.readString(path);
                 assertFalse(content.contains("corundum_beryl"), path.toString());
+                for (String obsolete : List.of("copper_sulfide", "tin_tungsten_greisen", "lead_zinc_vein",
+                        "cupriferous_redbed", "phosphate_rock", "kimberlite_pipe", "uranium_ore",
+                        "thorium_ore", "soul_bearing_black_shale")) {
+                    assertFalse(content.contains(obsolete), path + " retains obsolete family " + obsolete);
+                }
                 assertFalse(content.contains("washed_"), path.toString());
                 assertFalse(content.contains("tailings"), path.toString());
             }

@@ -1,8 +1,0 @@
-{
-  "filter": "ore:sulfur_bearing_pyrite_ore",
-  "tags": [
-    "minecraft:blocks/mineable/pickaxe",
-    "realistic_ores:blocks/deposit_ore_blocks/sulfur_bearing_pyrite_ore",
-    "realistic_ores:blocks/deposit_ore_blocks"
-  ]
-}

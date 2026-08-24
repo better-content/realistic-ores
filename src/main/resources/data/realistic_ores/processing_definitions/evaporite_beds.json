@@ -1,0 +1,50 @@
+{
+  "family": "evaporite_beds",
+  "primary": "rock_salt",
+  "input_count": 4,
+  "routes": [
+    {
+      "medium": "andesite",
+      "fluids": [
+        {
+          "fluid": "minecraft:water",
+          "amount": 500
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "sodium_chloride",
+          "grade": "major",
+          "chance": 1.0
+        }
+      ],
+      "ball_return_chance": 0.8
+    },
+    {
+      "medium": "steel",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "sodium_chloride",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "saltpeter",
+          "grade": "minor",
+          "chance": 0.5
+        }
+      ],
+      "ball_return_chance": 0.91
+    }
+  ]
+}

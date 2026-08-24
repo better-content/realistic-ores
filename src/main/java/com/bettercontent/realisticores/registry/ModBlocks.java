@@ -2,6 +2,7 @@ package com.bettercontent.realisticores.registry;
 
 import com.bettercontent.realisticores.RealisticOresMod;
 import com.bettercontent.realisticores.block.SurfaceSampleBlock;
+import com.bettercontent.realisticores.block.HotstoneBlock;
 import com.bettercontent.realisticores.ore.OreDefinition;
 import com.bettercontent.realisticores.ore.OreDefinitionLoader;
 import java.util.Collection;
@@ -35,7 +36,9 @@ public final class ModBlocks {
             initialized = true;
             for (OreDefinition definition : ORE_DEFINITIONS) {
                 for (OreDefinition.VariantDefinition variant : definition.variants()) {
-                    RegistryObject<Block> block = BLOCKS.register(variant.blockId(), () -> new Block(copyProperties(variant.copyPropertiesFrom())));
+                    RegistryObject<Block> block = BLOCKS.register(
+                            variant.blockId(),
+                            () -> newDepositBlock(definition.id(), variant.copyPropertiesFrom()));
                     BLOCKS_BY_ID.put(variant.blockId(), block);
                     BLOCKS_BY_ORE_AND_HOST.put(key(definition.id(), variant.host()), block);
                 }
@@ -82,6 +85,11 @@ public final class ModBlocks {
                 .instabreak()
                 .sound(SoundType.GRAVEL)
                 .offsetType(BlockBehaviour.OffsetType.XZ), collectedItemId);
+    }
+
+    private static Block newDepositBlock(String family, String copyPropertiesFrom) {
+        BlockBehaviour.Properties properties = copyProperties(copyPropertiesFrom);
+        return family.equals("hotstone") ? new HotstoneBlock(properties) : new Block(properties);
     }
 
     private static String key(String oreId, String host) {

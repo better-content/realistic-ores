@@ -34,38 +34,12 @@
       ],
       "coproducts": [
         {
-          "material": "chromium",
-          "grade": "trace",
-          "chance": 0.2
-        }
-      ],
-      "ball_return_chance": 0.91
-    },
-    {
-      "medium": "nickel",
-      "fluids": [
-        {
-          "fluid": "chemlib:nitric_acid_fluid",
-          "amount": 250
-        },
-        {
-          "fluid": "minecraft:water",
-          "amount": 250
-        }
-      ],
-      "coproducts": [
-        {
           "material": "nickel",
           "grade": "minor",
           "chance": 0.5
-        },
-        {
-          "material": "chromium",
-          "grade": "trace",
-          "chance": 0.2
         }
       ],
-      "ball_return_chance": 0.93
+      "ball_return_chance": 0.91
     }
   ]
 }

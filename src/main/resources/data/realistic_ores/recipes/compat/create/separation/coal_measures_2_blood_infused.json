@@ -37,10 +37,6 @@
       "count": 4
     },
     {
-      "item": "realistic_ores:carbon_concentrate",
-      "chance": 1.0
-    },
-    {
       "item": "realistic_ores:iron_concentrate",
       "chance": 0.2
     },

@@ -1,40 +1,245 @@
 {
-  "aluminum": {"palette": ["#4b5861", "#71808a", "#9aa8b0", "#c4ced3", "#edf2f3"]},
-  "amethyst": {"palette": ["#3b174f", "#642783", "#9150b5", "#c184dc", "#edc8f2"]},
-  "beryl": {"palette": ["#244b43", "#397264", "#5b9b83", "#87c5a5", "#c3ead2"]},
-  "beryllium": {"palette": ["#3e5049", "#62736b", "#899a90", "#b3c1b7", "#e1e8e2"]},
-  "cadmium": {"palette": ["#48525d", "#6a7988", "#90a3b3", "#b8c9d4", "#e6eef1"]},
-  "calcium": {"palette": ["#6e6a60", "#969083", "#beb7a8", "#ded8ca", "#f5f1e8"]},
-  "carbon": {"palette": ["#101114", "#25282d", "#41464d", "#666d75", "#949ca3"]},
-  "chromium": {"palette": ["#394652", "#596b7a", "#8094a4", "#aec0ca", "#e2ecef"]},
-  "coal": {"palette": ["#111116", "#29292f", "#45454d", "#686873", "#91805a"]},
-  "cobalt": {"palette": ["#17345f", "#245492", "#3979c2", "#6ca3dd", "#b2d3ee"]},
-  "copper": {"palette": ["#5c2d1e", "#8f4727", "#c36b36", "#e89a61", "#f4c49d"]},
-  "diamond": {"palette": ["#245966", "#31869a", "#4fc3d8", "#8de5ee", "#d7fbfa"]},
-  "emerald": {"palette": ["#16462d", "#207846", "#2fac61", "#69d88e", "#b5f2c8"]},
-  "gallium": {"palette": ["#4a5660", "#71808a", "#9aa8b1", "#c4cfd5", "#eef3f4"]},
-  "gold": {"palette": ["#62420b", "#9b6810", "#d49a18", "#f0c64d", "#ffe9a0"]},
-  "iridium": {"palette": ["#343a4c", "#555e76", "#7c7894", "#a8a7bd", "#dddce8"]},
-  "iron": {"palette": ["#382f2d", "#584b49", "#786765", "#a28f89", "#d1c5bd"]},
-  "lapis": {"palette": ["#12265d", "#1d4097", "#2863ca", "#5d91e3", "#a8c4f0"]},
-  "lead": {"palette": ["#292d38", "#444a59", "#626b7b", "#8d96a3", "#c6ccd2"]},
-  "magnesium": {"palette": ["#59636a", "#7d898f", "#a4afb4", "#cbd3d5", "#f1f4f2"]},
-  "nickel": {"palette": ["#3e493f", "#60705f", "#82917d", "#adb9a5", "#dde3d5"]},
-  "osmium": {"palette": ["#252e3c", "#3d4b5d", "#5c6c7e", "#8796a5", "#c1ccd3"]},
-  "phosphate": {"palette": ["#59614c", "#7c8766", "#a3ae84", "#c9cfac", "#ebead6"]},
-  "platinum": {"palette": ["#4c515c", "#747b88", "#9ea6b1", "#c8ced5", "#f0f2f3"]},
-  "quartz": {"palette": ["#756950", "#9e9480", "#c2bdb1", "#dfddd7", "#f8f6f0"]},
-  "redstone": {"palette": ["#4b0c12", "#7e121a", "#b51d27", "#e33b42", "#ff8a83"]},
-  "silicon": {"palette": ["#343b45", "#515d69", "#748290", "#a0adb7", "#d6dde0"]},
-  "silver": {"palette": ["#535963", "#7d8590", "#a8b1ba", "#d0d7dc", "#f5f7f7"]},
-  "sodium": {"palette": ["#5c5b66", "#807f8c", "#a8a7b4", "#cfced8", "#f3f1f5"]},
-  "soul_sand": {"palette": ["#2b1d20", "#4b3032", "#6c4844", "#94675d", "#c49a84"]},
-  "sulfur": {"palette": ["#5f4a08", "#927313", "#c5a21e", "#ead23e", "#fff098"]},
-  "tantalum": {"palette": ["#29313b", "#444f5c", "#657281", "#909ba7", "#c8d0d5"]},
-  "thorium": {"palette": ["#39452d", "#5c6d43", "#84935e", "#b2bb88", "#e0ddbd"]},
-  "tin": {"palette": ["#4d535c", "#737b86", "#9ea7b0", "#c9cfd4", "#f0f1ef"]},
-  "titanium": {"palette": ["#35414d", "#536474", "#75899a", "#a3b3bf", "#d9e1e4"]},
-  "tungsten": {"palette": ["#252a31", "#3e4650", "#5e6874", "#89939e", "#c1c8ce"]},
-  "uranium": {"palette": ["#283d1d", "#48652b", "#6f8e3d", "#9fba62", "#d3e99a"]},
-  "zinc": {"palette": ["#514c45", "#756d62", "#9a9184", "#c1b9aa", "#e8e2d7"]}
+  "aluminum": {
+    "palette": [
+      "#4b5861",
+      "#71808a",
+      "#9aa8b0",
+      "#c4ced3",
+      "#edf2f3"
+    ]
+  },
+  "amethyst": {
+    "palette": [
+      "#3b174f",
+      "#642783",
+      "#9150b5",
+      "#c184dc",
+      "#edc8f2"
+    ]
+  },
+  "cadmium": {
+    "palette": [
+      "#48525d",
+      "#6a7988",
+      "#90a3b3",
+      "#b8c9d4",
+      "#e6eef1"
+    ]
+  },
+  "coal": {
+    "palette": [
+      "#111116",
+      "#29292f",
+      "#45454d",
+      "#686873",
+      "#91805a"
+    ]
+  },
+  "cobalt": {
+    "palette": [
+      "#17345f",
+      "#245492",
+      "#3979c2",
+      "#6ca3dd",
+      "#b2d3ee"
+    ]
+  },
+  "copper": {
+    "palette": [
+      "#5c2d1e",
+      "#8f4727",
+      "#c36b36",
+      "#e89a61",
+      "#f4c49d"
+    ]
+  },
+  "diamond": {
+    "palette": [
+      "#245966",
+      "#31869a",
+      "#4fc3d8",
+      "#8de5ee",
+      "#d7fbfa"
+    ]
+  },
+  "emerald": {
+    "palette": [
+      "#16462d",
+      "#207846",
+      "#2fac61",
+      "#69d88e",
+      "#b5f2c8"
+    ]
+  },
+  "gold": {
+    "palette": [
+      "#62420b",
+      "#9b6810",
+      "#d49a18",
+      "#f0c64d",
+      "#ffe9a0"
+    ]
+  },
+  "iron": {
+    "palette": [
+      "#382f2d",
+      "#584b49",
+      "#786765",
+      "#a28f89",
+      "#d1c5bd"
+    ]
+  },
+  "lapis": {
+    "palette": [
+      "#12265d",
+      "#1d4097",
+      "#2863ca",
+      "#5d91e3",
+      "#a8c4f0"
+    ]
+  },
+  "lead": {
+    "palette": [
+      "#292d38",
+      "#444a59",
+      "#626b7b",
+      "#8d96a3",
+      "#c6ccd2"
+    ]
+  },
+  "nickel": {
+    "palette": [
+      "#3e493f",
+      "#60705f",
+      "#82917d",
+      "#adb9a5",
+      "#dde3d5"
+    ]
+  },
+  "osmium": {
+    "palette": [
+      "#252e3c",
+      "#3d4b5d",
+      "#5c6c7e",
+      "#8796a5",
+      "#c1ccd3"
+    ]
+  },
+  "quartz": {
+    "palette": [
+      "#756950",
+      "#9e9480",
+      "#c2bdb1",
+      "#dfddd7",
+      "#f8f6f0"
+    ]
+  },
+  "redstone": {
+    "palette": [
+      "#4b0c12",
+      "#7e121a",
+      "#b51d27",
+      "#e33b42",
+      "#ff8a83"
+    ]
+  },
+  "silver": {
+    "palette": [
+      "#535963",
+      "#7d8590",
+      "#a8b1ba",
+      "#d0d7dc",
+      "#f5f7f7"
+    ]
+  },
+  "soul_sand": {
+    "palette": [
+      "#2b1d20",
+      "#4b3032",
+      "#6c4844",
+      "#94675d",
+      "#c49a84"
+    ]
+  },
+  "sulfur": {
+    "palette": [
+      "#5f4a08",
+      "#927313",
+      "#c5a21e",
+      "#ead23e",
+      "#fff098"
+    ]
+  },
+  "thorium": {
+    "palette": [
+      "#39452d",
+      "#5c6d43",
+      "#84935e",
+      "#b2bb88",
+      "#e0ddbd"
+    ]
+  },
+  "tin": {
+    "palette": [
+      "#4d535c",
+      "#737b86",
+      "#9ea7b0",
+      "#c9cfd4",
+      "#f0f1ef"
+    ]
+  },
+  "titanium": {
+    "palette": [
+      "#35414d",
+      "#536474",
+      "#75899a",
+      "#a3b3bf",
+      "#d9e1e4"
+    ]
+  },
+  "uranium": {
+    "palette": [
+      "#283d1d",
+      "#48652b",
+      "#6f8e3d",
+      "#9fba62",
+      "#d3e99a"
+    ]
+  },
+  "zinc": {
+    "palette": [
+      "#514c45",
+      "#756d62",
+      "#9a9184",
+      "#c1b9aa",
+      "#e8e2d7"
+    ]
+  },
+  "rock_salt": {
+    "palette": [
+      "#6d675e",
+      "#9d978d",
+      "#c9c3b7",
+      "#e2ddd3",
+      "#f8f5ee"
+    ]
+  },
+  "sodium_chloride": {
+    "palette": [
+      "#727880",
+      "#a1a8ad",
+      "#c8ced0",
+      "#e5e9e8",
+      "#ffffff"
+    ]
+  },
+  "saltpeter": {
+    "palette": [
+      "#706d5c",
+      "#99967d",
+      "#c4c0a0",
+      "#e1ddbd",
+      "#f7f2d5"
+    ]
+  }
 }

@@ -1,0 +1,121 @@
+{
+  "family": "hotstone",
+  "primary": "uranium",
+  "input_count": 4,
+  "routes": [
+    {
+      "medium": "titanium",
+      "fluids": [
+        {
+          "fluid": "chemlib:sulfuric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "thorium",
+          "grade": "minor",
+          "chance": 0.5
+        },
+        {
+          "material": "lead",
+          "grade": "minor",
+          "chance": 0.5
+        }
+      ],
+      "ball_return_chance": 0.95
+    },
+    {
+      "medium": "nickel",
+      "fluids": [
+        {
+          "fluid": "chemlib:nitric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "titanium",
+          "grade": "major",
+          "chance": 1.0
+        },
+        {
+          "material": "nickel",
+          "grade": "minor",
+          "chance": 0.5
+        },
+        {
+          "material": "cobalt",
+          "grade": "trace",
+          "chance": 0.2
+        },
+        {
+          "material": "iron",
+          "grade": "minor",
+          "chance": 0.5
+        }
+      ],
+      "ball_return_chance": 0.93
+    },
+    {
+      "medium": "titanium",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "chemlib:nitric_acid_fluid",
+          "amount": 250
+        }
+      ],
+      "coproducts": [
+        {
+          "material": "osmium",
+          "grade": "minor",
+          "chance": 0.5
+        },
+        {
+          "material": "sulfur",
+          "grade": "major",
+          "chance": 1.0
+        }
+      ],
+      "ball_return_chance": 0.95
+    }
+  ],
+  "assay_variants": [
+    {
+      "name": "fissile",
+      "materials": [
+        "uranium",
+        "thorium",
+        "lead"
+      ]
+    },
+    {
+      "name": "structural",
+      "materials": [
+        "titanium",
+        "nickel",
+        "cobalt",
+        "iron"
+      ]
+    },
+    {
+      "name": "abyssal",
+      "materials": [
+        "osmium",
+        "sulfur"
+      ]
+    }
+  ]
+}

@@ -33,10 +33,6 @@
       "count": 4
     },
     {
-      "item": "realistic_ores:carbon_concentrate",
-      "chance": 1.0
-    },
-    {
       "item": "realistic_ores:andesite_grinding_ball",
       "chance": 0.8
     }

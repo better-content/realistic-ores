@@ -37,8 +37,8 @@
       "count": 4
     },
     {
-      "item": "realistic_ores:chromium_concentrate",
-      "chance": 0.2
+      "item": "realistic_ores:nickel_concentrate",
+      "chance": 0.5
     },
     {
       "item": "realistic_ores:steel_grinding_ball",

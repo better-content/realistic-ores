@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "realistic_ores:item/crushed_soul_bearing_black_shale_soulstone_vein"
-  }
-}

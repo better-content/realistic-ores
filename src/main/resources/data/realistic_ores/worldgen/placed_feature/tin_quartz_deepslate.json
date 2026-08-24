@@ -1,0 +1,27 @@
+{
+  "feature": "realistic_ores:tin_quartz_deepslate",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 9
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "min_inclusive": {
+          "above_bottom": 29
+        },
+        "max_inclusive": {
+          "below_top": 475
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

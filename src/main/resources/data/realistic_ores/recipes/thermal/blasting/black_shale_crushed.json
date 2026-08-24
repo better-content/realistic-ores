@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:crushed_black_shale"
+  },
+  "result": {
+    "item": "minecraft:soul_sand",
+    "count": 1
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

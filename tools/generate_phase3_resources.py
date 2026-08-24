@@ -20,86 +20,70 @@ ORE_DIR = RES / "data/realistic_ores/realistic_ores"
 ASSETS = RES / "assets/realistic_ores"
 DATA = RES / "data/realistic_ores"
 FAMILIES = [
-    "coal_measures", "ironstone", "copper_sulfide", "tin", "zinc", "lead_zinc_vein",
-    "quartz_vein", "bauxite_laterite", "nickel_sulfide", "osmiridium_lava_sulfide",
-    "tin_tungsten_greisen", "titanium_iron_oxide", "kimberlite_pipe",
-    "emerald_schist_beryl", "amethyst_beryl_pegmatite", "uranium_ore", "thorium_ore",
-    "cupriferous_redbed_redstone_vein", "lazurite_vein", "phosphate_rock",
-    "soul_bearing_black_shale_soulstone_vein", "sulfur_bearing_pyrite_ore",
-    "gold_quartz_vein",
+    "coal_measures", "ironstone", "copper_bloom", "tin_quartz", "brassroot",
+    "redbed", "evaporite_beds", "gem_pipe", "hotstone", "black_shale",
 ]
 
 MATERIALS = {
     "coal": ("bulk", "minecraft:coal", None, None),
-    "carbon": ("bulk", "chemlib:carbon", None, None),
     "iron": ("metal", "minecraft:iron_ingot", "minecraft:iron_nugget", "forge:molten_iron"),
     "nickel": ("metal", "chemlib:nickel_ingot", "chemlib:nickel_nugget", "forge:molten_nickel"),
-    "chromium": ("metal", "chemlib:chromium_ingot", "chemlib:chromium_nugget", "forge:molten_chromium"),
     "copper": ("metal", "minecraft:copper_ingot", "tconstruct:copper_nugget", "forge:molten_copper"),
     "sulfur": ("bulk", "chemlib:sulfur", None, None),
     "gold": ("metal", "minecraft:gold_ingot", "minecraft:gold_nugget", "forge:molten_gold"),
     "tin": ("metal", "chemlib:tin_ingot", "chemlib:tin_nugget", "forge:molten_tin"),
     "quartz": ("bulk", "minecraft:quartz", None, None),
-    "tungsten": ("metal", "chemlib:tungsten_ingot", "chemlib:tungsten_nugget", "forge:molten_tungsten"),
     "zinc": ("metal", "chemlib:zinc_ingot", "chemlib:zinc_nugget", "forge:molten_zinc"),
     "lead": ("metal", "chemlib:lead_ingot", "chemlib:lead_nugget", "forge:molten_lead"),
     "cadmium": ("metal", "chemlib:cadmium_ingot", "chemlib:cadmium_nugget", "forge:molten_cadmium"),
     "silver": ("metal", "chemlib:silver_ingot", "chemlib:silver_nugget", "forge:molten_silver"),
-    "silicon": ("bulk", "chemlib:silicon", None, None),
     "aluminum": ("metal", "chemlib:aluminum_ingot", "chemlib:aluminum_nugget", "forge:molten_aluminum"),
     "titanium": ("metal", "chemlib:titanium_ingot", "chemlib:titanium_nugget", "forge:molten_titanium"),
-    "gallium": ("metal", "chemlib:gallium_ingot", "chemlib:gallium_nugget", None),
     "cobalt": ("metal", "chemlib:cobalt_ingot", "chemlib:cobalt_nugget", "forge:molten_cobalt"),
-    "platinum": ("metal", "chemlib:platinum_ingot", "chemlib:platinum_nugget", "forge:molten_platinum"),
     "osmium": ("metal", "chemlib:osmium_ingot", "chemlib:osmium_nugget", "forge:molten_osmium"),
-    "iridium": ("metal", "chemlib:iridium_ingot", "chemlib:iridium_nugget", None),
-    "tantalum": ("metal", "chemlib:tantalum_ingot", "chemlib:tantalum_nugget", None),
-    "magnesium": ("metal", "chemlib:magnesium_ingot", "chemlib:magnesium_nugget", None),
     "diamond": ("gem", "minecraft:diamond", "realistic_ores:diamond_chip", None),
     "emerald": ("gem", "minecraft:emerald", "realistic_ores:emerald_chip", None),
-    "beryl": ("bulk", "chemlib:beryl", None, None),
-    "beryllium": ("metal", "chemlib:beryllium_ingot", "chemlib:beryllium_nugget", None),
     "amethyst": ("gem", "minecraft:amethyst_shard", "realistic_ores:amethyst_chip", None),
     "uranium": ("metal", "chemlib:uranium_ingot", "chemlib:uranium_nugget", "forge:molten_uranium"),
     "thorium": ("metal", "chemlib:thorium_ingot", "chemlib:thorium_nugget", "forge:molten_thorium"),
-    "calcium": ("metal", "chemlib:calcium_ingot", "chemlib:calcium_nugget", None),
     "redstone": ("bulk", "minecraft:redstone", None, None),
     "lapis": ("bulk", "minecraft:lapis_lazuli", None, None),
-    "sodium": ("metal", "chemlib:sodium_ingot", "chemlib:sodium_nugget", None),
-    "phosphate": ("bulk", "chemlib:phosphate", None, None),
     "soul_sand": ("bulk", "minecraft:soul_sand", None, None),
+    "rock_salt": ("bulk", "realistic_ores:rock_salt", None, None),
+    "sodium_chloride": ("bulk", "chemlib:sodium_chloride", None, None),
+    "saltpeter": ("bulk", "bloodmagic:saltpeter", None, None),
 }
 
 # (medium, acid or None, [(coproduct, grade)])
 ROUTES = {
-    "coal_measures": ("coal", [("andesite", None, [("carbon", "major")]), ("blood_infused", "hydrochloric", [("carbon", "major"), ("iron", "trace")])]),
-    "ironstone": ("iron", [("iron", None, [("nickel", "minor")]), ("steel", "hydrochloric", [("chromium", "trace")]), ("nickel", "nitric", [("nickel", "minor"), ("chromium", "trace")])]),
-    "copper_sulfide": ("copper", [("brass", None, [("sulfur", "major"), ("iron", "minor")]), ("steel", "sulfuric", [("sulfur", "major"), ("iron", "minor")]), ("nickel", "mixed", [("sulfur", "major"), ("iron", "minor"), ("gold", "precious")])]),
-    "tin": ("tin", [("brass", None, [("quartz", "major")]), ("steel", "hydrochloric", [("quartz", "major"), ("tungsten", "trace")]), ("titanium", "nitric", [("tungsten", "trace")])]),
-    "zinc": ("zinc", [("brass", None, [("lead", "minor")]), ("steel", "sulfuric", [("lead", "minor"), ("cadmium", "trace")]), ("nickel", "nitric", [("cadmium", "trace")])]),
-    "lead_zinc_vein": ("lead", [("brass", None, [("zinc", "major")]), ("steel", "sulfuric", [("zinc", "major")]), ("nickel", "nitric", [("zinc", "major"), ("silver", "precious")])]),
-    "quartz_vein": ("quartz", [("andesite", None, [("silicon", "major")]), ("brass", "hydrochloric", [("silicon", "major"), ("copper", "trace")]), ("nickel", "mixed", [("silicon", "major"), ("copper", "trace"), ("gold", "precious")])]),
-    "bauxite_laterite": ("aluminum", [("steel", "sulfuric", [("nickel", "minor")]), ("titanium", "hydrochloric", [("titanium", "minor"), ("gallium", "trace")])]),
-    "nickel_sulfide": ("nickel", [("iron", None, [("sulfur", "major"), ("iron", "minor")]), ("nickel", "sulfuric", [("cobalt", "trace")]), ("titanium", "mixed", [("cobalt", "trace"), ("platinum", "precious")])]),
-    "osmiridium_lava_sulfide": ("osmium", [("nickel", None, [("sulfur", "major")]), ("titanium", "nitric", [("iridium", "minor")]), ("titanium", "mixed", [("iridium", "minor"), ("platinum", "precious")])]),
-    "tin_tungsten_greisen": ("tungsten", [("brass", None, [("tin", "major"), ("quartz", "major")]), ("steel", "hydrochloric", [("tin", "major"), ("quartz", "major")]), ("titanium", "nitric", [("tin", "major"), ("tantalum", "trace")])]),
-    "titanium_iron_oxide": ("titanium", [("iron", None, [("iron", "major")]), ("steel", "hydrochloric", [("iron", "major"), ("chromium", "trace")]), ("titanium", "sulfuric", [("iron", "major"), ("chromium", "trace")])]),
-    "kimberlite_pipe": ("diamond", [("steel", None, [("carbon", "major"), ("magnesium", "minor")]), ("blood_infused", "hydrochloric", [("carbon", "major")]), ("fluix", "hydrochloric", [("magnesium", "minor")])]),
-    "emerald_schist_beryl": ("emerald", [("steel", None, [("beryl", "major")]), ("titanium", "hydrochloric", [("beryllium", "minor"), ("silicon", "trace")]), ("fluix", "hydrochloric", [("aluminum", "minor"), ("silicon", "trace")])]),
-    "amethyst_beryl_pegmatite": ("amethyst", [("steel", None, [("aluminum", "major"), ("quartz", "minor")]), ("titanium", "hydrochloric", [("beryllium", "minor"), ("quartz", "minor")]), ("fluix", "hydrochloric", [("aluminum", "major"), ("beryllium", "minor")])]),
-    "uranium_ore": ("uranium", [("titanium", "sulfuric", [("lead", "minor"), ("calcium", "minor"), ("thorium", "trace")]), ("nickel", "nitric", [("lead", "minor"), ("thorium", "trace")])]),
-    "thorium_ore": ("thorium", [("titanium", "sulfuric", [("lead", "minor"), ("uranium", "trace")]), ("nickel", "nitric", [("lead", "minor"), ("uranium", "trace")])]),
-    "cupriferous_redbed_redstone_vein": ("redstone", [("brass", None, [("copper", "major"), ("iron", "minor")]), ("steel", "hydrochloric", [("copper", "major"), ("iron", "minor")]), ("nickel", "mixed", [("copper", "major"), ("gold", "precious")])]),
-    "lazurite_vein": ("lapis", [("andesite", None, [("sodium", "minor")]), ("steel", "hydrochloric", [("aluminum", "minor"), ("silicon", "trace")]), ("fluix", "hydrochloric", [("sodium", "minor"), ("aluminum", "minor"), ("silicon", "trace")])]),
-    "phosphate_rock": ("phosphate", [("iron", None, [("calcium", "major")]), ("steel", "sulfuric", [("calcium", "major")])]),
-    "soul_bearing_black_shale_soulstone_vein": ("soul_sand", [("blood_infused", None, [("carbon", "major")]), ("blood_infused", "hydrochloric", [("carbon", "major"), ("sulfur", "minor")]), ("fluix", "hydrochloric", [("redstone", "trace")])]),
-    "sulfur_bearing_pyrite_ore": ("sulfur", [("iron", None, [("iron", "major")]), ("brass", "sulfuric", [("iron", "major"), ("copper", "minor")]), ("nickel", "mixed", [("copper", "minor"), ("gold", "precious")])]),
-    "gold_quartz_vein": ("gold", [("nickel", "mixed", [("quartz", "major"), ("copper", "trace")]), ("titanium", "mixed", [("quartz", "major"), ("silver", "minor"), ("copper", "trace")])]),
+    "coal_measures": ("coal", [("andesite", None, []), ("blood_infused", "hydrochloric", [("iron", "trace")])]),
+    "ironstone": ("iron", [("iron", None, [("nickel", "minor")]), ("steel", "hydrochloric", [("nickel", "minor")])]),
+    "copper_bloom": ("copper", [("brass", None, [("sulfur", "major"), ("iron", "minor")]), ("steel", "sulfuric", [("sulfur", "major"), ("iron", "minor")]), ("nickel", "mixed", [("sulfur", "major"), ("iron", "minor"), ("gold", "precious")])]),
+    "tin_quartz": ("tin", [("brass", None, [("quartz", "major")]), ("steel", "hydrochloric", [("quartz", "major")])]),
+    "brassroot": ("zinc", [("brass", None, [("lead", "minor")]), ("steel", "sulfuric", [("lead", "minor"), ("cadmium", "trace")]), ("nickel", "nitric", [("lead", "minor"), ("cadmium", "trace"), ("silver", "precious")])]),
+    "redbed": ("redstone", [("brass", None, [("copper", "major"), ("iron", "minor")]), ("steel", "hydrochloric", [("copper", "major"), ("iron", "minor")]), ("nickel", "mixed", [("copper", "major"), ("gold", "precious")])]),
+    "evaporite_beds": ("rock_salt", [("andesite", None, [("sodium_chloride", "major")]), ("steel", "hydrochloric", [("sodium_chloride", "major"), ("saltpeter", "minor")])]),
+    "gem_pipe": ("diamond", [("steel", None, [("emerald", "minor"), ("aluminum", "minor")]), ("titanium", "hydrochloric", [("amethyst", "major"), ("quartz", "minor"), ("aluminum", "minor")]), ("fluix", "hydrochloric", [("lapis", "major"), ("aluminum", "minor")])]),
+    "hotstone": ("uranium", [("titanium", "sulfuric", [("thorium", "minor"), ("lead", "minor")]), ("nickel", "nitric", [("titanium", "major"), ("nickel", "minor"), ("cobalt", "trace"), ("iron", "minor")]), ("titanium", "mixed", [("osmium", "minor"), ("sulfur", "major")])]),
+    "black_shale": ("soul_sand", [("blood_infused", None, [("sulfur", "minor")]), ("blood_infused", "hydrochloric", [("sulfur", "minor")]), ("fluix", "hydrochloric", [("redstone", "trace")])]),
 }
 
 BALLS = {"andesite": .80, "iron": .84, "brass": .87, "steel": .91, "nickel": .93, "titanium": .95, "blood_infused": .97, "fluix": .98}
 GRADE = {"major": 1.0, "minor": .5, "trace": .2, "precious": .05}
 ACIDS = {"sulfuric": "chemlib:sulfuric_acid_fluid", "hydrochloric": "chemlib:hydrochloric_acid_fluid", "nitric": "chemlib:nitric_acid_fluid"}
+ASSAY_VARIANTS = {
+    "gem_pipe": [
+        {"name": "diamond", "materials": ["diamond"]},
+        {"name": "emerald", "materials": ["emerald", "aluminum"]},
+        {"name": "amethyst", "materials": ["amethyst", "quartz", "aluminum"]},
+        {"name": "lazurite", "materials": ["lapis", "aluminum"]},
+    ],
+    "hotstone": [
+        {"name": "fissile", "materials": ["uranium", "thorium", "lead"]},
+        {"name": "structural", "materials": ["titanium", "nickel", "cobalt", "iron"]},
+        {"name": "abyssal", "materials": ["osmium", "sulfur"]},
+    ],
+}
 
 
 def write(path: Path, value: object) -> None:
@@ -163,57 +147,7 @@ def png(
     path.write_bytes(b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", 16, 16, 8, 6, 0, 0, 0)) + chunk(b"IDAT", zlib.compress(raw, 9)) + chunk(b"IEND", b""))
 
 
-def ensure_gold_definition() -> None:
-    target = ORE_DIR / "gold_quartz_vein.json"
-    if not target.exists():
-        quartz = json.loads((ORE_DIR / "quartz_vein.json").read_text())
-        text = json.dumps(quartz).replace("quartz_vein", "gold_quartz_vein")
-        gold = json.loads(text)
-        gold["id"] = "gold_quartz_vein"
-        gold["display_name"] = "Gold-Quartz Vein Deposit"
-        write(target, gold)
-    for directory in (ASSETS / "textures/block", ASSETS / "models/block"):
-        for source in directory.glob("*quartz_vein*"):
-            if "gold_quartz" in source.name:
-                continue
-            shutil.copy2(source, directory / source.name.replace("quartz_vein", "gold_quartz_vein"))
-    # Models copied above still reference quartz textures.
-    for model in (ASSETS / "models/block").glob("*gold_quartz_vein*.json"):
-        model.write_text(model.read_text().replace("quartz_vein", "gold_quartz_vein"))
-    for host in ("gold_quartz_vein", "deepslate_gold_quartz_vein"):
-        source = ASSETS / "blockstates" / host.replace("gold_", "")
-        if source.with_suffix(".json").exists():
-            payload = source.with_suffix(".json").read_text().replace("quartz_vein", "gold_quartz_vein")
-            (ASSETS / "blockstates" / f"{host}.json").write_text(payload)
-        source_item = ASSETS / "models/item" / f"{host.replace('gold_', '')}.json"
-        if source_item.exists():
-            (ASSETS / "models/item" / f"{host}.json").write_text(source_item.read_text().replace("quartz_vein", "gold_quartz_vein"))
-    for host in ("stone", "deepslate"):
-        source_name = f"quartz_vein_{host}.json"
-        target_name = f"gold_quartz_vein_{host}.json"
-        generation_source = DATA / "realistic_ore_generation" / source_name
-        if not generation_source.exists():
-            continue
-        generation = json.loads(generation_source.read_text())
-        generation["ore_id"] = "gold_quartz_vein"
-        generation["vein_size"] = 8
-        write(DATA / "realistic_ore_generation" / target_name, generation)
-        configured_source = DATA / "worldgen/configured_feature" / source_name
-        configured = json.loads(configured_source.read_text().replace("quartz_vein", "gold_quartz_vein"))
-        configured["config"]["size"] = 8
-        write(DATA / "worldgen/configured_feature" / target_name, configured)
-        placed_source = DATA / "worldgen/placed_feature" / source_name
-        placed = json.loads(placed_source.read_text().replace("quartz_vein", "gold_quartz_vein"))
-        placed["placement"].insert(1, {"type": "minecraft:rarity_filter", "chance": 4})
-        write(DATA / "worldgen/placed_feature" / target_name, placed)
-        biome_source = DATA / "forge/biome_modifier" / f"add_{source_name}"
-        if biome_source.exists():
-            (DATA / "forge/biome_modifier" / f"add_{target_name}").write_text(
-                biome_source.read_text().replace("quartz_vein", "gold_quartz_vein"))
-
-
 def main() -> None:
-    ensure_gold_definition()
     definitions = [json.loads(path.read_text()) for path in sorted(ORE_DIR.glob("*.json"))]
     by_family = {definition["id"]: definition for definition in definitions}
     if set(by_family) != set(FAMILIES):
@@ -223,6 +157,9 @@ def main() -> None:
     lang = json.loads(lang_path.read_text())
     for key in list(lang):
         if any(token in key for token in ("ore_chunk_", "small_ore_chunk_", "crushed_", "_concentrate", "_grinding_ball", "_chip")):
+            del lang[key]
+        elif key.startswith(f"block.{NS}.") and not any(
+                preserved in key for preserved in ("oil_seep", "molten_titanium", "molten_thorium")):
             del lang[key]
 
     item_models = ASSETS / "models/item"
@@ -271,6 +208,8 @@ def main() -> None:
             require_curated_item_texture(item_textures, item)
             lang[f"item.{NS}.{item}"] = f"{definition['display_name'].removesuffix(' Deposit')} {label}"
         sample = f"surface_sample_{family}"
+        family_name = definition["display_name"].removesuffix(" Deposit")
+        lang[f"block.{NS}.{sample}"] = f"Surface Sample: {family_name}"
         write(item_models / f"{small}.json", {
             "parent": "minecraft:item/generated",
             "textures": {"layer0": f"{NS}:item/{small}"},
@@ -291,6 +230,8 @@ def main() -> None:
         hosted = []
         for variant in definition["variants"]:
             block, host = variant["block_id"], variant["copy_properties_from"]
+            lang[f"block.{NS}.{block}"] = (
+                f"Deepslate {family_name}" if variant["host"] == "deepslate" else family_name)
             hosted.append(f"{NS}:{block}")
             silk = {"condition": "minecraft:match_tool", "predicate": {"enchantments": [{"enchantment": "minecraft:silk_touch", "levels": {"min": 1}}]}}
             write(DATA / f"loot_tables/blocks/{block}.json", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:alternatives", "children": [{"type": "minecraft:item", "name": f"{NS}:{block}", "conditions": [silk]}, {"type": "minecraft:item", "name": f"{NS}:{chunk}"}]}], "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
@@ -304,6 +245,8 @@ def main() -> None:
 
         primary, routes = ROUTES[family]
         processing = {"family": family, "primary": primary, "input_count": 4, "routes": []}
+        if family in ASSAY_VARIANTS:
+            processing["assay_variants"] = ASSAY_VARIANTS[family]
         for route_index, (ball, acid, coproducts) in enumerate(routes, 1):
             fluid_spec = [{"fluid": "minecraft:water", "amount": 500}] if acid is None else (
                 [{"fluid": ACIDS[acid], "amount": 250}, {"fluid": "minecraft:water", "amount": 250}] if acid != "mixed" else
@@ -404,6 +347,49 @@ def main() -> None:
         lang[f"item.{NS}.{item}"] = f"{gem.title()} Chip"
         write(recipes / f"crafting/gem_chips/{gem}_assemble.json", {"type": "minecraft:crafting_shapeless", "ingredients": [{"item": f"{NS}:{item}"}] * 9, "result": {"item": output}})
 
+    # First-contact utility: these deposits teach their promise without requiring the
+    # complete separation chain. Expert processing still yields substantially more.
+    write(item_models / "rock_salt.json", {
+        "parent": "minecraft:item/generated",
+        "textures": {"layer0": f"{NS}:item/rock_salt_concentrate"},
+    })
+    lang[f"item.{NS}.rock_salt"] = "Rock Salt"
+    write(recipes / "crafting/immediate/evaporite_rock_salt.json", {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [{"item": f"{NS}:ore_chunk_evaporite_beds"}],
+        "result": {"item": f"{NS}:rock_salt", "count": 4},
+    })
+    write(item_models / "rock_salt.json", {
+        "parent": "minecraft:item/generated",
+        "textures": {"layer0": f"{NS}:item/rock_salt_concentrate"},
+    })
+    lang[f"item.{NS}.rock_salt"] = "Rock Salt"
+    write(recipes / "crafting/immediate/black_shale_soul_sand.json", {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [{"item": f"{NS}:ore_chunk_black_shale"}],
+        "result": {"item": "minecraft:soul_sand"},
+    })
+    write(recipes / "crafting/immediate/gem_pipe_chip.json", {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [{"item": f"{NS}:ore_chunk_gem_pipe"}],
+        "result": {"item": f"{NS}:diamond_chip"},
+    })
+    write(recipes / "crafting/immediate/hotstone_magma.json", {
+        "type": "minecraft:crafting_shaped",
+        "pattern": ["HH", "HH"],
+        "key": {"H": {"item": f"{NS}:ore_chunk_hotstone"}},
+        "result": {"item": "minecraft:magma_block"},
+    })
+    for namespace, path in (("forge", "salt"), ("forge", "salts"), ("c", "salts"), ("c", "foods/salt")):
+        write(RES / f"data/{namespace}/tags/items/{path}.json", {
+            "replace": False,
+            "values": [f"{NS}:rock_salt"],
+        })
+    write(RES / "data/minecraft/tags/blocks/soul_fire_base_blocks.json", {
+        "replace": False,
+        "values": [f"{NS}:black_shale", f"{NS}:deepslate_black_shale"],
+    })
+
     for index, material in enumerate(("titanium", "thorium")):
         bucket = f"molten_{material}_bucket"
         write(item_models / f"{bucket}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{bucket}"}})
@@ -427,7 +413,7 @@ def main() -> None:
     if all_hosted_item_tag.exists(): all_hosted_item_tag.unlink()
 
     # Cross-mod radiation rules consume these stable categories without knowing block layouts.
-    for element, family in (("uranium", "uranium_ore"), ("thorium", "thorium_ore")):
+    for element, family in (("uranium", "hotstone"), ("thorium", "hotstone")):
         write(DATA / f"tags/items/radioactive_forms/{element}/small_chunks.json", {"replace": False, "values": [f"{NS}:small_ore_chunk_{family}"]})
         write(DATA / f"tags/items/radioactive_forms/{element}/full_chunks.json", {"replace": False, "values": [f"{NS}:ore_chunk_{family}"]})
         write(DATA / f"tags/items/radioactive_forms/{element}/crushed_feed.json", {"replace": False, "values": [f"{NS}:crushed_{family}"]})

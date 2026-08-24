@@ -1,0 +1,234 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "all": "realistic_ores:block/redbed_0_south",
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "from": [
+        3,
+        0.02,
+        3
+      ],
+      "to": [
+        7,
+        4,
+        7
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            8,
+            3,
+            12,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            8,
+            3,
+            12,
+            7
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            8,
+            3,
+            12,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            8,
+            3,
+            12,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            8,
+            3,
+            12,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            8,
+            3,
+            12,
+            7
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          5.0,
+          0,
+          5.0
+        ],
+        "axis": "y",
+        "angle": -22.5,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        10,
+        0.02,
+        4
+      ],
+      "to": [
+        14,
+        2,
+        7
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            8,
+            9,
+            12,
+            12
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            8,
+            9,
+            12,
+            12
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            8,
+            9,
+            12,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            8,
+            9,
+            12,
+            11
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            8,
+            9,
+            12,
+            11
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            8,
+            9,
+            12,
+            11
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          12.0,
+          0,
+          5.5
+        ],
+        "axis": "y",
+        "angle": 22.5,
+        "rescale": false
+      }
+    },
+    {
+      "from": [
+        3,
+        0.02,
+        9
+      ],
+      "to": [
+        6,
+        2,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            7,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            7,
+            7
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            7,
+            6
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            7,
+            6
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            7,
+            6
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            4,
+            4,
+            7,
+            6
+          ]
+        }
+      }
+    }
+  ]
+}

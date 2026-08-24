@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_redbed"
+  },
+  "result": {
+    "item": "minecraft:redstone",
+    "count": 2
+  },
+  "experience": 0.1,
+  "cookingtime": 240
+}

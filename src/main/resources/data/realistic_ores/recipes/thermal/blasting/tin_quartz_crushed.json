@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:crushed_tin_quartz"
+  },
+  "result": {
+    "item": "chemlib:tin_nugget",
+    "count": 1
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}
