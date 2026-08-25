@@ -47,10 +47,6 @@
     {
       "item": "realistic_ores:copper_concentrate",
       "chance": 0.2
-    },
-    {
-      "item": "realistic_ores:titanium_grinding_ball",
-      "chance": 0.95
     }
   ],
   "processingTime": 300

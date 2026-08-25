@@ -70,6 +70,18 @@ final class RealisticOresResourceTest {
     }
 
     @Test
+    void createSeparationRecipesRespectTheFourOutputLimit() throws IOException {
+        Path separationRecipes = DATA_ROOT.resolve("recipes/compat/create/separation");
+        try (var paths = Files.list(separationRecipes)) {
+            for (Path path : paths.filter(file -> file.getFileName().toString().endsWith(".json")).toList()) {
+                JsonObject recipe = read(path, JsonObject.class);
+                assertTrue(recipe.getAsJsonArray("results").size() <= 4,
+                        "Create supports at most four outputs in " + path);
+            }
+        }
+    }
+
+    @Test
     void everyOreBlockHasThreeUnrotatedSidedModelsAndValidFinalTextures() throws IOException {
         JsonObject palettes = read(Path.of("tools/ore_art_manifest.json"), JsonObject.class);
         JsonObject canonicalHashes = read(Path.of("src/test/resources/canonical_ore_texture_hashes.json"), JsonObject.class);

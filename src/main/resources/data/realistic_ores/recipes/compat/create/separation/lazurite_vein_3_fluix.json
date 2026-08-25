@@ -47,10 +47,6 @@
     {
       "item": "realistic_ores:silicon_concentrate",
       "chance": 0.2
-    },
-    {
-      "item": "realistic_ores:fluix_grinding_ball",
-      "chance": 0.98
     }
   ],
   "processingTime": 300
