@@ -1,5 +1,11 @@
 # Processing item art
 
+## Systemic Salience morphology contract
+
+The eight player-facing families freeze the shared aspect motion grammar into dirty geology. Hotstone radiates; Copper Bloom repeats quick clustered pulses; Tin Quartz settles into toolmaking ribbons; Brassroot branches directionally; Coal Measures persists as a continuous seam; Ironstone braces as dense bands; Evaporite Beds bloom upward as crystals; Black Shale converges into controlled fractures. The committed world textures and curated chunk masters already implement these silhouettes, so regeneration must preserve them rather than applying hue-only overlays.
+
+The canonical 144×18 badge strip is rendered only on interaction surfaces. World blocks remain host-rock dominant and communicate through morphology, value, and physical behavior before their tooltip names the aspect.
+
 The PNGs under `item-masters/` are accepted 1024x1024 transparent masters generated
 with the built-in ImageGen workflow documented below. Runtime sprites are deterministic
 16x16 reductions; do not paint or regenerate them directly.
