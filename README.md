@@ -196,7 +196,7 @@ normal lighting and shaders. Confirm that:
 ./gradlew stageRuntimeJar
 ```
 
-`verifyFull` currently matches the fast lane because this repo does not yet ship Forge GameTests.
+`verifyFull` adds `verifyItemTextures` to the fast lane, checking curated item sprites against their 1024px masters. The repository does not currently ship Forge GameTests.
 
 ## Release artifact
 
