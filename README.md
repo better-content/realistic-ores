@@ -2,6 +2,13 @@
 
 Pack-owned ore and deposit support mod for Forge `1.20.1`.
 
+The eight deposit families each own exactly one Systemic Salience aspect. Mining a native
+deposit or its Excavated Variants host-specific form gives only the miner a quiet spatial
+physical-foley cue. Familiarity backs cues off per player and per aspect from immediate to
+30 seconds, 2 minutes, 8 minutes, 32 minutes, and 2 hours; one level decays every 4 hours
+48 minutes of real time, including offline time. The state persists through death and
+handles backward wall-clock corrections without trapping the player in a cooldown.
+
 ## Texture visual identity
 
 This section is the normative art direction for Realistic Ores. It was derived from the

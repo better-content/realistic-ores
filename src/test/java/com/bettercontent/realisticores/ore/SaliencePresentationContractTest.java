@@ -22,6 +22,17 @@ final class SaliencePresentationContractTest {
         assertTrue(font.contains(""));
     }
 
+    @Test
+    void everyOreAspectHasItsOwnPhysicalOgg() throws Exception {
+        String sounds = new String(resource("/assets/realistic_ores/sounds.json").readAllBytes(), StandardCharsets.UTF_8);
+        for (String aspect : new String[]{"impact", "tempo", "work", "mobility", "endurance", "robustness", "renewal", "control"}) {
+            assertTrue(sounds.contains("aspect." + aspect));
+            byte[] ogg = resource("/assets/realistic_ores/sounds/aspect/" + aspect + ".ogg").readAllBytes();
+            assertTrue(ogg.length > 8_000, aspect);
+            assertArrayEquals(new byte[]{'O', 'g', 'g', 'S'}, java.util.Arrays.copyOf(ogg, 4));
+        }
+    }
+
     private InputStream resource(String path) {
         InputStream stream = getClass().getResourceAsStream(path);
         assertNotNull(stream, path);

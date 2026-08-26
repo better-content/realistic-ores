@@ -6,6 +6,7 @@ import com.bettercontent.realisticores.registry.ModFeatures;
 import com.bettercontent.realisticores.registry.ModItems;
 import com.bettercontent.realisticores.registry.ModRecipeSerializers;
 import com.bettercontent.realisticores.registry.ModFluids;
+import com.bettercontent.realisticores.salience.ModSounds;
 import com.mojang.logging.LogUtils;
 import com.bettercontent.realisticores.worldgen.DisabledFeatureBiomeModifier;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -31,6 +32,7 @@ public final class RealisticOresMod {
         ModFluids.register(modBus);
         ModFeatures.register(modBus);
         ModRecipeSerializers.register(modBus);
+        ModSounds.register(modBus);
         DisabledFeatureBiomeModifier.register(modBus);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modBus.addListener(ClientSetup::onClientSetup));
         modBus.addListener(this::addCreativeTabContents);
