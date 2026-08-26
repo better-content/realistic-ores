@@ -2,101 +2,81 @@
   "coal_measures": {
     "morphology": "seam",
     "palette": [
-      "#202024",
-      "#3c3c42",
-      "#666670",
-      "#7b6a30",
-      "#b09a52"
+      "#171b1d",
+      "#2a3338",
+      "#245e6a",
+      "#35bbd0",
+      "#8bdfea"
     ]
   },
   "ironstone": {
-    "morphology": "banded",
+    "morphology": "blocky_banded",
     "palette": [
-      "#5d3123",
-      "#6b4d56",
-      "#8d4e35",
-      "#8d6f78",
-      "#c37754"
+      "#283442",
+      "#314b70",
+      "#245aa6",
+      "#1175fc",
+      "#83b1ff"
     ]
   },
   "copper_bloom": {
-    "morphology": "disseminated",
+    "morphology": "branching_bloom",
     "palette": [
-      "#5c3a21",
-      "#5a693d",
-      "#9f612f",
-      "#7f8d59",
-      "#d8974b"
+      "#4a3022",
+      "#70431f",
+      "#aa652b",
+      "#d98b4a",
+      "#e8b06f"
     ]
   },
   "tin_quartz": {
     "morphology": "branching",
     "palette": [
-      "#434349",
-      "#71737a",
-      "#afb4bb",
-      "#ddd9d1",
-      "#f2efe8"
+      "#43413a",
+      "#766f3a",
+      "#9c8614",
+      "#caa903",
+      "#e1d66d"
     ]
   },
   "brassroot": {
     "morphology": "branching",
     "palette": [
-      "#4c4c59",
-      "#767687",
-      "#8d7a61",
-      "#a9a9b9",
-      "#d5c39b"
-    ]
-  },
-  "redbed": {
-    "morphology": "vein",
-    "palette": [
-      "#5d1116",
-      "#a31c25",
-      "#7e3d2c",
-      "#ff4f4f",
-      "#b47240"
+      "#394225",
+      "#68732c",
+      "#8ca72d",
+      "#c0e304",
+      "#dcf27a"
     ]
   },
   "evaporite_beds": {
-    "morphology": "nodular",
+    "morphology": "crystalline_beds",
     "palette": [
-      "#82906d",
-      "#d4aab5",
-      "#afc28e",
-      "#d1cabb",
-      "#dde6c6"
-    ]
-  },
-  "gem_pipe": {
-    "morphology": "disseminated",
-    "palette": [
-      "#384436",
-      "#5a6b58",
-      "#67737b",
-      "#86d7e0",
-      "#d1fbff"
+      "#6f7773",
+      "#94b3a8",
+      "#5db796",
+      "#6fedba",
+      "#c5f8e2"
     ]
   },
   "hotstone": {
-    "morphology": "disseminated",
+    "morphology": "radiant_fractures",
     "palette": [
-      "#2d4c20",
-      "#718145",
-      "#4d8f2c",
-      "#a7ae86",
-      "#a2ff49"
+      "#3b2529",
+      "#6e343d",
+      "#a94c59",
+      "#e4717d",
+      "#f2a2ab"
     ]
   },
   "black_shale": {
     "morphology": "seam",
     "palette": [
       "#19161d",
-      "#4e3272",
-      "#394038",
-      "#a173ff",
-      "#cbc4db"
+      "#352c44",
+      "#55436d",
+      "#8a6cb2",
+      "#bba8d0"
     ]
   }
 }

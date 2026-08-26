@@ -4,7 +4,7 @@
     "item": "realistic_ores:ore_chunk_black_shale"
   },
   "result": {
-    "item": "minecraft:soul_sand",
+    "item": "minecraft:redstone",
     "count": 2
   },
   "experience": 0.1,

@@ -95,20 +95,18 @@ after synthesis.
 | Copper Bloom | copper | oxidized green/brassy mineralization |
 | Tin Quartz | bronze and quartz | bright crystal ribbons with dark inclusions |
 | Brassroot | zinc and brass | yellow-grey branching roots |
-| Redbed | redstone | aggressive red fracture network |
 | Evaporite Beds | salt and preservation | pale crystalline sedimentary beds |
-| Gem Pipe | a rare gem jackpot | vertical pipe with indicator crystals |
 | Hotstone | dangerous usable heat and heavy matter | dark energetic mineral body |
-| Black Shale | supernatural material | black strata with sparse violet contamination |
+| Black Shale | redstone and supernatural material | black strata with sparse violet contamination |
 
-These ten are the complete player-facing worldgen families. Oil Seep remains a separate
+These eight are the complete player-facing worldgen families. Oil Seep remains a separate
 fluid surface feature. Exact primary and coproduct materials belong to processing depth,
 not additional worldgen identities. The retained assay catalogue is the 24 useful outputs
 plus rock salt, sodium chloride, and saltpeter; inert technical concentrates are removed.
 
 `tools/ore_art_manifest.json` is the canonical five-colour palette and morphology list.
-Gem Pipe and Hotstone express multiple assay fantasies through route-specific coproduct
-profiles without multiplying player-facing blocks.
+Tin Quartz folds gem-bearing pegmatite depth into its later assay routes, while Black Shale
+folds redstone and precious-metal depth into its controlled soul-bearing geology.
 
 ### Crushed material and surface samples
 

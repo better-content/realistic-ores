@@ -1,0 +1,49 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_black_shale"
+    },
+    {
+      "item": "realistic_ores:crushed_black_shale"
+    },
+    {
+      "item": "realistic_ores:crushed_black_shale"
+    },
+    {
+      "item": "realistic_ores:crushed_black_shale"
+    },
+    {
+      "item": "realistic_ores:brass_grinding_ball"
+    },
+    {
+      "fluid": "minecraft:water",
+      "amount": 500
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:redstone_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:copper_concentrate",
+      "chance": 1.0
+    },
+    {
+      "item": "realistic_ores:iron_concentrate",
+      "chance": 0.5
+    },
+    {
+      "item": "realistic_ores:brass_grinding_ball",
+      "chance": 0.87
+    }
+  ],
+  "processingTime": 300
+}

@@ -21,7 +21,7 @@ ASSETS = RES / "assets/realistic_ores"
 DATA = RES / "data/realistic_ores"
 FAMILIES = [
     "coal_measures", "ironstone", "copper_bloom", "tin_quartz", "brassroot",
-    "redbed", "evaporite_beds", "gem_pipe", "hotstone", "black_shale",
+    "evaporite_beds", "hotstone", "black_shale",
 ]
 
 MATERIALS = {
@@ -59,25 +59,27 @@ ROUTES = {
     "coal_measures": ("coal", [("andesite", None, []), ("blood_infused", "hydrochloric", [("iron", "trace")])]),
     "ironstone": ("iron", [("iron", None, [("nickel", "minor")]), ("steel", "hydrochloric", [("nickel", "minor")])]),
     "copper_bloom": ("copper", [("brass", None, [("sulfur", "major"), ("iron", "minor")]), ("steel", "sulfuric", [("sulfur", "major"), ("iron", "minor")]), ("nickel", "mixed", [("sulfur", "major"), ("iron", "minor"), ("gold", "precious")])]),
-    "tin_quartz": ("tin", [("brass", None, [("quartz", "major")]), ("steel", "hydrochloric", [("quartz", "major")])]),
+    "tin_quartz": ("tin", [
+        ("brass", None, [("quartz", "major")]),
+        ("steel", "hydrochloric", [("quartz", "major"), ("aluminum", "minor")]),
+        ("titanium", "hydrochloric", [("amethyst", "major"), ("quartz", "minor"), ("aluminum", "minor")]),
+        ("fluix", "hydrochloric", [("lapis", "major"), ("aluminum", "minor")]),
+        ("nickel", "mixed", [("diamond", "precious"), ("emerald", "minor")]),
+    ]),
     "brassroot": ("zinc", [("brass", None, [("lead", "minor")]), ("steel", "sulfuric", [("lead", "minor"), ("cadmium", "trace")]), ("nickel", "nitric", [("lead", "minor"), ("cadmium", "trace"), ("silver", "precious")])]),
-    "redbed": ("redstone", [("brass", None, [("copper", "major"), ("iron", "minor")]), ("steel", "hydrochloric", [("copper", "major"), ("iron", "minor")]), ("nickel", "mixed", [("copper", "major"), ("gold", "precious")])]),
     "evaporite_beds": ("rock_salt", [("andesite", None, [("sodium_chloride", "major")]), ("steel", "hydrochloric", [("sodium_chloride", "major"), ("saltpeter", "minor")])]),
-    "gem_pipe": ("diamond", [("steel", None, [("emerald", "minor"), ("aluminum", "minor")]), ("titanium", "hydrochloric", [("amethyst", "major"), ("quartz", "minor"), ("aluminum", "minor")]), ("fluix", "hydrochloric", [("lapis", "major"), ("aluminum", "minor")])]),
     "hotstone": ("uranium", [("titanium", "sulfuric", [("thorium", "minor"), ("lead", "minor")]), ("nickel", "nitric", [("titanium", "major"), ("nickel", "minor"), ("cobalt", "trace"), ("iron", "minor")]), ("titanium", "mixed", [("osmium", "minor"), ("sulfur", "major")])]),
-    "black_shale": ("soul_sand", [("blood_infused", None, [("sulfur", "minor")]), ("blood_infused", "hydrochloric", [("sulfur", "minor")]), ("fluix", "hydrochloric", [("redstone", "trace")])]),
+    "black_shale": ("redstone", [
+        ("brass", None, [("copper", "major"), ("iron", "minor")]),
+        ("blood_infused", "hydrochloric", [("soul_sand", "major"), ("sulfur", "minor")]),
+        ("nickel", "mixed", [("copper", "major"), ("gold", "precious")]),
+    ]),
 }
 
 BALLS = {"andesite": .80, "iron": .84, "brass": .87, "steel": .91, "nickel": .93, "titanium": .95, "blood_infused": .97, "fluix": .98}
 GRADE = {"major": 1.0, "minor": .5, "trace": .2, "precious": .05}
 ACIDS = {"sulfuric": "chemlib:sulfuric_acid_fluid", "hydrochloric": "chemlib:hydrochloric_acid_fluid", "nitric": "chemlib:nitric_acid_fluid"}
 ASSAY_VARIANTS = {
-    "gem_pipe": [
-        {"name": "diamond", "materials": ["diamond"]},
-        {"name": "emerald", "materials": ["emerald", "aluminum"]},
-        {"name": "amethyst", "materials": ["amethyst", "quartz", "aluminum"]},
-        {"name": "lazurite", "materials": ["lapis", "aluminum"]},
-    ],
     "hotstone": [
         {"name": "fissile", "materials": ["uranium", "thorium", "lead"]},
         {"name": "structural", "materials": ["titanium", "nickel", "cobalt", "iron"]},
@@ -91,7 +93,7 @@ ASSAY_VARIANTS = {
 # its four outputs are exactly the four structural assay materials; the fissile
 # and abyssal routes remain the uranium-producing Hotstone routes.
 CONSUMED_MEDIA_ROUTES = {
-    ("gem_pipe", 2),
+    ("tin_quartz", 3),
     ("hotstone", 2),
     ("brassroot", 3),
     ("copper_bloom", 3),
@@ -196,7 +198,7 @@ def main() -> None:
         for path in item_textures.glob(pattern): path.unlink()
 
     recipes = DATA / "recipes"
-    for directory in (recipes / "crafting/small_chunks", recipes / "crafting/ore_reassembly", recipes / "compat/create/crushing", recipes / "compat/create/milling/ore_chunks", recipes / "compat/create/separation", recipes / "compat/create/grinding_balls", recipes / "thermal/furnace", recipes / "thermal/blasting", recipes / "compat/tconstruct/melting", recipes / "compat/tconstruct/foundry", recipes / "crafting/gem_chips"):
+    for directory in (recipes / "crafting/small_chunks", recipes / "crafting/ore_reassembly", recipes / "crafting/immediate", recipes / "compat/create/crushing", recipes / "compat/create/milling/ore_chunks", recipes / "compat/create/separation", recipes / "compat/create/grinding_balls", recipes / "thermal/furnace", recipes / "thermal/blasting", recipes / "compat/tconstruct/melting", recipes / "compat/tconstruct/foundry", recipes / "crafting/gem_chips"):
         reset(directory)
     processing_dir = DATA / "processing_definitions"
     reset(processing_dir)
@@ -399,11 +401,6 @@ def main() -> None:
         "type": "minecraft:crafting_shapeless",
         "ingredients": [{"item": f"{NS}:ore_chunk_black_shale"}],
         "result": {"item": "minecraft:soul_sand"},
-    })
-    write(recipes / "crafting/immediate/gem_pipe_chip.json", {
-        "type": "minecraft:crafting_shapeless",
-        "ingredients": [{"item": f"{NS}:ore_chunk_gem_pipe"}],
-        "result": {"item": f"{NS}:diamond_chip"},
     })
     write(recipes / "crafting/immediate/hotstone_magma.json", {
         "type": "minecraft:crafting_shaped",

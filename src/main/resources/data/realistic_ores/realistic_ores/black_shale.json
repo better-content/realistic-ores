@@ -34,6 +34,7 @@
   "tags": [
     "minecraft:mineable/pickaxe",
     "forge:ores",
+    "forge:ores/redstone",
     "forge:ores/soul"
   ]
 }

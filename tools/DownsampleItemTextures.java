@@ -36,6 +36,7 @@ public final class DownsampleItemTextures {
     private record FillPixel(int x, int y, int color, int neighbors, double distanceFromCenter) {}
 
     private static final Form SMALL = new Form("small_chunks", "small_ore_chunk_", "", 4, 5, 8, 8, 16, 30);
+    private static final Form FULL = new Form("ore_chunks", "ore_chunk_", "", 2, 4, 12, 10, 42, 70);
     private static final Form CRUSHED = new Form("crushed_feeds", "crushed_", "", 3, 6, 10, 6, 30, 40);
     private static final Form CONCENTRATE = new Form("concentrates", "", "_concentrate", 3, 7, 10, 6, 28, 42);
 
@@ -55,6 +56,7 @@ public final class DownsampleItemTextures {
         Map<String, int[]> families = readPalettes(root.resolve("tools/ore_art_manifest.json"), FAMILY_ROW);
         Map<String, int[]> concentrates = readPalettes(root.resolve("tools/concentrate_art_manifest.json"), CONCENTRATE_ROW);
         process(root, SMALL, families, write);
+        process(root, FULL, families, write);
         process(root, CRUSHED, families, write);
         process(root, CONCENTRATE, concentrates, write);
     }
@@ -62,6 +64,7 @@ public final class DownsampleItemTextures {
     private static Form form(String name) {
         return switch (name) {
             case "small_chunks" -> SMALL;
+            case "ore_chunks" -> FULL;
             case "crushed_feeds" -> CRUSHED;
             case "concentrates" -> CONCENTRATE;
             default -> throw new IllegalArgumentException("unknown form " + name);

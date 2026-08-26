@@ -34,7 +34,7 @@ final class RealisticOresResourceTest {
     private static final Set<String> FACES = Set.of("north", "east", "south", "west", "up", "down");
     private static final Set<String> SALIENT_FAMILIES = Set.of(
             "coal_measures", "ironstone", "copper_bloom", "tin_quartz", "brassroot",
-            "redbed", "evaporite_beds", "gem_pipe", "hotstone", "black_shale");
+            "evaporite_beds", "hotstone", "black_shale");
     private static final Set<String> RETAINED_MATERIALS = Set.of(
             "aluminum", "amethyst", "cadmium", "coal", "cobalt", "copper", "diamond",
             "emerald", "gold", "iron", "lapis", "lead", "nickel", "osmium", "quartz",
@@ -458,11 +458,11 @@ final class RealisticOresResourceTest {
                 }
             }
         }
-        assertEquals(10, definitionCount);
+        assertEquals(8, definitionCount);
         Path chunkMillingDirectory = resources.resolve(
                 "data/realistic_ores/recipes/compat/create/milling/ore_chunks");
         try (var millingPaths = Files.list(chunkMillingDirectory)) {
-            assertEquals(10, millingPaths.filter(path -> path.getFileName().toString().endsWith(".json")).count(),
+            assertEquals(8, millingPaths.filter(path -> path.getFileName().toString().endsWith(".json")).count(),
                     chunkMillingDirectory.toString());
         }
     }
@@ -501,12 +501,10 @@ final class RealisticOresResourceTest {
         try (var paths = Files.list(processing)) {
             definitions = paths.filter(path -> path.toString().endsWith(".json")).toList();
         }
-        assertEquals(10, definitions.size());
+        assertEquals(8, definitions.size());
         assertEquals(SALIENT_FAMILIES, definitions.stream()
                 .map(path -> path.getFileName().toString().replace(".json", ""))
                 .collect(Collectors.toUnmodifiableSet()));
-        assertEquals(4, read(processing.resolve("gem_pipe.json"), JsonObject.class)
-                .getAsJsonArray("assay_variants").size());
         assertEquals(3, read(processing.resolve("hotstone.json"), JsonObject.class)
                 .getAsJsonArray("assay_variants").size());
         int routeCount = 0;
@@ -515,7 +513,7 @@ final class RealisticOresResourceTest {
         for (Path path : definitions) {
             JsonObject definition = read(path, JsonObject.class);
             JsonArray routes = definition.getAsJsonArray("routes");
-            assertTrue(routes.size() >= 2 && routes.size() <= 3, path.toString());
+            assertTrue(routes.size() >= 2 && routes.size() <= 5, path.toString());
             routeCount += routes.size();
             for (var routeElement : routes) {
                 JsonObject route = routeElement.getAsJsonObject();
@@ -534,7 +532,7 @@ final class RealisticOresResourceTest {
                 }
             }
         }
-        assertEquals(26, routeCount);
+        assertEquals(23, routeCount);
         assertEquals(4, consumedMediumRoutes);
         assertEquals(Set.of("andesite", "iron", "brass", "steel", "nickel", "titanium",
                 "blood_infused", "fluix"), media);
@@ -543,7 +541,7 @@ final class RealisticOresResourceTest {
         Set<String> createConcentrates = new HashSet<>();
         try (var paths = Files.list(separation)) {
             List<Path> recipes = paths.filter(path -> path.toString().endsWith(".json")).toList();
-            assertEquals(26, recipes.size());
+            assertEquals(23, recipes.size());
             for (Path path : recipes) {
                 JsonObject recipe = read(path, JsonObject.class);
                 assertEquals("create:mixing", recipe.get("type").getAsString());
@@ -578,7 +576,7 @@ final class RealisticOresResourceTest {
                     "recipes/compat/tconstruct/foundry/concentrate_" + material + ".json")), material);
         }
         for (String immediate : List.of("evaporite_rock_salt", "black_shale_soul_sand",
-                "gem_pipe_chip", "hotstone_magma")) {
+                "hotstone_magma")) {
             assertTrue(Files.exists(DATA_ROOT.resolve("recipes/crafting/immediate/" + immediate + ".json")),
                     immediate);
         }
@@ -620,7 +618,7 @@ final class RealisticOresResourceTest {
                 assertFalse(content.contains("corundum_beryl"), path.toString());
                 for (String obsolete : List.of("copper_sulfide", "tin_tungsten_greisen", "lead_zinc_vein",
                         "cupriferous_redbed", "phosphate_rock", "kimberlite_pipe", "uranium_ore",
-                        "thorium_ore", "soul_bearing_black_shale")) {
+                        "thorium_ore", "soul_bearing_black_shale", "gem_pipe", "redbed")) {
                     assertFalse(content.contains(obsolete), path + " retains obsolete family " + obsolete);
                 }
                 assertFalse(content.contains("washed_"), path.toString());

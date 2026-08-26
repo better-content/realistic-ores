@@ -15,5 +15,12 @@
   },
   "rate": "metal",
   "temperature": 950,
-  "time": 120
+  "time": 120,
+  "byproducts": [
+    {
+      "tag": "forge:molten_aluminum",
+      "amount": 5,
+      "rate": "metal"
+    }
+  ]
 }

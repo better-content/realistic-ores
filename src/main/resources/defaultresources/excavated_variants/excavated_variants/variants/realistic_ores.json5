@@ -79,7 +79,10 @@
       ],
       "orename": [
         "tin_ore",
-        "quartz_ore"
+        "quartz_ore",
+        "diamond_ore",
+        "emerald_ore",
+        "lapis_ore"
       ]
     },
     {
@@ -104,27 +107,6 @@
       ]
     },
     {
-      "id": "redbed",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:redbed",
-        "realistic_ores:deepslate_redbed"
-      ],
-      "lang": {
-        "en_us": "Redbed"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "redstone_ore",
-        "copper_ore"
-      ]
-    },
-    {
       "id": "evaporite_beds",
       "stone": [
         "stone",
@@ -142,28 +124,6 @@
       ],
       "orename": [
         "salt_ore"
-      ]
-    },
-    {
-      "id": "gem_pipe",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:gem_pipe",
-        "realistic_ores:deepslate_gem_pipe"
-      ],
-      "lang": {
-        "en_us": "Gem Pipe"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "diamond_ore",
-        "emerald_ore",
-        "lapis_ore"
       ]
     },
     {
@@ -205,7 +165,9 @@
         "stone"
       ],
       "orename": [
-        "soul_ore"
+        "redstone_ore",
+        "soul_ore",
+        "copper_ore"
       ]
     }
   ],

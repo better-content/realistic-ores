@@ -41,6 +41,10 @@
       "chance": 1.0
     },
     {
+      "item": "realistic_ores:aluminum_concentrate",
+      "chance": 0.5
+    },
+    {
       "item": "realistic_ores:steel_grinding_ball",
       "chance": 0.91
     }
