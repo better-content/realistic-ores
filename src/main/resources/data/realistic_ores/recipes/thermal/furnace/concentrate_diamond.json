@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "realistic_ores:diamond_concentrate"
+  },
+  "result": {
+    "item": "realistic_ores:diamond_chip",
+    "count": 2
+  },
+  "experience": 0.2,
+  "cookingtime": 240
+}

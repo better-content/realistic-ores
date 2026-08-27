@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_copper_bloom"
+  },
+  "result": {
+    "tag": "forge:molten_copper",
+    "amount": 20
+  },
+  "temperature": 950,
+  "time": 120
+}

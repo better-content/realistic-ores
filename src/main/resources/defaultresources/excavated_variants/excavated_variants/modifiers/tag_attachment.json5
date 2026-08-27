@@ -1,0 +1,8 @@
+{
+  "filter": "*",
+  "tags": [
+    "minecraft:blocks/mineable/pickaxe",
+    "forge:blocks/ores",
+    "c:blocks/ores"
+  ]
+}

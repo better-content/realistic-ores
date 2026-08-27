@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "realistic_ores:crushed_evaporite_beds"
+  },
+  "result": {
+    "item": "realistic_ores:rock_salt",
+    "count": 1
+  },
+  "experience": 0.1,
+  "cookingtime": 240
+}

@@ -1,0 +1,26 @@
+{
+  "type": "create:compacting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ae2"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:steel_grinding_ball"
+    },
+    {
+      "item": "ae2:fluix_crystal"
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:fluix_grinding_ball"
+    }
+  ]
+}

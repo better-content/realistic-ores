@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:ore_chunk_evaporite_beds"
+  },
+  "result": {
+    "item": "realistic_ores:rock_salt",
+    "count": 2
+  },
+  "experience": 0.1,
+  "cookingtime": 120
+}

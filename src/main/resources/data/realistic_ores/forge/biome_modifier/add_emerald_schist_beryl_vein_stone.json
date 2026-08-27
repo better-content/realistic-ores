@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": "realistic_ores:emerald_schist_beryl_vein_stone",
-  "step": "underground_ores"
-}

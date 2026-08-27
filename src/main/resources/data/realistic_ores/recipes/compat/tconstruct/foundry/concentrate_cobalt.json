@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:cobalt_concentrate"
+  },
+  "result": {
+    "tag": "forge:molten_cobalt",
+    "amount": 30
+  },
+  "rate": "metal",
+  "temperature": 950,
+  "time": 120
+}

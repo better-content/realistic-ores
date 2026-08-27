@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "chemlib:thorium_ingot",
+    "chemlib:thorium_nugget"
+  ]
+}

@@ -1,27 +1,6 @@
 {
   "mod_id": "realistic_ores",
-  "provided_stones": [],
-  "provided_ores": [
-    {
-      "id": "bauxite_laterite",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:bauxite_laterite",
-        "realistic_ores:deepslate_bauxite_laterite"
-      ],
-      "lang": {
-        "en_us": "Bauxite Laterite"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "aluminum_ore"
-      ]
-    },
+  "provided_stones": [
     {
       "id": "coal_measures",
       "stone": [
@@ -40,84 +19,6 @@
       ],
       "orename": [
         "coal_ore"
-      ]
-    },
-    {
-      "id": "copper_sulfide",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:copper_sulfide_ore",
-        "realistic_ores:deepslate_copper_sulfide_ore"
-      ],
-      "lang": {
-        "en_us": "Copper Sulfide Ore"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "copper_ore"
-      ]
-    },
-    {
-      "id": "corundum_beryl_gem_vein",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:corundum_beryl_gem_vein",
-        "realistic_ores:deepslate_corundum_beryl_gem_vein"
-      ],
-      "lang": {
-        "en_us": "Corundum Beryl Gem Vein"
-      },
-      "types": [
-        "stone"
-      ]
-    },
-    {
-      "id": "cupriferous_redbed_redstone_vein",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:cupriferous_redbed_redstone_vein",
-        "realistic_ores:deepslate_cupriferous_redbed_redstone_vein"
-      ],
-      "lang": {
-        "en_us": "Cupriferous Redbed Redstone Vein"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "copper_ore",
-        "redstone_ore"
-      ]
-    },
-    {
-      "id": "emerald_schist_beryl_vein",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:emerald_schist_beryl_vein",
-        "realistic_ores:deepslate_emerald_schist_beryl_vein"
-      ],
-      "lang": {
-        "en_us": "Emerald Schist Beryl Vein"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "emerald_ore"
       ]
     },
     {
@@ -141,305 +42,134 @@
       ]
     },
     {
-      "id": "kimberlite_pipe",
+      "id": "copper_bloom",
       "stone": [
         "stone",
         "deepslate"
       ],
       "block_id": [
-        "realistic_ores:kimberlite_pipe",
-        "realistic_ores:deepslate_kimberlite_pipe"
+        "realistic_ores:copper_bloom",
+        "realistic_ores:deepslate_copper_bloom"
       ],
       "lang": {
-        "en_us": "Kimberlite Pipe"
+        "en_us": "Copper Bloom"
       },
       "types": [
         "stone"
       ],
       "orename": [
-        "diamond_ore"
+        "copper_ore"
       ]
     },
     {
-      "id": "lazurite_vein",
+      "id": "tin_quartz",
       "stone": [
         "stone",
         "deepslate"
       ],
       "block_id": [
-        "realistic_ores:lazurite_vein",
-        "realistic_ores:deepslate_lazurite_vein"
+        "realistic_ores:tin_quartz",
+        "realistic_ores:deepslate_tin_quartz"
       ],
       "lang": {
-        "en_us": "Lazurite Vein"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "lapis_ore"
-      ]
-    },
-    {
-      "id": "lead_zinc_vein",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:lead_zinc_vein",
-        "realistic_ores:deepslate_lead_zinc_vein"
-      ],
-      "lang": {
-        "en_us": "Lead Zinc Vein"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "lead_ore",
-        "zinc_ore"
-      ]
-    },
-    {
-      "id": "nickel_sulfide",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:nickel_sulfide_ore",
-        "realistic_ores:deepslate_nickel_sulfide_ore"
-      ],
-      "lang": {
-        "en_us": "Nickel Sulfide Ore"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "nickel_ore"
-      ]
-    },
-    {
-      "id": "osmiridium_lava_sulfide",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:osmiridium_lava_sulfide_ore",
-        "realistic_ores:deepslate_osmiridium_lava_sulfide_ore"
-      ],
-      "lang": {
-        "en_us": "Osmiridium Lava Sulfide Ore"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "osmium_ore",
-        "iridium_ore"
-      ]
-    },
-    {
-      "id": "phosphate_rock",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:phosphate_rock",
-        "realistic_ores:deepslate_phosphate_rock"
-      ],
-      "lang": {
-        "en_us": "Phosphate Rock"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "phosphate_ore"
-      ]
-    },
-    {
-      "id": "quartz_vein",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:quartz_vein",
-        "realistic_ores:deepslate_quartz_vein"
-      ],
-      "lang": {
-        "en_us": "Quartz Vein"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "quartz_ore"
-      ]
-    },
-    {
-      "id": "soul_bearing_black_shale_soulstone_vein",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:soul_bearing_black_shale_soulstone_vein",
-        "realistic_ores:deepslate_soul_bearing_black_shale_soulstone_vein"
-      ],
-      "lang": {
-        "en_us": "Soul Bearing Black Shale Soulstone Vein"
-      },
-      "types": [
-        "stone"
-      ]
-    },
-    {
-      "id": "sulfur_bearing_pyrite",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:sulfur_bearing_pyrite_ore",
-        "realistic_ores:deepslate_sulfur_bearing_pyrite_ore"
-      ],
-      "lang": {
-        "en_us": "Sulfur Bearing Pyrite Ore"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "sulfur_ore"
-      ]
-    },
-    {
-      "id": "thorium",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:thorium_ore",
-        "realistic_ores:deepslate_thorium_ore"
-      ],
-      "lang": {
-        "en_us": "Thorium Ore"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "thorium_ore"
-      ]
-    },
-    {
-      "id": "tin",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:tin_ore",
-        "realistic_ores:deepslate_tin_ore"
-      ],
-      "lang": {
-        "en_us": "Tin Ore"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "tin_ore"
-      ]
-    },
-    {
-      "id": "tin_tungsten_greisen",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:tin_tungsten_greisen",
-        "realistic_ores:deepslate_tin_tungsten_greisen"
-      ],
-      "lang": {
-        "en_us": "Tin Tungsten Greisen"
+        "en_us": "Tin Quartz"
       },
       "types": [
         "stone"
       ],
       "orename": [
         "tin_ore",
-        "tungsten_ore"
+        "quartz_ore",
+        "diamond_ore",
+        "emerald_ore",
+        "lapis_ore"
       ]
     },
     {
-      "id": "titanium_iron_oxide",
+      "id": "brassroot",
       "stone": [
         "stone",
         "deepslate"
       ],
       "block_id": [
-        "realistic_ores:titanium_iron_oxide_ore",
-        "realistic_ores:deepslate_titanium_iron_oxide_ore"
+        "realistic_ores:brassroot",
+        "realistic_ores:deepslate_brassroot"
       ],
       "lang": {
-        "en_us": "Titanium Iron Oxide Ore"
+        "en_us": "Brassroot"
       },
       "types": [
         "stone"
       ],
       "orename": [
-        "iron_ore",
+        "zinc_ore",
+        "lead_ore"
+      ]
+    },
+    {
+      "id": "evaporite_beds",
+      "stone": [
+        "stone",
+        "deepslate"
+      ],
+      "block_id": [
+        "realistic_ores:evaporite_beds",
+        "realistic_ores:deepslate_evaporite_beds"
+      ],
+      "lang": {
+        "en_us": "Evaporite Beds"
+      },
+      "types": [
+        "stone"
+      ],
+      "orename": [
+        "salt_ore"
+      ]
+    },
+    {
+      "id": "hotstone",
+      "stone": [
+        "stone",
+        "deepslate"
+      ],
+      "block_id": [
+        "realistic_ores:hotstone",
+        "realistic_ores:deepslate_hotstone"
+      ],
+      "lang": {
+        "en_us": "Hotstone"
+      },
+      "types": [
+        "stone"
+      ],
+      "orename": [
+        "uranium_ore",
+        "thorium_ore",
         "titanium_ore"
       ]
     },
     {
-      "id": "uranium",
+      "id": "black_shale",
       "stone": [
         "stone",
         "deepslate"
       ],
       "block_id": [
-        "realistic_ores:uranium_ore",
-        "realistic_ores:deepslate_uranium_ore"
+        "realistic_ores:black_shale",
+        "realistic_ores:deepslate_black_shale"
       ],
       "lang": {
-        "en_us": "Uranium Ore"
+        "en_us": "Black Shale"
       },
       "types": [
         "stone"
       ],
       "orename": [
-        "uranium_ore"
-      ]
-    },
-    {
-      "id": "zinc",
-      "stone": [
-        "stone",
-        "deepslate"
-      ],
-      "block_id": [
-        "realistic_ores:zinc_ore",
-        "realistic_ores:deepslate_zinc_ore"
-      ],
-      "lang": {
-        "en_us": "Zinc Ore"
-      },
-      "types": [
-        "stone"
-      ],
-      "orename": [
-        "zinc_ore"
+        "redstone_ore",
+        "soul_ore",
+        "copper_ore"
       ]
     }
-  ]
+  ],
+  "provided_ores": []
 }

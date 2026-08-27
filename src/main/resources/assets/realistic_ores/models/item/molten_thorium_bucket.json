@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "realistic_ores:item/molten_thorium_bucket"
+  }
+}

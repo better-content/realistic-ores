@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "realistic_ores:copper_bloom_stone",
+  "step": "underground_ores"
+}

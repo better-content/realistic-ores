@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:sodium_chloride_concentrate"
+  },
+  "result": {
+    "item": "chemlib:sodium_chloride",
+    "count": 2
+  },
+  "experience": 0.2,
+  "cookingtime": 120
+}

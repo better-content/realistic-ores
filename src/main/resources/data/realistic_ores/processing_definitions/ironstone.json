@@ -1,0 +1,47 @@
+{
+  "family": "ironstone",
+  "primary": "iron",
+  "input_count": 4,
+  "routes": [
+    {
+      "medium": "iron",
+      "fluids": [
+        {
+          "fluid": "minecraft:water",
+          "amount": 500
+        }
+      ],
+      "primary_count": 4,
+      "coproducts": [
+        {
+          "material": "nickel",
+          "grade": "minor",
+          "chance": 0.5
+        }
+      ],
+      "ball_return_chance": 0.84
+    },
+    {
+      "medium": "steel",
+      "fluids": [
+        {
+          "fluid": "chemlib:hydrochloric_acid_fluid",
+          "amount": 250
+        },
+        {
+          "fluid": "minecraft:water",
+          "amount": 250
+        }
+      ],
+      "primary_count": 4,
+      "coproducts": [
+        {
+          "material": "nickel",
+          "grade": "minor",
+          "chance": 0.5
+        }
+      ],
+      "ball_return_chance": 0.91
+    }
+  ]
+}

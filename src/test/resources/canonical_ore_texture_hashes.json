@@ -1,112 +1,42 @@
 {
-  "bauxite_laterite": {
-    "stone_0_south": "8856358af4ca978a327592fcde70c4a965d6b38d134b2a892568f0f92544fc38",
-    "deepslate_0_south": "a726283f1b5720c3e4e3a766366f9bc10e9fea4ed5fb34d3de4e881a2b4389b6",
-    "deepslate_0_up": "a77a4363dd5cf988cfe87ca1df4612cff6174ac8e76ac1ca2ced198e2aaa98f0"
-  },
   "coal_measures": {
-    "stone_0_south": "860cbf5b53554b83d5b6bd2fe1ad4b201efac1ed71bbcb92bed17ec6e5ebb057",
-    "deepslate_0_south": "838f35fb9d881c84f3c047cf8a0940301b4ab4938eb12decc616880becbc9bd4",
-    "deepslate_0_up": "bee72ec5e1c1e7a366e385dcf6d32146400dc61003ee99f6d27585985169dd5e"
-  },
-  "copper_sulfide": {
-    "stone_0_south": "9abe46f59470f83d274b213faf017f79e3fcfcc576fd8732a70d73e6803d69a3",
-    "deepslate_0_south": "5c588134928a042a09bdebf080c1e59fa02ae23f5b80c3f5250f75a2ea5caf83",
-    "deepslate_0_up": "f831db871d1e2476fecfc281a5953241d3ec7afe231e610d1e07338e1db28710"
-  },
-  "corundum_beryl_gem_vein": {
-    "stone_0_south": "913678ed10cf27adf21517b1a7adbbf1803b56765b0df25f7d27c28fcd32c8c7",
-    "deepslate_0_south": "0a50f199bf7d08d7fdfdd92c973c0e84a63bb0988752b6dc01dc37d90b094a09",
-    "deepslate_0_up": "317b2473c1f3e2585b067363135251373113cf5b75820832e6860c1c2eb20c67"
-  },
-  "cupriferous_redbed_redstone_vein": {
-    "stone_0_south": "a5ebd89186bf1d0a983d3f5165d52d92e71636f4b52a052221dd30c9de4d81f8",
-    "deepslate_0_south": "85f15598589f0668d007ae7662e0bc029edaf7f14a204aafd852cd4a0f001964",
-    "deepslate_0_up": "23174bfa91fd31a10738cb5a4865e5c3c739cb952f787528e8e52813e031790d"
-  },
-  "emerald_schist_beryl_vein": {
-    "stone_0_south": "a05e5cb18692e32980ee4e8a93078b37b0d813857e43bf5679c0dc56c4b2f28a",
-    "deepslate_0_south": "940b9fe252332b6b10d9a0599f014ff3f26f481d11742daf75bb789d973711d8",
-    "deepslate_0_up": "d054b43bae31935dd3056280743f8bc568fede13be5ab07a761eda301861ef37"
+    "stone_0_south": "0b4309466f04a7a2e33941336505be9d4989e599a0486d33cf527a71012f560d",
+    "deepslate_0_south": "9eb26b092fc80606488bf8178573f35a8bbc1cd8bc8828f2b85f7f1ac1764efb",
+    "deepslate_0_up": "43e252d5a5eea4b01bbc988460779dbff0b45cc61f379c3600aafdd941159edb"
   },
   "ironstone": {
-    "stone_0_south": "9c3960f0b79184d54e78e21fd2d1218e7e164581201095272a3a0adb75f451af",
-    "deepslate_0_south": "912e0e1ac1333aa6ede174faab16b5e4054cc52ba5ee7f49eec8831a7fec1b17",
-    "deepslate_0_up": "bf5b97dbf5245fcfc0c391b54ea0468c60956e8477dea3ad701dffe0d2b416e8"
+    "stone_0_south": "ae3f57abe63c94e5451cf730007d7d90458931944cb59c486038187b0fbea349",
+    "deepslate_0_south": "c9c8c86ba0153c21c0f3e1a3eb2b8e7cfd3269502152e6e2386deb6580c3f5c6",
+    "deepslate_0_up": "d396e1724f79aa3b45db9ad939eb4bbb7259474194f6d3715033244ded2b8411"
   },
-  "kimberlite_pipe": {
-    "stone_0_south": "e2d5dfc9b2b74f380c7905b3ff48dd523dcc1fb112065a9e65564f4be7173db1",
-    "deepslate_0_south": "db73f3440eb0b5b73e4726619de09824f797f4c3b0b3f8d16a985cd11fc59eb5",
-    "deepslate_0_up": "2dbaffe7c603cbee42970483ff496ce02afd03e7175da8d36dd19dd69b7f50cf"
+  "copper_bloom": {
+    "stone_0_south": "69d0f4523075c2c3a7af9936eb401ed82a6c408dd8dc259a0db6e0bd7df023ad",
+    "deepslate_0_south": "f9cd5cc79044eaf3a00218d564b86fde44a9a84abcd68fd8e1f6864b93476641",
+    "deepslate_0_up": "94ea1676295fe0d40390ce4497395ac8c0cf0cdccc6598d6071dde17f4480e3c"
   },
-  "lazurite_vein": {
-    "stone_0_south": "3618fdafeb1d590d514ebd1b524c0585abe5eafa45d4e987766395d7040751c6",
-    "deepslate_0_south": "d423a72a91da9702b5f7e823fc5a1f386edf723cfc295ee05f007ff3d6505d07",
-    "deepslate_0_up": "8e934b8912f676f6b8f2405abf6b15e549e737136732c2e3da04148cd43de27d"
+  "tin_quartz": {
+    "stone_0_south": "86daee37c2bbc1b4cecaeb77c88551190211874313a86fdce0e3b70afbe809d7",
+    "deepslate_0_south": "48f43f24185481bd7f248936267b00e5190b746ede240aeb914dd8f86fc59cf8",
+    "deepslate_0_up": "85dd1367023375e49d708400b4e83c4f5f1763840e3c3f5f93611b11e36834c3"
   },
-  "lead_zinc_vein": {
-    "stone_0_south": "b185bcff88fb89d1cb62fb43150b76bd7bfcb6e0cb2bf241a430187a1828d1df",
-    "deepslate_0_south": "4f6773de50ae6f5c1b2a214182146dd1a6d4b045e48692849490f18419b77140",
-    "deepslate_0_up": "84589acaa7ed04debde6877f45f3c99c024bd89bb6bfe76358d3db6ad1fa6c09"
+  "brassroot": {
+    "stone_0_south": "9981965b2799c10169844d719b60297456318f69ac8e62e95a9cf510215365f1",
+    "deepslate_0_south": "e0b8e29deac9c9802f6528f80cda65cadd58e3448c4a77aaa936a57700a3b28e",
+    "deepslate_0_up": "ae60c7ac88caf77d66162aebdf38bed05ec20ea1d7d9f8c60e706aeead2d4bf3"
   },
-  "nickel_sulfide": {
-    "stone_0_south": "ccbd77e295a8980c18e987dbd427856e0a77b7d9f65dc5194015853e399eb18b",
-    "deepslate_0_south": "dc2b9ef665d11133ad4fb5431b61d9dc3596fd134e806e343481b3ee6d8306e6",
-    "deepslate_0_up": "04bc2cc30f4558251247692da270a352a0c3e89f6bf51a844638719c0f014724"
+  "evaporite_beds": {
+    "stone_0_south": "b7fa96a6f1737102f60a5cc794a079438d0dcb8f945a29efd583d5be5a5bf530",
+    "deepslate_0_south": "c156ae166f59ab1e76ce0d6455681d329ec8787d0934da74776c902eecd634a4",
+    "deepslate_0_up": "7989a74a83e82787e019e26d628ae49f3abe91998d8ccc5fef29584d06584dc0"
   },
-  "osmiridium_lava_sulfide": {
-    "stone_0_south": "63033f711a1575384a8007123160a60bb3fccc9ae3ffd5c827a5f901cd04abcf",
-    "deepslate_0_south": "44616c7ecd14bb4f0a09445378bfd2956dc1a720d9b0892fc01d947fd50143e9",
-    "deepslate_0_up": "b58440f1f2387443daa8b7ac442ee26733520feae0d4e1ed0e6ec36ec3de0159"
+  "hotstone": {
+    "stone_0_south": "4c2034e958242b1e4ffc9be9805429d40bc899ba13df3d95cb4614a335eb2303",
+    "deepslate_0_south": "f6b302dc84d3030a9b6d43b7eb24567499539048556c1e398901de47125f2691",
+    "deepslate_0_up": "c76e0aae5ab6aeb90e0ee336b883c2c72aec937fc8dffcea41b96dc045958527"
   },
-  "phosphate_rock": {
-    "stone_0_south": "896730dee32520a2926133c827c6eeec0425dd6b9fe10e1fee46d743b603076b",
-    "deepslate_0_south": "08d80b367f166893fa7dc9543bb318bc5c673413e8f54d3d0eebde220bae0ff2",
-    "deepslate_0_up": "22bbfdb557d95fe91217bfdc7eb0c382948d097e503f71a0bbd55fe8a033b9d6"
-  },
-  "quartz_vein": {
-    "stone_0_south": "f3294888141a5e27b15975d1e52ccd0e388b6b2cda188b635198d26a06963ae1",
-    "deepslate_0_south": "f214b301bee131cd1ab200ecb117d716c5060127062e95de37a949778fb26090",
-    "deepslate_0_up": "aceb66a385a7966e3ffaf21648d53023c828bbf3b5c23d35c8619375ba245468"
-  },
-  "soul_bearing_black_shale_soulstone_vein": {
-    "stone_0_south": "75631ec98e23e9ca20c86639ea0698437426873d751c5f06ed7a13988c147793",
-    "deepslate_0_south": "b2757dfc8253485dc45b6ed261c63b7aa7706176dad2e88ed27664b94d9e3b83",
-    "deepslate_0_up": "0c5d132b9742650b761f292696f6c9c892b78828380a9e8de03e481f8d2846ff"
-  },
-  "sulfur_bearing_pyrite": {
-    "stone_0_south": "b08a2b9cbd022babd4e0006023ffed6b9d2c7ed6ec35c631c9c26152180bfdb4",
-    "deepslate_0_south": "f3dde267b2460fbe49036d8722a93c1d0747866607fa219c1ab9416e916b7ff7",
-    "deepslate_0_up": "2e783cd115a601fdf8ed57752f98d4e805d278dc4874decef40727617b1ff5ce"
-  },
-  "thorium": {
-    "stone_0_south": "b7f0c6189a7563faa40dd500687434632064775bff1c734e186a9bc2479bc416",
-    "deepslate_0_south": "4a995fd187d2c19a15963f434574f2289536c963c1486f28638340c3b527c8be",
-    "deepslate_0_up": "913c1c105713ffcdbb23933e7110df0fb864c640eb28ae6827d8bec68e139693"
-  },
-  "tin": {
-    "stone_0_south": "a0be0fa3949469d2f52e8bd96d92c95d17005c3a8235481554a93ff685c0c7b5",
-    "deepslate_0_south": "df906d4a4c1b502693a41c93786b67618655eb96ef4223249d391a3316f05627",
-    "deepslate_0_up": "586272f8c74f7b259f7314f672da6cc31559b8015af17d3d570c01d6c927efc7"
-  },
-  "tin_tungsten_greisen": {
-    "stone_0_south": "c222515c0e07a8f61e6d505d065bc75d1a0c9ff6f280a4e0074b0c6829a26d46",
-    "deepslate_0_south": "9f9f50cca3f9d61ecd998a5f5bf17cef3f928b91773a153dc19d468f76f23830",
-    "deepslate_0_up": "e0484dfb17934379bb399e85c374e0a96bfa028d6feeb415ab1aa985ea26fe90"
-  },
-  "titanium_iron_oxide": {
-    "stone_0_south": "b63b952a94a3ff4749e5ec984a788854627735f05ca2e3568115bd05ef073002",
-    "deepslate_0_south": "66aee6b522204099bad16b5b0ae3e519a84cd43e2edbf3d3bf26cb4061d0baae",
-    "deepslate_0_up": "2f4df9e6eecf5a8d1b56991d34eb5b9b33a0a1b38d59c686d2c01112eee63e50"
-  },
-  "uranium": {
-    "stone_0_south": "ecde4e64978e0196731a14f4f9a730d97a7507cd90a93d1c2c807ee30acd9233",
-    "deepslate_0_south": "58d32291f49e9c8d901add4b69de81826a588a8c1bc672aa3759955a0be73ea5",
-    "deepslate_0_up": "6e5c060f572402344997ddec7af9bdf38a783cc482ea534e19f47324f808dd66"
-  },
-  "zinc": {
-    "stone_0_south": "c83de9b18e39b9aaf2085c1d2bf505b621d622752a83bd3018cac071eb56add6",
-    "deepslate_0_south": "4d89a57869b89a2651c75a1b332affcc79954d512c00119dd5959cbdc6be0d57",
-    "deepslate_0_up": "5686f485385430a9167afaa113049bec0de7c25612f514ff8559daa0740e2cfe"
+  "black_shale": {
+    "stone_0_south": "116fc4ef675b3047cb094e1bb123860db76e2d42b62934dfc5366e61995635c6",
+    "deepslate_0_south": "f9c871efad34fb3ac8603ea6f90befacdf79f9ed9e83ed6df988d29f3a352dfb",
+    "deepslate_0_up": "7a70732bf5957e1b014a3f9f105dfda489d2b71788ccca57015ecba878d68ac0"
   }
 }

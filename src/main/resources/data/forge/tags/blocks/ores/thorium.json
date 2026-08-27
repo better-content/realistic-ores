@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "realistic_ores:deepslate_thorium_ore",
-    "realistic_ores:thorium_ore"
+    "realistic_ores:deepslate_hotstone",
+    "realistic_ores:hotstone"
   ]
 }

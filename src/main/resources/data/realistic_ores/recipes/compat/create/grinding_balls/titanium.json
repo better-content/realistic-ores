@@ -1,0 +1,28 @@
+{
+  "type": "create:compacting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "chemlib:titanium_ingot"
+    },
+    {
+      "item": "chemlib:titanium_ingot"
+    },
+    {
+      "item": "chemlib:titanium_ingot"
+    },
+    {
+      "item": "chemlib:titanium_ingot"
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:titanium_grinding_ball"
+    }
+  ]
+}

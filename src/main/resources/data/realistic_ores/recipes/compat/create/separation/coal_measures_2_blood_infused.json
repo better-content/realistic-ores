@@ -1,0 +1,49 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_coal_measures"
+    },
+    {
+      "item": "realistic_ores:crushed_coal_measures"
+    },
+    {
+      "item": "realistic_ores:crushed_coal_measures"
+    },
+    {
+      "item": "realistic_ores:crushed_coal_measures"
+    },
+    {
+      "item": "realistic_ores:blood_infused_grinding_ball"
+    },
+    {
+      "fluid": "chemlib:hydrochloric_acid_fluid",
+      "amount": 250
+    },
+    {
+      "fluid": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:coal_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:iron_concentrate",
+      "chance": 0.2
+    },
+    {
+      "item": "realistic_ores:blood_infused_grinding_ball",
+      "chance": 0.97
+    }
+  ],
+  "processingTime": 300
+}

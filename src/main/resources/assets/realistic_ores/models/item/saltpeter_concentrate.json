@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "realistic_ores:item/saltpeter_concentrate"
+  }
+}

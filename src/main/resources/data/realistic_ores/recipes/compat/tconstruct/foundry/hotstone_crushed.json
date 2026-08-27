@@ -1,0 +1,56 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:crushed_hotstone"
+  },
+  "result": {
+    "tag": "forge:molten_uranium",
+    "amount": 15
+  },
+  "rate": "metal",
+  "temperature": 950,
+  "time": 120,
+  "byproducts": [
+    {
+      "tag": "forge:molten_thorium",
+      "amount": 5,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_lead",
+      "amount": 5,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_titanium",
+      "amount": 10,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_nickel",
+      "amount": 5,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_cobalt",
+      "amount": 2,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_iron",
+      "amount": 5,
+      "rate": "metal"
+    },
+    {
+      "tag": "forge:molten_osmium",
+      "amount": 5,
+      "rate": "metal"
+    }
+  ]
+}

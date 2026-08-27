@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:crushed_tin_quartz"
+  },
+  "result": {
+    "tag": "forge:molten_tin",
+    "amount": 15
+  },
+  "rate": "metal",
+  "temperature": 950,
+  "time": 120,
+  "byproducts": [
+    {
+      "tag": "forge:molten_aluminum",
+      "amount": 5,
+      "rate": "metal"
+    }
+  ]
+}

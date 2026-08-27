@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "realistic_ores:block/brassroot_0"
+      },
+      {
+        "model": "realistic_ores:block/brassroot_1"
+      },
+      {
+        "model": "realistic_ores:block/brassroot_2"
+      }
+    ]
+  }
+}

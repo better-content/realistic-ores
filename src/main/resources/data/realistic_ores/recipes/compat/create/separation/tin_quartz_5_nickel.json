@@ -1,0 +1,53 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_tin_quartz"
+    },
+    {
+      "item": "realistic_ores:crushed_tin_quartz"
+    },
+    {
+      "item": "realistic_ores:crushed_tin_quartz"
+    },
+    {
+      "item": "realistic_ores:crushed_tin_quartz"
+    },
+    {
+      "item": "realistic_ores:nickel_grinding_ball"
+    },
+    {
+      "fluid": "chemlib:hydrochloric_acid_fluid",
+      "amount": 250
+    },
+    {
+      "fluid": "chemlib:nitric_acid_fluid",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:tin_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:diamond_concentrate",
+      "chance": 0.05
+    },
+    {
+      "item": "realistic_ores:emerald_concentrate",
+      "chance": 0.5
+    },
+    {
+      "item": "realistic_ores:nickel_grinding_ball",
+      "chance": 0.93
+    }
+  ],
+  "processingTime": 300
+}

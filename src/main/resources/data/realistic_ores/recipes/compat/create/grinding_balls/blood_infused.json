@@ -1,0 +1,26 @@
+{
+  "type": "create:compacting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "bloodmagic"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:steel_grinding_ball"
+    },
+    {
+      "item": "bloodmagic:demonslate"
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:blood_infused_grinding_ball"
+    }
+  ]
+}

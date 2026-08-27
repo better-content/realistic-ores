@@ -1,0 +1,22 @@
+{
+  "filter": {
+    "type": "not",
+    "filter": {
+      "type": "or",
+      "filters": [
+        "ore:coal_measures",
+        "ore:ironstone",
+        "ore:copper_bloom",
+        "ore:tin_quartz",
+        "ore:brassroot",
+        "ore:evaporite_beds",
+        "ore:hotstone",
+        "ore:black_shale"
+      ]
+    }
+  },
+  "tags": [
+    "forge:items/ores",
+    "c:items/ores"
+  ]
+}

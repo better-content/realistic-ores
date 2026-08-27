@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "realistic_ores:emerald_concentrate"
+  },
+  "result": {
+    "item": "realistic_ores:emerald_chip",
+    "count": 2
+  },
+  "experience": 0.2,
+  "cookingtime": 120
+}

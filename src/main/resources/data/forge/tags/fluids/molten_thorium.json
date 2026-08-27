@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "realistic_ores:molten_thorium",
+    "realistic_ores:flowing_molten_thorium"
+  ]
+}

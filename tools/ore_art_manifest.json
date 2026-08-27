@@ -1,0 +1,82 @@
+{
+  "coal_measures": {
+    "morphology": "seam",
+    "palette": [
+      "#171b1d",
+      "#2a3338",
+      "#245e6a",
+      "#35bbd0",
+      "#8bdfea"
+    ]
+  },
+  "ironstone": {
+    "morphology": "blocky_banded",
+    "palette": [
+      "#283442",
+      "#314b70",
+      "#245aa6",
+      "#1175fc",
+      "#83b1ff"
+    ]
+  },
+  "copper_bloom": {
+    "morphology": "branching_bloom",
+    "palette": [
+      "#4a3022",
+      "#70431f",
+      "#aa652b",
+      "#d98b4a",
+      "#e8b06f"
+    ]
+  },
+  "tin_quartz": {
+    "morphology": "branching",
+    "palette": [
+      "#43413a",
+      "#766f3a",
+      "#9c8614",
+      "#caa903",
+      "#e1d66d"
+    ]
+  },
+  "brassroot": {
+    "morphology": "branching",
+    "palette": [
+      "#394225",
+      "#68732c",
+      "#8ca72d",
+      "#c0e304",
+      "#dcf27a"
+    ]
+  },
+  "evaporite_beds": {
+    "morphology": "crystalline_beds",
+    "palette": [
+      "#6f7773",
+      "#94b3a8",
+      "#5db796",
+      "#6fedba",
+      "#c5f8e2"
+    ]
+  },
+  "hotstone": {
+    "morphology": "radiant_fractures",
+    "palette": [
+      "#3b2529",
+      "#6e343d",
+      "#a94c59",
+      "#e4717d",
+      "#f2a2ab"
+    ]
+  },
+  "black_shale": {
+    "morphology": "seam",
+    "palette": [
+      "#19161d",
+      "#352c44",
+      "#55436d",
+      "#8a6cb2",
+      "#bba8d0"
+    ]
+  }
+}

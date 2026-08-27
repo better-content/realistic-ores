@@ -1,0 +1,41 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_coal_measures"
+    },
+    {
+      "item": "realistic_ores:crushed_coal_measures"
+    },
+    {
+      "item": "realistic_ores:crushed_coal_measures"
+    },
+    {
+      "item": "realistic_ores:crushed_coal_measures"
+    },
+    {
+      "item": "realistic_ores:andesite_grinding_ball"
+    },
+    {
+      "fluid": "minecraft:water",
+      "amount": 500
+    }
+  ],
+  "results": [
+    {
+      "item": "realistic_ores:coal_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:andesite_grinding_ball",
+      "chance": 0.8
+    }
+  ],
+  "processingTime": 300
+}

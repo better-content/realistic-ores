@@ -2,6 +2,13 @@
 
 Pack-owned ore and deposit support mod for Forge `1.20.1`.
 
+The eight deposit families each own exactly one Systemic Salience aspect. Mining a native
+deposit or its Excavated Variants host-specific form gives only the miner a quiet spatial
+physical-foley cue. Familiarity backs cues off per player and per aspect from immediate to
+30 seconds, 2 minutes, 8 minutes, 32 minutes, and 2 hours; one level decays every 4 hours
+48 minutes of real time, including offline time. The state persists through death and
+handles backward wall-clock corrections without trapping the player in a cooldown.
+
 ## Texture visual identity
 
 This section is the normative art direction for Realistic Ores. It was derived from the
@@ -68,8 +75,8 @@ the original composites. New textures and texture variants must preserve these r
 - Host contrast may shift naturally between stone and deepslate, but the mineral palette
   and family silhouette stay recognizable. Do not brighten deep variants merely to make
   them as luminous as their stone versions.
-- Keep all block textures fully opaque. Emissive pixels are not part of the current
-  language, including uranium, thorium, redstone-bearing redbed, and osmiridium.
+- Keep all block textures fully opaque. Hotstone communicates heat through block light
+  and contact behaviour, not emissive pixels painted into the texture.
 
 ### Excavated Variants contract
 
@@ -86,41 +93,27 @@ for each Unearthed stone. Validation should sample several light, dark, coarse, 
 directional Unearthed hosts to confirm that all three canonical variants remain legible
 after synthesis.
 
-### Deposit families and palettes
+### Deposit families
 
-Palette entries are the five source mineral colors, ordered approximately dark to light.
-They are anchors for variants, not a license to replace the family morphology with a
-recolor.
-
-| Family | Required morphology | Mineral palette |
+| Family | First-contact promise | Required morphology |
 | --- | --- | --- |
-| Bauxite laterite | scattered rusty angular nodules | `#7b3e30` `#975a3a` `#cd8553` `#efb687` `#d7c6b0` |
-| Coal measures | broken dark carbon seams with restrained ochre inclusions | `#202024` `#3c3c42` `#666670` `#7b6a30` `#b09a52` |
-| Copper sulfide | small clustered brown/brassy disseminations | `#5c3a21` `#5a693d` `#9f612f` `#7f8d59` `#d8974b` |
-| Corundum-beryl gem vein | sparse diagonal purple-blue crystal vein | `#6c2b90` `#3d74cf` `#d277f0` `#78b8ff` `#cfd7dc` |
-| Cupriferous redbed-redstone | sharp, locally clustered red fracture seam | `#5d1116` `#a31c25` `#7e3d2c` `#ff4f4f` `#b47240` |
-| Emerald schist-beryl | branching green crystal stringers | `#216d39` `#697850` `#38b35c` `#8fbfa0` `#9bf4ad` |
-| Ironstone | rusty, laterally biased bedded seam | `#5d3123` `#6b4d56` `#8d4e35` `#8d6f78` `#c37754` |
-| Kimberlite pipe | very sparse muted fragments with icy indicator crystals | `#384436` `#5a6b58` `#67737b` `#86d7e0` `#d1fbff` |
-| Lazurite vein | narrow branching blue vein with a small gangue accent | `#244291` `#3b66d4` `#7d90a5` `#79adff` `#d5c986` |
-| Lead-zinc vein | cool-grey branching metallic vein with warm gangue | `#4c4c59` `#767687` `#8d7a61` `#a9a9b9` `#d5c39b` |
-| Nickel sulfide | muted olive angular disseminations with metallic flecks | `#516049` `#81906b` `#8d8d98` `#bccd88` `#c9c9d3` |
-| Osmiridium lava sulfide | compact interconnected blue-black metallic blebs with short angular stringers, cold silver iridescence, and sparse brassy caps | `#242936` `#49556a` `#7a6687` `#a7b7c7` `#d8b45a` |
-| Phosphate rock | soft pale-olive nodules with subtle pink gangue | `#82906d` `#d4aab5` `#afc28e` `#d1cabb` `#dde6c6` |
-| Quartz vein | thick, high-value branching white fracture fill | `#d7b97b` `#bcc7ce` `#d8d2ca` `#ece8e0` `#f7f0e7` |
-| Soul-bearing black shale | thin, dark irregular seam with sparse violet energy | `#19161d` `#4e3272` `#394038` `#a173ff` `#cbc4db` |
-| Sulfur-bearing pyrite | sparse chained brassy grains with neutral gangue | `#5a554f` `#706028` `#9b9388` `#b49936` `#e2ca63` |
-| Thorium | sparse subdued olive splinters with warm pale gangue | `#4a5a3b` `#7c9358` `#b9b38d` `#bbd68f` `#dfd8ae` |
-| Tin | sparse cool-white fracture fragments | `#74777d` `#a5aab1` `#d9d2c4` `#dde1e7` `#f1ece4` |
-| Tin-tungsten greisen | denser angular grey-white vein network | `#434349` `#71737a` `#afb4bb` `#ddd9d1` `#f2efe8` |
-| Titanium-iron oxide | dark angular bands with muted green and metallic highlights | `#4d403a` `#776863` `#6c7147` `#97a160` `#b7c4cc` |
-| Uranium | clustered acidic-green grains, bright but non-emissive | `#2d4c20` `#718145` `#4d8f2c` `#a7ae86` `#a2ff49` |
-| Zinc | sparse warm-grey/tan disseminated grains | `#75614b` `#8c705e` `#9a866d` `#cbbca2` `#d8cfb2` |
+| Coal Measures | fuel | broad broken black strata |
+| Ironstone | iron and tools | thick rusty bedded bands |
+| Copper Bloom | copper | oxidized green/brassy mineralization |
+| Tin Quartz | bronze and quartz | bright crystal ribbons with dark inclusions |
+| Brassroot | zinc and brass | yellow-grey branching roots |
+| Evaporite Beds | salt and preservation | pale crystalline sedimentary beds |
+| Hotstone | dangerous usable heat and heavy matter | dark energetic mineral body |
+| Black Shale | redstone and supernatural material | black strata with sparse violet contamination |
 
-Osmiridium lava sulfide is a distinct late lava-depth family. Its compact platinum-group
-metal blebs and short stringers must remain visibly denser and cooler than nickel's olive
-disseminations. Brassy pixels are sparse sulfide caps, not a dominant gold vein, and the
-silver-violet value steps are reflective mineral color rather than emissive light.
+These eight are the complete player-facing worldgen families. Oil Seep remains a separate
+fluid surface feature. Exact primary and coproduct materials belong to processing depth,
+not additional worldgen identities. The retained assay catalogue is the 24 useful outputs
+plus rock salt, sodium chloride, and saltpeter; inert technical concentrates are removed.
+
+`tools/ore_art_manifest.json` is the canonical five-colour palette and morphology list.
+Tin Quartz folds gem-bearing pegmatite depth into its later assay routes, while Black Shale
+folds redstone and precious-metal depth into its controlled soul-bearing geology.
 
 ### Crushed material and surface samples
 
@@ -131,19 +124,45 @@ silver-violet value steps are reflective mineral color rather than emissive ligh
   preserves the exact placeable host-rock ore block instead.
 - Ore blocks separate reversibly into one chunk plus their host stone, and recombine from
   those same two ingredients. Processing a chunk is irreversible: an early-game millstone
-  produces one crushed material plus one 10% chance for another (1.1 on average), while
-  crushing wheels produce one plus three independent 30% chances (1.9 on average).
+  produces two crushed feeds, while crushing wheels produce three.
 - Crushed items are compact lower-center piles, not miniature ore blocks. Existing
   sprites occupy roughly 30-40 visible pixels inside an `x=3..12`, `y=6..11` envelope
   (the narrowest families use `x=4..11`).
-- The crushed sprites use seven colors and limited partial alpha only around pile edges.
-  Their opaque interior carries the parent family's hue and value hierarchy.
-- Crushed material and surface samples are separate registry entries. `crushed_*` is a
-  processing ingredient and is never placeable; `surface_sample_*` is a dedicated low
-  scatter block with its own block item.
+- Crushed sprites use the same five family mineral colors as chunks and deposits.
+  Visible pixels are fully opaque against a transparent background.
+- Small chunks use dedicated flat 16x16 inventory sprites rather than rendering the
+  surface-sample block model. Each is one compact ore-bearing fragment occupying roughly
+  16-30 visible pixels inside an `x=4..11`, `y=5..12` envelope. It retains the family
+  morphology and five-color palette while remaining visibly smaller than a full chunk.
+- Concentrates are clean low mounds of fine powder, not recolored chunks or coarse crushed
+  feed. They use five frozen output-material colors and a compact `x=3..12`, `y=7..12`
+  silhouette so shared coproducts remain identifiable independently of their source deposit.
+- Crushed material and surface samples have separate processing-item and block identities.
+  `crushed_*` is never placeable. Each `surface_sample_*` block deliberately has no item
+  identity of its own; its BlockItem is registered only as `small_ore_chunk_<family>`, so
+  EMI/JEI exposes the small chunk while the placed surface block remains hidden.
+- Nine identical small chunks irreversibly combine into one full chunk. A full chunk cooks
+  to two primary nuggets, gem chips, or bulk items; each crushed feed cooks to one. Four matching
+  crushed feeds, one route-specific grinding ball, and exactly 500 mB of the declared
+  water/acid route produce four primary concentrates plus independently rolled coproducts.
+  Separation never emits washed forms or generic tailings.
+- TConstruct melting and Foundry exits exist only for metal primaries and metal coproducts.
+  Quartz and gems keep item-form recovery and never become molten Realistic Ores outputs.
+- Coal Measures chunks are directly combustible. Evaporite chunks produce Rock Salt,
+  Black Shale supports soul fire and yields soul sand, Gem Pipe yields rough gem chips,
+  and Hotstone is luminous, painful to cross, and can be consolidated into magma.
+- Coal measures and ironstone deliberately share a sedimentary seam vocabulary, but coal's
+  broken dark carbon seam and ironstone's rusty bedded band remain distinct. Their overlapping
+  height bands are preserved; their worldgen features and ADLODS deposits remain independent.
+- Oil seep uses the same right-click collect/place behavior as surface samples, returning its
+  own BlockItem without entering any ore processing tag or conversion.
 - Surface samples use the ore family's opaque raw-deposit texture on five deterministic,
   ore-specific fragment arrangements. They must read as host-rock fragments carrying
   mineralization, not as a crushed processing pile laid on the ground.
+
+Curated processing-item art is generated as one unique transparent high-resolution master
+per item and reduced deterministically; see `art/README.md`. `tools/generate_phase3_resources.py`
+owns models and recipes but must never synthesize or replace curated item PNGs.
 
 ### Variant acceptance checklist
 
@@ -171,7 +190,7 @@ normal lighting and shaders. Confirm that:
 ./gradlew stageRuntimeJar
 ```
 
-`verifyFull` currently matches the fast lane because this repo does not yet ship Forge GameTests.
+`verifyFull` adds `verifyItemTextures` to the fast lane, checking curated item sprites against their 1024px masters. The repository does not currently ship Forge GameTests.
 
 ## Release artifact
 

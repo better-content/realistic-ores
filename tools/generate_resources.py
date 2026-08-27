@@ -45,7 +45,7 @@ TAG_MAP = {
     "lazurite_vein": ["minecraft:mineable/pickaxe", "forge:ores", "forge:ores/lapis"],
     "cupriferous_redbed_redstone_vein": ["minecraft:mineable/pickaxe", "forge:ores", "forge:ores/redstone", "forge:ores/copper"],
     "quartz_vein": ["minecraft:mineable/pickaxe", "forge:ores", "forge:ores/quartz"],
-    "corundum_beryl_gem_vein": ["minecraft:mineable/pickaxe", "forge:ores"],
+    "amethyst_beryl_pegmatite": ["minecraft:mineable/pickaxe", "forge:ores"],
     "soul_bearing_black_shale_soulstone_vein": ["minecraft:mineable/pickaxe", "forge:ores"],
     "thorium": ["minecraft:mineable/pickaxe", "forge:ores", "forge:ores/thorium"],
     "uranium": ["minecraft:mineable/pickaxe", "forge:ores", "forge:ores/uranium"],
@@ -65,7 +65,7 @@ VEIN_SIZE_MAP = {
     "bauxite_laterite": 18,
     "sulfur_bearing_pyrite": 18,
     "kimberlite_pipe": 10,
-    "corundum_beryl_gem_vein": 10,
+    "amethyst_beryl_pegmatite": 10,
     "emerald_schist_beryl_vein": 10,
     "lazurite_vein": 10,
     "cupriferous_redbed_redstone_vein": 12,
@@ -87,7 +87,7 @@ COUNT_MAP = {
     "bauxite_laterite": 6,
     "quartz_vein": 6,
     "kimberlite_pipe": 4,
-    "corundum_beryl_gem_vein": 4,
+    "amethyst_beryl_pegmatite": 4,
     "emerald_schist_beryl_vein": 4,
     "lazurite_vein": 4,
     "cupriferous_redbed_redstone_vein": 5,
@@ -430,12 +430,12 @@ def surface_sample_elements(block_id: str, variant: int) -> list[dict[str, objec
 
 
 def generate_surface_samples() -> None:
-    ore_dir = RESOURCES / "data" / "realisticores" / "realistic_ores"
-    blockstate_dir = RESOURCES / "assets" / "realisticores" / "blockstates"
-    block_model_dir = RESOURCES / "assets" / "realisticores" / "models" / "block"
-    item_model_dir = RESOURCES / "assets" / "realisticores" / "models" / "item"
-    loot_dir = RESOURCES / "data" / "realisticores" / "loot_tables" / "blocks"
-    lang_path = RESOURCES / "assets" / "realisticores" / "lang" / "en_us.json"
+    ore_dir = RESOURCES / "data" / "realistic_ores" / "realistic_ores"
+    blockstate_dir = RESOURCES / "assets" / "realistic_ores" / "blockstates"
+    block_model_dir = RESOURCES / "assets" / "realistic_ores" / "models" / "block"
+    item_model_dir = RESOURCES / "assets" / "realistic_ores" / "models" / "item"
+    loot_dir = RESOURCES / "data" / "realistic_ores" / "loot_tables" / "blocks"
+    lang_path = RESOURCES / "assets" / "realistic_ores" / "lang" / "en_us.json"
     lang = json.loads(lang_path.read_text(encoding="utf-8"))
 
     definitions = []
@@ -445,14 +445,14 @@ def generate_surface_samples() -> None:
             (variant for variant in definition["variants"] if variant["host"] == "stone"),
             definition["variants"][0],
         )
-        sample_id = f"surface_sample_{primary['block_id']}"
+        sample_id = f"surface_sample_{definition['id']}"
         textures = primary["textures"]
         texture = textures.get("south") or textures.get("all") or textures.get("side")
         if not texture:
             raise RuntimeError(f"surface sample has no usable opaque ore texture: {sample_id}")
         definitions.append((sample_id, definition["display_name"], texture))
-    definitions.append(("oil_seep", "Oil Seep", f"realisticores:block/{OIL_SHALE_TEXTURE}"))
-    generate_oil_shale_texture(RESOURCES / "assets" / "realisticores" / "textures" / "block" / f"{OIL_SHALE_TEXTURE}.png")
+    definitions.append(("oil_seep", "Oil Seep", f"realistic_ores:block/{OIL_SHALE_TEXTURE}"))
+    generate_oil_shale_texture(RESOURCES / "assets" / "realistic_ores" / "textures" / "block" / f"{OIL_SHALE_TEXTURE}.png")
 
     for path in blockstate_dir.glob("crushed_*.json"):
         path.unlink()
@@ -472,7 +472,7 @@ def generate_surface_samples() -> None:
         path.unlink()
 
     for key in list(lang):
-        if key.startswith("block.realisticores.crushed_") or key.startswith("block.realisticores.surface_sample_"):
+        if key.startswith("block.realistic_ores.crushed_") or key.startswith("block.realistic_ores.surface_sample_"):
             del lang[key]
 
     geometry_signatures = set()
@@ -493,13 +493,13 @@ def generate_surface_samples() -> None:
                 },
             )
             for rotation in [0, 90, 180, 270]:
-                variants.append({"model": f"realisticores:block/{model_id}", "y": rotation})
+                variants.append({"model": f"realistic_ores:block/{model_id}", "y": rotation})
         write_json(
             blockstate_dir / f"{block_id}.json",
             {"variants": {"waterlogged=false": variants, "waterlogged=true": variants}},
         )
         drop_block_id = (
-            f"ore_chunk_{block_id.removeprefix('surface_sample_')}"
+            f"small_ore_chunk_{block_id.removeprefix('surface_sample_')}"
             if block_id.startswith("surface_sample_")
             else block_id
         )
@@ -513,7 +513,7 @@ def generate_surface_samples() -> None:
                         "entries": [
                             {
                                 "type": "minecraft:item",
-                                "name": f"realisticores:{drop_block_id}",
+                                "name": f"realistic_ores:{drop_block_id}",
                             }
                         ],
                         "conditions": [{"condition": "minecraft:survives_explosion"}],
@@ -522,10 +522,14 @@ def generate_surface_samples() -> None:
             },
         )
         if block_id == "oil_seep" or block_id.startswith("surface_sample_"):
+            item_id = (
+                f"small_ore_chunk_{block_id.removeprefix('surface_sample_')}"
+                if block_id.startswith("surface_sample_") else block_id
+            )
             write_json(
-                item_model_dir / f"{block_id}.json",
+                item_model_dir / f"{item_id}.json",
                 {
-                    "parent": f"realisticores:block/{block_id}_2",
+                    "parent": f"realistic_ores:block/{block_id}_2",
                     "display": {
                         "gui": {
                             "rotation": [30, 225, 0],
@@ -536,9 +540,9 @@ def generate_surface_samples() -> None:
                 },
             )
         if block_id.startswith("surface_sample_"):
-            lang[f"block.realisticores.{block_id}"] = f"Surface Sample: {display_name}"
+            lang[f"block.realistic_ores.{block_id}"] = f"Surface Sample: {display_name}"
         else:
-            lang[f"block.realisticores.{block_id}"] = display_name
+            lang[f"block.realistic_ores.{block_id}"] = display_name
 
         signature = json.dumps(block_geometry, sort_keys=True)
         if signature in geometry_signatures:
@@ -563,17 +567,17 @@ def main() -> None:
 
     spec = json.loads(LEGACY_SPEC_PATH.read_text(encoding="utf-8"))
 
-    ore_dir = RESOURCES / "data" / "realisticores" / "realistic_ores"
-    worldgen_dir = RESOURCES / "data" / "realisticores" / "realistic_ore_generation"
-    disabled_dir = RESOURCES / "data" / "realisticores" / "disabled_placed_features"
-    configured_feature_dir = RESOURCES / "data" / "realisticores" / "worldgen" / "configured_feature"
-    placed_feature_dir = RESOURCES / "data" / "realisticores" / "worldgen" / "placed_feature"
-    biome_modifier_dir = RESOURCES / "data" / "realisticores" / "forge" / "biome_modifier"
-    texture_dir = RESOURCES / "assets" / "realisticores" / "textures" / "block"
-    blockstate_dir = RESOURCES / "assets" / "realisticores" / "blockstates"
-    block_model_dir = RESOURCES / "assets" / "realisticores" / "models" / "block"
-    item_model_dir = RESOURCES / "assets" / "realisticores" / "models" / "item"
-    loot_dir = RESOURCES / "data" / "realisticores" / "loot_tables" / "blocks"
+    ore_dir = RESOURCES / "data" / "realistic_ores" / "realistic_ores"
+    worldgen_dir = RESOURCES / "data" / "realistic_ores" / "realistic_ore_generation"
+    disabled_dir = RESOURCES / "data" / "realistic_ores" / "disabled_placed_features"
+    configured_feature_dir = RESOURCES / "data" / "realistic_ores" / "worldgen" / "configured_feature"
+    placed_feature_dir = RESOURCES / "data" / "realistic_ores" / "worldgen" / "placed_feature"
+    biome_modifier_dir = RESOURCES / "data" / "realistic_ores" / "forge" / "biome_modifier"
+    texture_dir = RESOURCES / "assets" / "realistic_ores" / "textures" / "block"
+    blockstate_dir = RESOURCES / "assets" / "realistic_ores" / "blockstates"
+    block_model_dir = RESOURCES / "assets" / "realistic_ores" / "models" / "block"
+    item_model_dir = RESOURCES / "assets" / "realistic_ores" / "models" / "item"
+    loot_dir = RESOURCES / "data" / "realistic_ores" / "loot_tables" / "blocks"
 
     for directory in [
         ore_dir,
@@ -612,7 +616,7 @@ def main() -> None:
                         "host": "stone",
                         "block_id": stone_block,
                         "texture_mode": "cube_all",
-                        "textures": {"all": f"realisticores:block/{stone_block}"},
+                        "textures": {"all": f"realistic_ores:block/{stone_block}"},
                         "copy_properties_from": "minecraft:stone",
                     },
                     {
@@ -620,9 +624,9 @@ def main() -> None:
                         "block_id": deepslate_block,
                         "texture_mode": "cube_column_like",
                         "textures": {
-                            "side": f"realisticores:block/{deepslate_block}_side",
-                            "top": f"realisticores:block/{deepslate_block}_top",
-                            "bottom": f"realisticores:block/{deepslate_block}_bottom",
+                            "side": f"realistic_ores:block/{deepslate_block}_side",
+                            "top": f"realistic_ores:block/{deepslate_block}_top",
+                            "bottom": f"realistic_ores:block/{deepslate_block}_bottom",
                         },
                         "copy_properties_from": "minecraft:deepslate",
                     },
@@ -636,30 +640,30 @@ def main() -> None:
         shutil.copyfile(ROOT / "textures" / "deepslate" / f"{source_id}_deepslate_top.png", texture_dir / f"{deepslate_block}_top.png")
         shutil.copyfile(ROOT / "textures" / "deepslate" / f"{source_id}_deepslate_bottom.png", texture_dir / f"{deepslate_block}_bottom.png")
 
-        write_json(blockstate_dir / f"{stone_block}.json", {"variants": {"": {"model": f"realisticores:block/{stone_block}"}}})
-        write_json(block_model_dir / f"{stone_block}.json", {"parent": "minecraft:block/cube_all", "textures": {"all": f"realisticores:block/{stone_block}"}})
-        write_json(item_model_dir / f"{stone_block}.json", {"parent": f"realisticores:block/{stone_block}"})
+        write_json(blockstate_dir / f"{stone_block}.json", {"variants": {"": {"model": f"realistic_ores:block/{stone_block}"}}})
+        write_json(block_model_dir / f"{stone_block}.json", {"parent": "minecraft:block/cube_all", "textures": {"all": f"realistic_ores:block/{stone_block}"}})
+        write_json(item_model_dir / f"{stone_block}.json", {"parent": f"realistic_ores:block/{stone_block}"})
 
-        write_json(blockstate_dir / f"{deepslate_block}.json", {"variants": {"": {"model": f"realisticores:block/{deepslate_block}"}}})
+        write_json(blockstate_dir / f"{deepslate_block}.json", {"variants": {"": {"model": f"realistic_ores:block/{deepslate_block}"}}})
         write_json(
             block_model_dir / f"{deepslate_block}.json",
             {
                 "parent": "minecraft:block/cube_bottom_top",
                 "textures": {
-                    "side": f"realisticores:block/{deepslate_block}_side",
-                    "top": f"realisticores:block/{deepslate_block}_top",
-                    "bottom": f"realisticores:block/{deepslate_block}_bottom",
+                    "side": f"realistic_ores:block/{deepslate_block}_side",
+                    "top": f"realistic_ores:block/{deepslate_block}_top",
+                    "bottom": f"realistic_ores:block/{deepslate_block}_bottom",
                 },
             },
         )
-        write_json(item_model_dir / f"{deepslate_block}.json", {"parent": f"realisticores:block/{deepslate_block}"})
+        write_json(item_model_dir / f"{deepslate_block}.json", {"parent": f"realistic_ores:block/{deepslate_block}"})
 
         loot_template = lambda name: {
             "type": "minecraft:block",
             "pools": [
                 {
                     "rolls": 1.0,
-                    "entries": [{"type": "minecraft:item", "name": f"realisticores:{name}"}],
+                    "entries": [{"type": "minecraft:item", "name": f"realistic_ores:{name}"}],
                     "conditions": [{"condition": "minecraft:survives_explosion"}],
                 }
             ],
@@ -667,11 +671,11 @@ def main() -> None:
         write_json(loot_dir / f"{stone_block}.json", loot_template(stone_block))
         write_json(loot_dir / f"{deepslate_block}.json", loot_template(deepslate_block))
 
-        lang[f"block.realisticores.{stone_block}"] = display_name
-        lang[f"block.realisticores.{deepslate_block}"] = f"Deepslate {display_name}"
+        lang[f"block.realistic_ores.{stone_block}"] = display_name
+        lang[f"block.realistic_ores.{deepslate_block}"] = f"Deepslate {display_name}"
 
         for block_id in [stone_block, deepslate_block]:
-            full_id = f"realisticores:{block_id}"
+            full_id = f"realistic_ores:{block_id}"
             append_tag_value(tag_files, RESOURCES / "data" / "minecraft" / "tags" / "blocks" / "mineable" / "pickaxe.json", full_id)
 
             for tag in tags:
@@ -682,7 +686,7 @@ def main() -> None:
 
         y_bands = ore.get("y_bands", {})
         for variant in ["stone", "deepslate"]:
-            target_tag = "realisticores:overworld_ore_replaceables"
+            target_tag = "realistic_ores:overworld_ore_replaceables"
             band = y_bands.get(variant)
             if not band:
                 continue
@@ -718,7 +722,7 @@ def main() -> None:
                                     "tag": target_tag,
                                 },
                                 "state": {
-                                    "Name": f"realisticores:{stone_block if variant == 'stone' else deepslate_block}"
+                                    "Name": f"realistic_ores:{stone_block if variant == 'stone' else deepslate_block}"
                                 },
                             }
                         ],
@@ -737,7 +741,7 @@ def main() -> None:
             write_json(
                 placed_feature_dir / f"{feature_id}.json",
                 {
-                    "feature": f"realisticores:{feature_id}",
+                    "feature": f"realistic_ores:{feature_id}",
                     "placement": [
                         {"type": "minecraft:count", "count": worldgen_definition["count_per_chunk"]},
                         {"type": "minecraft:in_square"},
@@ -752,13 +756,13 @@ def main() -> None:
                 {
                     "type": "forge:add_features",
                     "biomes": worldgen_definition["biome_filter"],
-                    "features": f"realisticores:{feature_id}",
+                    "features": f"realistic_ores:{feature_id}",
                     "step": worldgen_definition["generation_step"],
                 },
             )
 
     write_json(disabled_dir / "vanilla.json", {"features": DISABLED_VANILLA_FEATURES})
-    write_json(RESOURCES / "assets" / "realisticores" / "lang" / "en_us.json", lang)
+    write_json(RESOURCES / "assets" / "realistic_ores" / "lang" / "en_us.json", lang)
     write_json(
         biome_modifier_dir / "remove_disabled_vanilla_ores.json",
         {
