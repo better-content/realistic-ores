@@ -1,5 +1,6 @@
 package com.bettercontent.realisticores.block;
 
+import com.bettercontent.realisticores.compat.ThreadsBridge;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -33,10 +34,13 @@ public final class SurfaceSampleBlock extends Block implements SimpleWaterlogged
     private static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 3.0, 15.0);
     @Nullable
     private final ResourceLocation collectedItemId;
+    @Nullable
+    private final String depositFamily;
 
-    public SurfaceSampleBlock(Properties properties, @Nullable ResourceLocation collectedItemId) {
+    public SurfaceSampleBlock(Properties properties, @Nullable ResourceLocation collectedItemId, @Nullable String depositFamily) {
         super(properties);
         this.collectedItemId = collectedItemId;
+        this.depositFamily = depositFamily;
         registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false));
     }
 
@@ -71,6 +75,9 @@ public final class SurfaceSampleBlock extends Block implements SimpleWaterlogged
         ItemStack collectedStack = new ItemStack(collectedItem);
         if (!player.addItem(collectedStack)) {
             popResource(level, position, collectedStack);
+        }
+        if (depositFamily != null && player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            ThreadsBridge.sampleRead(serverPlayer, depositFamily);
         }
         return InteractionResult.CONSUME;
     }

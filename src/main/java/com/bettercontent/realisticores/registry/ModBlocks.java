@@ -48,12 +48,12 @@ public final class ModBlocks {
                         definition.smallOreChunkItemId());
                 SURFACE_SAMPLES_BY_ID.put(sampleId, BLOCKS.register(
                         sampleId,
-                        () -> newSurfaceSample(collectedItemId)));
+                        () -> newSurfaceSample(collectedItemId, definition.id())));
             }
             ResourceLocation oilSeepItemId = ResourceLocation.fromNamespaceAndPath(
                     RealisticOresMod.MOD_ID,
                     "oil_seep");
-            OIL_SEEP = BLOCKS.register("oil_seep", () -> newSurfaceSample(oilSeepItemId));
+            OIL_SEEP = BLOCKS.register("oil_seep", () -> newSurfaceSample(oilSeepItemId, null));
         }
         BLOCKS.register(modBus);
     }
@@ -79,12 +79,12 @@ public final class ModBlocks {
     }
 
 
-    private static SurfaceSampleBlock newSurfaceSample(ResourceLocation collectedItemId) {
+    private static SurfaceSampleBlock newSurfaceSample(ResourceLocation collectedItemId, String depositFamily) {
         return new SurfaceSampleBlock(BlockBehaviour.Properties.copy(Blocks.MOSS_CARPET)
                 .noCollission()
                 .instabreak()
                 .sound(SoundType.GRAVEL)
-                .offsetType(BlockBehaviour.OffsetType.XZ), collectedItemId);
+                .offsetType(BlockBehaviour.OffsetType.XZ), collectedItemId, depositFamily);
     }
 
     private static Block newDepositBlock(String family, String copyPropertiesFrom) {
