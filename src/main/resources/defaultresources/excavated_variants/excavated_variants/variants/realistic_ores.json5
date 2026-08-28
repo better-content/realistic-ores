@@ -1,6 +1,7 @@
 {
   "mod_id": "realistic_ores",
-  "provided_stones": [
+  "provided_stones": [],
+  "provided_ores": [
     {
       "id": "coal_measures",
       "stone": [
@@ -170,6 +171,5 @@
         "copper_ore"
       ]
     }
-  ],
-  "provided_ores": []
+  ]
 }

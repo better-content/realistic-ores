@@ -67,6 +67,48 @@ final class RealisticOresResourceTest {
     }
 
     @Test
+    void excavatedVariantsClassifiesAndTagsEveryDepositAsAnOre() {
+        Path excavatedVariantsRoot = RESOURCE_ROOT.resolve(
+                "defaultresources/excavated_variants/excavated_variants");
+        JsonObject variants = read(
+                excavatedVariantsRoot.resolve("variants/realistic_ores.json5"), JsonObject.class);
+
+        assertTrue(variants.getAsJsonArray("provided_stones").isEmpty(),
+                "deposit families must not be registered as replacement host stones");
+        JsonArray providedOres = variants.getAsJsonArray("provided_ores");
+        assertEquals(SALIENT_FAMILIES, providedOres.asList().stream()
+                .map(entry -> entry.getAsJsonObject().get("id").getAsString())
+                .collect(Collectors.toUnmodifiableSet()));
+        assertEquals(SALIENT_FAMILIES.size(), providedOres.size());
+
+        for (var entry : providedOres) {
+            JsonObject ore = entry.getAsJsonObject();
+            String family = ore.get("id").getAsString();
+            assertEquals(List.of("stone", "deepslate"), ore.getAsJsonArray("stone").asList().stream()
+                    .map(value -> value.getAsString()).toList(), family);
+            assertEquals(Set.of("realistic_ores:" + family, "realistic_ores:deepslate_" + family),
+                    ore.getAsJsonArray("block_id").asList().stream()
+                            .map(value -> value.getAsString())
+                            .collect(Collectors.toUnmodifiableSet()), family);
+            assertEquals(List.of("stone"), ore.getAsJsonArray("types").asList().stream()
+                    .map(value -> value.getAsString()).toList(), family);
+
+            Path modifierPath = excavatedVariantsRoot.resolve("modifiers/realistic_ores/"
+                    + family + ".json5");
+            JsonObject modifier = read(modifierPath, JsonObject.class);
+            assertEquals("ore:" + family, modifier.get("filter").getAsString(), modifierPath.toString());
+            assertEquals(Set.of(
+                            "minecraft:blocks/mineable/pickaxe",
+                            "realistic_ores:blocks/deposit_ore_blocks/" + family,
+                            "realistic_ores:blocks/deposit_ore_blocks"),
+                    modifier.getAsJsonArray("tags").asList().stream()
+                            .map(value -> value.getAsString())
+                            .collect(Collectors.toUnmodifiableSet()),
+                    modifierPath.toString());
+        }
+    }
+
+    @Test
     void disabledPlacedFeatureResourcesValidate() throws IOException {
         try (var paths = Files.list(DATA_ROOT.resolve("disabled_placed_features"))) {
             var resources = paths.filter(path -> path.getFileName().toString().endsWith(".json")).toList();
