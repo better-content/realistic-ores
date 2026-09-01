@@ -144,8 +144,11 @@ folds redstone and precious-metal depth into its controlled soul-bearing geology
 - Nine identical small chunks irreversibly combine into one full chunk. A full chunk cooks
   to two primary nuggets, gem chips, or bulk items; each crushed feed cooks to one. Four matching
   crushed feeds, one route-specific grinding ball, and exactly 500 mB of the declared
-  water/acid route produce four primary concentrates plus independently rolled coproducts.
-  Separation never emits washed forms or generic tailings.
+  water/acid route usually produce four primary concentrates plus independently rolled
+  coproducts. Explicit assay variants may move all guaranteed yield into route-specific
+  concentrates: Hotstone's structural assay intentionally has zero primary output and guarantees
+  titanium with nickel, cobalt, and iron coproducts. Separation never emits washed forms or
+  generic tailings.
 - TConstruct melting and Foundry exits exist only for metal primaries and metal coproducts.
   Quartz and gems keep item-form recovery and never become molten Realistic Ores outputs.
 - Coal Measures chunks are directly combustible. Evaporite chunks produce Rock Salt,
