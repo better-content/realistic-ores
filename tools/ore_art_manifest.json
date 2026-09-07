@@ -1,82 +1,82 @@
 {
   "coal_measures": {
-    "morphology": "seam",
+    "morphology": "broad_broken_horizontal_seams",
     "palette": [
-      "#171b1d",
-      "#2a3338",
-      "#245e6a",
-      "#35bbd0",
-      "#8bdfea"
+      "#101416",
+      "#222a2e",
+      "#39464d",
+      "#52606a",
+      "#a7bbc4"
     ]
   },
   "ironstone": {
-    "morphology": "blocky_banded",
+    "morphology": "thick_blocky_brace_bands",
     "palette": [
-      "#283442",
-      "#314b70",
-      "#245aa6",
-      "#1175fc",
-      "#83b1ff"
+      "#382219",
+      "#60381f",
+      "#874b25",
+      "#af6a2f",
+      "#dea06a"
     ]
   },
   "copper_bloom": {
-    "morphology": "branching_bloom",
+    "morphology": "compact_paired_nodules",
     "palette": [
-      "#4a3022",
-      "#70431f",
-      "#aa652b",
-      "#d98b4a",
-      "#e8b06f"
+      "#182923",
+      "#6a4c2b",
+      "#a87835",
+      "#00a985",
+      "#79d6c1"
     ]
   },
   "tin_quartz": {
-    "morphology": "branching",
+    "morphology": "parallel_stepped_crystal_ribbons",
     "palette": [
-      "#43413a",
-      "#766f3a",
-      "#9c8614",
-      "#caa903",
-      "#e1d66d"
+      "#373431",
+      "#6b6258",
+      "#a99e8c",
+      "#f0e2c5",
+      "#fff8ec"
     ]
   },
   "brassroot": {
-    "morphology": "branching",
+    "morphology": "asymmetric_directional_y_roots",
     "palette": [
-      "#394225",
-      "#68732c",
-      "#8ca72d",
-      "#c0e304",
-      "#dcf27a"
+      "#403416",
+      "#735918",
+      "#aa831b",
+      "#e0b01f",
+      "#f5d878"
     ]
   },
   "evaporite_beds": {
-    "morphology": "crystalline_beds",
+    "morphology": "upright_prismatic_crowns_from_thin_beds",
     "palette": [
-      "#6f7773",
-      "#94b3a8",
-      "#5db796",
-      "#6fedba",
-      "#c5f8e2"
+      "#364a55",
+      "#4d7184",
+      "#5d9cbc",
+      "#6ccaf0",
+      "#d4f1fc"
     ]
   },
   "hotstone": {
-    "morphology": "radiant_fractures",
+    "morphology": "centered_radial_starburst",
     "palette": [
-      "#3b2529",
-      "#6e343d",
-      "#a94c59",
-      "#e4717d",
-      "#f2a2ab"
+      "#32171b",
+      "#6d222b",
+      "#b62f3f",
+      "#ff4055",
+      "#ff9ba5"
     ]
   },
   "black_shale": {
-    "morphology": "seam",
+    "morphology": "sparse_converging_angular_fractures",
     "palette": [
-      "#19161d",
-      "#352c44",
-      "#55436d",
-      "#8a6cb2",
-      "#bba8d0"
+      "#17131c",
+      "#30243a",
+      "#503b65",
+      "#8e5bb7",
+      "#c8a9dd"
     ]
   }
 }

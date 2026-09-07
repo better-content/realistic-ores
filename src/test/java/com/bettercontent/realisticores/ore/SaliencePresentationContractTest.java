@@ -14,7 +14,7 @@ final class SaliencePresentationContractTest {
     @Test
     void oreTooltipsUseTheCanonicalEightCellBadgeFont() throws Exception {
         byte[] badge = resource("/assets/realistic_ores/textures/gui/aspect_badges.png").readAllBytes();
-        assertEquals("b59717a5da26f633cd120f09b750c15875577ec9c74a8c7838c32aea8ee5eeed",
+        assertEquals("84bc0c5fe762fe2df5f1ed53a2e138ecb03bbfbb386657039ad8333927bf51ab",
                 HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(badge)));
         var image = ImageIO.read(new java.io.ByteArrayInputStream(badge));
         assertEquals(144, image.getWidth()); assertEquals(18, image.getHeight());

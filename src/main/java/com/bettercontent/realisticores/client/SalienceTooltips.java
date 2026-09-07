@@ -26,7 +26,8 @@ public final class SalienceTooltips {
         Identity identity = Identity.fromItemPath(id.getPath());
         if (identity == null) return;
 
-        event.getToolTip().add(Component.literal(identity.badge() + " ").withStyle(style -> style.withFont(ASPECT_FONT))
+        event.getToolTip().add(Component.literal(identity.badge()).withStyle(style -> style.withFont(ASPECT_FONT))
+                .append(Component.literal(" ").withStyle(style -> style.withFont(DEFAULT_FONT)))
                 .append(Component.literal(identity.glyph + " " + identity.aspect)
                         .withStyle(style -> style.withFont(DEFAULT_FONT).withColor(identity.color))));
         event.getToolTip().add(Component.literal(identity.promise).withStyle(ChatFormatting.GRAY));
@@ -41,21 +42,21 @@ public final class SalienceTooltips {
     }
 
     enum Identity {
-        HOTSTONE(0, "hotstone", "✦", "Impact", 0xE4717D, "Violent heat and heavy power.",
+        HOTSTONE(0, "hotstone", "✦", "Impact", 0xFF4055, "Violent heat and heavy power.",
                 "warms, burns, and yields magma.", "fissile, structural, and abyssal metals."),
-        COPPER_BLOOM(1, "copper_bloom", "»", "Tempo", 0xAA652B, "Responsive metal for fast mechanisms.",
+        COPPER_BLOOM(1, "copper_bloom", "»", "Tempo", 0x00A985, "Responsive metal for fast mechanisms.",
                 "copper.", "sulfur, iron, and traces of gold."),
-        TIN_QUARTZ(2, "tin_quartz", "⚒", "Work", 0xCAA903, "Toolmaking crystal rock for productive industry.",
+        TIN_QUARTZ(2, "tin_quartz", "⚒", "Work", 0xF0E2C5, "Toolmaking crystal rock for productive industry.",
                 "tin and quartz.", "specialized routes reveal gems and aluminum."),
-        BRASSROOT(3, "brassroot", "➜", "Mobility", 0xC0E304, "Brasswork for moving machines and transport.",
+        BRASSROOT(3, "brassroot", "➜", "Mobility", 0xE0B01F, "Brasswork for moving machines and transport.",
                 "zinc for brass.", "lead, cadmium, and traces of silver."),
-        COAL_MEASURES(4, "coal_measures", "∞", "Endurance", 0x35BBD0, "Stored fuel for long-running work.",
+        COAL_MEASURES(4, "coal_measures", "∞", "Endurance", 0x52606A, "Stored fuel for long-running work.",
                 "combustible coal chunks.", "clean coal with traces of iron."),
-        IRONSTONE(5, "ironstone", "◆", "Robustness", 0x1175FC, "Dense metal for durable tools and structures.",
+        IRONSTONE(5, "ironstone", "◆", "Robustness", 0xAF6A2F, "Dense metal for durable tools and structures.",
                 "iron.", "nickel-bearing iron concentrate."),
-        EVAPORITE_BEDS(6, "evaporite_beds", "✚", "Renewal", 0x6FEDBA, "Salt and fertile chemistry for sustaining life.",
+        EVAPORITE_BEDS(6, "evaporite_beds", "✚", "Renewal", 0x6CCAF0, "Salt and fertile chemistry for sustaining life.",
                 "rock salt for food and preservation.", "sodium chloride and saltpeter."),
-        BLACK_SHALE(7, "black_shale", "⊕", "Control", 0x8A6CB2, "Signal-bearing shale touched by soul matter.",
+        BLACK_SHALE(7, "black_shale", "⊕", "Control", 0x8E5BB7, "Signal-bearing shale touched by soul matter.",
                 "redstone and crude soul material.", "copper, sulfur, iron, and precious traces.");
 
         final int index;

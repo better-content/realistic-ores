@@ -2,9 +2,20 @@
 
 ## Systemic Salience morphology contract
 
-The eight player-facing families freeze the shared aspect motion grammar into dirty geology. Hotstone radiates; Copper Bloom repeats quick clustered pulses; Tin Quartz settles into toolmaking ribbons; Brassroot branches directionally; Coal Measures persists as a continuous seam; Ironstone braces as dense bands; Evaporite Beds bloom upward as crystals; Black Shale converges into controlled fractures. The committed world textures and curated chunk masters already implement these silhouettes, so regeneration must preserve them rather than applying hue-only overlays.
+The eight player-facing families freeze the shared aspect motion grammar into dirty geology. Hotstone is a centered radial starburst; Copper Bloom forms compact paired nodules; Tin Quartz uses parallel stepped crystal ribbons; Brassroot branches into asymmetric directional Y-roots; Coal Measures persists as broad broken horizontal seams; Ironstone braces as thick blocky bands; Evaporite Beds raises upright prismatic crowns from a thin bed; Black Shale converges through sparse angular fractures. Regeneration must preserve those silhouettes rather than applying hue-only overlays.
 
 The canonical 144×18 badge strip is rendered only on interaction surfaces. World blocks remain host-rock dominant and communicate through morphology, value, and physical behavior before their tooltip names the aspect.
+
+## Deposit block art
+
+`tools/GenerateDepositTextures.java` is the canonical renderer for all 288 stone/deepslate, three-variant, six-face deposit textures. It produces opaque 16×16 host-rock-dominant faces from the morphology and five-color ramps in `tools/ore_art_manifest.json`. Each face and variant is distinct, while directionality stays stable enough to identify a family without color.
+
+```sh
+java tools/GenerateDepositTextures.java --write
+java tools/GenerateDepositTextures.java --check
+```
+
+`block-masters/hotstone_six_face_concept.png` records the accepted high-resolution ImageGen exploration that established the radial-impact vocabulary. The runtime renderer encodes a reduced, bounded version because direct atlas crops made the mineral overwhelm the host rock at 16×16.
 
 The PNGs under `item-masters/` are accepted 1024x1024 transparent masters generated
 with the built-in ImageGen workflow documented below. Runtime sprites are deterministic
