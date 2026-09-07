@@ -14,18 +14,6 @@
     "amount": 30
   },
   "rate": "metal",
-  "temperature": 950,
-  "time": 120,
-  "byproducts": [
-    {
-      "tag": "forge:molten_iron",
-      "amount": 5,
-      "rate": "metal"
-    },
-    {
-      "tag": "forge:molten_gold",
-      "amount": 1,
-      "rate": "metal"
-    }
-  ]
+  "temperature": 500,
+  "time": 120
 }

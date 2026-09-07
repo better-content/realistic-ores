@@ -1,0 +1,29 @@
+{
+  "type": "bloodmagic:alchemytable",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "bloodmagic"
+    }
+  ],
+  "input": [
+    {
+      "item": "realistic_ores:crushed_copper_bloom"
+    },
+    {
+      "item": "realistic_ores:crushed_copper_bloom"
+    },
+    {
+      "item": "realistic_ores:crushed_copper_bloom"
+    },
+    {
+      "item": "realistic_ores:crushed_copper_bloom"
+    }
+  ],
+  "output": {
+    "item": "malum:aerial_spirit"
+  },
+  "syphon": 2000,
+  "ticks": 200,
+  "upgradeLevel": 2
+}

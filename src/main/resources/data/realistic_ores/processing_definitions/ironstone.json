@@ -1,47 +1,37 @@
 {
+  "schema": "bc.realistic_ores.processing.v2",
   "family": "ironstone",
   "primary": "iron",
-  "input_count": 4,
-  "routes": [
-    {
-      "medium": "iron",
-      "fluids": [
-        {
-          "fluid": "minecraft:water",
-          "amount": 500
-        }
-      ],
+  "stages": {
+    "chunk": "ore_chunk_ironstone",
+    "crushed": "crushed_ironstone",
+    "rinsed": "rinsed_ironstone"
+  },
+  "routes": {
+    "tech": {
+      "input_count": 4,
+      "pressure": 2.0,
       "primary_count": 4,
       "coproducts": [
         {
           "material": "nickel",
           "grade": "minor",
-          "chance": 0.5
+          "nominal_chance": 0.5
         }
-      ],
-      "ball_return_chance": 0.84
+      ]
     },
-    {
-      "medium": "steel",
-      "fluids": [
-        {
-          "fluid": "chemlib:hydrochloric_acid_fluid",
-          "amount": 250
-        },
-        {
-          "fluid": "minecraft:water",
-          "amount": 250
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [
-        {
-          "material": "nickel",
-          "grade": "minor",
-          "chance": 0.5
-        }
-      ],
-      "ball_return_chance": 0.91
+    "blood": {
+      "input_count": 4,
+      "output": "malum:earthen_spirit"
+    },
+    "hexerei": {
+      "input_count": 4,
+      "output": "occultism:otherworld_essence"
+    },
+    "ars": {
+      "input_count": 1,
+      "output": "ars_nouveau:earth_essence",
+      "chance": 0.25
     }
-  ]
+  }
 }

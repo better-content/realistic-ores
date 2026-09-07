@@ -19,6 +19,13 @@
     "minecraft:ore_diamond",
     "minecraft:ore_diamond_large",
     "minecraft:ore_diamond_buried",
+    "born_in_chaos_v1:infected_diamond_ore_feature",
+    "born_in_chaos_v1:infected_deepslate_diamond_ore_feature",
+    "fallout_wastelands_:wastelanddiamondore",
+    "natures_spirit:ores/ore_diamond",
+    "natures_spirit:ores/ore_diamond_large",
+    "natures_spirit:ores/ore_diamond_buried",
+    "twilightforest:legacy_diamond_ore",
     "minecraft:ore_lapis",
     "minecraft:ore_lapis_buried",
     "minecraft:ore_emerald"

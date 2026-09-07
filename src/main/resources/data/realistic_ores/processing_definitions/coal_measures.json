@@ -1,41 +1,37 @@
 {
+  "schema": "bc.realistic_ores.processing.v2",
   "family": "coal_measures",
   "primary": "coal",
-  "input_count": 4,
-  "routes": [
-    {
-      "medium": "andesite",
-      "fluids": [
-        {
-          "fluid": "minecraft:water",
-          "amount": 500
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [],
-      "ball_return_chance": 0.8
-    },
-    {
-      "medium": "blood_infused",
-      "fluids": [
-        {
-          "fluid": "chemlib:hydrochloric_acid_fluid",
-          "amount": 250
-        },
-        {
-          "fluid": "minecraft:water",
-          "amount": 250
-        }
-      ],
+  "stages": {
+    "chunk": "ore_chunk_coal_measures",
+    "crushed": "crushed_coal_measures",
+    "rinsed": "rinsed_coal_measures"
+  },
+  "routes": {
+    "tech": {
+      "input_count": 4,
+      "pressure": 2.0,
       "primary_count": 4,
       "coproducts": [
         {
           "material": "iron",
           "grade": "trace",
-          "chance": 0.2
+          "nominal_chance": 0.2
         }
-      ],
-      "ball_return_chance": 0.97
+      ]
+    },
+    "blood": {
+      "input_count": 4,
+      "output": "malum:infernal_spirit"
+    },
+    "hexerei": {
+      "input_count": 4,
+      "output": "occultism:otherworld_ashes"
+    },
+    "ars": {
+      "input_count": 1,
+      "output": "ars_nouveau:fire_essence",
+      "chance": 0.25
     }
-  ]
+  }
 }

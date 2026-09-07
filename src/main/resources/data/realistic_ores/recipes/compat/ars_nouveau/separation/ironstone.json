@@ -1,0 +1,21 @@
+{
+  "type": "ars_nouveau:crush",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ars_nouveau"
+    }
+  ],
+  "input": {
+    "item": "realistic_ores:crushed_ironstone"
+  },
+  "output": [
+    {
+      "chance": 0.25,
+      "count": 1,
+      "item": "ars_nouveau:earth_essence",
+      "maxRange": 1
+    }
+  ],
+  "skip_block_place": false
+}

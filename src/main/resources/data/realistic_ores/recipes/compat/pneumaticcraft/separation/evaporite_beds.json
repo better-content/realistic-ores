@@ -1,0 +1,29 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "pneumaticcraft"
+    }
+  ],
+  "inputs": [
+    {
+      "type": "pneumaticcraft:stacked_item",
+      "item": "realistic_ores:rinsed_evaporite_beds",
+      "count": 4
+    }
+  ],
+  "pressure": 2.0,
+  "results": [
+    {
+      "item": "realistic_ores:rock_salt_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:sodium_chloride_concentrate"
+    },
+    {
+      "item": "realistic_ores:saltpeter_concentrate"
+    }
+  ]
+}

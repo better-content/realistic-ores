@@ -1,0 +1,21 @@
+{
+  "type": "ars_nouveau:crush",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ars_nouveau"
+    }
+  ],
+  "input": {
+    "item": "realistic_ores:crushed_hotstone"
+  },
+  "output": [
+    {
+      "chance": 0.25,
+      "count": 1,
+      "item": "ars_nouveau:fire_essence",
+      "maxRange": 1
+    }
+  ],
+  "skip_block_place": false
+}

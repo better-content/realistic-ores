@@ -1,84 +1,57 @@
 {
+  "schema": "bc.realistic_ores.processing.v2",
   "family": "black_shale",
   "primary": "redstone",
-  "input_count": 4,
-  "routes": [
-    {
-      "medium": "brass",
-      "fluids": [
-        {
-          "fluid": "minecraft:water",
-          "amount": 500
-        }
-      ],
+  "stages": {
+    "chunk": "ore_chunk_black_shale",
+    "crushed": "crushed_black_shale",
+    "rinsed": "rinsed_black_shale"
+  },
+  "routes": {
+    "tech": {
+      "input_count": 4,
+      "pressure": 2.0,
       "primary_count": 4,
       "coproducts": [
         {
           "material": "copper",
           "grade": "major",
-          "chance": 1.0
+          "nominal_chance": 1.0
         },
         {
           "material": "iron",
           "grade": "minor",
-          "chance": 0.5
-        }
-      ],
-      "ball_return_chance": 0.87
-    },
-    {
-      "medium": "blood_infused",
-      "fluids": [
-        {
-          "fluid": "chemlib:hydrochloric_acid_fluid",
-          "amount": 250
+          "nominal_chance": 0.5
         },
-        {
-          "fluid": "minecraft:water",
-          "amount": 250
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [
         {
           "material": "soul_sand",
           "grade": "major",
-          "chance": 1.0
+          "nominal_chance": 1.0
         },
         {
           "material": "sulfur",
           "grade": "minor",
-          "chance": 0.5
-        }
-      ],
-      "ball_return_chance": 0.97
-    },
-    {
-      "medium": "nickel",
-      "fluids": [
-        {
-          "fluid": "chemlib:hydrochloric_acid_fluid",
-          "amount": 250
-        },
-        {
-          "fluid": "chemlib:nitric_acid_fluid",
-          "amount": 250
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [
-        {
-          "material": "copper",
-          "grade": "major",
-          "chance": 1.0
+          "nominal_chance": 0.5
         },
         {
           "material": "gold",
           "grade": "precious",
-          "chance": 0.05
+          "nominal_chance": 0.05
         }
-      ],
-      "ball_return_chance": 0.93
+      ]
+    },
+    "blood": {
+      "input_count": 4,
+      "output": "bloodmagic:corrupted_dust"
+    },
+    "hexerei": {
+      "input_count": 4,
+      "output": "occultism:soul_shard"
+    },
+    "ars": {
+      "input_count": 1,
+      "output": "ars_nouveau:abjuration_essence",
+      "chance": 0.25
     }
-  ]
+  }
 }

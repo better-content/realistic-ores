@@ -1,0 +1,29 @@
+{
+  "type": "bloodmagic:alchemytable",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "bloodmagic"
+    }
+  ],
+  "input": [
+    {
+      "item": "realistic_ores:crushed_tin_quartz"
+    },
+    {
+      "item": "realistic_ores:crushed_tin_quartz"
+    },
+    {
+      "item": "realistic_ores:crushed_tin_quartz"
+    },
+    {
+      "item": "realistic_ores:crushed_tin_quartz"
+    }
+  ],
+  "output": {
+    "item": "malum:arcane_spirit"
+  },
+  "syphon": 2000,
+  "ticks": 200,
+  "upgradeLevel": 2
+}

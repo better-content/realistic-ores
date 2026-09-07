@@ -1,0 +1,27 @@
+{
+  "type": "ars_nouveau:crush",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ars_nouveau"
+    }
+  ],
+  "input": {
+    "item": "realistic_ores:crushed_tin_quartz"
+  },
+  "output": [
+    {
+      "chance": 0.25,
+      "count": 1,
+      "item": "ars_nouveau:manipulation_essence",
+      "maxRange": 1
+    },
+    {
+      "chance": 0.0625,
+      "count": 1,
+      "item": "ars_nouveau:source_gem",
+      "maxRange": 1
+    }
+  ],
+  "skip_block_place": false
+}

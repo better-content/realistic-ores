@@ -1,0 +1,47 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "pneumaticcraft"
+    }
+  ],
+  "inputs": [
+    {
+      "type": "pneumaticcraft:stacked_item",
+      "item": "realistic_ores:rinsed_hotstone",
+      "count": 4
+    }
+  ],
+  "pressure": 2.0,
+  "results": [
+    {
+      "item": "realistic_ores:uranium_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:thorium_concentrate"
+    },
+    {
+      "item": "realistic_ores:lead_concentrate"
+    },
+    {
+      "item": "realistic_ores:titanium_concentrate"
+    },
+    {
+      "item": "realistic_ores:nickel_concentrate"
+    },
+    {
+      "item": "realistic_ores:cobalt_concentrate"
+    },
+    {
+      "item": "realistic_ores:iron_concentrate"
+    },
+    {
+      "item": "realistic_ores:osmium_concentrate"
+    },
+    {
+      "item": "realistic_ores:sulfur_concentrate"
+    }
+  ]
+}

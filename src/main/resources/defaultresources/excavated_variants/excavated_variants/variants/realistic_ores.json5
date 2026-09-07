@@ -18,9 +18,7 @@
       "types": [
         "stone"
       ],
-      "orename": [
-        "coal_ore"
-      ]
+      "orename": []
     },
     {
       "id": "ironstone",
@@ -38,9 +36,7 @@
       "types": [
         "stone"
       ],
-      "orename": [
-        "iron_ore"
-      ]
+      "orename": []
     },
     {
       "id": "copper_bloom",
@@ -58,9 +54,7 @@
       "types": [
         "stone"
       ],
-      "orename": [
-        "copper_ore"
-      ]
+      "orename": []
     },
     {
       "id": "tin_quartz",
@@ -78,13 +72,7 @@
       "types": [
         "stone"
       ],
-      "orename": [
-        "tin_ore",
-        "quartz_ore",
-        "diamond_ore",
-        "emerald_ore",
-        "lapis_ore"
-      ]
+      "orename": []
     },
     {
       "id": "brassroot",
@@ -102,10 +90,7 @@
       "types": [
         "stone"
       ],
-      "orename": [
-        "zinc_ore",
-        "lead_ore"
-      ]
+      "orename": []
     },
     {
       "id": "evaporite_beds",
@@ -123,9 +108,7 @@
       "types": [
         "stone"
       ],
-      "orename": [
-        "salt_ore"
-      ]
+      "orename": []
     },
     {
       "id": "hotstone",
@@ -143,11 +126,7 @@
       "types": [
         "stone"
       ],
-      "orename": [
-        "uranium_ore",
-        "thorium_ore",
-        "titanium_ore"
-      ]
+      "orename": []
     },
     {
       "id": "black_shale",
@@ -165,11 +144,7 @@
       "types": [
         "stone"
       ],
-      "orename": [
-        "redstone_ore",
-        "soul_ore",
-        "copper_ore"
-      ]
+      "orename": []
     }
   ]
 }

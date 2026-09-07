@@ -1,124 +1,72 @@
 {
+  "schema": "bc.realistic_ores.processing.v2",
   "family": "hotstone",
   "primary": "uranium",
-  "input_count": 4,
-  "routes": [
-    {
-      "medium": "titanium",
-      "fluids": [
-        {
-          "fluid": "chemlib:sulfuric_acid_fluid",
-          "amount": 250
-        },
-        {
-          "fluid": "minecraft:water",
-          "amount": 250
-        }
-      ],
+  "stages": {
+    "chunk": "ore_chunk_hotstone",
+    "crushed": "crushed_hotstone",
+    "rinsed": "rinsed_hotstone"
+  },
+  "routes": {
+    "tech": {
+      "input_count": 4,
+      "pressure": 2.0,
       "primary_count": 4,
       "coproducts": [
         {
           "material": "thorium",
           "grade": "minor",
-          "chance": 0.5
+          "nominal_chance": 0.5
         },
         {
           "material": "lead",
           "grade": "minor",
-          "chance": 0.5
-        }
-      ],
-      "ball_return_chance": 0.95
-    },
-    {
-      "medium": "nickel",
-      "fluids": [
-        {
-          "fluid": "chemlib:nitric_acid_fluid",
-          "amount": 250
+          "nominal_chance": 0.5
         },
-        {
-          "fluid": "minecraft:water",
-          "amount": 250
-        }
-      ],
-      "primary_count": 0,
-      "coproducts": [
         {
           "material": "titanium",
           "grade": "major",
-          "chance": 1.0
+          "nominal_chance": 1.0
         },
         {
           "material": "nickel",
           "grade": "minor",
-          "chance": 0.5
+          "nominal_chance": 0.5
         },
         {
           "material": "cobalt",
           "grade": "trace",
-          "chance": 0.2
+          "nominal_chance": 0.2
         },
         {
           "material": "iron",
           "grade": "minor",
-          "chance": 0.5
-        }
-      ],
-      "ball_return_chance": 0.0
-    },
-    {
-      "medium": "titanium",
-      "fluids": [
-        {
-          "fluid": "chemlib:hydrochloric_acid_fluid",
-          "amount": 250
+          "nominal_chance": 0.5
         },
-        {
-          "fluid": "chemlib:nitric_acid_fluid",
-          "amount": 250
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [
         {
           "material": "osmium",
           "grade": "minor",
-          "chance": 0.5
+          "nominal_chance": 0.5
         },
         {
           "material": "sulfur",
           "grade": "major",
-          "chance": 1.0
+          "nominal_chance": 1.0
         }
-      ],
-      "ball_return_chance": 0.95
-    }
-  ],
-  "assay_variants": [
-    {
-      "name": "fissile",
-      "materials": [
-        "uranium",
-        "thorium",
-        "lead"
       ]
     },
-    {
-      "name": "structural",
-      "materials": [
-        "titanium",
-        "nickel",
-        "cobalt",
-        "iron"
-      ]
+    "blood": {
+      "input_count": 4,
+      "output": "bloodmagic:destructivecrystal"
     },
-    {
-      "name": "abyssal",
-      "materials": [
-        "osmium",
-        "sulfur"
-      ]
+    "hexerei": {
+      "input_count": 4,
+      "output": "occultism:afrit_essence"
+    },
+    "ars": {
+      "input_count": 1,
+      "output": "ars_nouveau:fire_essence",
+      "chance": 0.25
     }
-  ]
+  }
 }

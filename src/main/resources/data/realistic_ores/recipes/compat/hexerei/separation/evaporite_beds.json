@@ -1,0 +1,46 @@
+{
+  "type": "hexerei:mixingcauldron",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "hexerei"
+    }
+  ],
+  "liquid": {
+    "fluid": "minecraft:water"
+  },
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_evaporite_beds"
+    },
+    {
+      "item": "realistic_ores:crushed_evaporite_beds"
+    },
+    {
+      "item": "realistic_ores:crushed_evaporite_beds"
+    },
+    {
+      "item": "realistic_ores:crushed_evaporite_beds"
+    },
+    {
+      "item": "aether:ambrosium_shard"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "the_bumblezone:honey_crystal_shards"
+    },
+    {
+      "item": "rats:gem_of_ratlantis"
+    }
+  ],
+  "output": {
+    "item": "hexerei:moon_dust"
+  },
+  "liquidOutput": {
+    "fluid": "minecraft:water"
+  },
+  "fluidLevelsConsumed": 250,
+  "heatRequirement": "heated"
+}

@@ -1,0 +1,38 @@
+{
+  "type": "pneumaticcraft:pressure_chamber",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "pneumaticcraft"
+    }
+  ],
+  "inputs": [
+    {
+      "type": "pneumaticcraft:stacked_item",
+      "item": "realistic_ores:rinsed_black_shale",
+      "count": 4
+    }
+  ],
+  "pressure": 2.0,
+  "results": [
+    {
+      "item": "realistic_ores:redstone_concentrate",
+      "count": 4
+    },
+    {
+      "item": "realistic_ores:copper_concentrate"
+    },
+    {
+      "item": "realistic_ores:iron_concentrate"
+    },
+    {
+      "item": "realistic_ores:soul_sand_concentrate"
+    },
+    {
+      "item": "realistic_ores:sulfur_concentrate"
+    },
+    {
+      "item": "realistic_ores:gold_concentrate"
+    }
+  ]
+}

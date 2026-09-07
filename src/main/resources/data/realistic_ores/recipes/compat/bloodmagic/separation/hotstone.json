@@ -1,0 +1,29 @@
+{
+  "type": "bloodmagic:alchemytable",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "bloodmagic"
+    }
+  ],
+  "input": [
+    {
+      "item": "realistic_ores:crushed_hotstone"
+    },
+    {
+      "item": "realistic_ores:crushed_hotstone"
+    },
+    {
+      "item": "realistic_ores:crushed_hotstone"
+    },
+    {
+      "item": "realistic_ores:crushed_hotstone"
+    }
+  ],
+  "output": {
+    "item": "bloodmagic:destructivecrystal"
+  },
+  "syphon": 5000,
+  "ticks": 400,
+  "upgradeLevel": 3
+}

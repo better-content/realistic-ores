@@ -17,18 +17,15 @@ public final class ModItems {
     private static final Map<String, RegistryObject<Item>> BLOCK_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> ORE_CHUNK_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> CRUSHED_ORE_ITEMS_BY_ID = new LinkedHashMap<>();
+    private static final Map<String, RegistryObject<Item>> RINSED_ORE_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> CONCENTRATE_ITEMS_BY_ID = new LinkedHashMap<>();
-    private static final Map<String, RegistryObject<Item>> GRINDING_BALL_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> GEM_CHIP_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> IMMEDIATE_UTILITY_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final String[] CONCENTRATES = {
             "coal", "iron", "nickel", "copper", "sulfur", "gold", "tin", "quartz", "zinc",
-            "lead", "cadmium", "silver", "aluminum", "titanium", "cobalt", "osmium", "diamond",
+            "lead", "cadmium", "silver", "aluminum", "titanium", "cobalt", "osmium",
             "emerald", "amethyst", "uranium", "thorium", "redstone", "lapis", "soul_sand",
             "rock_salt", "sodium_chloride", "saltpeter"
-    };
-    private static final String[] GRINDING_BALLS = {
-            "andesite", "iron", "brass", "steel", "nickel", "titanium", "blood_infused", "fluix"
     };
     private static boolean initialized;
 
@@ -48,6 +45,10 @@ public final class ModItems {
                 String crushedItemId = definition.crushedItemId();
                 CRUSHED_ORE_ITEMS_BY_ID.put(crushedItemId, ITEMS.register(
                         crushedItemId,
+                        () -> new Item(new Item.Properties())));
+                String rinsedItemId = "rinsed_" + definition.id();
+                RINSED_ORE_ITEMS_BY_ID.put(rinsedItemId, ITEMS.register(
+                        rinsedItemId,
                         () -> new Item(new Item.Properties())));
                 String smallChunkItemId = definition.smallOreChunkItemId();
                 RegistryObject<net.minecraft.world.level.block.Block> sample = ModBlocks.surfaceSampleEntries().stream()
@@ -69,10 +70,6 @@ public final class ModItems {
                 String id = concentrate + "_concentrate";
                 CONCENTRATE_ITEMS_BY_ID.put(id, ITEMS.register(id, () -> new Item(new Item.Properties())));
             }
-            for (String medium : GRINDING_BALLS) {
-                String id = medium + "_grinding_ball";
-                GRINDING_BALL_ITEMS_BY_ID.put(id, ITEMS.register(id, () -> new Item(new Item.Properties().stacksTo(16))));
-            }
             for (String gem : new String[] {"diamond", "emerald", "amethyst"}) {
                 String id = gem + "_chip";
                 GEM_CHIP_ITEMS_BY_ID.put(id, ITEMS.register(id, () -> new Item(new Item.Properties())));
@@ -92,13 +89,17 @@ public final class ModItems {
         return CRUSHED_ORE_ITEMS_BY_ID.values().stream().map(RegistryObject::get).toList();
     }
 
+    public static Collection<Item> getAllRinsedOreItems() {
+        return RINSED_ORE_ITEMS_BY_ID.values().stream().map(RegistryObject::get).toList();
+    }
+
     public static Collection<Item> getAllOreChunkItems() {
         return ORE_CHUNK_ITEMS_BY_ID.values().stream().map(RegistryObject::get).toList();
     }
 
     public static Collection<Item> getAllProcessingItems() {
         return java.util.stream.Stream.of(
-                        CONCENTRATE_ITEMS_BY_ID, GRINDING_BALL_ITEMS_BY_ID,
+                        RINSED_ORE_ITEMS_BY_ID, CONCENTRATE_ITEMS_BY_ID,
                         GEM_CHIP_ITEMS_BY_ID, IMMEDIATE_UTILITY_ITEMS_BY_ID)
                 .flatMap(map -> map.values().stream())
                 .map(RegistryObject::get)

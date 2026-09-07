@@ -1,0 +1,46 @@
+{
+  "type": "hexerei:mixingcauldron",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "hexerei"
+    }
+  ],
+  "liquid": {
+    "fluid": "minecraft:lava"
+  },
+  "ingredients": [
+    {
+      "item": "realistic_ores:crushed_hotstone"
+    },
+    {
+      "item": "realistic_ores:crushed_hotstone"
+    },
+    {
+      "item": "realistic_ores:crushed_hotstone"
+    },
+    {
+      "item": "realistic_ores:crushed_hotstone"
+    },
+    {
+      "item": "aether:ambrosium_shard"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "the_bumblezone:honey_crystal_shards"
+    },
+    {
+      "item": "rats:gem_of_ratlantis"
+    }
+  ],
+  "output": {
+    "item": "occultism:afrit_essence"
+  },
+  "liquidOutput": {
+    "fluid": "minecraft:lava"
+  },
+  "fluidLevelsConsumed": 333,
+  "heatRequirement": "heated"
+}

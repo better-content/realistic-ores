@@ -1,52 +1,42 @@
 {
+  "schema": "bc.realistic_ores.processing.v2",
   "family": "evaporite_beds",
   "primary": "rock_salt",
-  "input_count": 4,
-  "routes": [
-    {
-      "medium": "andesite",
-      "fluids": [
-        {
-          "fluid": "minecraft:water",
-          "amount": 500
-        }
-      ],
+  "stages": {
+    "chunk": "ore_chunk_evaporite_beds",
+    "crushed": "crushed_evaporite_beds",
+    "rinsed": "rinsed_evaporite_beds"
+  },
+  "routes": {
+    "tech": {
+      "input_count": 4,
+      "pressure": 2.0,
       "primary_count": 4,
       "coproducts": [
         {
           "material": "sodium_chloride",
           "grade": "major",
-          "chance": 1.0
-        }
-      ],
-      "ball_return_chance": 0.8
-    },
-    {
-      "medium": "steel",
-      "fluids": [
-        {
-          "fluid": "chemlib:hydrochloric_acid_fluid",
-          "amount": 250
-        },
-        {
-          "fluid": "minecraft:water",
-          "amount": 250
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [
-        {
-          "material": "sodium_chloride",
-          "grade": "major",
-          "chance": 1.0
+          "nominal_chance": 1.0
         },
         {
           "material": "saltpeter",
           "grade": "minor",
-          "chance": 0.5
+          "nominal_chance": 0.5
         }
-      ],
-      "ball_return_chance": 0.91
+      ]
+    },
+    "blood": {
+      "input_count": 4,
+      "output": "malum:aqueous_spirit"
+    },
+    "hexerei": {
+      "input_count": 4,
+      "output": "hexerei:moon_dust"
+    },
+    "ars": {
+      "input_count": 1,
+      "output": "ars_nouveau:water_essence",
+      "chance": 0.25
     }
-  ]
+  }
 }

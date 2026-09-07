@@ -1,89 +1,47 @@
 {
+  "schema": "bc.realistic_ores.processing.v2",
   "family": "copper_bloom",
   "primary": "copper",
-  "input_count": 4,
-  "routes": [
-    {
-      "medium": "brass",
-      "fluids": [
-        {
-          "fluid": "minecraft:water",
-          "amount": 500
-        }
-      ],
+  "stages": {
+    "chunk": "ore_chunk_copper_bloom",
+    "crushed": "crushed_copper_bloom",
+    "rinsed": "rinsed_copper_bloom"
+  },
+  "routes": {
+    "tech": {
+      "input_count": 4,
+      "pressure": 2.0,
       "primary_count": 4,
       "coproducts": [
         {
           "material": "sulfur",
           "grade": "major",
-          "chance": 1.0
+          "nominal_chance": 1.0
         },
         {
           "material": "iron",
           "grade": "minor",
-          "chance": 0.5
-        }
-      ],
-      "ball_return_chance": 0.87
-    },
-    {
-      "medium": "steel",
-      "fluids": [
-        {
-          "fluid": "chemlib:sulfuric_acid_fluid",
-          "amount": 250
-        },
-        {
-          "fluid": "minecraft:water",
-          "amount": 250
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [
-        {
-          "material": "sulfur",
-          "grade": "major",
-          "chance": 1.0
-        },
-        {
-          "material": "iron",
-          "grade": "minor",
-          "chance": 0.5
-        }
-      ],
-      "ball_return_chance": 0.91
-    },
-    {
-      "medium": "nickel",
-      "fluids": [
-        {
-          "fluid": "chemlib:hydrochloric_acid_fluid",
-          "amount": 250
-        },
-        {
-          "fluid": "chemlib:nitric_acid_fluid",
-          "amount": 250
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [
-        {
-          "material": "sulfur",
-          "grade": "major",
-          "chance": 1.0
-        },
-        {
-          "material": "iron",
-          "grade": "minor",
-          "chance": 0.5
+          "nominal_chance": 0.5
         },
         {
           "material": "gold",
           "grade": "precious",
-          "chance": 0.05
+          "nominal_chance": 0.05
         }
-      ],
-      "ball_return_chance": 0.0
+      ]
+    },
+    "blood": {
+      "input_count": 4,
+      "output": "malum:aerial_spirit"
+    },
+    "hexerei": {
+      "input_count": 4,
+      "output": "occultism:spirit_attuned_gem"
+    },
+    "ars": {
+      "input_count": 1,
+      "output": "ars_nouveau:manipulation_essence",
+      "chance": 0.25
     }
-  ]
+  }
 }

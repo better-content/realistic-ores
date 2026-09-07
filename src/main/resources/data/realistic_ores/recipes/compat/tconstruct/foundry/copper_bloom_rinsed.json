@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "tconstruct"
+    }
+  ],
+  "ingredient": {
+    "item": "realistic_ores:rinsed_copper_bloom"
+  },
+  "result": {
+    "tag": "forge:molten_copper",
+    "amount": 25
+  },
+  "rate": "metal",
+  "temperature": 500,
+  "time": 120
+}

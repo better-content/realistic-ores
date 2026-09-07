@@ -1,138 +1,61 @@
 {
+  "schema": "bc.realistic_ores.processing.v2",
   "family": "tin_quartz",
   "primary": "tin",
-  "input_count": 4,
-  "routes": [
-    {
-      "medium": "brass",
-      "fluids": [
-        {
-          "fluid": "minecraft:water",
-          "amount": 500
-        }
-      ],
+  "stages": {
+    "chunk": "ore_chunk_tin_quartz",
+    "crushed": "crushed_tin_quartz",
+    "rinsed": "rinsed_tin_quartz"
+  },
+  "routes": {
+    "tech": {
+      "input_count": 4,
+      "pressure": 2.0,
       "primary_count": 4,
       "coproducts": [
         {
           "material": "quartz",
           "grade": "major",
-          "chance": 1.0
-        }
-      ],
-      "ball_return_chance": 0.87
-    },
-    {
-      "medium": "steel",
-      "fluids": [
-        {
-          "fluid": "chemlib:hydrochloric_acid_fluid",
-          "amount": 250
-        },
-        {
-          "fluid": "minecraft:water",
-          "amount": 250
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [
-        {
-          "material": "quartz",
-          "grade": "major",
-          "chance": 1.0
+          "nominal_chance": 1.0
         },
         {
           "material": "aluminum",
           "grade": "minor",
-          "chance": 0.5
-        }
-      ],
-      "ball_return_chance": 0.91
-    },
-    {
-      "medium": "titanium",
-      "fluids": [
-        {
-          "fluid": "chemlib:hydrochloric_acid_fluid",
-          "amount": 250
+          "nominal_chance": 0.5
         },
-        {
-          "fluid": "minecraft:water",
-          "amount": 250
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [
         {
           "material": "amethyst",
           "grade": "major",
-          "chance": 1.0
+          "nominal_chance": 1.0
         },
-        {
-          "material": "quartz",
-          "grade": "minor",
-          "chance": 0.5
-        },
-        {
-          "material": "aluminum",
-          "grade": "minor",
-          "chance": 0.5
-        }
-      ],
-      "ball_return_chance": 0.0
-    },
-    {
-      "medium": "fluix",
-      "fluids": [
-        {
-          "fluid": "chemlib:hydrochloric_acid_fluid",
-          "amount": 250
-        },
-        {
-          "fluid": "minecraft:water",
-          "amount": 250
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [
         {
           "material": "lapis",
           "grade": "major",
-          "chance": 1.0
-        },
-        {
-          "material": "aluminum",
-          "grade": "minor",
-          "chance": 0.5
-        }
-      ],
-      "ball_return_chance": 0.98
-    },
-    {
-      "medium": "nickel",
-      "fluids": [
-        {
-          "fluid": "chemlib:hydrochloric_acid_fluid",
-          "amount": 250
-        },
-        {
-          "fluid": "chemlib:nitric_acid_fluid",
-          "amount": 250
-        }
-      ],
-      "primary_count": 4,
-      "coproducts": [
-        {
-          "material": "diamond",
-          "grade": "precious",
-          "chance": 0.05
+          "nominal_chance": 1.0
         },
         {
           "material": "emerald",
           "grade": "minor",
-          "chance": 0.5
+          "nominal_chance": 0.5
         }
-      ],
-      "ball_return_chance": 0.93
+      ]
+    },
+    "blood": {
+      "input_count": 4,
+      "output": "malum:arcane_spirit"
+    },
+    "hexerei": {
+      "input_count": 4,
+      "output": "realistic_ores:diamond_chip"
+    },
+    "ars": {
+      "input_count": 1,
+      "output": "ars_nouveau:manipulation_essence",
+      "chance": 0.25,
+      "bonus": {
+        "item": "ars_nouveau:source_gem",
+        "chance": 0.0625
+      }
     }
-  ]
+  }
 }
