@@ -1,8 +1,8 @@
 {
   "coal_measures": {
-    "stone_0_south": "23886026c39a52ae9954bfee21c13f734329873a7ba8f9092bedd787fcf5922e",
-    "deepslate_0_south": "308823e067255b37f3bb861ceeeb5801527f4afec6a2b21faec3acc7a91b230e",
-    "deepslate_0_up": "f50c55bbaca62844cbe8838ee957cf2ca989217f24a9f49c5e97df9559cd6a1c"
+    "stone_0_south": "afa2b617ccfd3d05d4def4b840298991ba774f1a56bf155201ae4721d91ed6d7",
+    "deepslate_0_south": "82a1be498bf365d6c24a70b14fe7ff8372667300d4cb43e6721a5a342dc8f0f4",
+    "deepslate_0_up": "74c8559b44026a84822b905a7fa954000b2c991c36bbe21c3052ef0ff1a20d83"
   },
   "ironstone": {
     "stone_0_south": "98623e61906301d75954291d2ae404d223a8a0d765865b7bf8dabbb6d639bf1b",
@@ -30,9 +30,9 @@
     "deepslate_0_up": "a526015db23d0aaa457d4b22c13c5d2e92eb99b08b73c1e050ff4bfa3f9106cc"
   },
   "hotstone": {
-    "stone_0_south": "9bc222284b91f60ad00691348a97382c7944c3f765555e333763717cd43df3eb",
-    "deepslate_0_south": "1c4d7aefbc487650e75981141b278efbf2fc303857d88f14d5d7c177fad92bc1",
-    "deepslate_0_up": "eee9a64b07ac7abc83557c366e431143da58f24676fb8a40623d1c30ed89e680"
+    "stone_0_south": "39e3f1b6936d83b789f48dc8495ec3eb843637cd371dc88f9aebd8573248fbe4",
+    "deepslate_0_south": "e515435c5f3699462f282e839f3f1dead9cc71fd32425f679afafc8ebcc13d32",
+    "deepslate_0_up": "cd9e26a31dbf477f97e034e27f5bae0a6e6832bb37a3c3132cb4ddba990ccfa8"
   },
   "black_shale": {
     "stone_0_south": "b05ceef4f2a70b15cd49fdfadc82054cf2aa9808dbce64d03f797a9c39a41fd8",
