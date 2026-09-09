@@ -23,14 +23,16 @@
         }
       ],
       "morphology": "dendritic_fracture_vein",
-      "block_budget": 21,
+      "block_budget": 32,
+      "budget_spread": 8,
+      "deposit_class": "echo",
       "discard_chance_on_air_exposure": 0.0
     }
   },
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 1
+      "type": "minecraft:rarity_filter",
+      "chance": 2
     },
     {
       "type": "minecraft:in_square"

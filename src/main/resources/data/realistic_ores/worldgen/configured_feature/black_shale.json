@@ -22,7 +22,9 @@
       }
     ],
     "morphology": "laminated_shale_stringers",
-    "block_budget": 12,
+    "block_budget": 16,
+    "budget_spread": 4,
+    "deposit_class": "home",
     "discard_chance_on_air_exposure": 0.0
   }
 }

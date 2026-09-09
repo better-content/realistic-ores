@@ -22,7 +22,9 @@
       }
     ],
     "morphology": "lenticular_oolitic_bed",
-    "block_budget": 20,
+    "block_budget": 34,
+    "budget_spread": 10,
+    "deposit_class": "home",
     "discard_chance_on_air_exposure": 0.0
   }
 }

@@ -22,7 +22,9 @@
       }
     ],
     "morphology": "dendritic_fracture_vein",
-    "block_budget": 14,
+    "block_budget": 24,
+    "budget_spread": 6,
+    "deposit_class": "home",
     "discard_chance_on_air_exposure": 0.0
   }
 }

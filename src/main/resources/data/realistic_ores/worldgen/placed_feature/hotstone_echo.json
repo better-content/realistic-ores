@@ -23,14 +23,16 @@
         }
       ],
       "morphology": "breccia_pipe_with_radial_dikes",
-      "block_budget": 24,
+      "block_budget": 48,
+      "budget_spread": 12,
+      "deposit_class": "echo",
       "discard_chance_on_air_exposure": 0.0
     }
   },
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 8
+      "chance": 16
     },
     {
       "type": "minecraft:in_square"

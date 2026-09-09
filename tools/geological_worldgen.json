@@ -1,10 +1,10 @@
 {
-  "coal_measures": {"morphology":"broken_stratiform_seam","home":[40,144],"echo":[160,320],"home_budget":24,"echo_budget":36,"home_count":15,"echo_count":2,"baseline_supply":432},
-  "ironstone": {"morphology":"lenticular_oolitic_bed","home":[-16,80],"echo":[112,288],"home_budget":20,"echo_budget":30,"home_count":12,"echo_count":1,"baseline_supply":280},
-  "copper_bloom": {"morphology":"branching_stockwork","home":[16,112],"echo":[-112,-56],"home_budget":20,"echo_budget":30,"home_count":10,"echo_count":1,"baseline_supply":240},
-  "tin_quartz": {"morphology":"steep_quartz_lode","home":[-72,16],"echo":[160,384],"home_budget":14,"echo_budget":21,"home_count":5,"echo_rarity":2,"baseline_supply":84},
-  "brassroot": {"morphology":"dendritic_fracture_vein","home":[-48,40],"echo":[96,192],"home_budget":14,"echo_budget":21,"home_count":7,"echo_count":1,"baseline_supply":112},
-  "evaporite_beds": {"morphology":"stacked_evaporite_beds","home":[72,176],"echo":[-32,24],"home_budget":16,"echo_budget":24,"home_count":7,"echo_count":1,"baseline_supply":128},
-  "black_shale": {"morphology":"laminated_shale_stringers","home":[-104,-24],"echo":[0,64],"home_budget":12,"echo_budget":18,"home_count":4,"echo_rarity":2,"baseline_supply":60},
-  "hotstone": {"morphology":"breccia_pipe_with_radial_dikes","home":[-128,-72],"echo":[192,448],"home_budget":12,"echo_budget":24,"home_count":5,"echo_rarity":8,"baseline_supply":60}
+  "coal_measures": {"morphology":"broken_stratiform_seam","home":[40,144],"echo":[160,320],"home_budget":46,"home_spread":12,"echo_budget":64,"echo_spread":16,"home_count":8,"echo_count":1,"baseline_supply":432},
+  "ironstone": {"morphology":"lenticular_oolitic_bed","home":[-16,80],"echo":[112,288],"home_budget":34,"home_spread":10,"echo_budget":42,"echo_spread":12,"home_count":7,"echo_count":1,"baseline_supply":280},
+  "copper_bloom": {"morphology":"branching_stockwork","home":[16,112],"echo":[-112,-56],"home_budget":28,"home_spread":8,"echo_budget":44,"echo_spread":12,"home_count":7,"echo_count":1,"baseline_supply":240},
+  "tin_quartz": {"morphology":"steep_quartz_lode","home":[-72,16],"echo":[160,384],"home_budget":18,"home_spread":4,"echo_budget":27,"echo_spread":6,"home_count":4,"echo_rarity":2,"baseline_supply":84},
+  "brassroot": {"morphology":"dendritic_fracture_vein","home":[-48,40],"echo":[96,192],"home_budget":24,"home_spread":6,"echo_budget":32,"echo_spread":8,"home_count":4,"echo_rarity":2,"baseline_supply":112},
+  "evaporite_beds": {"morphology":"stacked_evaporite_beds","home":[72,176],"echo":[-32,24],"home_budget":28,"home_spread":8,"echo_budget":32,"echo_spread":8,"home_count":4,"echo_rarity":2,"baseline_supply":128},
+  "black_shale": {"morphology":"laminated_shale_stringers","home":[-104,-24],"echo":[0,64],"home_budget":16,"home_spread":4,"echo_budget":24,"echo_spread":6,"home_count":3,"echo_rarity":2,"baseline_supply":60},
+  "hotstone": {"morphology":"breccia_pipe_with_radial_dikes","home":[-128,-72],"echo":[192,448],"home_budget":28,"home_spread":8,"echo_budget":48,"echo_spread":12,"home_count":2,"echo_rarity":16,"baseline_supply":60}
 }

@@ -22,7 +22,9 @@
       }
     ],
     "morphology": "steep_quartz_lode",
-    "block_budget": 14,
+    "block_budget": 18,
+    "budget_spread": 4,
+    "deposit_class": "home",
     "discard_chance_on_air_exposure": 0.0
   }
 }

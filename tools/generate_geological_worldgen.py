@@ -58,6 +58,8 @@ def main() -> None:
                 ],
                 "morphology": definition["morphology"],
                 "block_budget": definition["home_budget"],
+                "budget_spread": definition["home_spread"],
+                "deposit_class": "home",
                 "discard_chance_on_air_exposure": 0.0,
             },
         })
@@ -85,6 +87,8 @@ def main() -> None:
                     ],
                     "morphology": definition["morphology"],
                     "block_budget": definition["echo_budget"],
+                    "budget_spread": definition["echo_spread"],
+                    "deposit_class": "echo",
                     "discard_chance_on_air_exposure": 0.0,
                 }}
             write(placed / f"{feature}.json", {"feature": configured_ref, "placement": placement})

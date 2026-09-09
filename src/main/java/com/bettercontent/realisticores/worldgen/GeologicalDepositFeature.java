@@ -21,9 +21,13 @@ public final class GeologicalDepositFeature extends Feature<GeologicalOreConfigu
         RandomSource random = context.random();
         GeologicalOreConfiguration config = context.config();
         BlockPos origin = context.origin();
+        int budget = new DepositBudget(config.blockBudget(), config.budgetSpread()).sample(random);
+        long occurrenceSalt = random.nextLong();
         int placed = 0;
 
-        for (BlockPos offset : config.morphology().sample(random, config.blockBudget())) {
+        DepositSampleContext sampleContext = new DepositSampleContext(
+                level.getSeed(), origin, occurrenceSalt, budget, config.depositClass());
+        for (BlockPos offset : config.morphology().sample(sampleContext)) {
             BlockPos pos = origin.offset(offset);
             if (level.isOutsideBuildHeight(pos) || !level.ensureCanWrite(pos)) continue;
             BlockState current = level.getBlockState(pos);

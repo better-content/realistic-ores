@@ -25,7 +25,7 @@ final class OreMorphologyContractTest {
         "coal_measures", "broken_uneven_stratiform_carbon_seams",
         "ironstone", "rusty_lenticular_oolitic_beds_and_pods",
         "evaporite_beds", "stacked_salt_gypsum_beds_and_crystalline_pockets",
-        "black_shale", "dark_laminations_with_sparse_violet_stringers");
+        "black_shale", "tapered_fissility_oblique_cleavage_and_crenulated_carbon_wisps");
 
     @Test void manifestLocksTheEightNonColorMorphologies() throws Exception {
         JsonObject manifest = JsonParser.parseString(Files.readString(Path.of("tools/ore_art_manifest.json"))).getAsJsonObject();

@@ -109,6 +109,10 @@ tasks.named("assemble") {
 
 tasks.test {
     useJUnitPlatform()
+    inputs.files(
+        layout.projectDirectory.file("tools/ore_art_manifest.json"),
+        layout.projectDirectory.file("tools/geological_worldgen.json")
+    )
     finalizedBy(tasks.jacocoTestReport)
 }
 
@@ -116,6 +120,16 @@ tasks.register("verifyFast") {
     group = "verification"
     description = "Runs deterministic unit/resource checks without Forge game tests."
     dependsOn(tasks.named("check"))
+}
+
+tasks.register<JavaExec>("renderWorldgenGallery") {
+    group = "documentation"
+    description = "Renders one geological worldgen review sheet per family archetype."
+    dependsOn(tasks.named("testClasses"))
+    classpath = sourceSets.test.get().runtimeClasspath
+    mainClass.set("com.bettercontent.realisticores.worldgen.DepositMorphologyGallery")
+    args(layout.buildDirectory.dir("worldgen-gallery").get().asFile.absolutePath)
+    jvmArgs("-Djava.awt.headless=true")
 }
 
 val verifyItemTextures by tasks.registering(Exec::class) {

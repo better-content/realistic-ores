@@ -108,6 +108,19 @@ after synthesis.
 | Hotstone | dangerous usable heat and heavy matter | dark energetic mineral body |
 | Black Shale | redstone and supernatural material | black strata with sparse violet contamination |
 
+Each family has four deposit-scale archetypes rather than a single stretched blob:
+
+| Family | In-world arrangements |
+| --- | --- |
+| Coal Measures | channel-broken seam; split benches; fault-stepped seam; folded pinch-out |
+| Ironstone | single oolitic lens; en-echelon lenses; shoal lens chain; erosional pod bed |
+| Copper Bloom | crosscut stockwork; sheeted veinlets; arcuate stockwork; breccia-margin veinlets |
+| Tin Quartz | faulted steep lode; en-echelon twin lodes; greisen-splay lode; ladder-vein corridor |
+| Brassroot | joint-and-bedding fill; stair-step fracture; collapse-pocket feeders; en-echelon replacement |
+| Evaporite Beds | paired beds; rhythmic triple beds; nodular lens chain; dissolution-broken bed |
+| Hotstone | narrow crackle pipe; asymmetric breccia corridor; en-echelon breccia pods; late-fissure pipe |
+| Black Shale | anastomosing fissility; steep slaty cleavage; crenulated carbon wisps; compaction drapes |
+
 These eight are the complete player-facing worldgen families. Oil Seep remains a separate
 fluid surface feature. Exact primary and coproduct materials belong to processing depth,
 not additional worldgen identities. The retained assay catalogue is the 24 useful outputs
@@ -121,8 +134,19 @@ World generation uses one dual-host `realistic_ores:geological_deposit` configur
 per family. `tools/geological_worldgen.json` freezes each family's dominant trapezoidal home
 band and its smaller uniform echo band across Tectonic's `-128..512` Overworld. The home band
 carries the family identity and most of its supply; the distant echo is larger per encounter
-but contributes only a minority of the expected blocks. Regenerate the configured features,
-placements, and biome modifiers with `python3 tools/generate_geological_worldgen.py`.
+but contributes only a minority of the expected blocks. Counts were reduced while body budgets
+grew, retaining each family's previous expected supply within four percent.
+
+The sampler is stateless and seeded only by world seed, occurrence, position, family, and home/echo
+class. Jittered geological provinces make nearby deposits favor a coherent structural strike and
+weighted archetype order without keeping mutable region state, so parallel/C2ME generation produces
+the same blocks as serial generation. Every occurrence still varies its dip, offsets, branching,
+gaps, thickness, and exact block budget. Bodies remain within 12 horizontal and 16 vertical blocks
+of their feature origin, preventing cross-region writes. Home occurrences weight the province's
+primary forms most strongly (`40/30/20/10`); echoes weight rarer forms more strongly
+(`15/25/30/30`). Regenerate the configured features, placements, and biome modifiers with
+`python3 tools/generate_geological_worldgen.py`; render all 32 review sheets with
+`./gradlew renderWorldgenGallery`.
 
 ### Crushed material and surface samples
 

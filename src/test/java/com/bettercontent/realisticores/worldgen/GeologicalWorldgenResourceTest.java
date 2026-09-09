@@ -32,9 +32,17 @@ final class GeologicalWorldgenResourceTest {
             assertEquals(2, config.getAsJsonArray("targets").size());
             assertEquals("minecraft:stone_ore_replaceables", targetTag(config, 0));
             assertEquals("minecraft:deepslate_ore_replaceables", targetTag(config, 1));
+            assertEquals(definition.get("home_budget"), config.get("block_budget"));
+            assertEquals(definition.get("home_spread"), config.get("budget_spread"));
+            assertEquals("home", config.get("deposit_class").getAsString());
 
             assertProfile(family, "home", "minecraft:trapezoid", definition);
             assertProfile(family, "echo", "minecraft:uniform", definition);
+            JsonObject echo = read(DATA.resolve("worldgen/placed_feature/" + family + "_echo.json"))
+                    .getAsJsonObject("feature").getAsJsonObject("config");
+            assertEquals(definition.get("echo_budget"), echo.get("block_budget"));
+            assertEquals(definition.get("echo_spread"), echo.get("budget_spread"));
+            assertEquals("echo", echo.get("deposit_class").getAsString());
             assertSupplyEnvelope(family, definition);
         }
     }
@@ -57,15 +65,15 @@ final class GeologicalWorldgenResourceTest {
                 : 1.0 / definition.get("echo_rarity").getAsDouble();
         double echo = echoFrequency * definition.get("echo_budget").getAsDouble();
         double baseline = definition.get("baseline_supply").getAsDouble();
-        assertTrue(Math.abs((home + echo) / baseline - 1.0) <= 0.100001, family + " changed supply");
+        assertTrue(Math.abs((home + echo) / baseline - 1.0) <= 0.040001, family + " changed supply");
         double share = echo / (home + echo);
         if (family.equals("hotstone")) {
             assertTrue(share >= 0.04 && share <= 0.06, "hotstone echo share " + share);
-            assertEquals(2.0, definition.get("echo_budget").getAsDouble() / definition.get("home_budget").getAsDouble());
         } else {
             assertTrue(share >= 0.10 && share <= 0.20, family + " echo share " + share);
-            assertEquals(1.5, definition.get("echo_budget").getAsDouble() / definition.get("home_budget").getAsDouble());
         }
+        assertTrue(definition.get("echo_budget").getAsInt() > definition.get("home_budget").getAsInt(),
+                family + " echo bodies must be larger");
     }
 
     private static String targetTag(JsonObject config, int index) {

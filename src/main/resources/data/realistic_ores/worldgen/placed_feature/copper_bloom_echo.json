@@ -23,7 +23,9 @@
         }
       ],
       "morphology": "branching_stockwork",
-      "block_budget": 30,
+      "block_budget": 44,
+      "budget_spread": 12,
+      "deposit_class": "echo",
       "discard_chance_on_air_exposure": 0.0
     }
   },

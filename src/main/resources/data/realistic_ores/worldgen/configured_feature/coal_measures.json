@@ -22,7 +22,9 @@
       }
     ],
     "morphology": "broken_stratiform_seam",
-    "block_budget": 24,
+    "block_budget": 46,
+    "budget_spread": 12,
+    "deposit_class": "home",
     "discard_chance_on_air_exposure": 0.0
   }
 }
