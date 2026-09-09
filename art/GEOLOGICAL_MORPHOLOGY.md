@@ -4,10 +4,10 @@
 
 The high-resolution alpha masters are the source of ore geometry. The importer may remove
 microscopic noise, resample coverage, quantize color, and composite host rock, but it must not
-replace generated morphology with a symbolic mask. The target face is 64×64, with host rock
-sampled at 16×16 and expanded 4×. That mixed-resolution composition retains fine generated
-partings, grains, intersections, clast margins, and alpha-edge coverage without turning the host
-into photographic noise.
+replace generated morphology with a symbolic mask. The target face is 32×32, with host rock
+sampled at 16×16 and expanded 2×. Generated alpha is reduced to hard pixel clusters and snapped to
+five flat family colours. That mixed-resolution composition retains meaningful partings,
+intersections, and clast margins without retaining photographic surface noise.
 
 Each variant is one 1536×1024 transparent 3×2 cubemap atlas. Cell order is north, east, south,
 west, up, down. The six cells describe cuts through one coherent cubical rock sample. A feature
@@ -19,7 +19,7 @@ faces may differ but must remain compatible with the same three-dimensional body
 - Render mineralization only on genuine transparent alpha. Do not render host rock, a colored
   matte, a checkerboard, shadows, bloom, labels, dividers, borders, or detached decoration.
 - Keep 70–88 percent of each cell transparent. Host rock must remain dominant after compositing.
-- Use mostly two-to-six-pixel structures after 64× reduction, with hairline one-pixel branches
+- Use mostly one-to-three-pixel structures after 32× reduction, with hairline one-pixel branches
   only where the source supports them. Never produce a centered emblem, star, X, root icon,
   nugget, or contiguous round ore patch.
 - Preserve scale hierarchy: one dominant structure, two or three subordinate structures, then a
@@ -106,11 +106,13 @@ outer border, uses a colored matte, merges cells across atlas boundaries, contai
 noise, or violates its family's forbidden forms. Review the high-resolution alpha over light and
 dark checkerboards before downsampling.
 
-The reduced result is reviewed at native 64×64 and nearest-neighbor enlargement, with a separate
-32× stress preview. Every face must retain the master's geologically meaningful connected
-structures, keep at least 65% host visible (70% for non-breccia families), and remain recognizable
-without color alone. If topology does not survive, regenerate the master or revise the
-alpha-preserving resampler; do not hand-paint the runtime PNG.
+The reduced result is reviewed at native 32×32 and nearest-neighbor enlargement, with a separate
+16× stress preview. It must look intentionally pixel-authored: hard square pixels, flat grouped
+values, no antialiasing, gradients, photographic texture, or subpixel noise. Every face must retain
+the master's geologically meaningful connected structures, keep at least 64% host visible for
+breccia and 70% for other families, and remain recognizable without color alone. If topology does
+not survive, regenerate the master or revise the alpha-preserving resampler; do not hand-paint the
+runtime PNG.
 
 ## Geological references
 

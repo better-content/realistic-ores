@@ -16,9 +16,11 @@ The canonical 144×18 badge strip is rendered only on interaction surfaces. Worl
 `tools/GenerateDepositTextures.java` currently reproduces all 288 shipped 16×16 faces and also
 owns the geology-v3 candidate gate. A v3 candidate is one 1536×1024 transparent 3×2 cubemap atlas
 per variant. Its alpha—not a hand-authored symbol or morphology mask—is the source geometry.
-The preview reducer area-samples that alpha and its material colour into a 64×64 ore layer over
-a deliberately 16×16-scaled host. This preserves narrow partings, grains, vein intersections,
-and crackle-breccia boundaries while keeping the surrounding rock visually Minecraft-native.
+The preview reducer area-samples that alpha and its material zones into a 32×32 ore layer over
+a deliberately 16×16-scaled host. It then snaps every mineral pixel to a five-colour, family-specific
+pixel-art ramp with hard edges and no blended photographic shading. The extra logical resolution
+preserves partings, intersections, and crackle-breccia boundaries while the result still reads as
+authored Minecraft pixel art.
 
 Candidates live under `art/block-master-candidates/geology-v3/<family>/variant_<n>.png` until a
 visual gate accepts complete three-variant family sets. The existing 16×16 runtime remains stable
@@ -28,14 +30,15 @@ set.
 ```sh
 java tools/GenerateDepositTextures.java --write
 java tools/GenerateDepositTextures.java --check
-java tools/GenerateDepositTextures.java --preview coal_measures 0 /path/to/atlas.png build/preview 64
+java tools/GenerateDepositTextures.java --preview coal_measures 0 /path/to/atlas.png build/preview 32
 java tools/GenerateDepositTextures.java --validate-candidates art/block-master-candidates/geology-v3
 ```
 
-Source masters are generated one atlas at a time with built-in ImageGen. A candidate must retain
-real transparent alpha, per-face host dominance, and the family topology in
-`GEOLOGICAL_MORPHOLOGY.md`. The reducer may resample and quantize the generated material but may
-not replace its silhouette. Runtime PNGs are generated artifacts and are never hand-painted.
+Source masters are generated one atlas at a time with built-in ImageGen on transparent alpha. A
+candidate supplies geological topology and the locations of meaningful material accents—not the
+finished rendering style. The reducer removes hi-fi surface noise, preserves alpha connectivity,
+and produces flat clustered pixel art. It may not replace generated geometry with an emblem or
+hand-authored mask. Runtime PNGs are generated artifacts and are never hand-painted.
 
 The PNGs under `item-masters/` are accepted 1024x1024 transparent masters generated
 with the built-in ImageGen workflow documented below. Runtime sprites are deterministic

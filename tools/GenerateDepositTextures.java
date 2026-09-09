@@ -10,13 +10,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 
-/** Deterministically renders host-rock-dominant deposit faces with family-specific silhouettes. */
+/** Renders host-rock-dominant pixel art from generated geological alpha geometry. */
 public final class GenerateDepositTextures {
     private static final int SIZE = 16;
     private static final List<String> FACES = List.of("north", "east", "south", "west", "up", "down");
     private static final int[] STONE = rgb("686868", "747474", "7f7f7f", "8f8f8f");
     private static final int[] DEEPSLATE_SIDE = rgb("2f2f37", "3d3d43", "515151", "646464", "797979");
     private static final int[] DEEPSLATE_END = rgb("3d3d43", "4b4b50", "5a5a5a", "646464", "747474");
+    private static final Map<String, int[]> PIXEL_ART_PALETTES = Map.of(
+            "coal_measures", rgb("151719", "252a2e", "3b4248", "687078", "9a7a3f"),
+            "ironstone", rgb("3b251c", "6b3d24", "96572d", "bd783b", "dda263"),
+            "copper_bloom", rgb("3d3730", "817862", "b7aa8b", "a87835", "3f9873"),
+            "tin_quartz", rgb("302d2a", "635b52", "a99e8c", "ded3bc", "f3ead9"),
+            "brassroot", rgb("392e1b", "6b5125", "956f2b", "c49a3c", "dfc16c"),
+            "evaporite_beds", rgb("465057", "697880", "99abb0", "c2d3d3", "e5ece7"),
+            "hotstone", rgb("402c2b", "6f6762", "7b3430", "b84a32", "e87a35"),
+            "black_shale", rgb("17151a", "2d2932", "48404d", "75657b", "a58dac"));
     private static final Pattern FAMILY = Pattern.compile(
         "\\\"([^\\\"]+)\\\"\\s*:\\s*\\{\\s*\\\"morphology\\\"\\s*:\\s*\\\"([^\\\"]+)\\\"\\s*,\\s*\\\"palette\\\"\\s*:\\s*\\[([^]]+)]");
     private static final Pattern COLOR = Pattern.compile("#[0-9a-fA-F]{6}");
@@ -34,13 +43,13 @@ public final class GenerateDepositTextures {
             return;
         }
         if ((args.length == 5 || args.length == 6) && args[0].equals("--preview")) {
-            int outputSize = args.length == 6 ? Integer.parseInt(args[5]) : 64;
+            int outputSize = args.length == 6 ? Integer.parseInt(args[5]) : 32;
             preview(root, args[1], Integer.parseInt(args[2]), Path.of(args[3]), Path.of(args[4]), outputSize);
             return;
         }
         if (args.length != 1 || !(args[0].equals("--write") || args[0].equals("--check"))) {
             throw new IllegalArgumentException(
-                    "usage: --write | --check | --preview FAMILY VARIANT MASTER OUTPUT_DIRECTORY [32|64]"
+                    "usage: --write | --check | --preview FAMILY VARIANT MASTER OUTPUT_DIRECTORY [16|32|64]"
                             + " | --validate-candidates DIRECTORY");
         }
         boolean write = args[0].equals("--write");
@@ -67,7 +76,8 @@ public final class GenerateDepositTextures {
             Path root, String familyId, int variant, Path master, Path output, int outputSize
     ) throws IOException {
         if (variant < 0 || variant > 2) throw new IOException("variant must be 0, 1, or 2");
-        if (outputSize != 32 && outputSize != 64) throw new IOException("preview size must be 32 or 64");
+        if (outputSize != 16 && outputSize != 32 && outputSize != 64)
+            throw new IOException("preview size must be 16, 32, or 64");
         Family family = families(root.resolve("tools/ore_art_manifest.json")).stream()
                 .filter(candidate -> candidate.id().equals(familyId)).findFirst()
                 .orElseThrow(() -> new IOException("unknown family " + familyId));
@@ -96,13 +106,13 @@ public final class GenerateDepositTextures {
                         .sorted().toList()) {
                     BufferedImage atlas = validateAlphaMaster(path);
                     for (int face = 0; face < FACES.size(); face++)
-                        alphaCandidates(atlas, family, face, 64);
+                        alphaCandidates(atlas, family, face, 32);
                     masters++;
                 }
             }
         }
         if (masters == 0) throw new IOException("no candidate masters found under " + directory);
-        System.out.println("validated " + masters + " alpha-source cubemap candidates at 64x64");
+        System.out.println("validated " + masters + " alpha-source cubemap candidates at 32x32");
     }
 
     private static BufferedImage renderAlphaPreview(
@@ -122,10 +132,8 @@ public final class GenerateDepositTextures {
         }
         for (Candidate candidate : alphaCandidates(atlas, family, faceIndex, size)) {
             Point point = candidate.point();
-            int hostRgb = image.getRGB(point.x(), point.y()) & 0xffffff;
-            int mineralRgb = quantize(candidate.rgb());
-            double strength = Math.max(0.55, Math.min(1.0, candidate.score() * 4.0));
-            image.setRGB(point.x(), point.y(), 0xff000000 | blend(hostRgb, mineralRgb, strength));
+            int mineralRgb = nearest(candidate.rgb(), PIXEL_ART_PALETTES.get(family.id()));
+            image.setRGB(point.x(), point.y(), 0xff000000 | mineralRgb);
         }
         return image;
     }
@@ -210,29 +218,47 @@ public final class GenerateDepositTextures {
             int y1 = cellY * cellHeight + (y + 1) * cellHeight / outputSize;
             double alpha = 0, red = 0, green = 0, blue = 0;
             int samples = 0, strong = 0, peak = 0;
+            int accentScore = -1, accentRgb = 0;
             for (int sy = y0; sy < y1; sy++) for (int sx = x0; sx < x1; sx++) {
                 int argb = atlas.getRGB(sx, sy);
                 int sampleAlpha = argb >>> 24;
                 double weight = sampleAlpha / 255.0;
+                int sampleRed = (argb >>> 16) & 255;
+                int sampleGreen = (argb >>> 8) & 255;
+                int sampleBlue = argb & 255;
                 alpha += weight;
-                red += ((argb >>> 16) & 255) * weight;
-                green += ((argb >>> 8) & 255) * weight;
-                blue += (argb & 255) * weight;
+                red += sampleRed * weight;
+                green += sampleGreen * weight;
+                blue += sampleBlue * weight;
+                int maximumChannel = Math.max(sampleRed, Math.max(sampleGreen, sampleBlue));
+                int chroma = maximumChannel - Math.min(sampleRed, Math.min(sampleGreen, sampleBlue));
+                int sampleAccentScore = chroma + maximumChannel / 4;
+                boolean accent = switch (family.id()) {
+                    case "hotstone" -> maximumChannel >= 235 && chroma >= 80;
+                    case "coal_measures" -> maximumChannel >= 120 && chroma >= 50;
+                    case "copper_bloom" -> chroma >= 45;
+                    default -> chroma >= 32;
+                };
+                if (sampleAlpha >= 128 && accent && sampleAccentScore > accentScore) {
+                    accentScore = sampleAccentScore;
+                    accentRgb = sampleRed << 16 | sampleGreen << 8 | sampleBlue;
+                }
                 if (sampleAlpha >= 128) strong++;
                 peak = Math.max(peak, sampleAlpha);
                 samples++;
             }
             double coverage = alpha / samples;
             double strongCoverage = strong / (double) samples;
-            double coverageThreshold = outputSize <= 16 ? 0.050 : 0.035;
-            double strongThreshold = outputSize <= 16 ? 0.015 : 0.010;
+            double coverageThreshold = coverageThreshold(family.id(), outputSize);
+            double strongThreshold = outputSize <= 32 ? coverageThreshold / 3.0 : 0.010;
             if (coverage < coverageThreshold && !(peak >= 224 && strongCoverage >= strongThreshold)) continue;
-            int rgb = alpha <= 0 ? family.palette()[2] : ((int) Math.round(red / alpha) << 16)
+            int rgb = accentScore >= 48 ? accentRgb : alpha <= 0 ? family.palette()[2]
+                    : ((int) Math.round(red / alpha) << 16)
                     | ((int) Math.round(green / alpha) << 8) | (int) Math.round(blue / alpha);
             result.add(new Candidate(new Point(x, y), coverage, rgb));
         }
         int minimum = Math.max(20, outputSize * outputSize * 4 / 100);
-        int maximumPercent = family.id().equals("hotstone") ? 35 : 30;
+        int maximumPercent = maximumCoveragePercent(family.id(), outputSize);
         int maximum = outputSize * outputSize * maximumPercent / 100;
         if (result.size() < minimum || result.size() > maximum)
             throw new IOException(family.id() + " face " + FACES.get(face)
@@ -240,20 +266,23 @@ public final class GenerateDepositTextures {
         return result;
     }
 
-    private static int quantize(int rgb) {
-        int r = ((rgb >>> 16) & 255) / 16 * 16 + 8;
-        int g = ((rgb >>> 8) & 255) / 16 * 16 + 8;
-        int b = (rgb & 255) / 16 * 16 + 8;
-        return Math.min(r, 255) << 16 | Math.min(g, 255) << 8 | Math.min(b, 255);
+    private static double coverageThreshold(String family, int outputSize) {
+        if (outputSize <= 16) return switch (family) {
+            case "hotstone" -> 0.350;
+            case "copper_bloom" -> 0.180;
+            default -> 0.100;
+        };
+        if (outputSize <= 32) return switch (family) {
+            case "hotstone" -> 0.240;
+            case "copper_bloom" -> 0.060;
+            default -> 0.050;
+        };
+        return 0.035;
     }
 
-    private static int blend(int background, int foreground, double amount) {
-        int r = (int) Math.round(((background >>> 16) & 255) * (1.0 - amount)
-                + ((foreground >>> 16) & 255) * amount);
-        int g = (int) Math.round(((background >>> 8) & 255) * (1.0 - amount)
-                + ((foreground >>> 8) & 255) * amount);
-        int b = (int) Math.round((background & 255) * (1.0 - amount) + (foreground & 255) * amount);
-        return r << 16 | g << 8 | b;
+    private static int maximumCoveragePercent(String family, int outputSize) {
+        if (outputSize <= 16 && (family.equals("copper_bloom") || family.equals("hotstone"))) return 45;
+        return family.equals("hotstone") ? 36 : 30;
     }
 
     private static BufferedImage validateAlphaMaster(Path path) throws IOException {

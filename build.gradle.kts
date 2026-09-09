@@ -132,7 +132,7 @@ val verifyItemTextures by tasks.registering(Exec::class) {
 
 val verifyBlockMasterCandidates by tasks.registering(Exec::class) {
     group = "verification"
-    description = "Validates geology-v3 cubemap alpha, dimensions, and 64px coverage bounds."
+    description = "Validates geology-v3 cubemap alpha, dimensions, and 32px pixel-art coverage bounds."
     commandLine(
         javaToolchains.launcherFor {
             languageVersion.set(JavaLanguageVersion.of(17))
