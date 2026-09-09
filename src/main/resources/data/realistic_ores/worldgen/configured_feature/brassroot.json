@@ -1,0 +1,28 @@
+{
+  "type": "realistic_ores:geological_deposit",
+  "config": {
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:stone_ore_replaceables"
+        },
+        "state": {
+          "Name": "realistic_ores:brassroot"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        },
+        "state": {
+          "Name": "realistic_ores:deepslate_brassroot"
+        }
+      }
+    ],
+    "morphology": "dendritic_fracture_vein",
+    "block_budget": 14,
+    "discard_chance_on_air_exposure": 0.0
+  }
+}

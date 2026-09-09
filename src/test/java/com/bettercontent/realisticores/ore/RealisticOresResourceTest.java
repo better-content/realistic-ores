@@ -42,27 +42,15 @@ final class RealisticOresResourceTest {
             "sulfur", "thorium", "tin", "titanium", "uranium", "zinc");
 
     @Test
-    void packagedOreDefinitionsAndGenerationEntriesAreConsistent() throws IOException {
-        Set<OreVariant> oreVariants;
+    void packagedOreDefinitionsExposeExactlyTheEightGeologicalFamilies() throws IOException {
         try (var paths = Files.list(DATA_ROOT.resolve("realistic_ores"))) {
-            oreVariants = paths
+            Set<String> families = paths
                     .filter(path -> path.getFileName().toString().endsWith(".json"))
                     .map(path -> read(path, OreDefinition.class))
                     .peek(OreDefinition::validate)
-                    .flatMap(definition -> definition.variants().stream()
-                            .map(variant -> new OreVariant(definition.id(), variant.host())))
+                    .map(OreDefinition::id)
                     .collect(Collectors.toUnmodifiableSet());
-        }
-
-        assertFalse(oreVariants.isEmpty(), "expected ore definition resources");
-        try (var paths = Files.list(DATA_ROOT.resolve("realistic_ore_generation"))) {
-            var generationPaths = paths.filter(file -> file.getFileName().toString().endsWith(".json")).toList();
-            assertFalse(generationPaths.isEmpty(), "expected realistic ore generation resources");
-            for (Path path : generationPaths) {
-                GenerationDefinition definition = read(path, GenerationDefinition.class);
-                assertTrue(oreVariants.contains(new OreVariant(definition.oreId, definition.variant)),
-                        "generation entry references unknown ore variant in " + path);
-            }
+            assertEquals(SALIENT_FAMILIES, families);
         }
     }
 
@@ -226,7 +214,7 @@ final class RealisticOresResourceTest {
         if (canonicalAnchor) {
             assertTrue(mineralPixels > 0, texturePath + " has no mineral pixels");
         } else {
-            assertTrue(mineralPixels >= 20 && mineralPixels <= 33,
+                assertTrue(mineralPixels >= 38 && mineralPixels <= 64,
                     texturePath + " has " + mineralPixels + " mineral pixels");
         }
     }

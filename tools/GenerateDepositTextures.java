@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
@@ -23,6 +24,7 @@ public final class GenerateDepositTextures {
 
     private record Family(String id, String morphology, int[] palette) {}
     private record Point(int x, int y) {}
+    private record Candidate(Point point, double score, int rgb) {}
 
     private GenerateDepositTextures() {}
 
@@ -34,11 +36,12 @@ public final class GenerateDepositTextures {
         Path root = Path.of("").toAbsolutePath();
         Path output = root.resolve("src/main/resources/assets/realistic_ores/textures/block");
         for (Family family : families(root.resolve("tools/ore_art_manifest.json"))) {
+            if (write) normalizeMasters(root, family);
             for (String host : List.of("stone", "deepslate")) {
                 for (int variant = 0; variant < 3; variant++) {
                     for (int faceIndex = 0; faceIndex < FACES.size(); faceIndex++) {
                         String face = FACES.get(faceIndex);
-                        BufferedImage expected = render(family, host, variant, faceIndex);
+                        BufferedImage expected = render(root, family, host, variant, faceIndex);
                         String prefix = host.equals("stone") ? "" : "deepslate_";
                         Path path = output.resolve(prefix + family.id() + "_" + variant + "_" + face + ".png");
                         if (write) ImageIO.write(expected, "png", path.toFile());
@@ -50,7 +53,7 @@ public final class GenerateDepositTextures {
         System.out.println((write ? "wrote" : "verified") + " 288 morphology-distinct deposit faces");
     }
 
-    private static BufferedImage render(Family family, String host, int variant, int faceIndex) {
+    private static BufferedImage render(Path root, Family family, String host, int variant, int faceIndex) throws IOException {
         BufferedImage image = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
         int[] hostPalette = host.equals("stone") ? STONE
             : faceIndex >= 4 ? DEEPSLATE_END : DEEPSLATE_SIDE;
@@ -62,13 +65,109 @@ public final class GenerateDepositTextures {
             image.setRGB(x, y, 0xff000000 | hostPalette[value]);
         }
 
-        List<Point> points = transformed(mask(family.id()), variant, faceIndex);
-        for (Point point : points) {
+        Path master = master(root, family.id(), variant);
+        List<Candidate> candidates = Files.isRegularFile(master)
+                ? candidates(ImageIO.read(master.toFile()), family.palette(), family.id(), variant, faceIndex)
+                : fallbackCandidates(family, variant, faceIndex);
+        for (Candidate candidate : candidates) {
+            Point point = candidate.point();
             int distance = Math.abs(point.x() - 8) + Math.abs(point.y() - 8);
-            int colorIndex = Math.max(0, Math.min(4, 4 - distance / 2));
-            image.setRGB(point.x(), point.y(), 0xff000000 | family.palette()[colorIndex]);
+            int color = candidate.rgb() == 0 ? family.palette()[Math.max(0, Math.min(4, 4 - distance / 2))]
+                    : nearest(candidate.rgb(), family.palette());
+            image.setRGB(point.x(), point.y(), 0xff000000 | color);
         }
         return image;
+    }
+
+    private static List<Candidate> fallbackCandidates(Family family, int variant, int faceIndex) {
+        Map<Integer, Point> points = new LinkedHashMap<>();
+        transformed(mask(family.id()), variant, faceIndex).forEach(point -> points.put(point.y() * SIZE + point.x(), point));
+        int target = 46 + Math.floorMod(family.id().hashCode() + variant * 11 + faceIndex * 7, 9);
+        for (int pass = 0; points.size() < target; pass++) {
+            List<Point> snapshot = new ArrayList<>(points.values());
+            for (Point point : snapshot) {
+                int[][] directions = ((pass + variant + faceIndex) & 1) == 0
+                        ? new int[][] {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
+                        : new int[][] {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
+                for (int[] direction : directions) {
+                    int x = point.x() + direction[0], y = point.y() + direction[1];
+                    if (x > 0 && x < SIZE - 1 && y > 0 && y < SIZE - 1)
+                        points.putIfAbsent(y * SIZE + x, new Point(x, y));
+                    if (points.size() == target) break;
+                }
+                if (points.size() == target) break;
+            }
+        }
+        return points.values().stream().map(point -> new Candidate(point, 1.0, 0)).toList();
+    }
+
+    private static List<Candidate> candidates(BufferedImage atlas, int[] palette, String family, int variant, int face) throws IOException {
+        if (atlas == null || atlas.getWidth() % 3 != 0 || atlas.getHeight() % 2 != 0)
+            throw new IOException("master must be a 3x2 atlas: " + family + " variant " + variant);
+        int cellWidth = atlas.getWidth() / 3;
+        int cellHeight = atlas.getHeight() / 2;
+        int cellX = face % 3;
+        int cellY = face / 3;
+        List<Candidate> result = new ArrayList<>();
+        for (int y = 1; y < SIZE - 1; y++) for (int x = 1; x < SIZE - 1; x++) {
+            int x0 = cellX * cellWidth + x * cellWidth / SIZE;
+            int x1 = cellX * cellWidth + (x + 1) * cellWidth / SIZE;
+            int y0 = cellY * cellHeight + y * cellHeight / SIZE;
+            int y1 = cellY * cellHeight + (y + 1) * cellHeight / SIZE;
+            double score = 0; double red = 0; double green = 0; double blue = 0;
+            for (int sy = y0; sy < y1; sy += 2) for (int sx = x0; sx < x1; sx += 2) {
+                int argb = atlas.getRGB(sx, sy);
+                double weight = (argb >>> 24) / 255.0;
+                score += weight; red += ((argb >>> 16) & 255) * weight;
+                green += ((argb >>> 8) & 255) * weight; blue += (argb & 255) * weight;
+            }
+            int samples = Math.max(1, ((y1 - y0 + 1) / 2) * ((x1 - x0 + 1) / 2));
+            score /= samples;
+            int rgb = score <= 0 ? palette[2] : ((int) (red / (score * samples)) << 16)
+                    | ((int) (green / (score * samples)) << 8) | (int) (blue / (score * samples));
+            result.add(new Candidate(new Point(x, y), score, rgb));
+        }
+        int target = 46 + Math.floorMod(family.hashCode() + variant * 11 + face * 7, 9);
+        return result.stream().sorted(Comparator.comparingDouble(Candidate::score).reversed())
+                .limit(target).toList();
+    }
+
+    private static void normalizeMasters(Path root, Family family) throws IOException {
+        for (int variant = 0; variant < 3; variant++) {
+            Path path = master(root, family.id(), variant);
+            if (!Files.isRegularFile(path)) continue;
+            BufferedImage source = ImageIO.read(path.toFile());
+            if (source == null) throw new IOException("invalid master " + path);
+            boolean meaningfulAlpha = false;
+            for (int y = 0; y < source.getHeight() && !meaningfulAlpha; y += 8)
+                for (int x = 0; x < source.getWidth(); x += 8)
+                    if ((source.getRGB(x, y) >>> 24) < 240) { meaningfulAlpha = true; break; }
+            BufferedImage normalized = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            for (int y = 0; y < source.getHeight(); y++) for (int x = 0; x < source.getWidth(); x++) {
+                int argb = source.getRGB(x, y); int alpha = argb >>> 24;
+                int r = (argb >>> 16) & 255, g = (argb >>> 8) & 255, b = argb & 255;
+                int max = Math.max(r, Math.max(g, b)), min = Math.min(r, Math.min(g, b));
+                boolean foreground = meaningfulAlpha ? alpha >= 48 : (max < 115 || max - min > 28);
+                normalized.setRGB(x, y, foreground ? (0xff000000 | (argb & 0xffffff)) : 0);
+            }
+            ImageIO.write(normalized, "png", path.toFile());
+        }
+    }
+
+    private static Path master(Path root, String family, int variant) {
+        return root.resolve("art/block-masters").resolve(family).resolve("variant_" + variant + ".png");
+    }
+
+    private static int nearest(int rgb, int[] palette) {
+        int best = palette[0], bestDistance = Integer.MAX_VALUE;
+        for (int candidate : palette) {
+            int dr = ((rgb >>> 16) & 255) - ((candidate >>> 16) & 255);
+            int dg = ((rgb >>> 8) & 255) - ((candidate >>> 8) & 255);
+            int db = (rgb & 255) - (candidate & 255);
+            int distance = dr * dr + dg * dg + db * db;
+            if (distance < bestDistance) { bestDistance = distance; best = candidate; }
+        }
+        return best;
     }
 
     private static List<Point> transformed(List<Point> source, int variant, int face) {

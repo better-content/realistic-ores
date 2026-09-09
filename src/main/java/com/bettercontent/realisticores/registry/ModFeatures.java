@@ -2,6 +2,8 @@ package com.bettercontent.realisticores.registry;
 
 import com.bettercontent.realisticores.RealisticOresMod;
 import com.bettercontent.realisticores.worldgen.LavaExposedOreFeature;
+import com.bettercontent.realisticores.worldgen.GeologicalDepositFeature;
+import com.bettercontent.realisticores.worldgen.GeologicalOreConfiguration;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -15,6 +17,9 @@ public final class ModFeatures {
 
     public static final RegistryObject<Feature<OreConfiguration>> LAVA_EXPOSED_ORE =
             FEATURES.register("lava_exposed_ore", () -> new LavaExposedOreFeature(OreConfiguration.CODEC));
+
+    public static final RegistryObject<Feature<GeologicalOreConfiguration>> GEOLOGICAL_DEPOSIT =
+            FEATURES.register("geological_deposit", () -> new GeologicalDepositFeature(GeologicalOreConfiguration.CODEC));
 
     private ModFeatures() {
     }

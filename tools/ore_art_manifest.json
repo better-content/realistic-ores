@@ -1,6 +1,6 @@
 {
   "coal_measures": {
-    "morphology": "broad_broken_horizontal_seams",
+    "morphology": "broken_uneven_stratiform_carbon_seams",
     "palette": [
       "#101416",
       "#222a2e",
@@ -10,7 +10,7 @@
     ]
   },
   "ironstone": {
-    "morphology": "thick_blocky_brace_bands",
+    "morphology": "rusty_lenticular_oolitic_beds_and_pods",
     "palette": [
       "#382219",
       "#60381f",
@@ -20,7 +20,7 @@
     ]
   },
   "copper_bloom": {
-    "morphology": "compact_paired_nodules",
+    "morphology": "branching_stockwork_with_oxidation_halos",
     "palette": [
       "#182923",
       "#6a4c2b",
@@ -30,7 +30,7 @@
     ]
   },
   "tin_quartz": {
-    "morphology": "parallel_stepped_crystal_ribbons",
+    "morphology": "steep_quartz_lodes_with_cassiterite_splays",
     "palette": [
       "#373431",
       "#6b6258",
@@ -40,7 +40,7 @@
     ]
   },
   "brassroot": {
-    "morphology": "asymmetric_directional_y_roots",
+    "morphology": "asymmetric_dendritic_fracture_vein",
     "palette": [
       "#403416",
       "#735918",
@@ -50,7 +50,7 @@
     ]
   },
   "evaporite_beds": {
-    "morphology": "upright_prismatic_crowns_from_thin_beds",
+    "morphology": "stacked_salt_gypsum_beds_and_crystalline_pockets",
     "palette": [
       "#364a55",
       "#4d7184",
@@ -60,7 +60,7 @@
     ]
   },
   "hotstone": {
-    "morphology": "centered_radial_starburst",
+    "morphology": "asymmetric_breccia_pipe_with_radial_fissures",
     "palette": [
       "#32171b",
       "#6d222b",
@@ -70,7 +70,7 @@
     ]
   },
   "black_shale": {
-    "morphology": "sparse_converging_angular_fractures",
+    "morphology": "dark_laminations_with_sparse_violet_stringers",
     "palette": [
       "#17131c",
       "#30243a",

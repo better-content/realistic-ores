@@ -115,6 +115,13 @@ plus rock salt, sodium chloride, and saltpeter; inert technical concentrates are
 Tin Quartz folds gem-bearing pegmatite depth into its later assay routes, while Black Shale
 folds redstone and precious-metal depth into its controlled soul-bearing geology.
 
+World generation uses one dual-host `realistic_ores:geological_deposit` configured feature
+per family. `tools/geological_worldgen.json` freezes each family's dominant trapezoidal home
+band and its smaller uniform echo band across Tectonic's `-128..512` Overworld. The home band
+carries the family identity and most of its supply; the distant echo is larger per encounter
+but contributes only a minority of the expected blocks. Regenerate the configured features,
+placements, and biome modifiers with `python3 tools/generate_geological_worldgen.py`.
+
 ### Crushed material and surface samples
 
 - Ore chunks are the host-independent mining form of a deposit. They are crisp 16x16
