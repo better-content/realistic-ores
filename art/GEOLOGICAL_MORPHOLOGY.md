@@ -109,10 +109,16 @@ dark checkerboards before downsampling.
 The reduced result is reviewed at native 32×32 and nearest-neighbor enlargement, with a separate
 16× stress preview. It must look intentionally pixel-authored: hard square pixels, flat grouped
 values, no antialiasing, gradients, photographic texture, or subpixel noise. Every face must retain
-the master's geologically meaningful connected structures, keep at least 64% host visible for
-breccia and 70% for other families, and remain recognizable without color alone. If topology does
+the master's geologically meaningful connected structures, keep at least 62% host visible for broad
+ironstone lenses, 64% for breccia, 66% for major tin lodes, and 69% for copper stockwork; other
+families retain at least 70% host. It must remain recognizable without color alone. If topology does
 not survive, regenerate the master or revise the alpha-preserving resampler; do not hand-paint the
 runtime PNG.
+
+Steep Tin Quartz and Brassroot structures, plus shallow Ironstone or Evaporite Beds viewed along
+strike, may reduce to a 2–4% intersection on up/down faces; their vertical side faces still follow
+the normal coverage floor. This is sidedness, not a missing texture: a thin geological body can
+have a small end-section but a long trace on the faces it crosses.
 
 ## Geological references
 

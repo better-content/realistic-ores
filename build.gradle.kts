@@ -132,14 +132,14 @@ val verifyItemTextures by tasks.registering(Exec::class) {
 
 val verifyBlockMasterCandidates by tasks.registering(Exec::class) {
     group = "verification"
-    description = "Validates geology-v3 cubemap alpha, dimensions, and 32px pixel-art coverage bounds."
+    description = "Validates the complete geology-v4 cubemap alpha and 32px pixel-art coverage bounds."
     commandLine(
         javaToolchains.launcherFor {
             languageVersion.set(JavaLanguageVersion.of(17))
         }.get().executablePath.asFile.absolutePath,
         "tools/GenerateDepositTextures.java",
         "--validate-candidates",
-        "art/block-master-candidates/geology-v3"
+        "art/block-master-candidates/geology-v4"
     )
 }
 

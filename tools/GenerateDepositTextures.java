@@ -22,7 +22,7 @@ public final class GenerateDepositTextures {
             "ironstone", rgb("3b251c", "6b3d24", "96572d", "bd783b", "dda263"),
             "copper_bloom", rgb("3d3730", "817862", "b7aa8b", "a87835", "3f9873"),
             "tin_quartz", rgb("302d2a", "635b52", "a99e8c", "ded3bc", "f3ead9"),
-            "brassroot", rgb("392e1b", "6b5125", "956f2b", "c49a3c", "dfc16c"),
+            "brassroot", rgb("3a3026", "574a39", "716148", "8a7554", "a68c62"),
             "evaporite_beds", rgb("465057", "697880", "99abb0", "c2d3d3", "e5ece7"),
             "hotstone", rgb("402c2b", "6f6762", "7b3430", "b84a32", "e87a35"),
             "black_shale", rgb("17151a", "2d2932", "48404d", "75657b", "a58dac"));
@@ -99,7 +99,9 @@ public final class GenerateDepositTextures {
         int masters = 0;
         for (Family family : families(root.resolve("tools/ore_art_manifest.json"))) {
             Path familyDirectory = directory.resolve(family.id());
-            if (!Files.isDirectory(familyDirectory)) continue;
+            if (!Files.isDirectory(familyDirectory))
+                throw new IOException("missing candidate family directory " + familyDirectory);
+            int familyMasters = 0;
             try (var paths = Files.list(familyDirectory)) {
                 for (Path path : paths.filter(candidate -> candidate.getFileName().toString()
                                 .matches("variant_[0-2]\\.png"))
@@ -108,10 +110,14 @@ public final class GenerateDepositTextures {
                     for (int face = 0; face < FACES.size(); face++)
                         alphaCandidates(atlas, family, face, 32);
                     masters++;
+                    familyMasters++;
                 }
             }
+            if (familyMasters != 3)
+                throw new IOException(family.id() + " must have exactly three candidate masters, found "
+                        + familyMasters);
         }
-        if (masters == 0) throw new IOException("no candidate masters found under " + directory);
+        if (masters != 24) throw new IOException("expected 24 candidate masters, found " + masters);
         System.out.println("validated " + masters + " alpha-source cubemap candidates at 32x32");
     }
 
@@ -257,7 +263,11 @@ public final class GenerateDepositTextures {
                     | ((int) Math.round(green / alpha) << 8) | (int) Math.round(blue / alpha);
             result.add(new Candidate(new Point(x, y), coverage, rgb));
         }
-        int minimum = Math.max(20, outputSize * outputSize * 4 / 100);
+        boolean narrowEndSection = face >= 4
+                && (family.id().equals("tin_quartz") || family.id().equals("brassroot")
+                || family.id().equals("evaporite_beds") || family.id().equals("ironstone"));
+        int minimumPercent = narrowEndSection ? 2 : 4;
+        int minimum = Math.max(20, outputSize * outputSize * minimumPercent / 100);
         int maximumPercent = maximumCoveragePercent(family.id(), outputSize);
         int maximum = outputSize * outputSize * maximumPercent / 100;
         if (result.size() < minimum || result.size() > maximum)
@@ -275,6 +285,7 @@ public final class GenerateDepositTextures {
         if (outputSize <= 32) return switch (family) {
             case "hotstone" -> 0.240;
             case "copper_bloom" -> 0.060;
+            case "ironstone" -> 0.100;
             default -> 0.050;
         };
         return 0.035;
@@ -282,6 +293,9 @@ public final class GenerateDepositTextures {
 
     private static int maximumCoveragePercent(String family, int outputSize) {
         if (outputSize <= 16 && (family.equals("copper_bloom") || family.equals("hotstone"))) return 45;
+        if (family.equals("ironstone")) return 38;
+        if (family.equals("copper_bloom")) return 31;
+        if (family.equals("tin_quartz")) return 34;
         return family.equals("hotstone") ? 36 : 30;
     }
 

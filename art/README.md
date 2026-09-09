@@ -14,7 +14,7 @@ The canonical 144×18 badge strip is rendered only on interaction surfaces. Worl
 ## Deposit block art
 
 `tools/GenerateDepositTextures.java` currently reproduces all 288 shipped 16×16 faces and also
-owns the geology-v3 candidate gate. A v3 candidate is one 1536×1024 transparent 3×2 cubemap atlas
+owns the geology-v4 candidate gate. A v4 candidate is one 1536×1024 transparent 3×2 cubemap atlas
 per variant. Its alpha—not a hand-authored symbol or morphology mask—is the source geometry.
 The preview reducer area-samples that alpha and its material zones into a 32×32 ore layer over
 a deliberately 16×16-scaled host. It then snaps every mineral pixel to a five-colour, family-specific
@@ -22,16 +22,16 @@ pixel-art ramp with hard edges and no blended photographic shading. The extra lo
 preserves partings, intersections, and crackle-breccia boundaries while the result still reads as
 authored Minecraft pixel art.
 
-Candidates live under `art/block-master-candidates/geology-v3/<family>/variant_<n>.png` until a
-visual gate accepts complete three-variant family sets. The existing 16×16 runtime remains stable
-while that gate is open; incomplete pilots are never silently promoted into the shipped resource
-set.
+The complete 24-atlas suite lives under
+`art/block-master-candidates/geology-v4/<family>/variant_<n>.png`. The validator requires every
+family and all three variants; partial suites cannot pass. The existing 16×16 runtime remains
+stable while the visual gate is open and is never silently replaced by candidates.
 
 ```sh
 java tools/GenerateDepositTextures.java --write
 java tools/GenerateDepositTextures.java --check
 java tools/GenerateDepositTextures.java --preview coal_measures 0 /path/to/atlas.png build/preview 32
-java tools/GenerateDepositTextures.java --validate-candidates art/block-master-candidates/geology-v3
+java tools/GenerateDepositTextures.java --validate-candidates art/block-master-candidates/geology-v4
 ```
 
 Source masters are generated one atlas at a time with built-in ImageGen on transparent alpha. A
