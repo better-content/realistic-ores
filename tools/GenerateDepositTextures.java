@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
@@ -67,7 +66,7 @@ public final class GenerateDepositTextures {
 
         Path master = master(root, family.id(), variant);
         List<Candidate> candidates = Files.isRegularFile(master)
-                ? candidates(ImageIO.read(master.toFile()), family.palette(), family.id(), variant, faceIndex)
+                ? candidates(ImageIO.read(master.toFile()), family, variant, faceIndex)
                 : fallbackCandidates(family, variant, faceIndex);
         for (Candidate candidate : candidates) {
             Point point = candidate.point();
@@ -80,36 +79,20 @@ public final class GenerateDepositTextures {
     }
 
     private static List<Candidate> fallbackCandidates(Family family, int variant, int faceIndex) {
-        Map<Integer, Point> points = new LinkedHashMap<>();
-        transformed(mask(family.id()), variant, faceIndex).forEach(point -> points.put(point.y() * SIZE + point.x(), point));
-        int target = 46 + Math.floorMod(family.id().hashCode() + variant * 11 + faceIndex * 7, 9);
-        for (int pass = 0; points.size() < target; pass++) {
-            List<Point> snapshot = new ArrayList<>(points.values());
-            for (Point point : snapshot) {
-                int[][] directions = ((pass + variant + faceIndex) & 1) == 0
-                        ? new int[][] {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
-                        : new int[][] {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
-                for (int[] direction : directions) {
-                    int x = point.x() + direction[0], y = point.y() + direction[1];
-                    if (x > 0 && x < SIZE - 1 && y > 0 && y < SIZE - 1)
-                        points.putIfAbsent(y * SIZE + x, new Point(x, y));
-                    if (points.size() == target) break;
-                }
-                if (points.size() == target) break;
-            }
-        }
-        return points.values().stream().map(point -> new Candidate(point, 1.0, 0)).toList();
+        return transformed(mask(family.id()), variant, faceIndex).stream()
+                .map(point -> new Candidate(point, 1.0, 0)).toList();
     }
 
-    private static List<Candidate> candidates(BufferedImage atlas, int[] palette, String family, int variant, int face) throws IOException {
+    private static List<Candidate> candidates(BufferedImage atlas, Family family, int variant, int face) throws IOException {
         if (atlas == null || atlas.getWidth() % 3 != 0 || atlas.getHeight() % 2 != 0)
-            throw new IOException("master must be a 3x2 atlas: " + family + " variant " + variant);
+            throw new IOException("master must be a 3x2 atlas: " + family.id() + " variant " + variant);
         int cellWidth = atlas.getWidth() / 3;
         int cellHeight = atlas.getHeight() / 2;
         int cellX = face % 3;
         int cellY = face / 3;
         List<Candidate> result = new ArrayList<>();
-        for (int y = 1; y < SIZE - 1; y++) for (int x = 1; x < SIZE - 1; x++) {
+        for (Point point : transformed(mask(family.id()), variant, face)) {
+            int x = point.x(), y = point.y();
             int x0 = cellX * cellWidth + x * cellWidth / SIZE;
             int x1 = cellX * cellWidth + (x + 1) * cellWidth / SIZE;
             int y0 = cellY * cellHeight + y * cellHeight / SIZE;
@@ -123,13 +106,11 @@ public final class GenerateDepositTextures {
             }
             int samples = Math.max(1, ((y1 - y0 + 1) / 2) * ((x1 - x0 + 1) / 2));
             score /= samples;
-            int rgb = score <= 0 ? palette[2] : ((int) (red / (score * samples)) << 16)
+            int rgb = score <= 0 ? family.palette()[2] : ((int) (red / (score * samples)) << 16)
                     | ((int) (green / (score * samples)) << 8) | (int) (blue / (score * samples));
-            result.add(new Candidate(new Point(x, y), score, rgb));
+            result.add(new Candidate(point, score, rgb));
         }
-        int target = 46 + Math.floorMod(family.hashCode() + variant * 11 + face * 7, 9);
-        return result.stream().sorted(Comparator.comparingDouble(Candidate::score).reversed())
-                .limit(target).toList();
+        return result;
     }
 
     private static void normalizeMasters(Path root, Family family) throws IOException {
@@ -189,51 +170,48 @@ public final class GenerateDepositTextures {
         List<Point> points = new ArrayList<>();
         switch (id) {
             case "hotstone" -> {
-                add(points, 7, 7, 8, 7, 7, 8, 8, 8);
-                for (int d = 2; d <= 4; d++) add(points, 8 - d, 8, 7 + d, 8, 8, 8 - d, 8, 7 + d);
-                for (int d = 2; d <= 3; d++) add(points, 8 - d, 8 - d, 7 + d, 8 - d, 8 - d, 7 + d, 7 + d, 7 + d);
+                add(points, 6, 5, 7, 5, 9, 6, 10, 6, 5, 8, 6, 8, 8, 8, 9, 8,
+                    7, 10, 8, 10, 10, 11, 11, 11,
+                    7, 7, 8, 7, 7, 8, 9, 9,
+                    4, 4, 5, 5, 11, 5, 10, 7, 4, 10, 6, 9, 10, 10, 12, 12);
             }
             case "copper_bloom" -> {
-                blob(points, 5, 6); blob(points, 9, 6); blob(points, 7, 10);
-                add(points, 7, 7, 7, 8, 7, 9);
+                add(points, 3, 11, 4, 10, 5, 9, 6, 8, 7, 7, 8, 6, 9, 5, 10, 4, 11, 3,
+                    5, 4, 6, 5, 7, 6, 8, 7, 9, 8, 10, 9, 11, 10,
+                    4, 11, 5, 10, 8, 5, 9, 4, 10, 8, 11, 9);
             }
             case "tin_quartz" -> {
-                for (int x = 3; x <= 11; x++) add(points, x, 4 + (x - 3) / 3);
-                for (int x = 4; x <= 12; x++) add(points, x, 9 + (x - 4) / 4);
-                add(points, 5, 8, 6, 8, 9, 7, 10, 7, 11, 12, 12, 12);
+                add(points, 4, 12, 5, 11, 5, 10, 6, 9, 6, 8, 7, 7, 7, 6, 8, 5, 8, 4, 9, 3,
+                    6, 10, 7, 10, 8, 9, 9, 8, 10, 7, 11, 6,
+                    4, 11, 8, 8, 9, 6, 10, 5, 11, 4);
             }
             case "brassroot" -> {
-                for (int y = 5; y <= 12; y++) add(points, 7, y, 8, y);
-                add(points, 6, 7, 5, 6, 4, 5, 3, 4, 9, 8, 10, 7, 11, 6, 12, 5,
-                    6, 11, 5, 12, 9, 11, 10, 12);
+                add(points, 7, 3, 7, 4, 7, 5, 8, 6, 8, 7, 8, 8, 9, 9, 9, 10, 9, 11, 10, 12,
+                    6, 6, 5, 7, 4, 8, 3, 9, 9, 8, 10, 7, 11, 6, 12, 5,
+                    8, 10, 7, 11, 6, 12);
             }
             case "coal_measures" -> {
-                for (int x = 2; x <= 13; x++) if (x != 7) add(points, x, 5);
-                for (int x = 3; x <= 13; x++) if (x != 9) add(points, x, 10);
-                add(points, 4, 6, 5, 6, 11, 9, 12, 9);
+                add(points, 2, 5, 3, 5, 4, 6, 5, 6, 6, 6, 8, 7, 9, 7, 10, 7, 11, 6, 12, 6, 13, 6,
+                    3, 10, 4, 10, 5, 10, 6, 9, 7, 9, 9, 9, 10, 10, 11, 10, 12, 10, 13, 11);
             }
             case "ironstone" -> {
-                for (int y = 4; y <= 11; y++) add(points, 4, y, 11, y);
-                for (int x = 5; x <= 10; x++) add(points, x, 7, x, 8);
+                add(points, 2, 6, 3, 6, 4, 6, 5, 7, 6, 7, 7, 7, 8, 7, 9, 6, 10, 6, 11, 6, 12, 6, 13, 6,
+                    3, 9, 4, 9, 5, 9, 6, 10, 7, 10, 8, 10, 9, 10, 10, 9, 11, 9, 12, 9,
+                    5, 5, 8, 8, 11, 10);
             }
             case "evaporite_beds" -> {
-                for (int x = 3; x <= 11; x++) add(points, x, 12);
-                for (int y = 8; y <= 11; y++) add(points, 4, y);
-                for (int y = 4; y <= 11; y++) add(points, 7, y);
-                for (int y = 9; y <= 11; y++) add(points, 10, y);
-                add(points, 7, 3, 4, 7, 10, 8);
+                add(points, 2, 5, 3, 5, 4, 5, 5, 5, 7, 5, 8, 5, 9, 5, 10, 5, 11, 5, 12, 5, 13, 5,
+                    3, 9, 4, 9, 5, 9, 6, 9, 7, 9, 8, 9, 10, 9, 11, 9, 12, 9, 13, 9,
+                    5, 8, 6, 7, 7, 8, 10, 8, 11, 7, 12, 8);
             }
             case "black_shale" -> {
-                for (int d = 0; d <= 5; d++) add(points, 3 + d, 3 + d, 12 - d, 3 + d);
-                add(points, 8, 9, 7, 10, 7, 11, 6, 12, 5, 13, 9, 9, 10, 10, 11, 10);
+                add(points, 2, 4, 3, 4, 4, 5, 5, 5, 6, 5, 7, 6, 8, 6, 9, 6, 10, 7, 11, 7, 12, 7, 13, 8,
+                    2, 10, 3, 10, 4, 10, 5, 11, 6, 11, 8, 12, 9, 12, 10, 12, 11, 13, 12, 13,
+                    6, 8, 7, 9, 8, 10);
             }
             default -> throw new IllegalArgumentException("unknown morphology family " + id);
         }
         return points;
-    }
-
-    private static void blob(List<Point> points, int cx, int cy) {
-        add(points, cx, cy, cx - 1, cy, cx + 1, cy, cx, cy - 1, cx, cy + 1, cx + 1, cy + 1);
     }
 
     private static void add(List<Point> points, int... coordinates) {

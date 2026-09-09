@@ -75,8 +75,10 @@ the original composites. New textures and texture variants must preserve these r
 - Host contrast may shift naturally between stone and deepslate, but the mineral palette
   and family silhouette stay recognizable. Do not brighten deep variants merely to make
   them as luminous as their stone versions.
-- Keep all block textures fully opaque. Hotstone communicates heat through block light
-  and contact behaviour, not emissive pixels painted into the texture.
+- Keep all block textures fully opaque. Shader integration classifies every canonical and
+  Excavated Variants deposit as a modded ore, allowing mineral pixels to glow without
+  painting transparent or full-face emissive pixels into the texture. Hotstone additionally
+  communicates heat through block light and contact behaviour.
 
 ### Excavated Variants contract
 

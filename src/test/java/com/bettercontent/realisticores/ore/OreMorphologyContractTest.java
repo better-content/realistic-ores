@@ -48,7 +48,8 @@ final class OreMorphologyContractTest {
                 mask[y * 16 + x] = colors.contains(image.getRGB(x, y) & 0xffffff);
                 if (mask[y * 16 + x]) count++;
             }
-            assertTrue(count >= 38 && count <= 64, family + " mineral coverage " + count);
+            assertTrue(count >= 20 && count <= 33, family + " mineral coverage " + count);
+            assertTrue(maxWindow(mask, 3) <= 7, family + " regressed to a dense ore blob");
             masks.put(family, mask);
         }
         Set<Integer> silhouettes = new HashSet<>();
@@ -57,9 +58,9 @@ final class OreMorphologyContractTest {
 
         assertFalse(isHorizontallySymmetric(masks.get("hotstone")), "Hotstone must not regress to a centered star");
         assertFalse(isVerticallySymmetric(masks.get("hotstone")), "Hotstone must remain an asymmetric breccia body");
-        assertTrue(maxRow(masks.get("coal_measures")) >= 7, "Coal Measures needs broad seams");
-        assertTrue(maxRow(masks.get("ironstone")) >= 7, "Ironstone needs broad lenticular bedding");
-        assertTrue(maxRow(masks.get("evaporite_beds")) >= 9, "Evaporite needs a crystal bed");
+        assertTrue(maxRowSpan(masks.get("coal_measures")) >= 10, "Coal Measures needs broad broken seams");
+        assertTrue(maxRowSpan(masks.get("ironstone")) >= 10, "Ironstone needs broad lenticular bedding");
+        assertTrue(maxRowSpan(masks.get("evaporite_beds")) >= 10, "Evaporite needs a broad crystal bed");
     }
 
     private static int centerCount(boolean[] mask) {
@@ -90,11 +91,35 @@ final class OreMorphologyContractTest {
         return best;
     }
 
+    private static int maxRowSpan(boolean[] mask) {
+        int best = 0;
+        for (int y = 0; y < 16; y++) {
+            int first = -1, last = -1;
+            for (int x = 0; x < 16; x++) if (mask[y * 16 + x]) {
+                if (first < 0) first = x;
+                last = x;
+            }
+            if (first >= 0) best = Math.max(best, last - first + 1);
+        }
+        return best;
+    }
+
     private static int maxColumn(boolean[] mask) {
         int best = 0;
         for (int x = 0; x < 16; x++) {
             int count = 0;
             for (int y = 0; y < 16; y++) if (mask[y * 16 + x]) count++;
+            best = Math.max(best, count);
+        }
+        return best;
+    }
+
+    private static int maxWindow(boolean[] mask, int size) {
+        int best = 0;
+        for (int y0 = 0; y0 <= 16 - size; y0++) for (int x0 = 0; x0 <= 16 - size; x0++) {
+            int count = 0;
+            for (int y = y0; y < y0 + size; y++) for (int x = x0; x < x0 + size; x++)
+                if (mask[y * 16 + x]) count++;
             best = Math.max(best, count);
         }
         return best;

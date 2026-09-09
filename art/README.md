@@ -16,10 +16,13 @@ The canonical 144×18 badge strip is rendered only on interaction surfaces. Worl
 `tools/GenerateDepositTextures.java` is the canonical importer/renderer for all 288
 stone/deepslate, three-variant, six-face deposit textures. For curated families it reads one
 1536×1024 transparent 3×2 cubemap atlas per variant from
-`art/block-masters/<family>/variant_<n>.png`, normalizes generated alpha, selects 38–54
-mineral pixels per face, quantizes them to the exact five-color family ramp, and composites
-them over deterministic directional host rock. Families awaiting curation retain the
-deterministic fallback until their master set passes the same review gate.
+`art/block-masters/<family>/variant_<n>.png`, normalizes generated alpha, samples color and
+material variation along a deterministic family-specific geological mask, quantizes it to
+the exact five-color family ramp, and composites 20–33 mineral pixels over directional host
+rock. The mask—not the source master's opaque center—owns seam, lode, bed, stockwork, root,
+and breccia topology so aggressive reduction cannot collapse into an ore blob. Families
+awaiting curation retain the deterministic fallback until their master set passes the same
+review gate.
 
 ```sh
 java tools/GenerateDepositTextures.java --write

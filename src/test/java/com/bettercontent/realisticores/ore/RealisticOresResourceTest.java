@@ -142,8 +142,7 @@ final class RealisticOresResourceTest {
                             String expectedTexture = textureRef(textureBlockId, variant, face);
                             assertEquals(expectedTexture, textures.get(face).getAsString(), modelPath + " " + face);
                             Path texturePath = ASSET_ROOT.resolve("textures/block/" + textureBlockId + "_" + variant + "_" + face + ".png");
-                            assertFinalTexture(texturePath, palette, hostColors(oreVariant.host(), face),
-                                    isCanonicalAnchor(definition.id(), oreVariant.host(), variant, face));
+                            assertFinalTexture(texturePath, palette, hostColors(oreVariant.host(), face));
                             assertTrue(hashes.add(sha256(texturePath)), "duplicate face texture: " + texturePath);
                         }
                     }
@@ -190,8 +189,7 @@ final class RealisticOresResourceTest {
     private static void assertFinalTexture(
             Path texturePath,
             Set<Integer> palette,
-            Set<Integer> hostColors,
-            boolean canonicalAnchor
+            Set<Integer> hostColors
     ) throws IOException {
         BufferedImage image = ImageIO.read(texturePath.toFile());
         assertTrue(image != null, texturePath.toString());
@@ -205,18 +203,12 @@ final class RealisticOresResourceTest {
                 int rgb = argb & 0xffffff;
                 if (!hostColors.contains(rgb)) {
                     mineralPixels++;
-                    if (!canonicalAnchor) {
-                        assertTrue(palette.contains(rgb), texturePath + " contains off-palette color #" + String.format("%06x", rgb));
-                    }
+                    assertTrue(palette.contains(rgb), texturePath + " contains off-palette color #" + String.format("%06x", rgb));
                 }
             }
         }
-        if (canonicalAnchor) {
-            assertTrue(mineralPixels > 0, texturePath + " has no mineral pixels");
-        } else {
-                assertTrue(mineralPixels >= 38 && mineralPixels <= 64,
-                    texturePath + " has " + mineralPixels + " mineral pixels");
-        }
+        assertTrue(mineralPixels >= 20 && mineralPixels <= 33,
+                texturePath + " has " + mineralPixels + " mineral pixels");
     }
 
     private static void assertCanonicalHashes(String family, String host, JsonObject manifest) {
@@ -231,11 +223,6 @@ final class RealisticOresResourceTest {
             assertEquals(hashes.get("deepslate_0_up").getAsString(),
                     sha256(ASSET_ROOT.resolve("textures/block/" + blockId + "_0_up.png")), family);
         }
-    }
-
-    private static boolean isCanonicalAnchor(String family, String host, int variant, String face) {
-        return variant == 0
-                && (face.equals("south") || (host.equals("deepslate") && face.equals("up")));
     }
 
     private static Set<Integer> hostColors(String host, String face) {
