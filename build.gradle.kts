@@ -130,11 +130,25 @@ val verifyItemTextures by tasks.registering(Exec::class) {
     )
 }
 
+val verifyBlockMasterCandidates by tasks.registering(Exec::class) {
+    group = "verification"
+    description = "Validates geology-v3 cubemap alpha, dimensions, and 64px coverage bounds."
+    commandLine(
+        javaToolchains.launcherFor {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }.get().executablePath.asFile.absolutePath,
+        "tools/GenerateDepositTextures.java",
+        "--validate-candidates",
+        "art/block-master-candidates/geology-v3"
+    )
+}
+
 tasks.register("verifyFull") {
     group = "verification"
     description = "Runs the full verification lane for this repo."
     dependsOn(tasks.named("verifyFast"))
     dependsOn(verifyItemTextures)
+    dependsOn(verifyBlockMasterCandidates)
 }
 
 jacoco {

@@ -28,11 +28,22 @@ public final class GenerateDepositTextures {
     private GenerateDepositTextures() {}
 
     public static void main(String[] args) throws Exception {
+        Path root = Path.of("").toAbsolutePath();
+        if (args.length == 2 && args[0].equals("--validate-candidates")) {
+            validateCandidates(root, Path.of(args[1]));
+            return;
+        }
+        if ((args.length == 5 || args.length == 6) && args[0].equals("--preview")) {
+            int outputSize = args.length == 6 ? Integer.parseInt(args[5]) : 64;
+            preview(root, args[1], Integer.parseInt(args[2]), Path.of(args[3]), Path.of(args[4]), outputSize);
+            return;
+        }
         if (args.length != 1 || !(args[0].equals("--write") || args[0].equals("--check"))) {
-            throw new IllegalArgumentException("usage: --write | --check");
+            throw new IllegalArgumentException(
+                    "usage: --write | --check | --preview FAMILY VARIANT MASTER OUTPUT_DIRECTORY [32|64]"
+                            + " | --validate-candidates DIRECTORY");
         }
         boolean write = args[0].equals("--write");
-        Path root = Path.of("").toAbsolutePath();
         Path output = root.resolve("src/main/resources/assets/realistic_ores/textures/block");
         for (Family family : families(root.resolve("tools/ore_art_manifest.json"))) {
             if (write) normalizeMasters(root, family);
@@ -52,7 +63,76 @@ public final class GenerateDepositTextures {
         System.out.println((write ? "wrote" : "verified") + " 288 morphology-distinct deposit faces");
     }
 
-    private static BufferedImage render(Path root, Family family, String host, int variant, int faceIndex) throws IOException {
+    private static void preview(
+            Path root, String familyId, int variant, Path master, Path output, int outputSize
+    ) throws IOException {
+        if (variant < 0 || variant > 2) throw new IOException("variant must be 0, 1, or 2");
+        if (outputSize != 32 && outputSize != 64) throw new IOException("preview size must be 32 or 64");
+        Family family = families(root.resolve("tools/ore_art_manifest.json")).stream()
+                .filter(candidate -> candidate.id().equals(familyId)).findFirst()
+                .orElseThrow(() -> new IOException("unknown family " + familyId));
+        BufferedImage atlas = validateAlphaMaster(master);
+        Files.createDirectories(output);
+        for (String host : List.of("stone", "deepslate")) {
+            for (int faceIndex = 0; faceIndex < FACES.size(); faceIndex++) {
+                BufferedImage image = renderAlphaPreview(family, host, variant, faceIndex, atlas, outputSize);
+                String prefix = host.equals("stone") ? "" : "deepslate_";
+                Path path = output.resolve(prefix + family.id() + "_" + variant + "_" + FACES.get(faceIndex) + ".png");
+                ImageIO.write(image, "png", path.toFile());
+                System.out.println(path + " mineral_pixels="
+                        + alphaCandidates(atlas, family, faceIndex, outputSize).size());
+            }
+        }
+    }
+
+    private static void validateCandidates(Path root, Path directory) throws IOException {
+        int masters = 0;
+        for (Family family : families(root.resolve("tools/ore_art_manifest.json"))) {
+            Path familyDirectory = directory.resolve(family.id());
+            if (!Files.isDirectory(familyDirectory)) continue;
+            try (var paths = Files.list(familyDirectory)) {
+                for (Path path : paths.filter(candidate -> candidate.getFileName().toString()
+                                .matches("variant_[0-2]\\.png"))
+                        .sorted().toList()) {
+                    BufferedImage atlas = validateAlphaMaster(path);
+                    for (int face = 0; face < FACES.size(); face++)
+                        alphaCandidates(atlas, family, face, 64);
+                    masters++;
+                }
+            }
+        }
+        if (masters == 0) throw new IOException("no candidate masters found under " + directory);
+        System.out.println("validated " + masters + " alpha-source cubemap candidates at 64x64");
+    }
+
+    private static BufferedImage renderAlphaPreview(
+            Family family, String host, int variant, int faceIndex, BufferedImage atlas, int size
+    ) throws IOException {
+        BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+        int[] hostPalette = host.equals("stone") ? STONE
+                : faceIndex >= 4 ? DEEPSLATE_END : DEEPSLATE_SIDE;
+        long seed = mix(family.id().hashCode() * 31L + host.hashCode() * 17L + variant * 7L + faceIndex);
+        for (int y = 0; y < size; y++) for (int x = 0; x < size; x++) {
+            int hostX = x * SIZE / size;
+            int hostY = y * SIZE / size;
+            long noise = mix(seed + hostX * 0x9e3779b97f4a7c15L + hostY * 0xc2b2ae3d27d4eb4fL
+                    + (hostX / 3) * 97L + (hostY / 3) * 193L);
+            int value = Math.floorMod((int) (noise ^ noise >>> 32), hostPalette.length);
+            image.setRGB(x, y, 0xff000000 | hostPalette[value]);
+        }
+        for (Candidate candidate : alphaCandidates(atlas, family, faceIndex, size)) {
+            Point point = candidate.point();
+            int hostRgb = image.getRGB(point.x(), point.y()) & 0xffffff;
+            int mineralRgb = quantize(candidate.rgb());
+            double strength = Math.max(0.55, Math.min(1.0, candidate.score() * 4.0));
+            image.setRGB(point.x(), point.y(), 0xff000000 | blend(hostRgb, mineralRgb, strength));
+        }
+        return image;
+    }
+
+    private static BufferedImage render(
+            Path root, Family family, String host, int variant, int faceIndex
+    ) throws IOException {
         BufferedImage image = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
         int[] hostPalette = host.equals("stone") ? STONE
             : faceIndex >= 4 ? DEEPSLATE_END : DEEPSLATE_SIDE;
@@ -66,7 +146,7 @@ public final class GenerateDepositTextures {
 
         Path master = master(root, family.id(), variant);
         List<Candidate> candidates = Files.isRegularFile(master)
-                ? candidates(ImageIO.read(master.toFile()), family, variant, faceIndex)
+                ? maskedCandidates(ImageIO.read(master.toFile()), family, variant, faceIndex)
                 : fallbackCandidates(family, variant, faceIndex);
         for (Candidate candidate : candidates) {
             Point point = candidate.point();
@@ -83,7 +163,7 @@ public final class GenerateDepositTextures {
                 .map(point -> new Candidate(point, 1.0, 0)).toList();
     }
 
-    private static List<Candidate> candidates(BufferedImage atlas, Family family, int variant, int face) throws IOException {
+    private static List<Candidate> maskedCandidates(BufferedImage atlas, Family family, int variant, int face) throws IOException {
         if (atlas == null || atlas.getWidth() % 3 != 0 || atlas.getHeight() % 2 != 0)
             throw new IOException("master must be a 3x2 atlas: " + family.id() + " variant " + variant);
         int cellWidth = atlas.getWidth() / 3;
@@ -111,6 +191,102 @@ public final class GenerateDepositTextures {
             result.add(new Candidate(point, score, rgb));
         }
         return result;
+    }
+
+    private static List<Candidate> alphaCandidates(
+            BufferedImage atlas, Family family, int face, int outputSize
+    ) throws IOException {
+        if (atlas == null || atlas.getWidth() % 3 != 0 || atlas.getHeight() % 2 != 0)
+            throw new IOException("master must be a 3x2 atlas: " + family.id());
+        int cellWidth = atlas.getWidth() / 3;
+        int cellHeight = atlas.getHeight() / 2;
+        int cellX = face % 3;
+        int cellY = face / 3;
+        List<Candidate> result = new ArrayList<>();
+        for (int y = 0; y < outputSize; y++) for (int x = 0; x < outputSize; x++) {
+            int x0 = cellX * cellWidth + x * cellWidth / outputSize;
+            int x1 = cellX * cellWidth + (x + 1) * cellWidth / outputSize;
+            int y0 = cellY * cellHeight + y * cellHeight / outputSize;
+            int y1 = cellY * cellHeight + (y + 1) * cellHeight / outputSize;
+            double alpha = 0, red = 0, green = 0, blue = 0;
+            int samples = 0, strong = 0, peak = 0;
+            for (int sy = y0; sy < y1; sy++) for (int sx = x0; sx < x1; sx++) {
+                int argb = atlas.getRGB(sx, sy);
+                int sampleAlpha = argb >>> 24;
+                double weight = sampleAlpha / 255.0;
+                alpha += weight;
+                red += ((argb >>> 16) & 255) * weight;
+                green += ((argb >>> 8) & 255) * weight;
+                blue += (argb & 255) * weight;
+                if (sampleAlpha >= 128) strong++;
+                peak = Math.max(peak, sampleAlpha);
+                samples++;
+            }
+            double coverage = alpha / samples;
+            double strongCoverage = strong / (double) samples;
+            double coverageThreshold = outputSize <= 16 ? 0.050 : 0.035;
+            double strongThreshold = outputSize <= 16 ? 0.015 : 0.010;
+            if (coverage < coverageThreshold && !(peak >= 224 && strongCoverage >= strongThreshold)) continue;
+            int rgb = alpha <= 0 ? family.palette()[2] : ((int) Math.round(red / alpha) << 16)
+                    | ((int) Math.round(green / alpha) << 8) | (int) Math.round(blue / alpha);
+            result.add(new Candidate(new Point(x, y), coverage, rgb));
+        }
+        int minimum = Math.max(20, outputSize * outputSize * 4 / 100);
+        int maximumPercent = family.id().equals("hotstone") ? 35 : 30;
+        int maximum = outputSize * outputSize * maximumPercent / 100;
+        if (result.size() < minimum || result.size() > maximum)
+            throw new IOException(family.id() + " face " + FACES.get(face)
+                    + " reduces to " + result.size() + " mineral pixels; expected " + minimum + ".." + maximum);
+        return result;
+    }
+
+    private static int quantize(int rgb) {
+        int r = ((rgb >>> 16) & 255) / 16 * 16 + 8;
+        int g = ((rgb >>> 8) & 255) / 16 * 16 + 8;
+        int b = (rgb & 255) / 16 * 16 + 8;
+        return Math.min(r, 255) << 16 | Math.min(g, 255) << 8 | Math.min(b, 255);
+    }
+
+    private static int blend(int background, int foreground, double amount) {
+        int r = (int) Math.round(((background >>> 16) & 255) * (1.0 - amount)
+                + ((foreground >>> 16) & 255) * amount);
+        int g = (int) Math.round(((background >>> 8) & 255) * (1.0 - amount)
+                + ((foreground >>> 8) & 255) * amount);
+        int b = (int) Math.round((background & 255) * (1.0 - amount) + (foreground & 255) * amount);
+        return r << 16 | g << 8 | b;
+    }
+
+    private static BufferedImage validateAlphaMaster(Path path) throws IOException {
+        BufferedImage source = ImageIO.read(path.toFile());
+        if (source == null) throw new IOException("invalid master " + path);
+        if (source.getWidth() != 1536 || source.getHeight() != 1024)
+            throw new IOException("master must be exactly 1536x1024: " + path);
+        if (!source.getColorModel().hasAlpha()) throw new IOException("master lacks alpha: " + path);
+        long transparent = 0, borderOpaque = 0, borderPixels = 0;
+        long[] cellTransparent = new long[6];
+        for (int y = 0; y < source.getHeight(); y++) for (int x = 0; x < source.getWidth(); x++) {
+            int alpha = source.getRGB(x, y) >>> 24;
+            if (alpha <= 16) {
+                transparent++;
+                cellTransparent[(y / 512) * 3 + x / 512]++;
+            }
+            if (x < 8 || y < 8 || x >= source.getWidth() - 8 || y >= source.getHeight() - 8) {
+                borderPixels++;
+                if (alpha >= 32) borderOpaque++;
+            }
+        }
+        long pixels = (long) source.getWidth() * source.getHeight();
+        if (transparent < pixels * 65 / 100)
+            throw new IOException("master must be at least 65% transparent: " + path);
+        for (int cell = 0; cell < cellTransparent.length; cell++)
+            if (cellTransparent[cell] < 512L * 512L * 60L / 100L)
+                throw new IOException("master cell " + FACES.get(cell)
+                        + " must be at least 60% transparent: " + path);
+        // Cubemap features must be allowed to cross atlas edges. A matte still makes nearly the
+        // entire perimeter opaque, while real seam/vein intersections occupy isolated segments.
+        if (borderOpaque > borderPixels / 2)
+            throw new IOException("master has an opaque perimeter consistent with a matte: " + path);
+        return source;
     }
 
     private static void normalizeMasters(Path root, Family family) throws IOException {

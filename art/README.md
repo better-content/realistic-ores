@@ -13,24 +13,29 @@ The canonical 144×18 badge strip is rendered only on interaction surfaces. Worl
 
 ## Deposit block art
 
-`tools/GenerateDepositTextures.java` is the canonical importer/renderer for all 288
-stone/deepslate, three-variant, six-face deposit textures. For curated families it reads one
-1536×1024 transparent 3×2 cubemap atlas per variant from
-`art/block-masters/<family>/variant_<n>.png`, normalizes generated alpha, samples color and
-material variation along a deterministic family-specific geological mask, quantizes it to
-the exact five-color family ramp, and composites 20–33 mineral pixels over directional host
-rock. The mask—not the source master's opaque center—owns seam, lode, bed, stockwork, root,
-and breccia topology so aggressive reduction cannot collapse into an ore blob. Families
-awaiting curation retain the deterministic fallback until their master set passes the same
-review gate.
+`tools/GenerateDepositTextures.java` currently reproduces all 288 shipped 16×16 faces and also
+owns the geology-v3 candidate gate. A v3 candidate is one 1536×1024 transparent 3×2 cubemap atlas
+per variant. Its alpha—not a hand-authored symbol or morphology mask—is the source geometry.
+The preview reducer area-samples that alpha and its material colour into a 64×64 ore layer over
+a deliberately 16×16-scaled host. This preserves narrow partings, grains, vein intersections,
+and crackle-breccia boundaries while keeping the surrounding rock visually Minecraft-native.
+
+Candidates live under `art/block-master-candidates/geology-v3/<family>/variant_<n>.png` until a
+visual gate accepts complete three-variant family sets. The existing 16×16 runtime remains stable
+while that gate is open; incomplete pilots are never silently promoted into the shipped resource
+set.
 
 ```sh
 java tools/GenerateDepositTextures.java --write
 java tools/GenerateDepositTextures.java --check
+java tools/GenerateDepositTextures.java --preview coal_measures 0 /path/to/atlas.png build/preview 64
+java tools/GenerateDepositTextures.java --validate-candidates art/block-master-candidates/geology-v3
 ```
 
-The source masters are generated one atlas at a time with built-in ImageGen, then normalized
-and reduced algorithmically. Runtime PNGs are generated artifacts and are never hand-painted.
+Source masters are generated one atlas at a time with built-in ImageGen. A candidate must retain
+real transparent alpha, per-face host dominance, and the family topology in
+`GEOLOGICAL_MORPHOLOGY.md`. The reducer may resample and quantize the generated material but may
+not replace its silhouette. Runtime PNGs are generated artifacts and are never hand-painted.
 
 The PNGs under `item-masters/` are accepted 1024x1024 transparent masters generated
 with the built-in ImageGen workflow documented below. Runtime sprites are deterministic
