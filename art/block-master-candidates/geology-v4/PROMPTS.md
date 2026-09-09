@@ -88,9 +88,11 @@ without being treated as a missing texture.
 
 ### Black Shale
 
-- Variant 0: two near-horizontal lamination packages separated by host, a gentle lower sag with an
-  attached carbon lens, and a tiny fault step above.
-- Variant 1: gently folded laminations with one asymmetric anticline, two offsets, one short subdued
-  violet-gray trace, and two pyrite sites.
-- Variant 2: shallow-dipping laminae cut by a transparent erosional gap and resumed offset, with one
-  attached carbon lens and sparse pyrite along one lamination.
+- Shared exclusion: no thick continuous bench, parallel coal seams, broad mineable band, or full-face
+  horizontal trace. Shale identity comes from fissility, cleavage, compaction, and shear.
+- Variant 0: six to nine hair-thin anastomosing fissility films, each wavy, discontinuous, tapered,
+  and separated by transparent host gaps; two small attached flattened pyrite-framboid trains.
+- Variant 1: three to five narrow, steep oblique slaty-cleavage ribbons broken into separated tapered
+  segments, at most two short relict low-angle wisps, and one tiny pyrite cube with pressure shadows.
+- Variant 2: thin crenulated and sheared carbonaceous wisps draped around two transparent concretion
+  voids, with asymmetric tapering tails, one short stylolite, and pyrite along one fold limb.

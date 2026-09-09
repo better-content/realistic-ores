@@ -40,6 +40,9 @@ terminate locally. Top and bottom faces show long, gently curving bed traces rat
 stripes. Include one narrow mineral-matter parting inside the thicker bed and rare dull pyrite
 flecks. Avoid fracture veins, crystalline rims, glossy highlights, and crossing diagonals.
 
+Identity anchor: Coal Measures owns the thick, laterally persistent, low-angle bench silhouette.
+No other dark family may use two broad parallel seams or an uninterrupted mineable band.
+
 ### Ironstone — oolitic and lenticular sedimentary beds
 
 Analogue: shallow-shelf oolitic ironstone in multiple layers interbedded with clastic country rock.
@@ -94,10 +97,17 @@ body. Shader emission must remain a restrained mineral highlight.
 ### Black Shale — fissile organic laminations with sulfide enrichment
 
 Analogue: thinly laminated organic-rich shale containing pyrite/marcasite and trace metals bound to
-organic matter or sulfides. Use many very thin, subparallel dark laminations with small offsets,
-soft folds, and occasional carbon-rich lenses. Add sparse framboidal pyrite specks and only a trace
-of subdued violet-gray metal enrichment following a lamination; purple is an accent, not a vein.
-Avoid bright purple ribbons, crossing fractures, thick black bars, or magical contamination clouds.
+organic matter or sulfides. The visible ore layer represents enriched fissility and cleavage
+surfaces within shale, not the entire shale bed. Use hair-thin, discontinuous, tapered films that
+anastomose, step en echelon, climb as steep slaty cleavage, or crenulate around compacted voids.
+Large transparent gaps must separate individual traces. Add sparse framboidal pyrite specks and
+only a trace of subdued violet-gray enrichment following a film; purple is an accent, not a vein.
+Avoid coal's thick low-angle benches, repeated parallel seams, uninterrupted bands, bright purple
+ribbons, crossing fracture networks, thick black bars, or magical contamination clouds.
+
+Identity anchor: Black Shale owns fine fissility, oblique cleavage, and folded carbonaceous wisps;
+Coal owns stratiform benches. At 32×32, Black Shale must still show tapered broken traces or steep
+fabric rather than reading as a thinner recolor of Coal Measures.
 
 ## Alpha-master acceptance
 
