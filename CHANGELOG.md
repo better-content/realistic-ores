@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Replaced symbolic six-face deposit art with the approved geology-v7 standalone-first suite:
+  three edge-crossing ImageGen textures per family, direct nearest-neighbor reduction, canonical
+  stone/deepslate compositing, and vanilla-style all-face reuse.
+- Added the living ore-texture authoring, alpha, morphology, review, Excavated Variants, and shader
+  contract in `docs/ORE_TEXTURE_WORKFLOW.md`.
+
 ## 0.2.0 - 2026-08-25
 
 ### Changed

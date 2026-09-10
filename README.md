@@ -11,9 +11,9 @@ handles backward wall-clock corrections without trapping the player in a cooldow
 
 ## Texture visual identity
 
-This section is the normative art direction for Realistic Ores. It was derived from the
-shipped 16x16 block and crushed-item textures and from the mineral overlays used to make
-the original composites. New textures and texture variants must preserve these rules.
+The maintained, normative authoring and review contract is
+[`docs/ORE_TEXTURE_WORKFLOW.md`](docs/ORE_TEXTURE_WORKFLOW.md). This section summarizes the shipped
+result; update the living document whenever the workflow changes.
 
 ### Core language
 
@@ -21,19 +21,18 @@ the original composites. New textures and texture variants must preserve these r
   recognizable morphology: a seam, branching vein, disseminated grains, nodules, or
   sparse crystals.
 - Keep the authored stone and deepslate ores as ordinary, finished Minecraft blocks.
-  Realistic Ores establishes their palette, morphology, coverage, and sided appearance;
+  Realistic Ores establishes their morphology, coverage, variants, and host treatment;
   Hyle and Unearthed provide the broader rock strata; Excavated Variants reads those
   normal block definitions and derives the matching host-specific ore blocks.
 - Express that contract through ordinary vanilla-format blockstates, models, and
   textures. Do not hand-author a matrix of Realistic Ores composites for every Unearthed
   stone, add custom integration code when normal definitions suffice, or simplify the
   canonical ore art to compensate for hypothetical generated hosts.
-- Keep the host rock visually dominant. In the inspected canonical artwork, mineral
-  material occupies only 20-33 of 256 pixels per face. Variants should remain within
-  that observed coverage envelope unless a deliberate family-specific exception is
-  documented.
-- Use crisp 16x16 pixel art. Mineral pixels are fully opaque, with no smoothing or
-  semitransparent edges, and use exactly five mineral colors per family.
+- Keep the host rock visually dominant. The accepted geology-v7 overlays retain 50–120 materially
+  visible pixels of 256 after direct reduction; composition and negative space matter more than a
+  single target percentage.
+- Use crisp 16x16 pixel art produced by direct point sampling of approved transparent ImageGen
+  masters. Preserve the sampled RGBA and composite it into fully opaque runtime textures.
 - Make identity depend on silhouette and value structure as well as hue. A texture must
   remain recognizable in low light and under shaders; increasing saturation is not a
   substitute for preserving its deposit shape.
@@ -43,35 +42,22 @@ the original composites. New textures and texture variants must preserve these r
   or thicken clusters while retaining the family's morphology, coverage, palette, and
   overall light/dark balance. Rotation or mirroring alone does not count as a texture
   variant.
-- Each visual family has exactly three equally weighted sided model variants: canonical
+- Each visual family has exactly three equally weighted model variants: canonical
   variant `0` and alternate variants `1` and `2`.
 
 ### Host treatment
 
-- Both stone and deepslate variants are complete, finished block models with distinct
-  `north`, `east`, `south`, `west`, `up`, and `down` textures. Author those opaque final
-  textures directly. Do not introduce mineral-only masks, overlay source formats, or a
-  custom compositing layer for Excavated Variants compatibility.
-- Treat the six finished faces as views of one plausible deposit rather than unrelated
-  drawings. When a seam or vein reaches a face edge, continue its position, width,
-  palette step, and direction onto the adjacent face. A feature may end before an edge,
-  but it must not be visibly cut at an edge without a matching continuation.
-- Corresponding stone and deepslate variant indices must express the same family and
-  comparable geological character, but they need not share pixel-identical mineral
-  layouts. Each is a normal source ore definition in its own host.
-- Opposite faces belong to the same imagined deposit volume but must not duplicate or
-  mirror one another. Each exposed face must still communicate the family morphology;
-  do not hide all identifying material on one preferred viewing side.
+- Both stone and deepslate variants are complete opaque runtime textures derived from one approved
+  transparent mineral master per variant. Reuse the same morphology on all cube faces, matching
+  vanilla ore blocks and guaranteeing that every exposed face works alone.
+- Edge crossings imply continuation under random block variants; exact CTM joins are not required.
+- Corresponding stone and deepslate variants share pixel-identical mineral geometry.
 - Stone faces are finished opaque textures using the normal stone host, with the mineral
   embedded in the rock rather than drawn as a floating outline or decal.
 - Deepslate faces are finished opaque textures retaining the directional deepslate side
   treatment on lateral faces and the appropriate top or bottom treatment vertically.
   Preserve that host directionality while allowing all six mineral arrangements to differ.
-- Keep the mean mineral coverage of a six-face set within the canonical 20-33-pixel
-  envelope per face. Individual faces may vary modestly to express the deposit volume,
-  but none should become an empty host face or a mineral-dominated panel.
-- Balance the three sided models as a set so no family develops a fixed compass signature,
-  such as its brightest crystal always appearing on the north face.
+- Balance all three variants as a set; structure must differ, not merely rotation or recoloring.
 - Host contrast may shift naturally between stone and deepslate, but the mineral palette
   and family silhouette stay recognizable. Do not brighten deep variants merely to make
   them as luminous as their stone versions.
@@ -126,7 +112,8 @@ fluid surface feature. Exact primary and coproduct materials belong to processin
 not additional worldgen identities. The retained assay catalogue is the 24 useful outputs
 plus rock salt, sodium chloride, and saltpeter; inert technical concentrates are removed.
 
-`tools/ore_art_manifest.json` is the canonical five-colour palette and morphology list.
+`tools/ore_art_manifest.json` remains the canonical morphology list and the five-colour palette
+source for processing-item art. Block masters preserve their generated palette through reduction.
 Tin Quartz folds gem-bearing pegmatite depth into its later assay routes, while Black Shale
 folds redstone and precious-metal depth into its controlled soul-bearing geology.
 

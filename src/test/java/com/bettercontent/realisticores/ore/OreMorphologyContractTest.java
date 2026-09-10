@@ -5,18 +5,19 @@ import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final class OreMorphologyContractTest {
-    private static final Path TEXTURES = Path.of("src/main/resources/assets/realistic_ores/textures/block");
+    private static final Path MASTERS = Path.of("art/block-masters/geology-v7");
     private static final Map<String, String> MORPHOLOGIES = Map.of(
         "hotstone", "asymmetric_breccia_pipe_with_radial_fissures",
         "copper_bloom", "branching_stockwork_with_oxidation_halos",
@@ -27,101 +28,100 @@ final class OreMorphologyContractTest {
         "evaporite_beds", "stacked_salt_gypsum_beds_and_crystalline_pockets",
         "black_shale", "tapered_fissility_oblique_cleavage_and_crenulated_carbon_wisps");
 
-    @Test void manifestLocksTheEightNonColorMorphologies() throws Exception {
-        JsonObject manifest = JsonParser.parseString(Files.readString(Path.of("tools/ore_art_manifest.json"))).getAsJsonObject();
+    @Test
+    void manifestLocksTheEightNonColorMorphologies() throws Exception {
+        JsonObject manifest = JsonParser.parseString(
+                Files.readString(Path.of("tools/ore_art_manifest.json"))).getAsJsonObject();
         assertEquals(MORPHOLOGIES.keySet(), manifest.keySet());
         MORPHOLOGIES.forEach((family, morphology) ->
-            assertEquals(morphology, manifest.getAsJsonObject(family).get("morphology").getAsString(), family));
+            assertEquals(morphology,
+                    manifest.getAsJsonObject(family).get("morphology").getAsString(), family));
     }
 
-    @Test void canonicalFacesHaveDistinctSilhouettesAndBoundedMineralCoverage() throws Exception {
-        JsonObject manifest = JsonParser.parseString(Files.readString(Path.of("tools/ore_art_manifest.json"))).getAsJsonObject();
-        Map<String, boolean[]> masks = new LinkedHashMap<>();
-        for (String family : MORPHOLOGIES.keySet()) {
-            Set<Integer> colors = new HashSet<>();
-            manifest.getAsJsonObject(family).getAsJsonArray("palette")
-                .forEach(color -> colors.add(Integer.parseInt(color.getAsString().substring(1), 16)));
-            var image = ImageIO.read(TEXTURES.resolve(family + "_0_up.png").toFile());
-            boolean[] mask = new boolean[256];
-            int count = 0;
-            for (int y = 0; y < 16; y++) for (int x = 0; x < 16; x++) {
-                mask[y * 16 + x] = colors.contains(image.getRGB(x, y) & 0xffffff);
-                if (mask[y * 16 + x]) count++;
-            }
-            assertTrue(count >= 20 && count <= 33, family + " mineral coverage " + count);
-            assertTrue(maxWindow(mask, 3) <= 7, family + " regressed to a dense ore blob");
-            masks.put(family, mask);
-        }
+    @Test
+    void approvedMastersSurviveDirectReductionAsDistinctEdgeCrossingTextures() throws Exception {
         Set<Integer> silhouettes = new HashSet<>();
-        masks.forEach((family, mask) -> assertTrue(silhouettes.add(Arrays.hashCode(mask)),
-            family + " duplicates another mineral silhouette"));
-
-        assertFalse(isHorizontallySymmetric(masks.get("hotstone")), "Hotstone must not regress to a centered star");
-        assertFalse(isVerticallySymmetric(masks.get("hotstone")), "Hotstone must remain an asymmetric breccia body");
-        assertTrue(maxRowSpan(masks.get("coal_measures")) >= 10, "Coal Measures needs broad broken seams");
-        assertTrue(maxRowSpan(masks.get("ironstone")) >= 10, "Ironstone needs broad lenticular bedding");
-        assertTrue(maxRowSpan(masks.get("evaporite_beds")) >= 10, "Evaporite needs a broad crystal bed");
+        for (String family : MORPHOLOGIES.keySet()) {
+            for (int variant = 0; variant < 3; variant++) {
+                Path path = MASTERS.resolve(family).resolve("variant_" + variant + ".png");
+                BufferedImage master = ImageIO.read(path.toFile());
+                assertTrue(master != null && master.getColorModel().hasAlpha(), path.toString());
+                boolean[] mask = reduceMask(master);
+                int visible = count(mask);
+                assertTrue(visible >= 50 && visible <= 120,
+                        family + " variant " + variant + " visible coverage " + visible);
+                assertTrue(touchedEdges(mask) >= 2,
+                        family + " variant " + variant + " must cross at least two edges");
+                assertTrue(silhouettes.add(Arrays.hashCode(mask)),
+                        family + " variant " + variant + " duplicates another silhouette");
+            }
+        }
+        assertEquals(24, silhouettes.size());
     }
 
-    private static int centerCount(boolean[] mask) {
-        int count = 0;
-        for (int y = 6; y <= 9; y++) for (int x = 6; x <= 9; x++) if (mask[y * 16 + x]) count++;
-        return count;
+    @Test
+    void coalBenchesRemainMorphologicallyDistinctFromBlackShaleFissility() throws Exception {
+        for (int variant = 0; variant < 3; variant++) {
+            boolean[] coal = mask("coal_measures", variant);
+            boolean[] shale = mask("black_shale", variant);
+            assertEquals(16, maxRow(coal), "Coal must retain an edge-to-edge bed: variant " + variant);
+            assertTrue(broadRows(coal) >= 5, "Coal needs multiple thick bench rows: variant " + variant);
+            assertTrue(maxRow(shale) <= 9, "Black Shale must remain broken fissility: variant " + variant);
+            assertTrue(broadRows(shale) <= 3, "Black Shale must not become a coal bench: variant " + variant);
+        }
     }
 
-    private static boolean isHorizontallySymmetric(boolean[] mask) {
-        for (int y = 0; y < 16; y++) for (int x = 0; x < 8; x++)
-            if (mask[y * 16 + x] != mask[y * 16 + 15 - x]) return false;
-        return true;
+    private static boolean[] mask(String family, int variant) throws Exception {
+        return reduceMask(ImageIO.read(MASTERS.resolve(family)
+                .resolve("variant_" + variant + ".png").toFile()));
     }
 
-    private static boolean isVerticallySymmetric(boolean[] mask) {
-        for (int y = 0; y < 8; y++) for (int x = 0; x < 16; x++)
-            if (mask[y * 16 + x] != mask[(15 - y) * 16 + x]) return false;
-        return true;
+    private static boolean[] reduceMask(BufferedImage source) {
+        boolean[] result = new boolean[256];
+        for (int y = 0; y < 16; y++) {
+            int sourceY = (int) (((long) (2 * y + 1) * source.getHeight()) / 32L);
+            for (int x = 0; x < 16; x++) {
+                int sourceX = (int) (((long) (2 * x + 1) * source.getWidth()) / 32L);
+                result[y * 16 + x] = (source.getRGB(sourceX, sourceY) >>> 24) >= 128;
+            }
+        }
+        return result;
+    }
+
+    private static int count(boolean[] mask) {
+        int result = 0;
+        for (boolean value : mask) if (value) result++;
+        return result;
+    }
+
+    private static int touchedEdges(boolean[] mask) {
+        boolean left = false, right = false, top = false, bottom = false;
+        for (int offset = 0; offset < 16; offset++) {
+            left |= mask[offset * 16];
+            right |= mask[offset * 16 + 15];
+            top |= mask[offset];
+            bottom |= mask[15 * 16 + offset];
+        }
+        return (left ? 1 : 0) + (right ? 1 : 0) + (top ? 1 : 0) + (bottom ? 1 : 0);
     }
 
     private static int maxRow(boolean[] mask) {
-        int best = 0;
+        int result = 0;
         for (int y = 0; y < 16; y++) {
             int count = 0;
             for (int x = 0; x < 16; x++) if (mask[y * 16 + x]) count++;
-            best = Math.max(best, count);
+            result = Math.max(result, count);
         }
-        return best;
+        return result;
     }
 
-    private static int maxRowSpan(boolean[] mask) {
-        int best = 0;
+    private static int broadRows(boolean[] mask) {
+        int result = 0;
         for (int y = 0; y < 16; y++) {
-            int first = -1, last = -1;
-            for (int x = 0; x < 16; x++) if (mask[y * 16 + x]) {
-                if (first < 0) first = x;
-                last = x;
-            }
-            if (first >= 0) best = Math.max(best, last - first + 1);
-        }
-        return best;
-    }
-
-    private static int maxColumn(boolean[] mask) {
-        int best = 0;
-        for (int x = 0; x < 16; x++) {
             int count = 0;
-            for (int y = 0; y < 16; y++) if (mask[y * 16 + x]) count++;
-            best = Math.max(best, count);
+            for (int x = 0; x < 16; x++) if (mask[y * 16 + x]) count++;
+            if (count >= 8) result++;
         }
-        return best;
-    }
-
-    private static int maxWindow(boolean[] mask, int size) {
-        int best = 0;
-        for (int y0 = 0; y0 <= 16 - size; y0++) for (int x0 = 0; x0 <= 16 - size; x0++) {
-            int count = 0;
-            for (int y = y0; y < y0 + size; y++) for (int x = x0; x < x0 + size; x++)
-                if (mask[y * 16 + x]) count++;
-            best = Math.max(best, count);
-        }
-        return best;
+        return result;
     }
 }

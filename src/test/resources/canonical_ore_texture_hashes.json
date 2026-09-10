@@ -1,42 +1,42 @@
 {
   "coal_measures": {
-    "stone_0_south": "afa2b617ccfd3d05d4def4b840298991ba774f1a56bf155201ae4721d91ed6d7",
-    "deepslate_0_south": "82a1be498bf365d6c24a70b14fe7ff8372667300d4cb43e6721a5a342dc8f0f4",
-    "deepslate_0_up": "74c8559b44026a84822b905a7fa954000b2c991c36bbe21c3052ef0ff1a20d83"
+    "stone_0_south": "a83ec1e1ecad0f8c23bf1b37f28c4af845da693e7353ba2c4ff0cf809dc95799",
+    "deepslate_0_south": "447f64c05e4594f9e9ff65d8c9c070141971f4cd6e8ef020768474f7917eee7a",
+    "deepslate_0_up": "9d5437ced2b3678c549e66b4e550fead1a69292b825696886220594eee486d12"
   },
   "ironstone": {
-    "stone_0_south": "98623e61906301d75954291d2ae404d223a8a0d765865b7bf8dabbb6d639bf1b",
-    "deepslate_0_south": "51c3f772a2453884a87d2da1b929426ef28b6cd20f6e21ca993bb3ce92e8bc21",
-    "deepslate_0_up": "b7df7ffb2a5e2e6af28178d46bd1b353035cd6788b38666ff9357d48ab68a96b"
+    "stone_0_south": "d8c0e5cabe645ee723e76e1c6dcd7ff55f057de3886d07e7553c09a009bb6fd7",
+    "deepslate_0_south": "49b32e645b9fc9fddf47fd846f47ff19df18834ef100c91494a476674aaa90f5",
+    "deepslate_0_up": "6cbb754f1b97a134ccb95a9aab58ad078e4df2201f1cb24c89aa89fa03a26421"
   },
   "copper_bloom": {
-    "stone_0_south": "e48198386a5c2873e7f9b1798145bed17452155f46103558987647b62bab8ec1",
-    "deepslate_0_south": "8f485c0b5050a5b910613666fac5bef4a7fe45e297da3d366e68280f35b26ece",
-    "deepslate_0_up": "34addb68d6351cac39b61d5631ba7824ffb8d7edbf60727e7c2bba028f81bf0d"
+    "stone_0_south": "88d7d7edfe76698bfaad821c6d953d055de8ba872db180bfd718a12a18b8a603",
+    "deepslate_0_south": "6e743f848c1d41cbc34aec73cf9e2edf67178966006a0dd3e13fe63807820d1c",
+    "deepslate_0_up": "f257301b89b5161416df9573e53e0260f6659b4556883276bde68c663a7d94ef"
   },
   "tin_quartz": {
-    "stone_0_south": "cf699277df48e4c2e6c8bac9376594e919065cca44308ec2dd03f8534c3ba5c4",
-    "deepslate_0_south": "550224a676a456abb490b470b35d61dac522d5b476ddac5996ba96063b0c433d",
-    "deepslate_0_up": "355dcfbb1941b8e348c550049e0fb6b985a54e5809ead7783b712b0f21dce94a"
+    "stone_0_south": "cc7c89f931944bfd355280b4e01f738e35f34149d9aed2d5872e94127976573c",
+    "deepslate_0_south": "53d95bf23d7378f7e810b5278078ab87b722e1bdb096c7a8a9d17c6d563eff71",
+    "deepslate_0_up": "6e7d80c88438f773e629175bd7afaaa532584b71cb95668e97f13f6a154bc382"
   },
   "brassroot": {
-    "stone_0_south": "46a71cf690a09266180c132fc83f0e745509cb526c4b892675f19fe9f87af108",
-    "deepslate_0_south": "e3094e47bf53ee86ccd9d58977f0f296662e2ea73a51a81fa6d04a637640861b",
-    "deepslate_0_up": "bec55de7bad83fe5b1aa0f9a47c2b28f3da961614b1dcda2bc0b6d3ce859f0d9"
+    "stone_0_south": "0434f792a45b2fd9052a572d15680e6dbe4d9ac44497551368f2e6f30bffe0cf",
+    "deepslate_0_south": "5bac35164d5a8be71e5a84c14d640a53825535c5c6cd734361ff6e3fd6588d03",
+    "deepslate_0_up": "7c3beee8aaba74d3cd9ffa7ea4da8741354d9c2817c8ed582db688e67770e442"
   },
   "evaporite_beds": {
-    "stone_0_south": "45f791f4777a3a78a842adefee355b156bea440590591c80f8b23cbb56d81b40",
-    "deepslate_0_south": "d327a5684c2a2cd1263d7d4a7f150e7854926d00b69e4d2dfa44d3a086feb1b1",
-    "deepslate_0_up": "a526015db23d0aaa457d4b22c13c5d2e92eb99b08b73c1e050ff4bfa3f9106cc"
+    "stone_0_south": "0572ede4db5f94c5737226fd0160542f5e27e9a89c80994bf22e9e649944948c",
+    "deepslate_0_south": "af5f90c17cf521410a03ec990b2ae01bdb481dffdae2f72839e3ae05d73e2c0a",
+    "deepslate_0_up": "2dbfad8bf49bb22fb9dfd7c2ee6c207331fddefd29e397969bacb71f7ce0c5d9"
   },
   "hotstone": {
-    "stone_0_south": "39e3f1b6936d83b789f48dc8495ec3eb843637cd371dc88f9aebd8573248fbe4",
-    "deepslate_0_south": "e515435c5f3699462f282e839f3f1dead9cc71fd32425f679afafc8ebcc13d32",
-    "deepslate_0_up": "cd9e26a31dbf477f97e034e27f5bae0a6e6832bb37a3c3132cb4ddba990ccfa8"
+    "stone_0_south": "9e00a0f71b4934f15fd05215759c64be0ee7dbb5c17b94a46c3f2aeec72964bf",
+    "deepslate_0_south": "bc282c039bdcdd1761ea9c703cb9c24a01dc519e6380be9097a182ff7101eb31",
+    "deepslate_0_up": "e9f97b9f1ac876097a8036d475ee8620ed14f767a77db9a335b9543aa6b312ad"
   },
   "black_shale": {
-    "stone_0_south": "b05ceef4f2a70b15cd49fdfadc82054cf2aa9808dbce64d03f797a9c39a41fd8",
-    "deepslate_0_south": "46f6af5e01dae51893a8d00a2c234a521868869dc429c6ba5c697eae3d81d545",
-    "deepslate_0_up": "90a7bdc3c16aba8d30b986a1caad1247b67ed39ae6a4a3b45b96e5d64a9af200"
+    "stone_0_south": "11c6d79cf83a0cf0a0b53c07c8b2550014bc62cf55b246286ec127f5f4558085",
+    "deepslate_0_south": "71eb0b8c618fc5a3d251aff723462e44b70f2c79e6f91bd78db840edb88d18f3",
+    "deepslate_0_up": "ace0ad28e95e74c09ca903ebcc26a1dfcfa2adc9f486e98c08c984e55e316893"
   }
 }

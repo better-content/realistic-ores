@@ -146,16 +146,27 @@ val verifyItemTextures by tasks.registering(Exec::class) {
     )
 }
 
-val verifyBlockMasterCandidates by tasks.registering(Exec::class) {
+val verifyBlockMasters by tasks.registering(Exec::class) {
     group = "verification"
-    description = "Validates the complete geology-v4 cubemap alpha and 32px pixel-art coverage bounds."
+    description = "Validates the complete geology-v7 standalone alpha master suite."
     commandLine(
         javaToolchains.launcherFor {
             languageVersion.set(JavaLanguageVersion.of(17))
         }.get().executablePath.asFile.absolutePath,
         "tools/GenerateDepositTextures.java",
-        "--validate-candidates",
-        "art/block-master-candidates/geology-v4"
+        "--validate-masters"
+    )
+}
+
+val verifyBlockTextures by tasks.registering(Exec::class) {
+    group = "verification"
+    description = "Verifies all shipped block textures against the approved geology-v7 masters."
+    commandLine(
+        javaToolchains.launcherFor {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }.get().executablePath.asFile.absolutePath,
+        "tools/GenerateDepositTextures.java",
+        "--check"
     )
 }
 
@@ -164,7 +175,8 @@ tasks.register("verifyFull") {
     description = "Runs the full verification lane for this repo."
     dependsOn(tasks.named("verifyFast"))
     dependsOn(verifyItemTextures)
-    dependsOn(verifyBlockMasterCandidates)
+    dependsOn(verifyBlockMasters)
+    dependsOn(verifyBlockTextures)
 }
 
 jacoco {

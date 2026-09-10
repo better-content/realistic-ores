@@ -28,9 +28,6 @@ final class RealisticOresResourceTest {
     private static final Path DATA_ROOT = Path.of("src/main/resources/data/realistic_ores");
     private static final Path RESOURCE_ROOT = Path.of("src/main/resources");
     private static final Path ASSET_ROOT = RESOURCE_ROOT.resolve("assets/realistic_ores");
-    private static final Set<Integer> STONE_COLORS = rgbSet("686868", "747474", "7f7f7f", "8f8f8f");
-    private static final Set<Integer> DEEPSLATE_SIDE_COLORS = rgbSet("2f2f37", "3d3d43", "515151", "646464", "797979");
-    private static final Set<Integer> DEEPSLATE_END_COLORS = rgbSet("3d3d43", "4b4b50", "5a5a5a", "646464", "747474");
     private static final Set<String> FACES = Set.of("north", "east", "south", "west", "up", "down");
     private static final Set<String> SALIENT_FAMILIES = Set.of(
             "coal_measures", "ironstone", "copper_bloom", "tin_quartz", "brassroot",
@@ -111,16 +108,12 @@ final class RealisticOresResourceTest {
 
     @Test
     void everyOreBlockHasThreeUnrotatedSidedModelsAndValidFinalTextures() throws IOException {
-        JsonObject palettes = read(Path.of("tools/ore_art_manifest.json"), JsonObject.class);
         JsonObject canonicalHashes = read(Path.of("src/test/resources/canonical_ore_texture_hashes.json"), JsonObject.class);
 
         try (var paths = Files.list(DATA_ROOT.resolve("realistic_ores"))) {
             for (Path path : paths.filter(file -> file.getFileName().toString().endsWith(".json")).toList()) {
                 OreDefinition definition = read(path, OreDefinition.class);
                 definition.validate();
-                Set<Integer> palette = new HashSet<>();
-                palettes.getAsJsonObject(definition.id()).getAsJsonArray("palette")
-                        .forEach(color -> palette.add(parseRgb(color.getAsString())));
 
                 for (OreDefinition.VariantDefinition oreVariant : definition.variants()) {
                     assertEquals(OreDefinition.TextureMode.CUBE_SIDED, oreVariant.textureMode(), path.toString());
@@ -131,22 +124,26 @@ final class RealisticOresResourceTest {
                     assertItemUsesCanonicalModel(blockId);
                     assertFalse(Files.exists(ASSET_ROOT.resolve("models/block/" + blockId + ".json")), blockId);
 
-                    Set<String> hashes = new HashSet<>();
+                    Set<String> variantHashes = new HashSet<>();
                     for (int variant = 0; variant < 3; variant++) {
                         Path modelPath = ASSET_ROOT.resolve("models/block/" + blockId + "_" + variant + ".json");
                         JsonObject model = read(modelPath, JsonObject.class);
                         assertEquals("minecraft:block/cube", model.get("parent").getAsString(), modelPath.toString());
                         JsonObject textures = model.getAsJsonObject("textures");
                         assertEquals(textureRef(textureBlockId, variant, "south"), textures.get("particle").getAsString(), modelPath.toString());
+                        Map<String, String> faceHashes = new java.util.HashMap<>();
                         for (String face : FACES) {
                             String expectedTexture = textureRef(textureBlockId, variant, face);
                             assertEquals(expectedTexture, textures.get(face).getAsString(), modelPath + " " + face);
                             Path texturePath = ASSET_ROOT.resolve("textures/block/" + textureBlockId + "_" + variant + "_" + face + ".png");
-                            assertFinalTexture(texturePath, palette, hostColors(oreVariant.host(), face));
-                            assertTrue(hashes.add(sha256(texturePath)), "duplicate face texture: " + texturePath);
+                            assertFinalTexture(texturePath);
+                            faceHashes.put(face, sha256(texturePath));
                         }
+                        assertAllFaceReuseContract(oreVariant.host(), faceHashes, modelPath);
+                        assertTrue(variantHashes.add(faceHashes.get("south")),
+                                "variants must have different approved morphology: " + modelPath);
                     }
-                    assertEquals(18, hashes.size(), blockId);
+                    assertEquals(3, variantHashes.size(), blockId);
                     assertCanonicalHashes(definition.id(), oreVariant.host(), canonicalHashes);
                 }
             }
@@ -186,29 +183,34 @@ final class RealisticOresResourceTest {
                 read(itemPath, JsonObject.class).get("parent").getAsString(), itemPath.toString());
     }
 
-    private static void assertFinalTexture(
-            Path texturePath,
-            Set<Integer> palette,
-            Set<Integer> hostColors
-    ) throws IOException {
+    private static void assertFinalTexture(Path texturePath) throws IOException {
         BufferedImage image = ImageIO.read(texturePath.toFile());
         assertTrue(image != null, texturePath.toString());
         assertEquals(16, image.getWidth(), texturePath.toString());
         assertEquals(16, image.getHeight(), texturePath.toString());
-        int mineralPixels = 0;
         for (int y = 0; y < 16; y++) {
             for (int x = 0; x < 16; x++) {
                 int argb = image.getRGB(x, y);
                 assertEquals(255, argb >>> 24, texturePath + " alpha at " + x + "," + y);
-                int rgb = argb & 0xffffff;
-                if (!hostColors.contains(rgb)) {
-                    mineralPixels++;
-                    assertTrue(palette.contains(rgb), texturePath + " contains off-palette color #" + String.format("%06x", rgb));
-                }
             }
         }
-        assertTrue(mineralPixels >= 20 && mineralPixels <= 33,
-                texturePath + " has " + mineralPixels + " mineral pixels");
+    }
+
+    private static void assertAllFaceReuseContract(
+            String host, Map<String, String> hashes, Path modelPath
+    ) {
+        if (host.equals("stone")) {
+            assertEquals(1, new HashSet<>(hashes.values()).size(),
+                    "stone reuses one approved texture on all faces: " + modelPath);
+            return;
+        }
+        assertEquals(1, Set.of("north", "east", "south", "west").stream()
+                .map(hashes::get).collect(Collectors.toSet()).size(),
+                "deepslate lateral faces reuse one approved texture: " + modelPath);
+        assertEquals(hashes.get("up"), hashes.get("down"),
+                "deepslate end faces share the directional top host: " + modelPath);
+        assertFalse(hashes.get("south").equals(hashes.get("up")),
+                "deepslate host sidedness must remain visible: " + modelPath);
     }
 
     private static void assertCanonicalHashes(String family, String host, JsonObject manifest) {
@@ -225,29 +227,12 @@ final class RealisticOresResourceTest {
         }
     }
 
-    private static Set<Integer> hostColors(String host, String face) {
-        if (host.equals("stone")) {
-            return STONE_COLORS;
-        }
-        return face.equals("up") || face.equals("down") ? DEEPSLATE_END_COLORS : DEEPSLATE_SIDE_COLORS;
-    }
-
     private static String textureRef(String blockId, int variant, String face) {
         return "realistic_ores:block/" + blockId + "_" + variant + "_" + face;
     }
 
     private static String blockId(String family) {
         return family;
-    }
-
-    private static Set<Integer> rgbSet(String... colors) {
-        return java.util.Arrays.stream(colors)
-                .map(color -> Integer.parseUnsignedInt(color, 16))
-                .collect(Collectors.toUnmodifiableSet());
-    }
-
-    private static int parseRgb(String value) {
-        return Integer.parseUnsignedInt(value.substring(1), 16);
     }
 
     private static String sha256(Path path) {

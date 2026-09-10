@@ -2,24 +2,22 @@
 
 ## Purpose
 
-The high-resolution alpha masters are the source of ore geometry. The importer may remove
-microscopic noise, resample coverage, quantize color, and composite host rock, but it must not
-replace generated morphology with a symbolic mask. The target face is 32×32, with host rock
-sampled at 16×16 and expanded 2×. Generated alpha is reduced to hard pixel clusters and snapped to
-five flat family colours. That mixed-resolution composition retains meaningful partings,
-intersections, and clast margins without retaining photographic surface noise.
+The high-resolution transparent alpha masters are the source of ore geometry and mineral color.
+The reducer performs one center-point nearest-neighbor sample per 16×16 output pixel, preserves the
+sampled RGBA, and composites the result over canonical host rock. It must not replace generated
+morphology with a symbolic mask, threshold or reconstruct alpha, quantize color, or synthesize
+missing detail.
 
-Each variant is one 1536×1024 transparent 3×2 cubemap atlas. Cell order is north, east, south,
-west, up, down. The six cells describe cuts through one coherent cubical rock sample. A feature
-that reaches an edge must continue at the corresponding position on the adjacent face. Opposite
-faces may differ but must remain compatible with the same three-dimensional body.
+Each variant is one square standalone texture master reused on all cube faces, matching vanilla ore
+blocks. A feature that reaches an edge implies continuation into adjacent randomly varied blocks;
+exact connected-texture alignment is not required.
 
 ## Shared visual rules
 
 - Render mineralization only on genuine transparent alpha. Do not render host rock, a colored
   matte, a checkerboard, shadows, bloom, labels, dividers, borders, or detached decoration.
-- Keep 70–88 percent of each cell transparent. Host rock must remain dominant after compositing.
-- Use mostly one-to-three-pixel structures after 32× reduction, with hairline one-pixel branches
+- Keep enough transparent space for host rock to remain dominant after compositing.
+- Use mostly one-to-three-pixel structures after 16× reduction, with hairline one-pixel branches
   only where the source supports them. Never produce a centered emblem, star, X, root icon,
   nugget, or contiguous round ore patch.
 - Preserve scale hierarchy: one dominant structure, two or three subordinate structures, then a
@@ -106,29 +104,21 @@ Avoid coal's thick low-angle benches, repeated parallel seams, uninterrupted ban
 ribbons, crossing fracture networks, thick black bars, or magical contamination clouds.
 
 Identity anchor: Black Shale owns fine fissility, oblique cleavage, and folded carbonaceous wisps;
-Coal owns stratiform benches. At 32×32, Black Shale must still show tapered broken traces or steep
+Coal owns stratiform benches. At 16×16, Black Shale must still show tapered broken traces or steep
 fabric rather than reading as a thinner recolor of Coal Measures.
 
 ## Alpha-master acceptance
 
-An atlas is rejected before import when it lacks a real alpha channel, has a materially opaque
-outer border, uses a colored matte, merges cells across atlas boundaries, contains detached visual
-noise, or violates its family's forbidden forms. Review the high-resolution alpha over light and
-dark checkerboards before downsampling.
+A master is rejected before import when it lacks real alpha, uses a colored matte or drawn
+checkerboard, contains detached visual noise, reduces outside the accepted 50–120 visible-pixel
+guard rail, misses the two-edge continuation rule, or violates its family's forbidden forms.
+Review the high-resolution alpha over checkerboard plus isolated stone and deepslate before import.
 
-The reduced result is reviewed at native 32×32 and nearest-neighbor enlargement, with a separate
-16× stress preview. It must look intentionally pixel-authored: hard square pixels, flat grouped
-values, no antialiasing, gradients, photographic texture, or subpixel noise. Every face must retain
-the master's geologically meaningful connected structures, keep at least 62% host visible for broad
-ironstone lenses, 64% for breccia, 66% for major tin lodes, and 69% for copper stockwork; other
-families retain at least 70% host. It must remain recognizable without color alone. If topology does
-not survive, regenerate the master or revise the alpha-preserving resampler; do not hand-paint the
-runtime PNG.
-
-Steep Tin Quartz and Brassroot structures, plus shallow Ironstone or Evaporite Beds viewed along
-strike, may reduce to a 2–4% intersection on up/down faces; their vertical side faces still follow
-the normal coverage floor. This is sidedness, not a missing texture: a thin geological body can
-have a small end-section but a long trace on the faces it crosses.
+The reduced result is reviewed at native 16×16 and nearest-neighbor enlargement. It must look
+intentionally pixel-authored and retain the master's meaningful partings, intersections, lenses,
+and clast margins. If topology does not survive, regenerate the master; do not hand-paint the
+runtime PNG or repair the alpha algorithmically. The full gate is maintained in
+`docs/ORE_TEXTURE_WORKFLOW.md`.
 
 ## Geological references
 
