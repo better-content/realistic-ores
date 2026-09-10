@@ -2,7 +2,7 @@ package com.bettercontent.realisticores.compat;
 
 import com.bettercontent.realisticores.RealisticOresMod;
 import com.bettercontent.realisticores.registry.ModBlocks;
-import java.lang.reflect.Field;
+import dev.lukebemish.excavatedvariants.impl.ModifiedOreBlock;
 import java.util.Set;
 import java.util.Map;
 import java.util.LinkedHashMap;
@@ -11,11 +11,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.fml.ModList;
 import org.jetbrains.annotations.Nullable;
 
-/** Optional, reflection-only bridge: the mod never requires Excavated Variants to load. */
+/** Optional typed bridge guarded by the loaded mod and its declared compatible version. */
 public final class ExcavatedVariantSupport {
-    private static final String MODIFIED_ORE_CLASS = "dev.lukebemish.excavatedvariants.impl.ModifiedOreBlock";
     private static final Set<String> WARNED = ConcurrentHashMap.newKeySet();
     private static volatile Map<String, Variant> variantsByCycle;
 
@@ -23,33 +23,27 @@ public final class ExcavatedVariantSupport {
     }
 
     public static @Nullable Variant identify(Item item) {
+        if (!ModList.get().isLoaded("excavated_variants")) return null;
         ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(item);
         Block block = itemId == null ? null : ForgeRegistries.BLOCKS.getValue(itemId);
-        if (block == null || !isModifiedOre(block)) {
+        if (!(block instanceof ModifiedOreBlock modifiedOre)) {
             return null;
         }
-        try {
-            Object ore = publicField(block, "ore");
-            Object stone = publicField(block, "stone");
-            String family = (String) publicField(ore, "id");
-            ResourceLocation substrateId = (ResourceLocation) publicField(stone, "blockId");
-            boolean known = ModBlocks.oreDefinitions().stream().anyMatch(definition -> definition.id().equals(family));
-            if (!known) {
-                if (isOwnedOre(ore)) {
-                    warnOnce(block, "unknown deposit family " + family);
-                }
-                return null;
+        String family = modifiedOre.ore.id;
+        ResourceLocation substrateId = modifiedOre.stone.blockId;
+        boolean known = ModBlocks.oreDefinitions().stream().anyMatch(definition -> definition.id().equals(family));
+        if (!known) {
+            if (isOwnedOre(modifiedOre)) {
+                warnOnce(block, "unknown deposit family " + family);
             }
-            Block substrate = ForgeRegistries.BLOCKS.getValue(substrateId);
-            if (substrate == null) {
-                warnOnce(block, "unknown substrate " + substrateId);
-                return null;
-            }
-            return new Variant(family, substrate, block);
-        } catch (ReflectiveOperationException | ClassCastException exception) {
-            warnOnce(block, "unreadable variant metadata");
             return null;
         }
+        Block substrate = ForgeRegistries.BLOCKS.getValue(substrateId);
+        if (substrate == null) {
+            warnOnce(block, "unknown substrate " + substrateId);
+            return null;
+        }
+        return new Variant(family, substrate, block);
     }
 
     public static @Nullable Variant find(String family, Item substrate) {
@@ -77,32 +71,8 @@ public final class ExcavatedVariantSupport {
         return family + ":" + ForgeRegistries.ITEMS.getKey(substrate);
     }
 
-    private static boolean isModifiedOre(Block block) {
-        Class<?> type = block.getClass();
-        while (type != null) {
-            if (type.getName().equals(MODIFIED_ORE_CLASS)) {
-                return true;
-            }
-            type = type.getSuperclass();
-        }
-        return false;
-    }
-
-    private static Object publicField(Object owner, String name) throws ReflectiveOperationException {
-        Field field = owner.getClass().getField(name);
-        return field.get(owner);
-    }
-
-    private static boolean isOwnedOre(Object ore) throws ReflectiveOperationException {
-        Object blockIds = publicField(ore, "blockId");
-        if (!(blockIds instanceof Iterable<?> ids)) return false;
-        for (Object id : ids) {
-            if (id instanceof ResourceLocation location
-                    && location.getNamespace().equals(RealisticOresMod.MOD_ID)) {
-                return true;
-            }
-        }
-        return false;
+    private static boolean isOwnedOre(ModifiedOreBlock ore) {
+        return ore.ore.blockId.stream().anyMatch(id -> id.getNamespace().equals(RealisticOresMod.MOD_ID));
     }
 
     private static void warnOnce(Block block, String reason) {

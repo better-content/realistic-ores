@@ -1,7 +1,6 @@
 package com.bettercontent.realisticores.salience;
 
 import com.bettercontent.realisticores.RealisticOresMod;
-import com.bettercontent.realisticores.compat.ThreadsBridge;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
@@ -26,7 +25,7 @@ public final class OreSalienceEvents {
         ResourceLocation blockId = ForgeRegistries.BLOCKS.getKey(event.getState().getBlock());
         if (blockId == null) return;
         DepositIdentity.fromBlockId(blockId).ifPresent(identity -> {
-            ThreadsBridge.depositExtracted(player, identity.family());
+            DepositSurveyEpisodes.depositExtracted(player, identity.family());
             cue(player, identity, event.getPos().getX() + .5, event.getPos().getY() + .5, event.getPos().getZ() + .5);
         });
     }

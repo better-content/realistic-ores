@@ -20,6 +20,7 @@ base {
 repositories {
     mavenCentral()
     maven("https://maven.minecraftforge.net")
+    maven("https://www.cursemaven.com") { content { includeGroup("curse.maven") } }
 }
 
 java {
@@ -68,6 +69,7 @@ sourceSets.main {
 
 dependencies {
     minecraft("net.minecraftforge:forge:$minecraftVersion-$forgeVersion")
+    compileOnly(fg.deobf("curse.maven:excavated-variants-577411:5166315"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     testImplementation("com.google.code.gson:gson:2.10.1")
 }

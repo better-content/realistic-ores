@@ -1,6 +1,6 @@
 package com.bettercontent.realisticores.block;
 
-import com.bettercontent.realisticores.compat.ThreadsBridge;
+import com.bettercontent.realisticores.salience.DepositSurveyEpisodes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -77,7 +77,7 @@ public final class SurfaceSampleBlock extends Block implements SimpleWaterlogged
             popResource(level, position, collectedStack);
         }
         if (depositFamily != null && player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
-            ThreadsBridge.sampleRead(serverPlayer, depositFamily);
+            DepositSurveyEpisodes.sampleRead(serverPlayer, depositFamily);
         }
         return InteractionResult.CONSUME;
     }

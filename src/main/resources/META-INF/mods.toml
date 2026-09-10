@@ -23,3 +23,10 @@ mandatory=true
 versionRange="[${minecraftVersion}]"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.${modId}]]
+modId="excavated_variants"
+mandatory=false
+versionRange="[3.0.9,3.0.10)"
+ordering="AFTER"
+side="BOTH"
