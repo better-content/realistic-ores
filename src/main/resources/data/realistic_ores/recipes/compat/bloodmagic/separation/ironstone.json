@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "malum:earthen_spirit"
+    "item": "minecraft:clay_ball"
   },
   "syphon": 2000,
   "ticks": 200,

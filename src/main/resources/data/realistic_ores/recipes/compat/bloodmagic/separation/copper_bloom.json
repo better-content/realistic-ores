@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "malum:aerial_spirit"
+    "item": "minecraft:phantom_membrane"
   },
   "syphon": 2000,
   "ticks": 200,

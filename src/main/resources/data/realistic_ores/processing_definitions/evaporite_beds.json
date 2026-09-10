@@ -27,7 +27,7 @@
     },
     "blood": {
       "input_count": 4,
-      "output": "malum:aqueous_spirit"
+      "output": "minecraft:prismarine_crystals"
     },
     "hexerei": {
       "input_count": 4,

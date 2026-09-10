@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "malum:infernal_spirit"
+    "item": "minecraft:blaze_powder"
   },
   "syphon": 2000,
   "ticks": 200,

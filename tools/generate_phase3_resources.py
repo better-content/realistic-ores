@@ -71,12 +71,12 @@ TECHNICAL_ASSAYS = {
 }
 
 EXOTIC_OUTPUTS = {
-    "coal_measures": {"blood": "malum:infernal_spirit", "hexerei": "occultism:otherworld_ashes", "ars": "ars_nouveau:fire_essence"},
-    "ironstone": {"blood": "malum:earthen_spirit", "hexerei": "occultism:otherworld_essence", "ars": "ars_nouveau:earth_essence"},
-    "copper_bloom": {"blood": "malum:aerial_spirit", "hexerei": "occultism:spirit_attuned_gem", "ars": "ars_nouveau:manipulation_essence"},
-    "tin_quartz": {"blood": "malum:arcane_spirit", "hexerei": "realistic_ores:diamond_chip", "ars": "ars_nouveau:manipulation_essence"},
-    "brassroot": {"blood": "malum:aerial_spirit", "hexerei": "occultism:iesnium_dust", "ars": "ars_nouveau:air_essence"},
-    "evaporite_beds": {"blood": "malum:aqueous_spirit", "hexerei": "hexerei:moon_dust", "ars": "ars_nouveau:water_essence"},
+    "coal_measures": {"blood": "minecraft:blaze_powder", "hexerei": "occultism:otherworld_ashes", "ars": "ars_nouveau:fire_essence"},
+    "ironstone": {"blood": "minecraft:clay_ball", "hexerei": "occultism:otherworld_essence", "ars": "ars_nouveau:earth_essence"},
+    "copper_bloom": {"blood": "minecraft:phantom_membrane", "hexerei": "occultism:spirit_attuned_gem", "ars": "ars_nouveau:manipulation_essence"},
+    "tin_quartz": {"blood": "minecraft:lapis_lazuli", "hexerei": "realistic_ores:diamond_chip", "ars": "ars_nouveau:manipulation_essence"},
+    "brassroot": {"blood": "minecraft:phantom_membrane", "hexerei": "occultism:iesnium_dust", "ars": "ars_nouveau:air_essence"},
+    "evaporite_beds": {"blood": "minecraft:prismarine_crystals", "hexerei": "hexerei:moon_dust", "ars": "ars_nouveau:water_essence"},
     "hotstone": {"blood": "bloodmagic:destructivecrystal", "hexerei": "occultism:afrit_essence", "ars": "ars_nouveau:fire_essence"},
     "black_shale": {"blood": "bloodmagic:corrupted_dust", "hexerei": "occultism:soul_shard", "ars": "ars_nouveau:abjuration_essence"},
 }

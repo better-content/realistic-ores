@@ -42,7 +42,7 @@
     },
     "blood": {
       "input_count": 4,
-      "output": "malum:arcane_spirit"
+      "output": "minecraft:lapis_lazuli"
     },
     "hexerei": {
       "input_count": 4,

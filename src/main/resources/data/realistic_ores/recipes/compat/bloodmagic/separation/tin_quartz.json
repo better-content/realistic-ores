@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "malum:arcane_spirit"
+    "item": "minecraft:lapis_lazuli"
   },
   "syphon": 2000,
   "ticks": 200,

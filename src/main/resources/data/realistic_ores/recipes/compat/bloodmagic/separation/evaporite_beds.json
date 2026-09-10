@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "malum:aqueous_spirit"
+    "item": "minecraft:prismarine_crystals"
   },
   "syphon": 2000,
   "ticks": 200,

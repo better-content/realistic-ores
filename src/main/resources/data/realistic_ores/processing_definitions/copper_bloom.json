@@ -32,7 +32,7 @@
     },
     "blood": {
       "input_count": 4,
-      "output": "malum:aerial_spirit"
+      "output": "minecraft:phantom_membrane"
     },
     "hexerei": {
       "input_count": 4,

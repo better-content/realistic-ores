@@ -22,7 +22,7 @@
     },
     "blood": {
       "input_count": 4,
-      "output": "malum:earthen_spirit"
+      "output": "minecraft:clay_ball"
     },
     "hexerei": {
       "input_count": 4,

@@ -22,7 +22,7 @@
     },
     "blood": {
       "input_count": 4,
-      "output": "malum:infernal_spirit"
+      "output": "minecraft:blaze_powder"
     },
     "hexerei": {
       "input_count": 4,
