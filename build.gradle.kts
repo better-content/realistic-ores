@@ -1,3 +1,5 @@
+import javax.xml.parsers.DocumentBuilderFactory
+
 plugins {
     jacoco
     id("net.minecraftforge.gradle") version "[6.0,6.2)"
@@ -183,36 +185,74 @@ jacoco {
     toolVersion = "0.8.12"
 }
 
+val coveredModelClasses = listOf(
+    "com.bettercontent.realisticores.ore.OreDefinition",
+    "com.bettercontent.realisticores.ore.OreDefinition\$VariantDefinition",
+    "com.bettercontent.realisticores.ore.OreDefinition\$TextureMode",
+    "com.bettercontent.realisticores.ore.DisabledFeaturesDefinition"
+)
+val coveredModelFiles = sourceSets.main.get().output.classesDirs.asFileTree.matching {
+    include(coveredModelClasses.map { it.replace('.', '/') + ".class" })
+}
+
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
     reports {
         xml.required.set(true)
         html.required.set(true)
     }
-    classDirectories.setFrom(
-        files(classDirectories.files.map {
-            fileTree(it) {
-                include(
-                    "io/github/realistic_ores/ore/OreDefinition*",
-                    "io/github/realistic_ores/ore/DisabledFeaturesDefinition*"
-                )
-            }
-        })
-    )
+    classDirectories.setFrom(coveredModelFiles)
 }
+
+val verifyCoverageInputs by tasks.registering {
+    group = "verification"
+    description = "Rejects missing model classes or missing JaCoCo execution data."
+    dependsOn(tasks.test)
+    doLast {
+        val selected = tasks.jacocoTestReport.get().classDirectories.asFileTree.files
+        val missing = coveredModelClasses.filter { name ->
+            selected.none { it.invariantSeparatorsPath.endsWith(name.replace('.', '/') + ".class") }
+        }
+        check(missing.isEmpty()) { "Coverage selection is missing expected classes: $missing" }
+        val execution = tasks.test.get().extensions.getByType<JacocoTaskExtension>().destinationFile
+        check(execution != null && execution.isFile && execution.length() > 0) {
+            "Coverage execution data is missing or empty"
+        }
+    }
+}
+
+tasks.jacocoTestReport { dependsOn(verifyCoverageInputs) }
 
 tasks.jacocoTestCoverageVerification {
     dependsOn(tasks.jacocoTestReport)
     classDirectories.setFrom(tasks.jacocoTestReport.map { it.classDirectories })
+    doFirst {
+        val xml = tasks.jacocoTestReport.get().reports.xml.outputLocation.get().asFile
+        check(xml.isFile) { "Coverage report is missing" }
+        val factory = DocumentBuilderFactory.newInstance()
+        factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
+        factory.setFeature("http://xml.org/sax/features/external-general-entities", false)
+        factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false)
+        val document = factory.newDocumentBuilder().parse(xml)
+        val classes = document.getElementsByTagName("class")
+        val executableClasses = (0 until classes.length).mapNotNull { index ->
+            val klass = classes.item(index) as org.w3c.dom.Element
+            val counters = klass.childNodes
+            val executable = (0 until counters.length).any { child ->
+                val counter = counters.item(child) as? org.w3c.dom.Element
+                counter?.tagName == "counter" && counter.getAttribute("type") == "LINE" &&
+                    counter.getAttribute("missed").toLong() + counter.getAttribute("covered").toLong() > 0
+            }
+            if (executable) klass.getAttribute("name").replace('/', '.') else null
+        }
+        check(executableClasses.containsAll(coveredModelClasses)) {
+            "Coverage report is missing executable counters for ${coveredModelClasses - executableClasses.toSet()}"
+        }
+    }
     violationRules {
         rule {
             element = "CLASS"
-            includes = listOf(
-                "com.bettercontent.realisticores.ore.OreDefinition",
-                "com.bettercontent.realisticores.ore.OreDefinition\$VariantDefinition",
-                "com.bettercontent.realisticores.ore.OreDefinition\$TextureMode",
-                "com.bettercontent.realisticores.ore.DisabledFeaturesDefinition"
-            )
+            includes = coveredModelClasses
             limit {
                 counter = "LINE"
                 value = "COVEREDRATIO"
