@@ -2,7 +2,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 plugins {
     jacoco
-    id("net.minecraftforge.gradle") version "[6.0,6.2)"
+    id("net.minecraftforge.gradle") version "6.0.54"
     java
 }
 
