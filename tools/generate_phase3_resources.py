@@ -217,10 +217,12 @@ def main() -> None:
             recipes / "compat/create/grinding_balls", recipes / "compat/create/rinsing",
             recipes / "compat/createsifter/sifting",
             recipes / "compat/pneumaticcraft/separation", recipes / "compat/bloodmagic/separation",
-            recipes / "compat/hexerei/separation", recipes / "compat/ars_nouveau/separation",
+            recipes / "compat/hexerei/separation", recipes / "compat/hexerei/diamond_assay",
+            recipes / "compat/ars_nouveau/separation",
             recipes / "compat/occultism/separation",
             recipes / "thermal/furnace", recipes / "thermal/blasting",
             recipes / "compat/tconstruct/melting", recipes / "compat/tconstruct/foundry",
+            recipes / "compat/tconstruct/casting",
             recipes / "crafting/gem_chips"):
         reset(directory)
     processing_dir = DATA / "processing_definitions"
@@ -331,6 +333,11 @@ def main() -> None:
             processing["routes"]["ars"]["bonus"] = {
                 "item": "ars_nouveau:source_gem", "chance": .0625,
             }
+            processing["routes"]["hexerei"]["diamond_assay"] = {
+                "input": f"{NS}:{crushed}", "input_count": 4,
+                "selenite_count": 4, "water": 250,
+                "heat": "heated", "output": f"{NS}:diamond_chip",
+            }
         if family == "black_shale":
             processing["routes"]["waterlogged_zinc"]["grades"]["trace"] = .025
         write(processing_dir / f"{family}.json", processing)
@@ -398,6 +405,18 @@ def main() -> None:
             "fluidLevelsConsumed": 250,
             "heatRequirement": "heated",
         })
+        if family == "tin_quartz":
+            write(recipes / "compat/hexerei/diamond_assay/tin_quartz.json", {
+                "type": "hexerei:mixingcauldron",
+                "conditions": [{"type": "forge:mod_loaded", "modid": "hexerei"}],
+                "liquid": {"fluid": "minecraft:water"},
+                "ingredients": ([{"item": f"{NS}:{crushed}"}] * 4
+                                + [{"item": "hexerei:selenite_shard"}] * 4),
+                "output": {"item": f"{NS}:diamond_chip"},
+                "liquidOutput": {"fluid": "minecraft:water"},
+                "fluidLevelsConsumed": 250,
+                "heatRequirement": "heated",
+            })
 
         ars_outputs = [dict(canonical_output(primary, 2), chance=1.0, maxRange=1), {
             "chance": .25, "count": 1, "item": ARS_ESSENCES[family], "maxRange": 1,
@@ -439,7 +458,6 @@ def main() -> None:
             temperature = HEAT.get(primary, 950)
             condition = [{"type": "forge:mod_loaded", "modid": "tconstruct"}]
             write(recipes / f"compat/tconstruct/melting/{family}_chunk.json", {"type": "tconstruct:melting", "conditions": condition, "ingredient": {"item": f"{NS}:{chunk}"}, "result": fluid_result, "temperature": temperature, "time": 120})
-            write(recipes / f"compat/tconstruct/foundry/{family}_chunk.json", {"type": "tconstruct:melting", "conditions": condition, "ingredient": {"item": f"{NS}:{chunk}"}, "result": fluid_result, "temperature": temperature, "time": 120})
 
     write(DATA / "loot_tables/blocks/oil_seep.json", {
         "type": "minecraft:block",
@@ -482,10 +500,26 @@ def main() -> None:
             })
         if fluid:
             result = ({"tag": fluid, "amount": 40} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 40})
-            melting_result = ({"tag": fluid, "amount": 30} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 30})
             temperature = HEAT.get(material, 950)
-            write(recipes / f"compat/tconstruct/melting/concentrate_{material}.json", {"type": "tconstruct:melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{item}"}, "result": melting_result, "temperature": temperature, "time": 120})
-            write(recipes / f"compat/tconstruct/foundry/concentrate_{material}.json", {"type": "tconstruct:ore_melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{item}"}, "result": result, "rate": "metal", "temperature": temperature, "time": 120})
+            write(recipes / f"compat/tconstruct/melting/concentrate_{material}.json", {"type": "tconstruct:melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{item}"}, "result": result, "temperature": temperature, "time": 120})
+
+    for material in ("titanium", "thorium"):
+        _, ingot, nugget, fluid = MATERIALS[material]
+        condition = [{"type": "forge:mod_loaded", "modid": "tconstruct"}]
+        for form, output, amount, cooling in (
+                ("ingot", ingot, 90, 60), ("nugget", nugget, 10, 20)):
+            for cast_kind, consumed in (("multi_use", False), ("single_use", True)):
+                recipe = {
+                    "type": "tconstruct:casting_table",
+                    "conditions": condition,
+                    "cast": {"tag": f"tconstruct:casts/{cast_kind}/{form}"},
+                    "cooling_time": cooling,
+                    "fluid": {"amount": amount, "tag": fluid},
+                    "result": {"item": output},
+                }
+                if consumed:
+                    recipe["cast_consumed"] = True
+                write(recipes / f"compat/tconstruct/casting/{material}/{form}_{cast_kind}.json", recipe)
 
     for index, (gem, output) in enumerate((("diamond", "minecraft:diamond"), ("emerald", "minecraft:emerald"), ("amethyst", "minecraft:amethyst_shard"))):
         item = f"{gem}_chip"

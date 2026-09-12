@@ -169,8 +169,13 @@ primary forms most strongly (`40/30/20/10`); echoes weight rarer forms more stro
   concentrates: Hotstone's structural assay intentionally has zero primary output and guarantees
   titanium with nickel, cobalt, and iron coproducts. Separation never emits washed forms or
   generic tailings.
-- TConstruct melting and Foundry exits exist only for metal primaries and metal coproducts.
-  Quartz and gems keep item-form recovery and never become molten Realistic Ores outputs.
+- TConstruct melting provides one fixed 40 mB exit for metal primaries and metal
+  coproduct concentrates, independent of machine ore-rate bonuses. Titanium and
+  thorium additionally cast back to their canonical nuggets and ingots. Quartz and
+  gems keep item-form recovery and never become molten Realistic Ores outputs.
+- Hexerei retains the ordinary four-chunk primary route. Its separate Tin Quartz
+  diamond assay consumes four crushed feeds and four selenite shards in 250 mB of
+  heated water to recover one diamond chip.
 - Coal Measures chunks are directly combustible. Evaporite chunks produce Rock Salt,
   Black Shale supports soul fire and yields soul sand, Gem Pipe yields rough gem chips,
   and Hotstone is luminous, painful to cross, and can be consolidated into magma.

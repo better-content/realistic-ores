@@ -59,7 +59,7 @@ public final class ExcavatedSeparationRecipe extends CustomRecipe {
         for (int index = 0; index < container.getContainerSize(); index++) {
             ItemStack stack = container.getItem(index);
             if (stack.isEmpty()) continue;
-            if (found != null || stack.getCount() != 1) return null;
+            if (found != null) return null;
             found = ExcavatedVariantSupport.identify(stack.getItem());
             if (found == null) return null;
         }

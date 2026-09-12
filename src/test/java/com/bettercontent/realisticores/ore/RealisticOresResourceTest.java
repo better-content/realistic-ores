@@ -595,8 +595,32 @@ final class RealisticOresResourceTest {
         assertEquals(0.025, resultChance(zincWet, "chemlib:vanadium"));
         assertEquals(0.05, resultChance(blackShaleBrassWet, "chemlib:vanadium"));
 
+        JsonObject diamondAssay = read(DATA_ROOT.resolve(
+                "recipes/compat/hexerei/diamond_assay/tin_quartz.json"), JsonObject.class);
+        assertEquals("hexerei:mixingcauldron", diamondAssay.get("type").getAsString());
+        assertEquals(8, diamondAssay.getAsJsonArray("ingredients").size());
+        assertEquals(4, diamondAssay.getAsJsonArray("ingredients").asList().stream()
+                .filter(value -> "realistic_ores:crushed_tin_quartz".equals(
+                        value.getAsJsonObject().get("item").getAsString())).count());
+        assertEquals(4, diamondAssay.getAsJsonArray("ingredients").asList().stream()
+                .filter(value -> "hexerei:selenite_shard".equals(
+                        value.getAsJsonObject().get("item").getAsString())).count());
+        assertEquals(250, diamondAssay.get("fluidLevelsConsumed").getAsInt());
+        assertEquals("heated", diamondAssay.get("heatRequirement").getAsString());
+        assertEquals("realistic_ores:diamond_chip",
+                diamondAssay.getAsJsonObject("output").get("item").getAsString());
+        JsonObject tinProcessing = read(DATA_ROOT.resolve(
+                "processing_definitions/tin_quartz.json"), JsonObject.class);
+        assertEquals("realistic_ores:diamond_chip", tinProcessing.getAsJsonObject("routes")
+                .getAsJsonObject("hexerei").getAsJsonObject("diamond_assay")
+                .get("output").getAsString());
+
         assertTrue(Files.exists(DATA_ROOT.resolve("recipes/thermal/furnace/copper_bloom_chunk.json")));
         assertTrue(Files.exists(DATA_ROOT.resolve("recipes/compat/tconstruct/melting/copper_bloom_chunk.json")));
+        try (var paths = Files.walk(DATA_ROOT.resolve("recipes/compat/tconstruct/foundry"))) {
+            assertEquals(0, paths.filter(path -> path.toString().endsWith(".json")).count(),
+                    "fixed melting recipes must not have competing Foundry IDs");
+        }
         for (String material : List.of("quartz", "diamond", "emerald", "amethyst")) {
             assertFalse(Files.exists(DATA_ROOT.resolve(
                     "recipes/compat/tconstruct/melting/concentrate_" + material + ".json")), material);
@@ -621,6 +645,20 @@ final class RealisticOresResourceTest {
                     "models/block/molten_" + material + ".json"), JsonObject.class);
             assertEquals("minecraft:block/water_still",
                     blockModel.getAsJsonObject("textures").get("particle").getAsString());
+            for (String form : List.of("ingot", "nugget")) {
+                for (String cast : List.of("multi_use", "single_use")) {
+                    JsonObject casting = read(DATA_ROOT.resolve("recipes/compat/tconstruct/casting/"
+                            + material + "/" + form + "_" + cast + ".json"), JsonObject.class);
+                    assertEquals(form.equals("ingot") ? 90 : 10,
+                            casting.getAsJsonObject("fluid").get("amount").getAsInt());
+                    assertEquals("forge:molten_" + material,
+                            casting.getAsJsonObject("fluid").get("tag").getAsString());
+                    assertEquals("chemlib:" + material + "_" + form,
+                            casting.getAsJsonObject("result").get("item").getAsString());
+                    assertEquals(cast.equals("single_use"),
+                            casting.has("cast_consumed") && casting.get("cast_consumed").getAsBoolean());
+                }
+            }
         }
         for (String material : List.of("beryl", "beryllium", "calcium", "carbon", "chromium", "gallium",
                 "iridium", "magnesium", "phosphate", "platinum", "silicon", "sodium", "tantalum", "tungsten")) {
@@ -651,6 +689,8 @@ final class RealisticOresResourceTest {
             if (!Files.exists(melting)) continue;
             int expected = solidFuel.getOrDefault(material, 950);
             assertEquals(expected, read(melting, JsonObject.class).get("temperature").getAsInt(), material);
+            assertEquals(40, read(melting, JsonObject.class).getAsJsonObject("result")
+                    .get("amount").getAsInt(), material);
             assertEquals(4, read(DATA_ROOT.resolve("recipes/thermal/furnace/concentrate_"
                     + material + ".json"), JsonObject.class).getAsJsonObject("result")
                     .get("count").getAsInt(), material);
@@ -674,6 +714,16 @@ final class RealisticOresResourceTest {
                     assertFalse(content.contains("nitric_acid"), path.toString());
                 }
             }
+        }
+    }
+
+    @Test
+    void hostedOreRecipesDoNotRequireSingleItemStacks() throws IOException {
+        for (String recipe : List.of("ExcavatedSeparationRecipe.java", "ExcavatedReassemblyRecipe.java")) {
+            String source = Files.readString(Path.of("src/main/java/com/bettercontent/realisticores/compat")
+                    .resolve(recipe));
+            assertFalse(source.contains("stack.getCount() != 1"),
+                    recipe + " must let the crafting grid consume one item from an ordinary stack");
         }
     }
 

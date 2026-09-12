@@ -48,7 +48,7 @@ public final class ExcavatedReassemblyRecipe extends CustomRecipe {
         for (int index = 0; index < container.getContainerSize(); index++) {
             ItemStack stack = container.getItem(index);
             if (stack.isEmpty()) continue;
-            if (++occupied > 2 || stack.getCount() != 1) return null;
+            if (++occupied > 2) return null;
             ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
             if (id != null && id.getNamespace().equals(RealisticOresMod.MOD_ID)
                     && id.getPath().startsWith(CHUNK_PREFIX)) {

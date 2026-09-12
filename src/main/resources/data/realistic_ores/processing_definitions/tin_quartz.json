@@ -76,7 +76,15 @@
     },
     "hexerei": {
       "input_count": 4,
-      "primary_units": 8
+      "primary_units": 8,
+      "diamond_assay": {
+        "input": "realistic_ores:crushed_tin_quartz",
+        "input_count": 4,
+        "selenite_count": 4,
+        "water": 250,
+        "heat": "heated",
+        "output": "realistic_ores:diamond_chip"
+      }
     },
     "ars": {
       "input_count": 1,
