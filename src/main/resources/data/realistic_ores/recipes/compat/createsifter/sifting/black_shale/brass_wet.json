@@ -41,6 +41,11 @@
       "chance": 0.125
     },
     {
+      "item": "chemlib:vanadium",
+      "count": 1,
+      "chance": 0.05
+    },
+    {
       "item": "realistic_ores:gold_concentrate",
       "count": 1,
       "chance": 0.0125

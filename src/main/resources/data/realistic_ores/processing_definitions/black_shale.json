@@ -40,6 +40,11 @@
           "nominal_chance": 0.5
         },
         {
+          "material": "vanadium",
+          "grade": "trace",
+          "nominal_chance": 0.2
+        },
+        {
           "material": "gold",
           "grade": "precious",
           "nominal_chance": 0.05
@@ -58,7 +63,8 @@
       "input_count": 1,
       "grades": {
         "major": 0.125,
-        "minor": 0.0625
+        "minor": 0.0625,
+        "trace": 0.025
       }
     },
     "waterlogged_brass": {

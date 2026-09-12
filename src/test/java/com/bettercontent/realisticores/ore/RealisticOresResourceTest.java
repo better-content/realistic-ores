@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -582,6 +583,18 @@ final class RealisticOresResourceTest {
             assertFalse(brassWet.getAsJsonArray("results").isEmpty());
         }
 
+        JsonObject blackShalePressure = read(DATA_ROOT.resolve(
+                "recipes/compat/pneumaticcraft/separation/black_shale.json"), JsonObject.class);
+        assertTrue(blackShalePressure.getAsJsonArray("results").asList().stream()
+                .map(JsonElement::getAsJsonObject)
+                .anyMatch(result -> "chemlib:vanadium".equals(result.get("item").getAsString())
+                        && result.get("count").getAsInt() == 1));
+        Path blackShaleSifting = DATA_ROOT.resolve("recipes/compat/createsifter/sifting/black_shale");
+        JsonObject zincWet = read(blackShaleSifting.resolve("zinc_wet.json"), JsonObject.class);
+        JsonObject blackShaleBrassWet = read(blackShaleSifting.resolve("brass_wet.json"), JsonObject.class);
+        assertEquals(0.025, resultChance(zincWet, "chemlib:vanadium"));
+        assertEquals(0.05, resultChance(blackShaleBrassWet, "chemlib:vanadium"));
+
         assertTrue(Files.exists(DATA_ROOT.resolve("recipes/thermal/furnace/copper_bloom_chunk.json")));
         assertTrue(Files.exists(DATA_ROOT.resolve("recipes/compat/tconstruct/melting/copper_bloom_chunk.json")));
         for (String material : List.of("quartz", "diamond", "emerald", "amethyst")) {
@@ -662,6 +675,15 @@ final class RealisticOresResourceTest {
                 }
             }
         }
+    }
+
+    private static double resultChance(JsonObject recipe, String item) {
+        return recipe.getAsJsonArray("results").asList().stream()
+                .map(JsonElement::getAsJsonObject)
+                .filter(result -> item.equals(result.get("item").getAsString()))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("missing result " + item))
+                .get("chance").getAsDouble();
     }
 
     private static void assertSurfaceSampleModelUsesOpaqueOreTexture(Path resources, Path modelPath) throws IOException {

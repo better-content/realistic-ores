@@ -52,6 +52,7 @@ MATERIALS = {
     "rock_salt": ("bulk", "realistic_ores:rock_salt", None, None),
     "sodium_chloride": ("bulk", "chemlib:sodium_chloride", None, None),
     "saltpeter": ("bulk", "bloodmagic:saltpeter", None, None),
+    "vanadium": ("element", "chemlib:vanadium", None, None),
 }
 
 GRADE = {"major": 1.0, "minor": .5, "trace": .2, "precious": .05}
@@ -67,7 +68,7 @@ TECHNICAL_ASSAYS = {
     "brassroot": ("zinc", [("lead", "minor"), ("cadmium", "trace"), ("silver", "precious")]),
     "evaporite_beds": ("rock_salt", [("sodium_chloride", "major"), ("saltpeter", "minor")]),
     "hotstone": ("uranium", [("thorium", "minor"), ("lead", "minor"), ("titanium", "major"), ("nickel", "minor"), ("cobalt", "trace"), ("iron", "minor"), ("osmium", "minor"), ("sulfur", "major")]),
-    "black_shale": ("redstone", [("copper", "major"), ("iron", "minor"), ("soul_sand", "major"), ("sulfur", "minor"), ("gold", "precious")]),
+    "black_shale": ("redstone", [("copper", "major"), ("iron", "minor"), ("soul_sand", "major"), ("sulfur", "minor"), ("vanadium", "trace"), ("gold", "precious")]),
 }
 
 ARS_ESSENCES = {
@@ -90,8 +91,10 @@ def canonical_output(material: str, units: int = 1, chance: float | None = None)
     kind, output, fraction, _ = MATERIALS[material]
     if kind == "metal":
         result = {"item": f"{NS}:{material}_concentrate", "count": units}
-    else:
+    elif kind in ("bulk", "gem"):
         result = {"item": fraction if fraction is not None else output, "count": units * 2}
+    else:
+        result = {"item": output, "count": units}
     if chance is not None:
         result["chance"] = chance
     return result
@@ -328,6 +331,8 @@ def main() -> None:
             processing["routes"]["ars"]["bonus"] = {
                 "item": "ars_nouveau:source_gem", "chance": .0625,
             }
+        if family == "black_shale":
+            processing["routes"]["waterlogged_zinc"]["grades"]["trace"] = .025
         write(processing_dir / f"{family}.json", processing)
 
         write(recipes / f"compat/create/rinsing/{family}.json", {
@@ -348,7 +353,8 @@ def main() -> None:
             wet_results = [canonical_output(primary)]
             if mesh == "zinc":
                 wet_results += [canonical_output(material, chance=GRADE[grade] / 8)
-                                for material, grade in coproducts if grade in ("major", "minor")]
+                                for material, grade in coproducts
+                                if grade in ("major", "minor") or family == "black_shale" and grade == "trace"]
             elif mesh == "brass":
                 wet_results += [canonical_output(material, chance=GRADE[grade] / 4)
                                 for material, grade in coproducts]

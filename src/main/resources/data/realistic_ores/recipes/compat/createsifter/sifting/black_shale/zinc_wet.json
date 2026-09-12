@@ -39,6 +39,11 @@
       "item": "chemlib:sulfur",
       "count": 2,
       "chance": 0.0625
+    },
+    {
+      "item": "chemlib:vanadium",
+      "count": 1,
+      "chance": 0.025
     }
   ],
   "waterlogged": true

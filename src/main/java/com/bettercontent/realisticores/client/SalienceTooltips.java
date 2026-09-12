@@ -57,7 +57,7 @@ public final class SalienceTooltips {
         EVAPORITE_BEDS(6, "evaporite_beds", "✚", "Renewal", 0x6CCAF0, "Salt and fertile chemistry for sustaining life.",
                 "rock salt for food and preservation.", "sodium chloride and saltpeter."),
         BLACK_SHALE(7, "black_shale", "⊕", "Control", 0x8E5BB7, "Signal-bearing shale touched by soul matter.",
-                "redstone and crude soul material.", "copper, sulfur, iron, and precious traces.");
+                "redstone and crude soul material.", "copper, sulfur, iron, vanadium, and precious traces.");
 
         final int index;
         final String family;
