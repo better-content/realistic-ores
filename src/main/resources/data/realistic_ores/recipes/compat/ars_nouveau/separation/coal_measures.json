@@ -7,9 +7,15 @@
     }
   ],
   "input": {
-    "item": "realistic_ores:crushed_coal_measures"
+    "item": "realistic_ores:ore_chunk_coal_measures"
   },
   "output": [
+    {
+      "item": "minecraft:coal",
+      "count": 4,
+      "chance": 1.0,
+      "maxRange": 1
+    },
     {
       "chance": 0.25,
       "count": 1,

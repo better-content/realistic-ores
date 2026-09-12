@@ -1,29 +1,31 @@
 {
-  "type": "bloodmagic:alchemytable",
+  "type": "bloodmagic:arc",
   "conditions": [
     {
       "type": "forge:mod_loaded",
       "modid": "bloodmagic"
     }
   ],
-  "input": [
-    {
-      "item": "realistic_ores:crushed_black_shale"
-    },
-    {
-      "item": "realistic_ores:crushed_black_shale"
-    },
-    {
-      "item": "realistic_ores:crushed_black_shale"
-    },
-    {
-      "item": "realistic_ores:crushed_black_shale"
-    }
-  ],
-  "output": {
-    "item": "bloodmagic:corrupted_dust"
+  "input": {
+    "item": "realistic_ores:ore_chunk_black_shale"
   },
-  "syphon": 5000,
-  "ticks": 400,
-  "upgradeLevel": 3
+  "inputsize": 1,
+  "tool": {
+    "tag": "bloodmagic:arc/cuttingfluid"
+  },
+  "consumeingredient": false,
+  "mainoutputchance": 0.0,
+  "output": {
+    "item": "minecraft:redstone",
+    "count": 4
+  },
+  "addedoutput": [
+    {
+      "type": {
+        "item": "bloodmagic:corrupted_tinydust"
+      },
+      "chance": 0.25,
+      "mainchance": 0.0
+    }
+  ]
 }

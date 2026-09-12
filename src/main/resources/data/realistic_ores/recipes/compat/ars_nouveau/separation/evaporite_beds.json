@@ -7,9 +7,15 @@
     }
   ],
   "input": {
-    "item": "realistic_ores:crushed_evaporite_beds"
+    "item": "realistic_ores:ore_chunk_evaporite_beds"
   },
   "output": [
+    {
+      "item": "realistic_ores:rock_salt",
+      "count": 4,
+      "chance": 1.0,
+      "maxRange": 1
+    },
     {
       "chance": 0.25,
       "count": 1,

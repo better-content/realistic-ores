@@ -16,23 +16,28 @@
   "pressure": 2.0,
   "results": [
     {
-      "item": "realistic_ores:redstone_concentrate",
-      "count": 4
+      "item": "minecraft:redstone",
+      "count": 8
     },
     {
-      "item": "realistic_ores:copper_concentrate"
+      "item": "realistic_ores:copper_concentrate",
+      "count": 1
     },
     {
-      "item": "realistic_ores:iron_concentrate"
+      "item": "realistic_ores:iron_concentrate",
+      "count": 1
     },
     {
-      "item": "realistic_ores:soul_sand_concentrate"
+      "item": "minecraft:soul_sand",
+      "count": 2
     },
     {
-      "item": "realistic_ores:sulfur_concentrate"
+      "item": "chemlib:sulfur",
+      "count": 2
     },
     {
-      "item": "realistic_ores:gold_concentrate"
+      "item": "realistic_ores:gold_concentrate",
+      "count": 1
     }
   ]
 }

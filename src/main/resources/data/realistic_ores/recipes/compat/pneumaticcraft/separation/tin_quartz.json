@@ -20,19 +20,24 @@
       "count": 4
     },
     {
-      "item": "realistic_ores:quartz_concentrate"
+      "item": "minecraft:quartz",
+      "count": 2
     },
     {
-      "item": "realistic_ores:aluminum_concentrate"
+      "item": "realistic_ores:aluminum_concentrate",
+      "count": 1
     },
     {
-      "item": "realistic_ores:amethyst_concentrate"
+      "item": "realistic_ores:amethyst_chip",
+      "count": 2
     },
     {
-      "item": "realistic_ores:lapis_concentrate"
+      "item": "minecraft:lapis_lazuli",
+      "count": 2
     },
     {
-      "item": "realistic_ores:emerald_concentrate"
+      "item": "realistic_ores:emerald_chip",
+      "count": 2
     }
   ]
 }

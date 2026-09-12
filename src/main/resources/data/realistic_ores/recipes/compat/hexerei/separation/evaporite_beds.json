@@ -11,32 +11,33 @@
   },
   "ingredients": [
     {
-      "item": "realistic_ores:crushed_evaporite_beds"
+      "item": "realistic_ores:ore_chunk_evaporite_beds"
     },
     {
-      "item": "realistic_ores:crushed_evaporite_beds"
+      "item": "realistic_ores:ore_chunk_evaporite_beds"
     },
     {
-      "item": "realistic_ores:crushed_evaporite_beds"
+      "item": "realistic_ores:ore_chunk_evaporite_beds"
     },
     {
-      "item": "realistic_ores:crushed_evaporite_beds"
+      "item": "realistic_ores:ore_chunk_evaporite_beds"
     },
     {
-      "item": "aether:ambrosium_shard"
+      "item": "hexerei:selenite_shard"
     },
     {
-      "item": "minecraft:blaze_powder"
+      "item": "hexerei:selenite_shard"
     },
     {
-      "item": "the_bumblezone:honey_crystal_shards"
+      "item": "hexerei:selenite_shard"
     },
     {
-      "item": "rats:gem_of_ratlantis"
+      "item": "hexerei:selenite_shard"
     }
   ],
   "output": {
-    "item": "hexerei:moon_dust"
+    "item": "realistic_ores:rock_salt",
+    "count": 16
   },
   "liquidOutput": {
     "fluid": "minecraft:water"

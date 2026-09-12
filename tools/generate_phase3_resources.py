@@ -70,19 +70,44 @@ TECHNICAL_ASSAYS = {
     "black_shale": ("redstone", [("copper", "major"), ("iron", "minor"), ("soul_sand", "major"), ("sulfur", "minor"), ("gold", "precious")]),
 }
 
-EXOTIC_OUTPUTS = {
-    "coal_measures": {"blood": "minecraft:blaze_powder", "hexerei": "occultism:otherworld_ashes", "ars": "ars_nouveau:fire_essence"},
-    "ironstone": {"blood": "minecraft:clay_ball", "hexerei": "occultism:otherworld_essence", "ars": "ars_nouveau:earth_essence"},
-    "copper_bloom": {"blood": "minecraft:phantom_membrane", "hexerei": "occultism:spirit_attuned_gem", "ars": "ars_nouveau:manipulation_essence"},
-    "tin_quartz": {"blood": "minecraft:lapis_lazuli", "hexerei": "realistic_ores:diamond_chip", "ars": "ars_nouveau:manipulation_essence"},
-    "brassroot": {"blood": "minecraft:phantom_membrane", "hexerei": "occultism:iesnium_dust", "ars": "ars_nouveau:air_essence"},
-    "evaporite_beds": {"blood": "minecraft:prismarine_crystals", "hexerei": "hexerei:moon_dust", "ars": "ars_nouveau:water_essence"},
-    "hotstone": {"blood": "bloodmagic:destructivecrystal", "hexerei": "occultism:afrit_essence", "ars": "ars_nouveau:fire_essence"},
-    "black_shale": {"blood": "bloodmagic:corrupted_dust", "hexerei": "occultism:soul_shard", "ars": "ars_nouveau:abjuration_essence"},
+ARS_ESSENCES = {
+    "coal_measures": "ars_nouveau:fire_essence",
+    "ironstone": "ars_nouveau:earth_essence",
+    "copper_bloom": "ars_nouveau:manipulation_essence",
+    "tin_quartz": "ars_nouveau:manipulation_essence",
+    "brassroot": "ars_nouveau:air_essence",
+    "evaporite_beds": "ars_nouveau:water_essence",
+    "hotstone": "ars_nouveau:fire_essence",
+    "black_shale": "ars_nouveau:abjuration_essence",
 }
 
 HEAT = {"copper": 500, "tin": 700, "zinc": 700}
-CONCENTRATE_MATERIALS = tuple(material for material in MATERIALS if material != "diamond")
+CONCENTRATE_MATERIALS = tuple(material for material, values in MATERIALS.items() if values[0] == "metal")
+
+
+def canonical_output(material: str, units: int = 1, chance: float | None = None) -> dict:
+    """Return a common processing unit without forcing nonmetals through a furnace."""
+    kind, output, fraction, _ = MATERIALS[material]
+    if kind == "metal":
+        result = {"item": f"{NS}:{material}_concentrate", "count": units}
+    else:
+        result = {"item": fraction if fraction is not None else output, "count": units * 2}
+    if chance is not None:
+        result["chance"] = chance
+    return result
+
+
+def sifting_recipe(feed: str, mesh: str, results: list[dict], waterlogged: bool) -> dict:
+    recipe = {
+        "type": "createsifter:sifting",
+        "conditions": [{"type": "forge:mod_loaded", "modid": "createsifter"}],
+        "ingredients": [{"item": feed}, {"item": f"createsifter:{mesh}_mesh"}],
+        "processingTime": 500,
+        "results": results,
+    }
+    if waterlogged:
+        recipe["waterlogged"] = True
+    return recipe
 
 
 def write(path: Path, value: object) -> None:
@@ -187,8 +212,10 @@ def main() -> None:
             recipes / "crafting/immediate", recipes / "compat/create/crushing",
             recipes / "compat/create/milling/ore_chunks", recipes / "compat/create/separation",
             recipes / "compat/create/grinding_balls", recipes / "compat/create/rinsing",
+            recipes / "compat/createsifter/sifting",
             recipes / "compat/pneumaticcraft/separation", recipes / "compat/bloodmagic/separation",
             recipes / "compat/hexerei/separation", recipes / "compat/ars_nouveau/separation",
+            recipes / "compat/occultism/separation",
             recipes / "thermal/furnace", recipes / "thermal/blasting",
             recipes / "compat/tconstruct/melting", recipes / "compat/tconstruct/foundry",
             recipes / "crafting/gem_chips"):
@@ -272,11 +299,10 @@ def main() -> None:
         })
 
         primary, coproducts = TECHNICAL_ASSAYS[family]
-        exotic = EXOTIC_OUTPUTS[family]
         processing = {
-            "schema": "bc.realistic_ores.processing.v2",
+            "schema": "bc.realistic_ores.processing.v3",
             "family": family,
-            "primary": primary,
+            "primary": {"material": primary, "output": canonical_output(primary)},
             "stages": {"chunk": chunk, "crushed": crushed, "rinsed": rinsed},
             "routes": {
                 "tech": {
@@ -288,9 +314,14 @@ def main() -> None:
                         for material, grade in coproducts
                     ],
                 },
-                "blood": {"input_count": 4, "output": exotic["blood"]},
-                "hexerei": {"input_count": 4, "output": exotic["hexerei"]},
-                "ars": {"input_count": 1, "output": exotic["ars"], "chance": .25},
+                "hand_sifting": {"input_count": 1, "primary_units": 1},
+                "dry_sifting": {"input_count": 1, "primary_units": 1},
+                "waterlogged_zinc": {"input_count": 1, "grades": {"major": .125, "minor": .0625}},
+                "waterlogged_brass": {"input_count": 1, "grades": {"major": .25, "minor": .125, "trace": .05, "precious": .0125}},
+                "blood": {"input_count": 1, "primary_units": 2},
+                "hexerei": {"input_count": 4, "primary_units": 8},
+                "ars": {"input_count": 1, "primary_units": 2, "essence": ARS_ESSENCES[family], "chance": .25},
+                "occultism": {"input_count": 1, "primary_units": 2, "uses_crusher_multiplier": True},
             },
         }
         if family == "tin_quartz":
@@ -309,8 +340,23 @@ def main() -> None:
             "results": [{"item": f"{NS}:{rinsed}"}],
         })
 
-        tech_results = [{"item": f"{NS}:{primary}_concentrate", "count": 4}]
-        tech_results += [{"item": f"{NS}:{material}_concentrate"} for material, _ in coproducts]
+        family_sifting = recipes / f"compat/createsifter/sifting/{family}"
+        for mesh, feed in (("string", chunk), ("andesite", crushed), ("zinc", crushed), ("brass", crushed)):
+            feed_id = f"{NS}:{feed}"
+            write(family_sifting / f"{mesh}_dry.json",
+                  sifting_recipe(feed_id, mesh, [canonical_output(primary)], False))
+            wet_results = [canonical_output(primary)]
+            if mesh == "zinc":
+                wet_results += [canonical_output(material, chance=GRADE[grade] / 8)
+                                for material, grade in coproducts if grade in ("major", "minor")]
+            elif mesh == "brass":
+                wet_results += [canonical_output(material, chance=GRADE[grade] / 4)
+                                for material, grade in coproducts]
+            write(family_sifting / f"{mesh}_wet.json",
+                  sifting_recipe(feed_id, mesh, wet_results, True))
+
+        tech_results = [canonical_output(primary, 4)]
+        tech_results += [canonical_output(material) for material, _ in coproducts]
         write(recipes / f"compat/pneumaticcraft/separation/{family}.json", {
             "type": "pneumaticcraft:pressure_chamber",
             "conditions": [{"type": "forge:mod_loaded", "modid": "pneumaticcraft"}],
@@ -323,38 +369,32 @@ def main() -> None:
             "results": tech_results,
         })
 
-        blood_tier = 3 if family in ("hotstone", "black_shale") else 2
         write(recipes / f"compat/bloodmagic/separation/{family}.json", {
-            "type": "bloodmagic:alchemytable",
+            "type": "bloodmagic:arc",
             "conditions": [{"type": "forge:mod_loaded", "modid": "bloodmagic"}],
-            "input": [{"item": f"{NS}:{crushed}"}] * 4,
-            "output": {"item": exotic["blood"]},
-            "syphon": 5000 if blood_tier == 3 else 2000,
-            "ticks": 400 if blood_tier == 3 else 200,
-            "upgradeLevel": blood_tier,
+            "input": {"item": f"{NS}:{chunk}"},
+            "inputsize": 1,
+            "tool": {"tag": "bloodmagic:arc/cuttingfluid"},
+            "consumeingredient": False,
+            "mainoutputchance": 0.0,
+            "output": canonical_output(primary, 2),
+            "addedoutput": [{"type": {"item": "bloodmagic:corrupted_tinydust"}, "chance": .25, "mainchance": 0.0}],
         })
 
-        font_proofs = [
-            {"item": "aether:ambrosium_shard"},
-            {"item": "minecraft:blaze_powder"},
-            {"item": "the_bumblezone:honey_crystal_shards"},
-            {"item": "rats:gem_of_ratlantis"},
-        ]
-        hot_family = family in ("hotstone", "black_shale")
-        font_fluid = "minecraft:lava" if hot_family else "minecraft:water"
         write(recipes / f"compat/hexerei/separation/{family}.json", {
             "type": "hexerei:mixingcauldron",
             "conditions": [{"type": "forge:mod_loaded", "modid": "hexerei"}],
-            "liquid": {"fluid": font_fluid},
-            "ingredients": [{"item": f"{NS}:{crushed}"}] * 4 + font_proofs,
-            "output": {"item": exotic["hexerei"]},
-            "liquidOutput": {"fluid": font_fluid},
-            "fluidLevelsConsumed": 333 if hot_family else 250,
+            "liquid": {"fluid": "minecraft:water"},
+            "ingredients": ([{"item": f"{NS}:{chunk}"}] * 4
+                            + [{"item": "hexerei:selenite_shard"}] * 4),
+            "output": canonical_output(primary, 8),
+            "liquidOutput": {"fluid": "minecraft:water"},
+            "fluidLevelsConsumed": 250,
             "heatRequirement": "heated",
         })
 
-        ars_outputs = [{
-            "chance": .25, "count": 1, "item": exotic["ars"], "maxRange": 1,
+        ars_outputs = [dict(canonical_output(primary, 2), chance=1.0, maxRange=1), {
+            "chance": .25, "count": 1, "item": ARS_ESSENCES[family], "maxRange": 1,
         }]
         if family == "tin_quartz":
             ars_outputs.append({
@@ -364,35 +404,36 @@ def main() -> None:
         write(recipes / f"compat/ars_nouveau/separation/{family}.json", {
             "type": "ars_nouveau:crush",
             "conditions": [{"type": "forge:mod_loaded", "modid": "ars_nouveau"}],
-            "input": {"item": f"{NS}:{crushed}"},
+            "input": {"item": f"{NS}:{chunk}"},
             "output": ars_outputs,
             "skip_block_place": False,
         })
 
+        write(recipes / f"compat/occultism/separation/{family}.json", {
+            "type": "occultism:crushing",
+            "conditions": [{"type": "forge:mod_loaded", "modid": "occultism"}],
+            "crushing_time": 200,
+            "ignore_crushing_multiplier": False,
+            "ingredient": {"item": f"{NS}:{chunk}"},
+            "result": canonical_output(primary, 2),
+        })
+
         kind, output, fraction, fluid = MATERIALS[primary]
-        if kind in ("gem", "bulk"):
-            cooked = fraction if fraction is not None else output
-            for stage, item, count in (("chunk", chunk, 2), ("crushed", crushed, 1)):
-                write(recipes / f"thermal/furnace/{family}_{stage}.json", {"type": "minecraft:smelting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": count}, "experience": .1, "cookingtime": 240})
-                write(recipes / f"thermal/blasting/{family}_{stage}.json", {"type": "minecraft:blasting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": count}, "experience": .1, "cookingtime": 120})
+        if kind == "metal":
+            for recipe_type, cooking_time in (("furnace", 240), ("blasting", 120)):
+                write(recipes / f"thermal/{recipe_type}/{family}_chunk.json", {
+                    "type": "minecraft:smelting" if recipe_type == "furnace" else "minecraft:blasting",
+                    "ingredient": {"item": f"{NS}:{chunk}"},
+                    "result": {"item": fraction, "count": 4},
+                    "experience": .1,
+                    "cookingtime": cooking_time,
+                })
         if kind == "metal" and fluid:
-            fluid_result = {"tag": fluid, "amount": 20} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 20}
-            foundry_result = {**fluid_result, "amount": 30}
-            crushed_result = {**fluid_result, "amount": 10}
-            crushed_foundry_result = {**fluid_result, "amount": 15}
-            rinsed_result = {**fluid_result, "amount": 15}
-            rinsed_foundry_result = {**fluid_result, "amount": 25}
+            fluid_result = {"tag": fluid, "amount": 40} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 40}
             temperature = HEAT.get(primary, 950)
             condition = [{"type": "forge:mod_loaded", "modid": "tconstruct"}]
             write(recipes / f"compat/tconstruct/melting/{family}_chunk.json", {"type": "tconstruct:melting", "conditions": condition, "ingredient": {"item": f"{NS}:{chunk}"}, "result": fluid_result, "temperature": temperature, "time": 120})
-            write(recipes / f"compat/tconstruct/melting/{family}_crushed.json", {"type": "tconstruct:melting", "conditions": condition, "ingredient": {"item": f"{NS}:{crushed}"}, "result": crushed_result, "temperature": temperature, "time": 120})
-            write(recipes / f"compat/tconstruct/melting/{family}_rinsed.json", {"type": "tconstruct:melting", "conditions": condition, "ingredient": {"item": f"{NS}:{rinsed}"}, "result": rinsed_result, "temperature": temperature, "time": 120})
-            chunk_foundry = {"type": "tconstruct:ore_melting", "conditions": condition, "ingredient": {"item": f"{NS}:{chunk}"}, "result": foundry_result, "rate": "metal", "temperature": temperature, "time": 120}
-            crushed_foundry = {"type": "tconstruct:ore_melting", "conditions": condition, "ingredient": {"item": f"{NS}:{crushed}"}, "result": crushed_foundry_result, "rate": "metal", "temperature": temperature, "time": 120}
-            rinsed_foundry = {"type": "tconstruct:ore_melting", "conditions": condition, "ingredient": {"item": f"{NS}:{rinsed}"}, "result": rinsed_foundry_result, "rate": "metal", "temperature": temperature, "time": 120}
-            write(recipes / f"compat/tconstruct/foundry/{family}_chunk.json", chunk_foundry)
-            write(recipes / f"compat/tconstruct/foundry/{family}_crushed.json", crushed_foundry)
-            write(recipes / f"compat/tconstruct/foundry/{family}_rinsed.json", rinsed_foundry)
+            write(recipes / f"compat/tconstruct/foundry/{family}_chunk.json", {"type": "tconstruct:melting", "conditions": condition, "ingredient": {"item": f"{NS}:{chunk}"}, "result": fluid_result, "temperature": temperature, "time": 120})
 
     write(DATA / "loot_tables/blocks/oil_seep.json", {
         "type": "minecraft:block",
@@ -408,6 +449,10 @@ def main() -> None:
     write(DATA / "tags/items/small_ore_chunks.json", {"replace": False, "values": all_small})
     write(DATA / "tags/items/crushed_feeds.json", {"replace": False, "values": all_crushed})
     write(DATA / "tags/items/rinsed_feeds.json", {"replace": False, "values": all_rinsed})
+    write(DATA / "tags/items/metal_concentrates.json", {
+        "replace": False,
+        "values": [f"{NS}:{material}_concentrate" for material in CONCENTRATE_MATERIALS],
+    })
     reset(DATA / "tags/items/deposit_chunks")
     for family in FAMILIES:
         write(DATA / f"tags/items/deposit_chunks/{family}.json", {"replace": False, "values": [f"{NS}:ore_chunk_{family}"]})
@@ -421,13 +466,17 @@ def main() -> None:
         require_curated_item_texture(item_textures, item)
         lang[f"item.{NS}.{item}"] = f"{material.replace('_', ' ').title()} Concentrate"
         kind, output, fraction, fluid = MATERIALS[material]
-        if kind in ("gem", "bulk"):
-            cooked = fraction if fraction is not None else output
-            write(recipes / f"thermal/furnace/concentrate_{material}.json", {"type": "minecraft:smelting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": 2}, "experience": .2, "cookingtime": 240})
-            write(recipes / f"thermal/blasting/concentrate_{material}.json", {"type": "minecraft:blasting", "ingredient": {"item": f"{NS}:{item}"}, "result": {"item": cooked, "count": 2}, "experience": .2, "cookingtime": 120})
-        if kind == "metal" and fluid:
-            result = ({"tag": fluid, "amount": 30} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 30})
-            melting_result = ({"tag": fluid, "amount": 20} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 20})
+        for recipe_type, cooking_time in (("furnace", 240), ("blasting", 120)):
+            write(recipes / f"thermal/{recipe_type}/concentrate_{material}.json", {
+                "type": "minecraft:smelting" if recipe_type == "furnace" else "minecraft:blasting",
+                "ingredient": {"item": f"{NS}:{item}"},
+                "result": {"item": fraction, "count": 4},
+                "experience": .2,
+                "cookingtime": cooking_time,
+            })
+        if fluid:
+            result = ({"tag": fluid, "amount": 40} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 40})
+            melting_result = ({"tag": fluid, "amount": 30} if fluid.startswith("forge:") else {"fluid": fluid, "amount": 30})
             temperature = HEAT.get(material, 950)
             write(recipes / f"compat/tconstruct/melting/concentrate_{material}.json", {"type": "tconstruct:melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{item}"}, "result": melting_result, "temperature": temperature, "time": 120})
             write(recipes / f"compat/tconstruct/foundry/concentrate_{material}.json", {"type": "tconstruct:ore_melting", "conditions": [{"type": "forge:mod_loaded", "modid": "tconstruct"}], "ingredient": {"item": f"{NS}:{item}"}, "result": result, "rate": "metal", "temperature": temperature, "time": 120})
@@ -439,28 +488,17 @@ def main() -> None:
         lang[f"item.{NS}.{item}"] = f"{gem.title()} Chip"
         write(recipes / f"crafting/gem_chips/{gem}_assemble.json", {"type": "minecraft:crafting_shapeless", "ingredients": [{"item": f"{NS}:{item}"}] * 9, "result": {"item": output}})
 
-    # First-contact utility: these deposits teach their promise without requiring the
-    # complete separation chain. Expert processing still yields substantially more.
+    # Rock salt remains the canonical bulk item; separation, not crafting, exposes it.
     write(item_models / "rock_salt.json", {
         "parent": "minecraft:item/generated",
         "textures": {"layer0": f"{NS}:item/rock_salt_concentrate"},
     })
     lang[f"item.{NS}.rock_salt"] = "Rock Salt"
-    write(recipes / "crafting/immediate/evaporite_rock_salt.json", {
-        "type": "minecraft:crafting_shapeless",
-        "ingredients": [{"item": f"{NS}:ore_chunk_evaporite_beds"}],
-        "result": {"item": f"{NS}:rock_salt", "count": 4},
-    })
     write(item_models / "rock_salt.json", {
         "parent": "minecraft:item/generated",
         "textures": {"layer0": f"{NS}:item/rock_salt_concentrate"},
     })
     lang[f"item.{NS}.rock_salt"] = "Rock Salt"
-    write(recipes / "crafting/immediate/black_shale_soul_sand.json", {
-        "type": "minecraft:crafting_shapeless",
-        "ingredients": [{"item": f"{NS}:ore_chunk_black_shale"}],
-        "result": {"item": "minecraft:soul_sand"},
-    })
     write(recipes / "crafting/immediate/hotstone_magma.json", {
         "type": "minecraft:crafting_shaped",
         "pattern": ["HH", "HH"],

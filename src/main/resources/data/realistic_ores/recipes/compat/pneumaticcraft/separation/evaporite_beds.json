@@ -16,14 +16,16 @@
   "pressure": 2.0,
   "results": [
     {
-      "item": "realistic_ores:rock_salt_concentrate",
-      "count": 4
+      "item": "realistic_ores:rock_salt",
+      "count": 8
     },
     {
-      "item": "realistic_ores:sodium_chloride_concentrate"
+      "item": "chemlib:sodium_chloride",
+      "count": 2
     },
     {
-      "item": "realistic_ores:saltpeter_concentrate"
+      "item": "bloodmagic:saltpeter",
+      "count": 2
     }
   ]
 }

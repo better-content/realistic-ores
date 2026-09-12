@@ -7,9 +7,15 @@
     }
   ],
   "input": {
-    "item": "realistic_ores:crushed_black_shale"
+    "item": "realistic_ores:ore_chunk_black_shale"
   },
   "output": [
+    {
+      "item": "minecraft:redstone",
+      "count": 4,
+      "chance": 1.0,
+      "maxRange": 1
+    },
     {
       "chance": 0.25,
       "count": 1,

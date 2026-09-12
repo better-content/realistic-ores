@@ -16,11 +16,12 @@
   "pressure": 2.0,
   "results": [
     {
-      "item": "realistic_ores:coal_concentrate",
-      "count": 4
+      "item": "minecraft:coal",
+      "count": 8
     },
     {
-      "item": "realistic_ores:iron_concentrate"
+      "item": "realistic_ores:iron_concentrate",
+      "count": 1
     }
   ]
 }

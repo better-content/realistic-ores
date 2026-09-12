@@ -22,10 +22,8 @@ public final class ModItems {
     private static final Map<String, RegistryObject<Item>> GEM_CHIP_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final Map<String, RegistryObject<Item>> IMMEDIATE_UTILITY_ITEMS_BY_ID = new LinkedHashMap<>();
     private static final String[] CONCENTRATES = {
-            "coal", "iron", "nickel", "copper", "sulfur", "gold", "tin", "quartz", "zinc",
-            "lead", "cadmium", "silver", "aluminum", "titanium", "cobalt", "osmium",
-            "emerald", "amethyst", "uranium", "thorium", "redstone", "lapis", "soul_sand",
-            "rock_salt", "sodium_chloride", "saltpeter"
+            "iron", "nickel", "copper", "gold", "tin", "zinc", "lead", "cadmium", "silver",
+            "aluminum", "titanium", "cobalt", "osmium", "uranium", "thorium"
     };
     private static boolean initialized;
 

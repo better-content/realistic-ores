@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:ore_melting",
+  "type": "tconstruct:melting",
   "conditions": [
     {
       "type": "forge:mod_loaded",
@@ -11,9 +11,8 @@
   },
   "result": {
     "tag": "forge:molten_iron",
-    "amount": 30
+    "amount": 40
   },
-  "rate": "metal",
   "temperature": 950,
   "time": 120
 }

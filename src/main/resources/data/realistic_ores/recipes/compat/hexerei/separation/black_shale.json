@@ -7,40 +7,41 @@
     }
   ],
   "liquid": {
-    "fluid": "minecraft:lava"
+    "fluid": "minecraft:water"
   },
   "ingredients": [
     {
-      "item": "realistic_ores:crushed_black_shale"
+      "item": "realistic_ores:ore_chunk_black_shale"
     },
     {
-      "item": "realistic_ores:crushed_black_shale"
+      "item": "realistic_ores:ore_chunk_black_shale"
     },
     {
-      "item": "realistic_ores:crushed_black_shale"
+      "item": "realistic_ores:ore_chunk_black_shale"
     },
     {
-      "item": "realistic_ores:crushed_black_shale"
+      "item": "realistic_ores:ore_chunk_black_shale"
     },
     {
-      "item": "aether:ambrosium_shard"
+      "item": "hexerei:selenite_shard"
     },
     {
-      "item": "minecraft:blaze_powder"
+      "item": "hexerei:selenite_shard"
     },
     {
-      "item": "the_bumblezone:honey_crystal_shards"
+      "item": "hexerei:selenite_shard"
     },
     {
-      "item": "rats:gem_of_ratlantis"
+      "item": "hexerei:selenite_shard"
     }
   ],
   "output": {
-    "item": "occultism:soul_shard"
+    "item": "minecraft:redstone",
+    "count": 16
   },
   "liquidOutput": {
-    "fluid": "minecraft:lava"
+    "fluid": "minecraft:water"
   },
-  "fluidLevelsConsumed": 333,
+  "fluidLevelsConsumed": 250,
   "heatRequirement": "heated"
 }

@@ -1,7 +1,13 @@
 {
-  "schema": "bc.realistic_ores.processing.v2",
+  "schema": "bc.realistic_ores.processing.v3",
   "family": "evaporite_beds",
-  "primary": "rock_salt",
+  "primary": {
+    "material": "rock_salt",
+    "output": {
+      "item": "realistic_ores:rock_salt",
+      "count": 2
+    }
+  },
   "stages": {
     "chunk": "ore_chunk_evaporite_beds",
     "crushed": "crushed_evaporite_beds",
@@ -25,18 +31,48 @@
         }
       ]
     },
+    "hand_sifting": {
+      "input_count": 1,
+      "primary_units": 1
+    },
+    "dry_sifting": {
+      "input_count": 1,
+      "primary_units": 1
+    },
+    "waterlogged_zinc": {
+      "input_count": 1,
+      "grades": {
+        "major": 0.125,
+        "minor": 0.0625
+      }
+    },
+    "waterlogged_brass": {
+      "input_count": 1,
+      "grades": {
+        "major": 0.25,
+        "minor": 0.125,
+        "trace": 0.05,
+        "precious": 0.0125
+      }
+    },
     "blood": {
-      "input_count": 4,
-      "output": "minecraft:prismarine_crystals"
+      "input_count": 1,
+      "primary_units": 2
     },
     "hexerei": {
       "input_count": 4,
-      "output": "hexerei:moon_dust"
+      "primary_units": 8
     },
     "ars": {
       "input_count": 1,
-      "output": "ars_nouveau:water_essence",
+      "primary_units": 2,
+      "essence": "ars_nouveau:water_essence",
       "chance": 0.25
+    },
+    "occultism": {
+      "input_count": 1,
+      "primary_units": 2,
+      "uses_crusher_multiplier": true
     }
   }
 }

@@ -20,28 +20,36 @@
       "count": 4
     },
     {
-      "item": "realistic_ores:thorium_concentrate"
+      "item": "realistic_ores:thorium_concentrate",
+      "count": 1
     },
     {
-      "item": "realistic_ores:lead_concentrate"
+      "item": "realistic_ores:lead_concentrate",
+      "count": 1
     },
     {
-      "item": "realistic_ores:titanium_concentrate"
+      "item": "realistic_ores:titanium_concentrate",
+      "count": 1
     },
     {
-      "item": "realistic_ores:nickel_concentrate"
+      "item": "realistic_ores:nickel_concentrate",
+      "count": 1
     },
     {
-      "item": "realistic_ores:cobalt_concentrate"
+      "item": "realistic_ores:cobalt_concentrate",
+      "count": 1
     },
     {
-      "item": "realistic_ores:iron_concentrate"
+      "item": "realistic_ores:iron_concentrate",
+      "count": 1
     },
     {
-      "item": "realistic_ores:osmium_concentrate"
+      "item": "realistic_ores:osmium_concentrate",
+      "count": 1
     },
     {
-      "item": "realistic_ores:sulfur_concentrate"
+      "item": "chemlib:sulfur",
+      "count": 2
     }
   ]
 }

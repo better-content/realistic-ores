@@ -7,40 +7,41 @@
     }
   ],
   "liquid": {
-    "fluid": "minecraft:lava"
+    "fluid": "minecraft:water"
   },
   "ingredients": [
     {
-      "item": "realistic_ores:crushed_hotstone"
+      "item": "realistic_ores:ore_chunk_hotstone"
     },
     {
-      "item": "realistic_ores:crushed_hotstone"
+      "item": "realistic_ores:ore_chunk_hotstone"
     },
     {
-      "item": "realistic_ores:crushed_hotstone"
+      "item": "realistic_ores:ore_chunk_hotstone"
     },
     {
-      "item": "realistic_ores:crushed_hotstone"
+      "item": "realistic_ores:ore_chunk_hotstone"
     },
     {
-      "item": "aether:ambrosium_shard"
+      "item": "hexerei:selenite_shard"
     },
     {
-      "item": "minecraft:blaze_powder"
+      "item": "hexerei:selenite_shard"
     },
     {
-      "item": "the_bumblezone:honey_crystal_shards"
+      "item": "hexerei:selenite_shard"
     },
     {
-      "item": "rats:gem_of_ratlantis"
+      "item": "hexerei:selenite_shard"
     }
   ],
   "output": {
-    "item": "occultism:afrit_essence"
+    "item": "realistic_ores:uranium_concentrate",
+    "count": 8
   },
   "liquidOutput": {
-    "fluid": "minecraft:lava"
+    "fluid": "minecraft:water"
   },
-  "fluidLevelsConsumed": 333,
+  "fluidLevelsConsumed": 250,
   "heatRequirement": "heated"
 }
