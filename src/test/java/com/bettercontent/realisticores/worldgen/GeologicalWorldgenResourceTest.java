@@ -21,7 +21,7 @@ final class GeologicalWorldgenResourceTest {
         assertEquals(8, manifest.size());
         assertFalse(Files.exists(DATA.resolve("realistic_ore_generation")));
         assertEquals(manifest.keySet(), stems(DATA.resolve("worldgen/configured_feature")));
-        assertEquals(16, stems(DATA.resolve("worldgen/placed_feature")).size());
+        assertEquals(17, stems(DATA.resolve("worldgen/placed_feature")).size());
 
         for (String family : manifest.keySet()) {
             JsonObject definition = manifest.getAsJsonObject(family);
@@ -47,12 +47,27 @@ final class GeologicalWorldgenResourceTest {
         }
     }
 
-    @Test void depositsRemainOverworldOnlyUntilEachOtherDimensionHasAnApprovedHostMapping() throws Exception {
+    @Test void depositsUseApprovedDimensionHostMappings() throws Exception {
         try (var modifiers = Files.list(DATA.resolve("forge/biome_modifier"))) {
             for (Path path : modifiers.filter(path -> path.getFileName().toString().startsWith("add_")).toList()) {
-                assertEquals("#minecraft:is_overworld", read(path).get("biomes").getAsString(), path.toString());
+                String name = path.getFileName().toString();
+                String biomes = read(path).get("biomes").getAsString();
+                if (name.equals("add_ironstone_aether.json")) {
+                    assertEquals("#aether:is_aether", biomes);
+                } else {
+                    assertEquals("#minecraft:is_overworld", biomes, path.toString());
+                }
             }
         }
+
+        JsonObject aether = read(DATA.resolve("worldgen/placed_feature/ironstone_aether.json"));
+        JsonObject config = aether.getAsJsonObject("feature").getAsJsonObject("config");
+        assertEquals("realistic_ores:geological_deposit", aether.getAsJsonObject("feature").get("type").getAsString());
+        assertEquals("realistic_ores:aether_holystone", targetTag(config, 0));
+        assertEquals("realistic_ores:ironstone", config.getAsJsonArray("targets").get(0).getAsJsonObject()
+                .getAsJsonObject("state").get("Name").getAsString());
+        assertEquals("lenticular_oolitic_bed", config.get("morphology").getAsString());
+        assertEquals("echo", config.get("deposit_class").getAsString());
     }
 
     private static void assertProfile(String family, String profile, String distribution, JsonObject definition) {
