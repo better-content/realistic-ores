@@ -407,6 +407,8 @@ final class RealisticOresResourceTest {
                     assertEquals(variant.copyPropertiesFrom(),
                             blockResults.get(1).getAsJsonObject().get("item").getAsString(),
                             blockCrushingPath.toString());
+                    assertTrue(Set.of("minecraft:stone", "minecraft:deepslate").contains(variant.copyPropertiesFrom()),
+                            "native host breakdown may only return the useful existing host");
                 }
 
                 Path chunkCrushingPath = resources.resolve(

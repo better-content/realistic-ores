@@ -137,6 +137,14 @@ primary forms most strongly (`40/30/20/10`); echoes weight rarer forms more stro
 
 ### Crushed material and surface samples
 
+### Dimension and host-rock boundary
+
+This source owns ordinary mineral deposits only in `#minecraft:is_overworld`, using the native stone and deepslate replaceable tags. A destination needs its own approved host mapping before it can receive these deposits: placing a stone-host deposit into Nether, End, Aether, or magical rock would return the wrong substrate. Existing chunks remain untouched.
+
+Every native host block separates into exactly one deposit chunk and one existing host block: stone deposits return `minecraft:stone` and deep deposits return `minecraft:deepslate`. Excavated Variants returns its actual substrate. These are useful high-volume building materials; no host breakdown creates a mineral, concentrate, dust, or a route from renewable stone to a valuable material.
+
+Pack integration closes vanilla raw-ore generation and loot separately. It must inventory vanilla and modded placed features, ore loot tables, structures, trades, recycling, and dimension-specific deposits. This source removes the listed Overworld placed features in `data/realistic_ores/disabled_placed_features/vanilla.json`; it cannot close pack-owned datapacks, configs, or loot providers.
+
 - Chunks of a deposit are the host-independent mining form. They are crisp 16x16
   non-placeable items whose silhouette and internal morphology preserve the parent
   family's geological identity; their transparent background must remain truly clear.

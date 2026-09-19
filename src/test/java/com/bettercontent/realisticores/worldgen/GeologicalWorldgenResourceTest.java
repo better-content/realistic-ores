@@ -47,6 +47,14 @@ final class GeologicalWorldgenResourceTest {
         }
     }
 
+    @Test void depositsRemainOverworldOnlyUntilEachOtherDimensionHasAnApprovedHostMapping() throws Exception {
+        try (var modifiers = Files.list(DATA.resolve("forge/biome_modifier"))) {
+            for (Path path : modifiers.filter(path -> path.getFileName().toString().startsWith("add_")).toList()) {
+                assertEquals("#minecraft:is_overworld", read(path).get("biomes").getAsString(), path.toString());
+            }
+        }
+    }
+
     private static void assertProfile(String family, String profile, String distribution, JsonObject definition) {
         JsonObject placed = read(DATA.resolve("worldgen/placed_feature/" + family + "_" + profile + ".json"));
         var placement = placed.getAsJsonArray("placement");
