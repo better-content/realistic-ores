@@ -21,7 +21,7 @@ final class GeologicalWorldgenResourceTest {
         assertEquals(8, manifest.size());
         assertFalse(Files.exists(DATA.resolve("realistic_ore_generation")));
         assertEquals(manifest.keySet(), stems(DATA.resolve("worldgen/configured_feature")));
-        assertEquals(17, stems(DATA.resolve("worldgen/placed_feature")).size());
+        assertEquals(18, stems(DATA.resolve("worldgen/placed_feature")).size());
 
         for (String family : manifest.keySet()) {
             JsonObject definition = manifest.getAsJsonObject(family);
@@ -54,6 +54,8 @@ final class GeologicalWorldgenResourceTest {
                 String biomes = read(path).get("biomes").getAsString();
                 if (name.equals("add_ironstone_aether.json")) {
                     assertEquals("#aether:is_aether", biomes);
+                } else if (name.equals("add_tin_quartz_twilight.json")) {
+                    assertEquals("#twilightforest:in_twilight_forest", biomes);
                 } else {
                     assertEquals("#minecraft:is_overworld", biomes, path.toString());
                 }
@@ -68,6 +70,15 @@ final class GeologicalWorldgenResourceTest {
                 .getAsJsonObject("state").get("Name").getAsString());
         assertEquals("lenticular_oolitic_bed", config.get("morphology").getAsString());
         assertEquals("echo", config.get("deposit_class").getAsString());
+
+        JsonObject twilight = read(DATA.resolve("worldgen/placed_feature/tin_quartz_twilight.json"));
+        JsonObject twilightConfig = twilight.getAsJsonObject("feature").getAsJsonObject("config");
+        assertEquals("realistic_ores:geological_deposit", twilight.getAsJsonObject("feature").get("type").getAsString());
+        assertEquals("minecraft:stone_ore_replaceables", targetTag(twilightConfig, 0));
+        assertEquals("realistic_ores:tin_quartz", twilightConfig.getAsJsonArray("targets").get(0).getAsJsonObject()
+                .getAsJsonObject("state").get("Name").getAsString());
+        assertEquals("steep_quartz_lode", twilightConfig.get("morphology").getAsString());
+        assertEquals("echo", twilightConfig.get("deposit_class").getAsString());
     }
 
     private static void assertProfile(String family, String profile, String distribution, JsonObject definition) {
