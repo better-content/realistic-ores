@@ -137,33 +137,33 @@ primary forms most strongly (`40/30/20/10`); echoes weight rarer forms more stro
 
 ### Crushed material and surface samples
 
-- Ore chunks are the host-independent mining form of a deposit. They are crisp 16x16
+- Chunks of a deposit are the host-independent mining form. They are crisp 16x16
   non-placeable items whose silhouette and internal morphology preserve the parent
   family's geological identity; their transparent background must remain truly clear.
 - Ordinary mining yields exactly one ore chunk and does not inspect Fortune. Silk Touch
   preserves the exact placeable host-rock ore block instead.
 - Ore blocks separate reversibly into one chunk plus their host stone, and recombine from
   those same two ingredients. Processing a chunk is irreversible: an early-game millstone
-  produces two crushed feeds, while crushing wheels produce three.
-- Crushed items are compact lower-center piles, not miniature ore blocks. Existing
+  produces two crushed materials, while crushing wheels produce three.
+- Crushed materials are compact lower-center piles, not miniature ore blocks. Existing
   sprites occupy roughly 30-40 visible pixels inside an `x=3..12`, `y=6..11` envelope
   (the narrowest families use `x=4..11`).
-- Crushed sprites use the same five family mineral colors as chunks and deposits.
+- Crushed-material sprites use the same five family mineral colors as chunks and deposits.
   Visible pixels are fully opaque against a transparent background.
 - Small chunks use dedicated flat 16x16 inventory sprites rather than rendering the
   surface-sample block model. Each is one compact ore-bearing fragment occupying roughly
   16-30 visible pixels inside an `x=4..11`, `y=5..12` envelope. It retains the family
   morphology and five-color palette while remaining visibly smaller than a full chunk.
 - Concentrates are clean low mounds of fine powder, not recolored chunks or coarse crushed
-  feed. They use five frozen output-material colors and a compact `x=3..12`, `y=7..12`
+  material. They use five frozen output-material colors and a compact `x=3..12`, `y=7..12`
   silhouette so shared coproducts remain identifiable independently of their source deposit.
 - Crushed material and surface samples have separate processing-item and block identities.
   `crushed_*` is never placeable. Each `surface_sample_*` block deliberately has no item
   identity of its own; its BlockItem is registered only as `small_ore_chunk_<family>`, so
   EMI/JEI exposes the small chunk while the placed surface block remains hidden.
 - Nine identical small chunks irreversibly combine into one full chunk. A full chunk cooks
-  to two primary nuggets, gem chips, or bulk items; each crushed feed cooks to one. Four matching
-  crushed feeds, one route-specific grinding ball, and exactly 500 mB of the declared
+  to two primary nuggets, gem chips, or bulk items; each crushed material cooks to one. Four matching
+  crushed materials, one route-specific grinding ball, and exactly 500 mB of the declared
   water/acid route usually produce four primary concentrates plus independently rolled
   coproducts. Explicit assay variants may move all guaranteed yield into route-specific
   concentrates: Hotstone's structural assay intentionally has zero primary output and guarantees
@@ -174,7 +174,7 @@ primary forms most strongly (`40/30/20/10`); echoes weight rarer forms more stro
   thorium additionally cast back to their canonical nuggets and ingots. Quartz and
   gems keep item-form recovery and never become molten Realistic Ores outputs.
 - Hexerei retains the ordinary four-chunk primary route. Its separate Tin Quartz
-  diamond assay consumes four crushed feeds and four selenite shards in 250 mB of
+  diamond assay consumes four crushed materials and four selenite shards in 250 mB of
   heated water to recover one diamond chip.
 - Coal Measures chunks are directly combustible. Evaporite chunks produce Rock Salt,
   Black Shale supports soul fire and yields soul sand, Gem Pipe yields rough gem chips,

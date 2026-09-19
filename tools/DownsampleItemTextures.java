@@ -181,7 +181,14 @@ public final class DownsampleItemTextures {
             sprite.setRGB(pixel.x(), pixel.y(), 0);
         }
         fillToMinimum(sprite, form);
+        if (form == FULL) splitFullChunk(sprite, form);
         return sprite;
+    }
+
+    /** A full inventory chunk is several broken fragments, with a clear central fracture. */
+    private static void splitFullChunk(BufferedImage sprite, Form form) {
+        int fractureX = form.x() + form.width() / 2;
+        for (int y = form.y(); y < form.y() + form.height(); y++) sprite.setRGB(fractureX, y, 0);
     }
 
     private static void fillToMinimum(BufferedImage sprite, Form form) throws IOException {

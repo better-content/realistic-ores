@@ -144,14 +144,27 @@ def png(
     colors = (
         [tuple(int(value[index:index + 2], 16) for index in (1, 3, 5)) for value in palette]
         if isinstance(palette, list)
-        else [tuple(round(channel * 255) for channel in colorsys.hsv_to_rgb(palette, .58, .9))]
+        else [
+            tuple(round(channel * 255) for channel in colorsys.hsv_to_rgb(palette, .70, .48)),
+            tuple(round(channel * 255) for channel in colorsys.hsv_to_rgb(palette, .62, .72)),
+            tuple(round(channel * 255) for channel in colorsys.hsv_to_rgb(palette, .42, .98)),
+        ]
     )
     morphology_seed = zlib.crc32(morphology.encode("utf-8"))
     rows = []
     for y in range(16):
         row = bytearray()
         for x in range(16):
-            if crushed:
+            if morphology == "gem_chip":
+                # Three separated angular shards remain legible at inventory scale.  The
+                # single-hue generator used a noisy checkerboard that made every gem chip
+                # read as the same generic square.
+                visible = (x, y) in {
+                    (6, 3), (7, 3), (5, 4), (6, 4), (7, 4), (8, 4), (5, 5), (6, 5), (7, 5), (7, 6),
+                    (11, 7), (12, 7), (10, 8), (11, 8), (12, 8), (11, 9),
+                    (3, 9), (4, 9), (3, 10), (4, 10), (5, 10), (4, 11),
+                }
+            elif crushed:
                 envelope = 3 <= x <= 12 and 7 <= y <= 12
                 visible = envelope and y >= 8 + abs(x - 7) // 4 and ((x * 5 + y * 3 + shape) % 7 != 0)
             elif morphology in ("seam", "banded"):
@@ -164,7 +177,7 @@ def png(
                 visible = 3 <= x <= 12 and 3 <= y <= 12 and ((x * 7 + y * 11 + morphology_seed + shape) % 5 <= 1)
             else:
                 visible = 2 <= x <= 13 and 3 <= y <= 12 and ((x * 7 + y * 11 + morphology_seed + shape) % 5 != 0)
-            color = colors[(x * 3 + y * 5 + shape) % len(colors)]
+            color = colors[(x + y + shape) % len(colors)] if morphology == "gem_chip" else colors[(x * 3 + y * 5 + shape) % len(colors)]
             row.extend((*color, 255 if visible else 0))
         rows.append(b"\0" + bytes(row))
     raw = b"".join(rows)
@@ -259,14 +272,15 @@ def main() -> None:
         all_chunks.append(f"{NS}:{chunk}"); all_small.append(f"{NS}:{small}")
         all_crushed.append(f"{NS}:{crushed}"); all_rinsed.append(f"{NS}:{rinsed}")
         for item, suffix, label in (
-                (chunk, "chunk", "Ore Chunk"),
-                (crushed, "crushed", "Crushed Feed"),
-                (rinsed, "rinsed", "Rinsed Feed")):
+                (chunk, "chunk", "Chunks of"),
+                (crushed, "crushed", "Crushed"),
+                (rinsed, "rinsed", "Rinsed")):
             texture = crushed if suffix == "rinsed" else item
             write(item_models / f"{item}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{texture}"}})
             if suffix != "rinsed":
                 require_curated_item_texture(item_textures, item)
-            lang[f"item.{NS}.{item}"] = f"{definition['display_name'].removesuffix(' Deposit')} {label}"
+            material = definition['display_name'].removesuffix(' Deposit')
+            lang[f"item.{NS}.{item}"] = f"{label} {material}"
         sample = f"surface_sample_{family}"
         family_name = definition["display_name"].removesuffix(" Deposit")
         lang[f"block.{NS}.{sample}"] = f"Surface Sample: {family_name}"
@@ -524,7 +538,7 @@ def main() -> None:
     for index, (gem, output) in enumerate((("diamond", "minecraft:diamond"), ("emerald", "minecraft:emerald"), ("amethyst", "minecraft:amethyst_shard"))):
         item = f"{gem}_chip"
         write(item_models / f"{item}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{item}"}})
-        png(item_textures / f"{item}.png", (index * .19 + .48) % 1, index + 500)
+        png(item_textures / f"{item}.png", (index * .19 + .48) % 1, "gem_chip", index + 500)
         lang[f"item.{NS}.{item}"] = f"{gem.title()} Chip"
         write(recipes / f"crafting/gem_chips/{gem}_assemble.json", {"type": "minecraft:crafting_shapeless", "ingredients": [{"item": f"{NS}:{item}"}] * 9, "result": {"item": output}})
 

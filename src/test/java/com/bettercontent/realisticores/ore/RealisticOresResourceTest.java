@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -347,6 +348,8 @@ final class RealisticOresResourceTest {
                 }
                 assertTrue(hasTransparentPixel, chunk + " must use a transparent background");
                 assertTrue(hasVisiblePixel, chunk + " must contain visible ore pixels");
+                assertTrue(visibleComponents(image) >= 2,
+                        chunk + " must visibly read as multiple pieces at inventory scale");
 
                 JsonObject itemModel = read(
                         resources.resolve("assets/realistic_ores/models/item/" + chunk + ".json"),
@@ -478,6 +481,57 @@ final class RealisticOresResourceTest {
             assertEquals(8, millingPaths.filter(path -> path.getFileName().toString().endsWith(".json")).count(),
                     chunkMillingDirectory.toString());
         }
+    }
+
+    @Test
+    void exposedGemChipsHaveAcquisitionAssemblyAndLegibleShardSprites() throws IOException {
+        Map<String, String> outputs = Map.of(
+                "diamond", "minecraft:diamond",
+                "emerald", "minecraft:emerald",
+                "amethyst", "minecraft:amethyst_shard");
+        for (Map.Entry<String, String> entry : outputs.entrySet()) {
+            String chip = "realistic_ores:" + entry.getKey() + "_chip";
+            JsonObject assembly = read(DATA_ROOT.resolve(
+                    "recipes/crafting/gem_chips/" + entry.getKey() + "_assemble.json"), JsonObject.class);
+            assertEquals(9, assembly.getAsJsonArray("ingredients").size(), chip);
+            assertTrue(assembly.getAsJsonArray("ingredients").asList().stream().allMatch(ingredient ->
+                    chip.equals(ingredient.getAsJsonObject().get("item").getAsString())), chip);
+            assertEquals(entry.getValue(), assembly.getAsJsonObject("result").get("item").getAsString(), chip);
+
+            Path sprite = ASSET_ROOT.resolve("textures/item/" + entry.getKey() + "_chip.png");
+            BufferedImage image = ImageIO.read(sprite.toFile());
+            assertEquals(3, visibleComponents(image), chip + " must read as three separate gem shards");
+        }
+        assertRecipeProduces("recipes/compat/hexerei/diamond_assay/tin_quartz.json", "realistic_ores:diamond_chip");
+        assertRecipeProduces("recipes/compat/pneumaticcraft/separation/tin_quartz.json", "realistic_ores:emerald_chip");
+        assertRecipeProduces("recipes/compat/pneumaticcraft/separation/tin_quartz.json", "realistic_ores:amethyst_chip");
+    }
+
+    private static void assertRecipeProduces(String relativePath, String item) throws IOException {
+        assertTrue(Files.readString(DATA_ROOT.resolve(relativePath)).contains(item), relativePath + " -> " + item);
+    }
+
+    private static int visibleComponents(BufferedImage image) {
+        boolean[][] seen = new boolean[image.getHeight()][image.getWidth()];
+        int components = 0;
+        for (int y = 0; y < image.getHeight(); y++) for (int x = 0; x < image.getWidth(); x++) {
+            if (seen[y][x] || image.getRGB(x, y) >>> 24 == 0) continue;
+            components++;
+            ArrayDeque<int[]> pending = new ArrayDeque<>();
+            pending.add(new int[] {x, y});
+            seen[y][x] = true;
+            while (!pending.isEmpty()) {
+                int[] point = pending.removeFirst();
+                for (int[] delta : new int[][] {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
+                    int nextX = point[0] + delta[0], nextY = point[1] + delta[1];
+                    if (nextX < 0 || nextY < 0 || nextX >= image.getWidth() || nextY >= image.getHeight()
+                            || seen[nextY][nextX] || image.getRGB(nextX, nextY) >>> 24 == 0) continue;
+                    seen[nextY][nextX] = true;
+                    pending.add(new int[] {nextX, nextY});
+                }
+            }
+        }
+        return components;
     }
 
     private static void assertDepositTags(
