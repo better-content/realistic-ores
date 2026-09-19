@@ -21,7 +21,7 @@ final class GeologicalWorldgenResourceTest {
         assertEquals(8, manifest.size());
         assertFalse(Files.exists(DATA.resolve("realistic_ore_generation")));
         assertEquals(manifest.keySet(), stems(DATA.resolve("worldgen/configured_feature")));
-        assertEquals(18, stems(DATA.resolve("worldgen/placed_feature")).size());
+        assertEquals(21, stems(DATA.resolve("worldgen/placed_feature")).size());
 
         for (String family : manifest.keySet()) {
             JsonObject definition = manifest.getAsJsonObject(family);
@@ -54,7 +54,10 @@ final class GeologicalWorldgenResourceTest {
                 String biomes = read(path).get("biomes").getAsString();
                 if (name.equals("add_ironstone_aether.json")) {
                     assertEquals("#aether:is_aether", biomes);
-                } else if (name.equals("add_tin_quartz_twilight.json")) {
+                } else if (name.equals("add_tin_quartz_twilight.json")
+                        || name.equals("add_coal_measures_twilight.json")
+                        || name.equals("add_ironstone_twilight.json")
+                        || name.equals("add_copper_bloom_twilight.json")) {
                     assertEquals("#twilightforest:in_twilight_forest", biomes);
                 } else {
                     assertEquals("#minecraft:is_overworld", biomes, path.toString());
@@ -79,6 +82,20 @@ final class GeologicalWorldgenResourceTest {
                 .getAsJsonObject("state").get("Name").getAsString());
         assertEquals("steep_quartz_lode", twilightConfig.get("morphology").getAsString());
         assertEquals("echo", twilightConfig.get("deposit_class").getAsString());
+
+        assertDimensionDeposit("coal_measures_twilight", "coal_measures", "broken_stratiform_seam");
+        assertDimensionDeposit("ironstone_twilight", "ironstone", "lenticular_oolitic_bed");
+        assertDimensionDeposit("copper_bloom_twilight", "copper_bloom", "branching_stockwork");
+    }
+
+    private static void assertDimensionDeposit(String feature, String family, String morphology) {
+        JsonObject config = read(DATA.resolve("worldgen/placed_feature/" + feature + ".json"))
+                .getAsJsonObject("feature").getAsJsonObject("config");
+        assertEquals("minecraft:stone_ore_replaceables", targetTag(config, 0));
+        assertEquals("realistic_ores:" + family, config.getAsJsonArray("targets").get(0).getAsJsonObject()
+                .getAsJsonObject("state").get("Name").getAsString());
+        assertEquals(morphology, config.get("morphology").getAsString());
+        assertEquals("echo", config.get("deposit_class").getAsString());
     }
 
     private static void assertProfile(String family, String profile, String distribution, JsonObject definition) {
