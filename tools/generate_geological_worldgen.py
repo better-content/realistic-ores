@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "src/main/resources/data/realistic_ores"
 MANIFEST = ROOT / "tools/geological_worldgen.json"
+OWNERSHIP = ROOT / "tools/geological_worldgen.outputs.json"
 
 
 def write(path: Path, value: object) -> None:
@@ -16,9 +17,10 @@ def write(path: Path, value: object) -> None:
 
 
 def target(tag: str, state: str) -> dict:
+    block = state if ":" in state else f"realistic_ores:{state}"
     return {
         "target": {"predicate_type": "minecraft:tag_match", "tag": tag},
-        "state": {"Name": f"realistic_ores:{state}"},
+        "state": {"Name": block},
     }
 
 
@@ -39,23 +41,32 @@ def main() -> None:
     placed = DATA / "worldgen/placed_feature"
     modifiers = DATA / "forge/biome_modifier"
     legacy = DATA / "realistic_ore_generation"
-    for directory in (configured, placed):
-        shutil.rmtree(directory, ignore_errors=True)
-        directory.mkdir(parents=True)
+    configured.mkdir(parents=True, exist_ok=True)
+    placed.mkdir(parents=True, exist_ok=True)
+    modifiers.mkdir(parents=True, exist_ok=True)
+    # Track ownership explicitly so retired generated families can be cleaned
+    # without touching unrelated configured features or dimension resources.
+    previously_generated = set(definitions)
+    if OWNERSHIP.exists():
+        previously_generated = set(json.loads(OWNERSHIP.read_text(encoding="utf-8")))
+    owned_families = previously_generated | set(definitions)
+    for family in owned_families:
+        for profile in ("home", "echo"):
+            (placed / f"{family}_{profile}.json").unlink(missing_ok=True)
+            (modifiers / f"add_{family}_{profile}.json").unlink(missing_ok=True)
+        (configured / f"{family}.json").unlink(missing_ok=True)
     shutil.rmtree(legacy, ignore_errors=True)
-    for path in modifiers.glob("add_*stone.json"):
-        path.unlink()
-    for path in modifiers.glob("add_*deepslate.json"):
-        path.unlink()
 
     for family, definition in definitions.items():
+        targets = definition.get("targets", [
+            {"tag": "minecraft:stone_ore_replaceables", "state": family},
+            {"tag": "minecraft:deepslate_ore_replaceables", "state": f"deepslate_{family}"},
+        ])
+        configured_targets = [target(entry["tag"], entry["state"]) for entry in targets]
         write(configured / f"{family}.json", {
             "type": "realistic_ores:geological_deposit",
             "config": {
-                "targets": [
-                    target("minecraft:stone_ore_replaceables", family),
-                    target("minecraft:deepslate_ore_replaceables", f"deepslate_{family}"),
-                ],
+                "targets": configured_targets,
                 "morphology": definition["morphology"],
                 "block_budget": definition["home_budget"],
                 "budget_spread": definition["home_spread"],
@@ -81,10 +92,7 @@ def main() -> None:
             configured_ref = f"realistic_ores:{family}"
             if profile == "echo":
                 configured_ref = {"type": "realistic_ores:geological_deposit", "config": {
-                    "targets": [
-                        target("minecraft:stone_ore_replaceables", family),
-                        target("minecraft:deepslate_ore_replaceables", f"deepslate_{family}"),
-                    ],
+                    "targets": configured_targets,
                     "morphology": definition["morphology"],
                     "block_budget": definition["echo_budget"],
                     "budget_spread": definition["echo_spread"],
@@ -94,10 +102,11 @@ def main() -> None:
             write(placed / f"{feature}.json", {"feature": configured_ref, "placement": placement})
             write(modifiers / f"add_{feature}.json", {
                 "type": "forge:add_features",
-                "biomes": "#minecraft:is_overworld",
+                "biomes": definition.get("biomes", "#minecraft:is_overworld"),
                 "features": f"realistic_ores:{feature}",
                 "step": "underground_ores",
             })
+    write(OWNERSHIP, sorted(definitions))
 
 
 if __name__ == "__main__":

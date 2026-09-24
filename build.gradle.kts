@@ -3,6 +3,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 plugins {
     jacoco
     id("net.minecraftforge.gradle") version "6.0.54"
+    id("org.spongepowered.mixin") version "0.7.38"
     java
 }
 
@@ -22,6 +23,7 @@ base {
 repositories {
     mavenCentral()
     maven("https://maven.minecraftforge.net")
+    maven("https://repo.spongepowered.org/repository/maven-public/")
     maven("https://www.cursemaven.com") { content { includeGroup("curse.maven") } }
 }
 
@@ -29,6 +31,8 @@ java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
     withSourcesJar()
 }
+
+mixin { config("realistic_ores.mixins.json") }
 
 minecraft {
     mappings("official", minecraftVersion)
@@ -71,6 +75,7 @@ sourceSets.main {
 
 dependencies {
     minecraft("net.minecraftforge:forge:$minecraftVersion-$forgeVersion")
+    annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
     compileOnly(fg.deobf("curse.maven:excavated-variants-577411:5166315"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     testImplementation("com.google.code.gson:gson:2.10.1")

@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
@@ -18,10 +19,10 @@ final class GeologicalWorldgenResourceTest {
 
     @Test void resourcesUseOneDualHostConfigurationAndTwoAltitudeProfilesPerFamily() throws Exception {
         JsonObject manifest = read(Path.of("tools/geological_worldgen.json"));
-        assertEquals(8, manifest.size());
+        assertEquals(14, manifest.size());
         assertFalse(Files.exists(DATA.resolve("realistic_ore_generation")));
         assertEquals(manifest.keySet(), stems(DATA.resolve("worldgen/configured_feature")));
-        assertEquals(21, stems(DATA.resolve("worldgen/placed_feature")).size());
+        assertEquals(33, stems(DATA.resolve("worldgen/placed_feature")).size());
 
         for (String family : manifest.keySet()) {
             JsonObject definition = manifest.getAsJsonObject(family);
@@ -29,9 +30,21 @@ final class GeologicalWorldgenResourceTest {
             assertEquals("realistic_ores:geological_deposit", configured.get("type").getAsString());
             JsonObject config = configured.getAsJsonObject("config");
             assertEquals(definition.get("morphology"), config.get("morphology"));
-            assertEquals(2, config.getAsJsonArray("targets").size());
-            assertEquals("minecraft:stone_ore_replaceables", targetTag(config, 0));
-            assertEquals("minecraft:deepslate_ore_replaceables", targetTag(config, 1));
+            var expectedTargets = definition.has("targets")
+                    ? definition.getAsJsonArray("targets")
+                    : null;
+            int targetCount = expectedTargets == null ? 2 : expectedTargets.size();
+            assertEquals(targetCount, config.getAsJsonArray("targets").size());
+            if (expectedTargets == null) {
+                assertEquals("minecraft:stone_ore_replaceables", targetTag(config, 0));
+                assertEquals("minecraft:deepslate_ore_replaceables", targetTag(config, 1));
+            } else {
+                for (int index = 0; index < expectedTargets.size(); index++) {
+                    JsonObject expected = expectedTargets.get(index).getAsJsonObject();
+                    assertEquals(expected.get("tag").getAsString(), targetTag(config, index));
+                    assertEquals(expected.get("state").getAsString(), targetState(config, index));
+                }
+            }
             assertEquals(definition.get("home_budget"), config.get("block_budget"));
             assertEquals(definition.get("home_spread"), config.get("budget_spread"));
             assertEquals("home", config.get("deposit_class").getAsString());
@@ -54,7 +67,11 @@ final class GeologicalWorldgenResourceTest {
                 String biomes = read(path).get("biomes").getAsString();
                 if (name.equals("add_ironstone_aether.json")) {
                     assertEquals("#aether:is_aether", biomes);
-                } else if (name.equals("add_tin_quartz_twilight.json")
+                } else if (name.startsWith("add_fallout_")) {
+                    assertEquals("#realistic_ores:fallout_wasteland", biomes);
+                } else if (name.equals("add_twilight_gold_home.json")
+                        || name.equals("add_twilight_gold_echo.json")
+                        || name.equals("add_tin_quartz_twilight.json")
                         || name.equals("add_coal_measures_twilight.json")
                         || name.equals("add_ironstone_twilight.json")
                         || name.equals("add_copper_bloom_twilight.json")) {
@@ -86,6 +103,81 @@ final class GeologicalWorldgenResourceTest {
         assertDimensionDeposit("coal_measures_twilight", "coal_measures", "broken_stratiform_seam");
         assertDimensionDeposit("ironstone_twilight", "ironstone", "lenticular_oolitic_bed");
         assertDimensionDeposit("copper_bloom_twilight", "copper_bloom", "branching_stockwork");
+
+        JsonObject twilightGold = read(DATA.resolve("worldgen/configured_feature/twilight_gold.json"));
+        JsonObject goldConfig = twilightGold.getAsJsonObject("config");
+        assertEquals("minecraft:gold_ore", targetState(goldConfig, 0));
+        assertEquals("minecraft:stone_ore_replaceables", targetTag(goldConfig, 0));
+        assertEquals("lenticular_oolitic_bed", goldConfig.get("morphology").getAsString());
+
+        JsonObject vanillaDisabled = read(DATA.resolve("disabled_placed_features/vanilla.json"));
+        var disabledResources = vanillaDisabled.getAsJsonArray("features");
+        Set<String> disabledFeatures = new HashSet<>();
+        disabledResources.forEach(feature -> disabledFeatures.add(feature.getAsString()));
+        assertTrue(disabledFeatures.containsAll(Set.of(
+                "natures_spirit:ores/ore_coal_upper",
+                "natures_spirit:ores/ore_coal_lower",
+                "natures_spirit:ores/ore_iron_upper",
+                "natures_spirit:ores/ore_iron_middle",
+                "natures_spirit:ores/ore_iron_small",
+                "natures_spirit:ores/ore_copper",
+                "natures_spirit:ores/ore_copper_large",
+                "natures_spirit:ores/ore_gold_extra",
+                "natures_spirit:ores/ore_gold",
+                "natures_spirit:ores/ore_gold_lower",
+                "natures_spirit:ores/ore_redstone",
+                "natures_spirit:ores/ore_redstone_extra",
+                "natures_spirit:ores/ore_redstone_lower",
+                "natures_spirit:ores/ore_lapis",
+                "natures_spirit:ores/ore_lapis_buried",
+                "natures_spirit:ores/ore_emerald",
+                "natures_spirit:ores/ore_diamond",
+                "natures_spirit:ores/ore_diamond_large",
+                "natures_spirit:ores/ore_diamond_buried")),
+                "Nature's Spirit must not restore Overworld ore families replaced by the geology policy");
+        assertEquals(disabledResources.size(), disabledFeatures.size(), "disabled feature IDs must be unique");
+
+        JsonObject falloutBiomes = read(DATA.resolve("tags/worldgen/biome/fallout_wasteland.json"));
+        assertEquals(Set.of(
+                "fallout_wastelands_:wasteland_badlands", "fallout_wastelands_:wasteland_city",
+                "fallout_wastelands_:wasteland_dryland", "fallout_wastelands_:wasteland_plains",
+                "fallout_wastelands_:wasteland_sea"),
+                falloutBiomes.getAsJsonArray("values").asList().stream()
+                        .map(value -> value.getAsString()).collect(Collectors.toSet()));
+        JsonObject falloutHost = read(DATA.resolve("tags/blocks/fallout_wasteland_stone.json"));
+        assertEquals("fallout_wastelands_:wasteland_stone",
+                falloutHost.getAsJsonArray("values").get(0).getAsString());
+
+        JsonObject falloutDisabled = read(DATA.resolve("disabled_placed_features/fallout_wasteland.json"));
+        assertEquals("#realistic_ores:fallout_wasteland", falloutDisabled.get("biomes").getAsString());
+        Set<String> falloutDisabledIds = new HashSet<>();
+        falloutDisabled.getAsJsonArray("features").forEach(feature -> falloutDisabledIds.add(feature.getAsString()));
+        assertEquals(falloutDisabled.getAsJsonArray("features").size(), falloutDisabledIds.size());
+        assertTrue(falloutDisabledIds.containsAll(Set.of(
+                "fallout_wastelands_:wastelandcoalore", "fallout_wastelands_:wastelandironore",
+                "fallout_wastelands_:wastelandcopperore", "fallout_wastelands_:wasteland_goldore",
+                "fallout_wastelands_:tin_ore", "fallout_wastelands_:wastelanddiamondore",
+                "fallout_wastelands_:wastelandemeraldore", "minecraft:ore_coal_upper",
+                "minecraft:ore_coal_lower", "minecraft:ore_iron_upper", "minecraft:ore_iron_middle",
+                "minecraft:ore_iron_small", "minecraft:ore_gold", "minecraft:ore_gold_lower",
+                "minecraft:ore_copper")), "only overlapping vanilla/custom routes are retired in the Wasteland");
+        for (String family : Set.of("fallout_coal_measures", "fallout_ironstone", "fallout_copper_bloom",
+                "fallout_gold", "fallout_tin_quartz")) {
+            JsonObject deposit = read(DATA.resolve("worldgen/configured_feature/" + family + ".json"))
+                    .getAsJsonObject("config");
+            assertEquals("realistic_ores:fallout_wasteland_stone", targetTag(deposit, 0));
+            assertEquals("#realistic_ores:fallout_wasteland",
+                    read(DATA.resolve("forge/biome_modifier/add_" + family + "_home.json"))
+                            .get("biomes").getAsString());
+        }
+        assertFalse(falloutDisabledIds.contains("fallout_wastelands_:lead_ore"));
+        assertFalse(falloutDisabledIds.contains("fallout_wastelands_:uranium_ore"));
+        assertFalse(falloutDisabledIds.contains("fallout_wastelands_:wasteland_aluminum_ore"));
+
+        JsonObject goldDisabled = read(DATA.resolve("disabled_placed_features/twilight_gold.json"));
+        assertEquals("#twilightforest:in_twilight_forest", goldDisabled.get("biomes").getAsString());
+        assertEquals("twilightforest:legacy_gold_ore",
+                goldDisabled.getAsJsonArray("features").get(0).getAsString());
     }
 
     private static void assertDimensionDeposit(String feature, String family, String morphology) {
@@ -130,6 +222,11 @@ final class GeologicalWorldgenResourceTest {
     private static String targetTag(JsonObject config, int index) {
         return config.getAsJsonArray("targets").get(index).getAsJsonObject()
                 .getAsJsonObject("target").get("tag").getAsString();
+    }
+
+    private static String targetState(JsonObject config, int index) {
+        return config.getAsJsonArray("targets").get(index).getAsJsonObject()
+                .getAsJsonObject("state").get("Name").getAsString();
     }
 
     private static Set<String> stems(Path directory) throws IOException {

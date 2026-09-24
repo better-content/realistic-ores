@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "fallout_wastelands_:wasteland_badlands",
+    "fallout_wastelands_:wasteland_city",
+    "fallout_wastelands_:wasteland_dryland",
+    "fallout_wastelands_:wasteland_plains",
+    "fallout_wastelands_:wasteland_sea"
+  ]
+}
